@@ -34,6 +34,7 @@
     <Content Include="wwwroot\app\main.js" />
     <Content Include="wwwroot\app\main.js.map" />
     <Content Include="wwwroot\app\main.ts" />
+    <Content Include="wwwroot\app\profile.component.ts" />
     <Content Include="wwwroot\css\styles.css" />
     <Content Include="wwwroot\favicon.ico" />
     <Content Include="wwwroot\systemjs.config.extras.js" />
