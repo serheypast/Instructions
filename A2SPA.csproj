@@ -13,7 +13,9 @@
     <Content Include="wwwroot\app\about.component.js.map" />
     <Content Include="wwwroot\app\about.component.ts" />
     <Content Include="wwwroot\app\app.component.js" />
-    <Content Include="wwwroot\app\app.component.js.map" />
+    <Content Include="wwwroot\app\app.component.js.map">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
     <Content Include="wwwroot\app\app.component.spec.js" />
     <Content Include="wwwroot\app\app.component.spec.js.map" />
     <Content Include="wwwroot\app\app.component.ts" />
@@ -26,6 +28,19 @@
     <Content Include="wwwroot\app\authorization.component.ts" />
     <Content Include="wwwroot\app\authorization.js" />
     <Content Include="wwwroot\app\authorization.js.map" />
+    <Content Include="wwwroot\app\Component\about.component.js" />
+    <Content Include="wwwroot\app\Component\about.component.js.map" />
+    <Content Include="wwwroot\app\Component\about.component.ts" />
+    <Content Include="wwwroot\app\Component\authorization.component.ts" />
+    <Content Include="wwwroot\app\Component\contact.component.js" />
+    <Content Include="wwwroot\app\Component\contact.component.js.map" />
+    <Content Include="wwwroot\app\Component\contact.component.ts" />
+    <Content Include="wwwroot\app\Component\index.component.js" />
+    <Content Include="wwwroot\app\Component\index.component.js.map" />
+    <Content Include="wwwroot\app\Component\index.component.ts" />
+    <Content Include="wwwroot\app\Component\profile.component.js" />
+    <Content Include="wwwroot\app\Component\profile.component.js.map" />
+    <Content Include="wwwroot\app\Component\profile.component.ts" />
     <Content Include="wwwroot\app\contact.component.ts" />
     <Content Include="wwwroot\app\authorization.ts" />
     <Content Include="wwwroot\app\index.component.js" />
@@ -35,8 +50,11 @@
     <Content Include="wwwroot\app\main.js.map" />
     <Content Include="wwwroot\app\main.ts" />
     <Content Include="wwwroot\app\profile.component.ts" />
+    <Content Include="wwwroot\css\dragula.css" />
+    <Content Include="wwwroot\css\dragula.min.css" />
     <Content Include="wwwroot\css\styles.css" />
     <Content Include="wwwroot\favicon.ico" />
+    <Content Include="wwwroot\images\Facebook.png" />
     <Content Include="wwwroot\systemjs.config.extras.js" />
     <Content Include="wwwroot\systemjs.config.js" />
   </ItemGroup>

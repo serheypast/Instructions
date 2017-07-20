@@ -44,7 +44,7 @@ namespace A2SPA
             // Add framework services.
             services.AddMvc(options =>
             {
-                options.SslPort = 44358;
+                options.SslPort = 44337; // 44358
                 options.Filters.Add(new RequireHttpsAttribute());
             });
         }
@@ -58,7 +58,7 @@ namespace A2SPA
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                // app.UseBrowserLink();
+                //app.UseBrowserLink();
             }
             else
             {
@@ -66,6 +66,7 @@ namespace A2SPA
             }
 
             app.UseStaticFiles();
+
             app.UseStaticFiles(new StaticFileOptions
             {
                 FileProvider = new PhysicalFileProvider(Path.Combine(env.ContentRootPath, "node_modules")),

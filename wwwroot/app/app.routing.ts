@@ -1,10 +1,10 @@
 ﻿
 import { Routes, RouterModule } from '@angular/router';
-import { AboutComponent } from './about.component';
-import { IndexComponent } from './index.component';
-import { ContactComponent } from './contact.component';
-import { AuthorizationComponent } from './authorization.component';
-import { ProfileComponent } from './profile.component';
+import { AboutComponent } from './Component/about.component';
+import { IndexComponent } from './Component/index.component';
+import { ContactComponent } from './Component/contact.component';
+import { AuthorizationComponent } from './Component/authorization.component';
+import { ProfileComponent } from './Component/profile.component';
 
 const appRoutes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },

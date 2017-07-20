@@ -50,9 +50,6 @@ namespace Instruction.Controllers
             return Challenge(properties, provider);
         }
 
-
-
-
         // GET: /Account/ExternalLoginCallback
         [HttpGet]
         [AllowAnonymous]
