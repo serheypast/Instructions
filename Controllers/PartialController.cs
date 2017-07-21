@@ -16,8 +16,6 @@ namespace A2SPA.Controllers
         public IActionResult AppComponent() => PartialView();
 
         public IActionResult ContactComponent() {
-
-            ViewBag.item = User.FindFirst(ClaimTypes.NameIdentifier).Value;
             return PartialView();
         }
 
@@ -26,5 +24,7 @@ namespace A2SPA.Controllers
         public IActionResult AuthorizationComponent() => PartialView();
 
         public IActionResult ProfileComponent() => PartialView();
+
+        public IActionResult TestComponent() => PartialView();
     }
 }

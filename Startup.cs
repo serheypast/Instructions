@@ -91,8 +91,8 @@ namespace A2SPA
             app.UseVkontakteAuthentication(new AspNetCore.Security.OAuth.Vkontakte.VkontakteAuthenticationOptions()
             {
 
-                ClientId = "vKvld7sjOD63WMW78qzH",
-                ClientSecret = "7e646dc57e646dc57e646dc5527e39384b77e647e646dc52708d48ffc488e5a790df158",
+                ClientId = "6116750",
+                ClientSecret = "vKvld7sjOD63WMW78qzH",
 
             });
 

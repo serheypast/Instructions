@@ -23,17 +23,20 @@ namespace Instruction.Controllers
 
         private readonly ILogger _logger;
         private readonly string _externalCookieScheme;
+        private ApplicationContext _db;
 
         public AccountController(
             UserManager<User> userManager,
             SignInManager<User> signInManager,
             IOptions<IdentityCookieOptions> identityCookieOptions,
-            ILoggerFactory loggerFactory)
+            ILoggerFactory loggerFactory,
+            ApplicationContext db)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _externalCookieScheme = identityCookieOptions.Value.ExternalCookieAuthenticationScheme;
             _logger = loggerFactory.CreateLogger<AccountController>();
+            _db = db;
         }
 
       
@@ -87,6 +90,12 @@ namespace Instruction.Controllers
 
                 var user = new User { UserName = login, Email = email };
                 var res = await _userManager.CreateAsync(user);
+                UserProfile userProfile = new UserProfile();
+                userProfile.Id = user.Id;
+                userProfile.FirstName = user.UserName;
+                userProfile.Rating = 0;
+                _db.UserProfile.Add(userProfile);
+                _db.SaveChanges();
                 if (res.Succeeded)
                 {
                     res = await _userManager.AddLoginAsync(user, info);
@@ -97,7 +106,7 @@ namespace Instruction.Controllers
                     }
                 }
                 AddErrors(res);
-
+              
                 return RedirectToAction("Index", "Home");
             }
         }
