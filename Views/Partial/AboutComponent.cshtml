@@ -1,20 +1,91 @@
 ﻿
 
+<style>
+    .workspace {
+        border-color: #454456 !important;
+        border: 1px solid transparent;
+        background-color: #fbfbfb;
+        margin-top: 2%;
+        width:70%;
+        margin-left: 18%;
+        border-radius: 5px;
+    }
 
-<div>
-    <div class='wrapper'>
-        <div class='container' [dragula]='"first-bag"'>
-            <div>You can move these elements between these two containers</div>
-            <div> <img src="~/images/Facebook.png" /> </div>
-            <div>Moving them anywhere else isn't quite possible</div>
-            <div>There's also the possibility of moving elements around in the same container, changing their position</div>       
-            <div>This is the default use case. You only need to specify the containers you want to use</div>
-            <div>More interactive use cases lie ahead</div>
-            <div>Make sure to check out the <a href='https://github.com/bevacqua/dragula#readme'>documentation on GitHub!</a></div>
-        </div>
+    .textM {
+        min-width: 98%;
+
+    }
+
+    .element {
+        margin-top: 1%;
+        margin-left: 1%;
+        margin-right: 1%;
+        margin-bottom: 1%;
+    }
+
+    .instruments {
+        margin-bottom:1%;
+        margin-top:3%;
+        margin-left:35%;
+    }
+
+    .instrument {
+        padding:20px;
+    }
+
+</style>
+
+
+
+<div class="wrapper">        
+            <div class='workspace'>
+                <div [dragula]='"first-bag"'>
+                    
+                    
+                        <div class="row element textM">
+                            <div class="pull-left" style="margin-left:-3%">
+                                <span class="glyphicon glyphicon-move"></span>
+                            </div>
+                            <div class="pull-right" style="margin-right:-3%">
+                                <span class="glyphicon glyphicon-trash "></span>
+                            </div>
+                            <div contenteditable="true">
+                                asdasd
+                                <div>sdsdfsdf</div>
+                                <div>sdfsfsddsfsf</div>
+                            </div>
+                        </div>
+                    </div>
+
+                
+
+                <hr />
+
+                <div class="instruments">
+                   
+                    <button (click)="AddText()" title="Add text" class="btn instrument btn-default btn-lg"><span class="glyphicon glyphicon-pencil fa-lg"></span></button>
+                    <button (click)="AddPhoto()" title="Add photo" class="btn instrument btn-default btn-lg"><span class="glyphicon glyphicon-camera "></span></button>
+                    <button (click)="AddVideo()" title="Add video" class="btn instrument btn-default btn-lg"><span class="glyphicon glyphicon-facetime-video "></span></button>
+                </div>
+        
+            </div>
+     </div>
+
+
+
+
+
+
+@*<div class="element">
+
+    <div class="pull-left" style="margin-left:-3%">
+        <span class="glyphicon glyphicon-move"></span>
     </div>
-</div>
 
+    <div class="pull-right" style="margin-right:-3%">
+        <span class="glyphicon glyphicon-remove "></span>
+    </div>
 
-<h3>AutoResize</h3>
-<textarea rows="5" cols="30" pInputTextarea autoResize="autoResize"></textarea>
+    <img src="~/images/Facebook.png" />
+
+</div>*@

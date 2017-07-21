@@ -9,9 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="wwwroot\app\about.component.js" />
-    <Content Include="wwwroot\app\about.component.js.map" />
-    <Content Include="wwwroot\app\about.component.ts" />
+    <Content Remove="wwwroot/app\authorization.component.js" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="wwwroot\app\app.component.js" />
     <Content Include="wwwroot\app\app.component.js.map">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
@@ -24,10 +25,6 @@
     <Content Include="wwwroot\app\app.module.ts" />
     <Content Include="wwwroot\app\app.routing.ts" />
     <Content Include="wwwroot\app\authorization.component.js" />
-    <Content Include="wwwroot\app\authorization.component.js.map" />
-    <Content Include="wwwroot\app\authorization.component.ts" />
-    <Content Include="wwwroot\app\authorization.js" />
-    <Content Include="wwwroot\app\authorization.js.map" />
     <Content Include="wwwroot\app\Component\about.component.js" />
     <Content Include="wwwroot\app\Component\about.component.js.map" />
     <Content Include="wwwroot\app\Component\about.component.ts" />
@@ -41,15 +38,9 @@
     <Content Include="wwwroot\app\Component\profile.component.js" />
     <Content Include="wwwroot\app\Component\profile.component.js.map" />
     <Content Include="wwwroot\app\Component\profile.component.ts" />
-    <Content Include="wwwroot\app\contact.component.ts" />
-    <Content Include="wwwroot\app\authorization.ts" />
-    <Content Include="wwwroot\app\index.component.js" />
-    <Content Include="wwwroot\app\index.component.js.map" />
-    <Content Include="wwwroot\app\index.component.ts" />
     <Content Include="wwwroot\app\main.js" />
     <Content Include="wwwroot\app\main.js.map" />
     <Content Include="wwwroot\app\main.ts" />
-    <Content Include="wwwroot\app\profile.component.ts" />
     <Content Include="wwwroot\css\dragula.css" />
     <Content Include="wwwroot\css\dragula.min.css" />
     <Content Include="wwwroot\css\styles.css" />

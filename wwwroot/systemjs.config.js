@@ -12,7 +12,7 @@
     map: {
       // our app is within the app folder
       app: 'app',
-
+      
       // angular bundles
       '@angular/core': 'npm:@angular/core/bundles/core.umd.js',
       '@angular/common': 'npm:@angular/common/bundles/common.umd.js',
@@ -27,7 +27,7 @@
       'rxjs':                      'npm:rxjs',
       'angular-in-memory-web-api': 'npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.js',
       'ng2-dragula': 'npm:ng2-dragula/bundles/ng2-dragula.umd.js',
-      'primeng/primeng': 'npm:primeng/primeng.js',
+      
     },
     // packages tells the System loader how to load when no filename and/or no extension
     packages: {
@@ -37,7 +37,9 @@
       },
       rxjs: {
         defaultExtension: 'js'
-      }
+      },
+      
+      
     }
   });
 })(this);
