@@ -39,15 +39,11 @@ export class AboutComponent {
 
     removeElement(index: number): void {
         this.items.splice(index,1);
-        console.log(index);
-        console.log(this.items);
     }
 
 }
 
 class Data {
-
     type: string;
     field: string;
-
 }

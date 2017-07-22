@@ -14,6 +14,14 @@ var AboutComponent = (function () {
     function AboutComponent() {
         this.items = [];
     }
+    AboutComponent.prototype.ngOnChanges = function (changes) {
+        for (var propName in changes) {
+            var chng = changes[propName];
+            var cur = JSON.stringify(chng.currentValue);
+            var prev = JSON.stringify(chng.previousValue);
+            console.log(propName + ": currentValue = " + cur + ", previousValue = " + prev);
+        }
+    };
     AboutComponent.prototype.AddText = function () {
         var elem = new Data();
         elem.field = "";
@@ -34,8 +42,6 @@ var AboutComponent = (function () {
     };
     AboutComponent.prototype.removeElement = function (index) {
         this.items.splice(index, 1);
-        console.log(index);
-        console.log(this.items);
     };
     return AboutComponent;
 }());
