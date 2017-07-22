@@ -11,27 +11,22 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
-var ProfileComponent = (function () {
-    function ProfileComponent(http) {
+var TestComponent = (function () {
+    function TestComponent(http) {
         var _this = this;
-        this.firstName = true;
         http.get('/api/api/city/').subscribe(function (result) {
             _this.user = result.json();
             console.log(_this.user);
         });
     }
-    ProfileComponent.prototype.change = function () {
-        console.log(this.firstName);
-        this.firstName = !this.firstName;
-    };
-    return ProfileComponent;
+    return TestComponent;
 }());
-ProfileComponent = __decorate([
+TestComponent = __decorate([
     core_1.Component({
-        selector: 'profile',
-        templateUrl: '/partial/profileComponent'
+        selector: 'test',
+        templateUrl: '/partial/testComponent'
     }),
     __metadata("design:paramtypes", [http_1.Http])
-], ProfileComponent);
-exports.ProfileComponent = ProfileComponent;
-//# sourceMappingURL=profile.component.js.map
+], TestComponent);
+exports.TestComponent = TestComponent;
+//# sourceMappingURL=test.component.js.map

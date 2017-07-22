@@ -1,18 +1,19 @@
 ﻿<h1>Weather check</h1>
 
+<div *ngIf="user">
 
-
-<table class="table table-bordered table-striped">
-    <thead>
-        <tr>
-            <th>Temp</th>
-            <th>Summary</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>{{test?.Rating}}</td>
-            <td>{{test?.FirstName}}</td>
-        </tr>
-    </tbody>
-</table>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Temp</th>
+                <th>Summary</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{user?.rating}}</td>
+                <td>{{user?.firstName}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

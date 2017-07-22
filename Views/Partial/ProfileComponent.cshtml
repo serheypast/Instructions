@@ -48,7 +48,7 @@
         height: 450px;
     }
 </style>
-
+<div *ngIf="user">
     <div class="container">
         <div id="main">
 
@@ -66,15 +66,15 @@
                         <div class="panel-body">
                             <div class="text-center" id="author">
                                 <img src="http://bootstraptema.ru/snippets/element/2016/profilesection/myprofile.jpg">
-                                <h3>{{test?.FirstName}}</h3>
-                                <small class="label label-warning">Российская Федерация</small>
-                                <p>Я простой Русский пацан и мне всё по барабану.</p>
-                                <p class="sosmed-author">
+                                <h3>{{user.firstName}}   {{user.secondName}} </h3>
+                                <h6>Информация обо мне</h6>
+                                <p>{{user.infoMySelf}} <a><span class="glyphicon glyphicon-edit pull-right"></span></a></p>
+                                @*<p class="sosmed-author">
                                     <a href="#"><i class="fa fa-facebook" title="Facebook"></i></a>
                                     <a href="#"><i class="fa fa-twitter" title="Twitter"></i></a>
                                     <a href="#"><i class="fa fa-google-plus" title="Google Plus"></i></a>
                                     <a href="#"><i class="fa fa-linkedin" title="Linkedin"></i></a>
-                                </p>
+                                </p>*@
                             </div>
                         </div>
                     </div>
@@ -84,24 +84,27 @@
                         <div class="panel-body">
                             <ul id="myTab" class="nav nav-pills">
                                 <li class="active"><a href="#detail" data-toggle="tab">О пользователе</a></li>
-                                <li class=""><a href="#contact" data-toggle="tab">Отправить сообщение</a></li>
+                                <li class=""><a href="#contact" data-toggle="tab">Достижения</a></li>
                             </ul>
                             <div id="myTabContent" class="tab-content">
                                 <hr>
                                 <div class="tab-pane fade active in" id="detail">
-                                    <h4>История профиля</h4>
+                                    <h4>История профиля <a class="pull-right" (click)="change()">Редактировать  <span class="glyphicon glyphicon-edit"></span></a></h4>
                                     <table class="table table-th-block">
                                         <tbody>
                                             <tr><td class="active">Зарегистрирован:</td><td>12-06-2016</td></tr>
-                                            <tr><td class="active">Последняя активность:</td><td>12-06-2016 / 09:11</td></tr>
-                                            <tr><td class="active">Страна:</td><td>Россия</td></tr>
-                                            <tr><td class="active">Город:</td><td>Волгоград</td></tr>
-                                            <tr><td class="active">Пол:</td><td>Мужской</td></tr>
-                                            <tr><td class="active">Полных лет:</td><td>43</td></tr>
-                                            <tr><td class="active">Семейное положение:</td><td>Женат</td></tr>
-                                            <tr><td class="active">Рейтинг пользователя:</td><td><i class="fa fa-star" style="color:red"></i> <i class="fa fa-star" style="color:red"></i> <i class="fa fa-star" style="color:red"></i> <i class="fa fa-star" style="color:red"></i>{{test?.Rating}}</td></tr>
-                                            <tr><td class="active">Плагин рейтинга:</td><td><a href="http://bootstraptema.ru/stuff/plugins_bootstrap/improvement/bootstrap_star_rating/12-1-0-73" target="_blank">http://goo.gl/bGGXuw</a></td></tr>
-                                        </tbody>
+                                            <tr><td class="active">Имя:</td> <td ><input class="input-large" *ngIf="firstName" type="text"  value="{{user?.firstName}}" style="outline: 0 !important; border: 0; padding: 0;" readonly="readonly" />
+                                                                                 <input class="input-large"  *ngIf="!firstName" type="text"  value="{{user?.firstName}}"  />
+                                                  
+                                                  
+                                                  
+                                                  </td> <td (click)="change()"><a><span class="glyphicon glyphicon-edit pull-right"></span></a></td></tr>
+                                            <tr><td class="active">Фамилия:</td><td>{{user.secondName}}</td> <td><a><span class="glyphicon glyphicon-edit pull-right"></span></a></td></tr>
+                                            <tr><td class="active">Страна:</td><td>{{user.Country}}</td><td><a><span class="glyphicon glyphicon-edit pull-right"></span></a></td></tr>
+                                            <tr><td class="active">Город:</td><td>{{user.City}}</td><td><a><span class="glyphicon glyphicon-edit pull-right"></span></a></td></tr>                               
+                                            <tr><td class="active">Дата рождения:</td><td> {{user.dataOfBirth}}</td><td><a><span class="glyphicon glyphicon-edit pull-right"></span></a></td></tr>
+                                            <tr><td class="active">Рейтинг пользователя:</td><td>{{user.rating}}</td></tr>
+                                         </tbody>
                                     </table>
                                 </div>
                                 <div class="tab-pane fade" id="contact">
@@ -144,3 +147,4 @@
         </div>
 
     </div><!-- /.main -->
+</div>
