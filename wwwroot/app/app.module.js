@@ -11,6 +11,7 @@ var platform_browser_1 = require("@angular/platform-browser");
 var app_routing_1 = require("./app.routing");
 var app_component_1 = require("./app.component");
 var ng2_dragula_1 = require("ng2-dragula");
+var forms_1 = require("@angular/forms");
 // enableProdMode();
 var AppModule = (function () {
     function AppModule() {
@@ -19,7 +20,7 @@ var AppModule = (function () {
 }());
 AppModule = __decorate([
     core_1.NgModule({
-        imports: [platform_browser_1.BrowserModule, app_routing_1.routing, ng2_dragula_1.DragulaModule],
+        imports: [platform_browser_1.BrowserModule, app_routing_1.routing, ng2_dragula_1.DragulaModule, forms_1.FormsModule],
         declarations: [app_component_1.AppComponent, app_routing_1.routedComponents],
         //providers: [Title, { provide: APP_BASE_HREF, useValue: '/' }],
         bootstrap: [app_component_1.AppComponent]

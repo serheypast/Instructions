@@ -1,5 +1,4 @@
 ﻿
-
 <style>
     .workspace {
         border-color: #454456 !important;
@@ -39,23 +38,25 @@
 
 <div class="wrapper">        
             <div class='workspace'>
+
                 <div [dragula]='"first-bag"'>
                     
                     
-                        <div class="row element textM">
+                        <div class="row element textM" *ngFor="let item of items; let i = index">
                             <div class="pull-left" style="margin-left:-3%">
                                 <span class="glyphicon glyphicon-move"></span>
                             </div>
                             <div class="pull-right" style="margin-right:-3%">
-                                <span class="glyphicon glyphicon-trash "></span>
+                               <span (click)="removeElement(i)" class="glyphicon glyphicon-trash "></span>
                             </div>
-                            <div contenteditable="true">
-                                asdasd
-                                <div>sdsdfsdf</div>
-                                <div>sdfsfsddsfsf</div>
+                            <div contenteditable="true"> 
+                                {{item.field}}                                 
                             </div>
                         </div>
-                    </div>
+
+                        
+
+                </div>
 
                 
 

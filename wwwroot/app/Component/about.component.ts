@@ -9,28 +9,45 @@
 
 export class AboutComponent {
    
-    textItems: [TextData];
+    items: Data[] = []; 
 
     constructor() {
-      
        
+
     }
 
     AddText(): void {
-         
+        let elem: Data = new Data();
+        elem.field = "";
+        elem.type = "text";
+        this.items.push(elem);
     }
 
     AddPhoto(): void {
-        console.log("photo");
+        let elem: Data = new Data();
+        elem.field = "";
+        elem.type = "photo";
+        this.items.push(elem);
     }
 
     AddVideo(): void {
-        console.log("video");
+        let elem: Data = new Data();
+        elem.field = "";
+        elem.type = "video";
+        this.items.push(elem);
+    }
+
+    removeElement(index: number): void {
+        this.items.splice(index,1);
+        console.log(index);
+        console.log(this.items);
     }
 
 }
 
-class TextData {
-    id: number;
+class Data {
+
+    type: string;
     field: string;
+
 }

@@ -4,13 +4,13 @@ import { routing, routedComponents } from './app.routing';
 import { APP_BASE_HREF, Location } from '@angular/common';
 import { AppComponent } from './app.component';
 import {DragulaModule} from 'ng2-dragula';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 
 // enableProdMode();
 
 @NgModule({
-    imports: [BrowserModule, routing, DragulaModule],
+    imports: [BrowserModule, routing, DragulaModule, FormsModule],
     declarations: [AppComponent, routedComponents],
     //providers: [Title, { provide: APP_BASE_HREF, useValue: '/' }],
     bootstrap: [AppComponent]

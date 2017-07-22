@@ -12,14 +12,30 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var AboutComponent = (function () {
     function AboutComponent() {
+        this.items = [];
     }
     AboutComponent.prototype.AddText = function () {
+        var elem = new Data();
+        elem.field = "";
+        elem.type = "text";
+        this.items.push(elem);
     };
     AboutComponent.prototype.AddPhoto = function () {
-        console.log("photo");
+        var elem = new Data();
+        elem.field = "";
+        elem.type = "photo";
+        this.items.push(elem);
     };
     AboutComponent.prototype.AddVideo = function () {
-        console.log("video");
+        var elem = new Data();
+        elem.field = "";
+        elem.type = "video";
+        this.items.push(elem);
+    };
+    AboutComponent.prototype.removeElement = function (index) {
+        this.items.splice(index, 1);
+        console.log(index);
+        console.log(this.items);
     };
     return AboutComponent;
 }());
@@ -31,9 +47,9 @@ AboutComponent = __decorate([
     __metadata("design:paramtypes", [])
 ], AboutComponent);
 exports.AboutComponent = AboutComponent;
-var TextData = (function () {
-    function TextData() {
+var Data = (function () {
+    function Data() {
     }
-    return TextData;
+    return Data;
 }());
 //# sourceMappingURL=about.component.js.map
