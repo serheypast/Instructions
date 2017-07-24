@@ -39,19 +39,25 @@
 <div class="wrapper">        
             <div class='workspace'>
 
-                <div [dragula]='"first-bag"'>
-                                     
-                        <div class="row element textM" *ngFor="let item of items; let i = index">
+                <div  [dragula]='"first-bag"' [dragulaModel]='items'>
+                    
+                    <div *ngFor="let item of items; let i = index">
+
+                        <div class="row element textM">
                             <div class="pull-left" style="margin-left:-3%">
                                 <span class="glyphicon glyphicon-move"></span>
                             </div>
+
                             <div class="pull-right" style="margin-right:-3%">
-                               <span (click)="removeElement(i)" class="glyphicon glyphicon-trash "></span>
+                                <span (click)="removeElement(i)" class="glyphicon glyphicon-trash "></span>
                             </div>
-                            <div contenteditable="true"> 
-                                {{item.field}}                                 
+
+                            <div contenteditable="true">
+                                {{item.field}}
                             </div>
                         </div>
+
+                    </div>
 
                 </div>
 
@@ -60,7 +66,6 @@
                 <hr />
 
                 <div class="instruments">
-                   
                     <button (click)="AddText()" title="Add text" class="btn instrument btn-default btn-lg"><span class="glyphicon glyphicon-pencil fa-lg"></span></button>
                     <button (click)="AddPhoto()" title="Add photo" class="btn instrument btn-default btn-lg"><span class="glyphicon glyphicon-camera "></span></button>
                     <button (click)="AddVideo()" title="Add video" class="btn instrument btn-default btn-lg"><span class="glyphicon glyphicon-facetime-video "></span></button>
