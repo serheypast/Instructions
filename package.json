@@ -6,6 +6,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "@angular/animations": "^4.3.1",
     "@angular/common": "~4.0.0",
     "@angular/compiler": "~4.0.0",
     "@angular/core": "~4.0.0",
@@ -14,7 +15,8 @@
     "@angular/platform-browser": "~4.0.0",
     "@angular/platform-browser-dynamic": "~4.0.0",
     "@angular/router": "~4.0.0",
-    //"angular-font-awesome": "^2.0.2",
+    "@cloudinary/angular": "^2.1.1",
+    "angular-font-awesome": "^2.0.2",
     "angular-in-memory-web-api": "^0.3.1",
     "core-js": "^2.4.1",
     "ng2-dragula": "^1.5.0",

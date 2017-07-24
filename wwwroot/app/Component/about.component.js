@@ -25,11 +25,9 @@ var AboutComponent = (function () {
     }
     AboutComponent.prototype.onDropModel = function (args) {
         var el = args[0], target = args[1], source = args[2];
-        // do something else
     };
     AboutComponent.prototype.onRemoveModel = function (args) {
         var el = args[0], source = args[1];
-        // do something else
     };
     AboutComponent.prototype.AddText = function () {
         var elem = new Data();
@@ -51,6 +49,13 @@ var AboutComponent = (function () {
     };
     AboutComponent.prototype.removeElement = function (index) {
         this.items.splice(index, 1);
+    };
+    AboutComponent.prototype.canDeactivate = function () {
+        for (var i = 0; i < this.items.length; i++) {
+            var myContainer = document.querySelector("#a" + i);
+            this.items[i].field = myContainer.innerHTML;
+        }
+        return true;
     };
     return AboutComponent;
 }());

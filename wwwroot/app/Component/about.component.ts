@@ -1,5 +1,8 @@
-﻿import { Component, ViewChild } from '@angular/core';
+﻿import { Component, OnDestroy } from '@angular/core';
 import { DragulaService } from "ng2-dragula";
+
+import { Observable } from "rxjs/Rx";
+import { ComponentCanDeactivate } from './exit.about.guard';
 
 
 @Component({
@@ -7,15 +10,11 @@ import { DragulaService } from "ng2-dragula";
     templateUrl: '/partial/aboutComponent', 
 })
 
-export class AboutComponent {
-
-  
-   
+export class AboutComponent implements ComponentCanDeactivate {
 
     items: Data[] = []; 
-
+    ddd: string;
     constructor(private dragulaService: DragulaService) {
-
         dragulaService.dropModel.subscribe((value:any) => {
             this.onDropModel(value.slice(1));
         });
@@ -25,13 +24,11 @@ export class AboutComponent {
     }
 
     private onDropModel(args:any) {
-        let [el, target, source] = args;
-        // do something else
+        let [el, target, source] = args;   
     }
 
     private onRemoveModel(args:any) {
         let [el, source] = args;
-        // do something else
     }
 
     AddText(): void {
@@ -39,6 +36,7 @@ export class AboutComponent {
         elem.field = "";
         elem.type = "text";
         this.items.push(elem);
+      
     }
 
     AddPhoto(): void {
@@ -46,7 +44,7 @@ export class AboutComponent {
         elem.field = "";
         elem.type = "photo";
         this.items.push(elem);
-  
+        
     }
 
     AddVideo(): void {
@@ -58,6 +56,16 @@ export class AboutComponent {
 
     removeElement(index: number): void {
         this.items.splice(index,1);
+    }
+
+    canDeactivate(): boolean | Observable<boolean> {
+        for (let i = 0; i < this.items.length; i++) {
+            let myContainer = <HTMLElement>document.querySelector("#a" + i);
+            this.items[i].field = myContainer.innerHTML;
+
+        }
+
+        return true;
     }
 
 }
