@@ -1,28 +1,79 @@
-﻿import { Component } from '@angular/core';
-import { Http } from '@angular/http';
+﻿import { Component, OnDestroy } from '@angular/core';
+import { Http, Headers, Response, Request, RequestOptions, RequestMethod  } from '@angular/http';
+import { IMyDpOptions, IMyDateModel } from 'mydatepicker';
+import { CloudinaryOptions, CloudinaryUploader } from 'ng2-cloudinary';
+
+
 
 @Component({
     selector: 'profile',
-    templateUrl: '/partial/profileComponent'
+    templateUrl: '/partial/profileComponent',
 })
 
+
+
+
 export class ProfileComponent {
+
+    private myDatePickerOptions: IMyDpOptions = {
+        // other options...
+        dateFormat: 'dd.mm.yyyy',
+
+    };
+
+    // Initialized to specific date (09.10.2018).
+ 
+
+ 
     public user: UserProfile;
-    constructor(http: Http) {
+    constructor(private http: Http) {
+        window.onbeforeunload = function (e) {
+            
+            return false;
+        };
         http.get('/api/api/city/').subscribe(result => {
             this.user = result.json();
             console.log(this.user);
+
         });
+
+        
+
     }
 
-    firstName: boolean = true;
+ 
+
+    changeField: boolean = true;
     change(): void {
-        console.log(this.firstName)
-        this.firstName = !this.firstName;
+        console.log(this.user);
+        console.log(this.user.firstName);
+        this.changeField = !this.changeField;
+
     }
+
+    ngOnDestroy() {
+        // prevent memory leak when component is destroyed
+        console.log("sergey byu");
+        let body = JSON.stringify(this.user);
+        let headers = new Headers({ 'Content-Type': 'application/json'  });
+
+        this.http.post("api/api/editProfile", body, { headers: headers })
+            .subscribe(
+            (data) => {
+                console.log('Response received');
+                console.log(data);
+            },
+            (err) => { console.log('Error'); },
+            () => console.log('Authentication Complete')
+            );
+
+    }
+
+
 }
 
-interface UserProfile{
+class UserProfile {
+    id: string;
     firstName: string;
     secondName: string;
     urlPhoto: string;
@@ -31,5 +82,4 @@ interface UserProfile{
     city: string;
     dataOfBirth: string;
     aboutMySelf: string;
-  
 }

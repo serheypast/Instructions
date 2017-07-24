@@ -14,24 +14,49 @@ var http_1 = require("@angular/http");
 var ProfileComponent = (function () {
     function ProfileComponent(http) {
         var _this = this;
-        this.firstName = true;
+        this.http = http;
+        this.myDatePickerOptions = {
+            // other options...
+            dateFormat: 'dd.mm.yyyy',
+        };
+        this.changeField = true;
+        window.onbeforeunload = function (e) {
+            return false;
+        };
         http.get('/api/api/city/').subscribe(function (result) {
             _this.user = result.json();
             console.log(_this.user);
         });
     }
     ProfileComponent.prototype.change = function () {
-        console.log(this.firstName);
-        this.firstName = !this.firstName;
+        console.log(this.user);
+        console.log(this.user.firstName);
+        this.changeField = !this.changeField;
+    };
+    ProfileComponent.prototype.ngOnDestroy = function () {
+        // prevent memory leak when component is destroyed
+        console.log("sergey byu");
+        var body = JSON.stringify(this.user);
+        var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
+        this.http.post("api/api/editProfile", body, { headers: headers })
+            .subscribe(function (data) {
+            console.log('Response received');
+            console.log(data);
+        }, function (err) { console.log('Error'); }, function () { return console.log('Authentication Complete'); });
     };
     return ProfileComponent;
 }());
 ProfileComponent = __decorate([
     core_1.Component({
         selector: 'profile',
-        templateUrl: '/partial/profileComponent'
+        templateUrl: '/partial/profileComponent',
     }),
     __metadata("design:paramtypes", [http_1.Http])
 ], ProfileComponent);
 exports.ProfileComponent = ProfileComponent;
+var UserProfile = (function () {
+    function UserProfile() {
+    }
+    return UserProfile;
+}());
 //# sourceMappingURL=profile.component.js.map

@@ -36,13 +36,57 @@
     <Content Include="wwwroot\app\main.ts" />
     <Content Include="wwwroot\app\profile.component.ts" />
     <Content Include="wwwroot\app\test.component.ts" />
+    <Content Include="wwwroot\css\datepicker.css" />
+    <Content Include="wwwroot\css\site.css" />
+    <Content Include="wwwroot\css\site.min.css" />
     <Content Include="wwwroot\css\styles.css" />
     <Content Include="wwwroot\favicon.ico" />
+    <Content Include="wwwroot\js\bootstrap-datepicker.js" />
+    <Content Include="wwwroot\js\locales\bootstrap-datepicker.bg.js" />
+    <Content Include="wwwroot\js\locales\bootstrap-datepicker.ca.js" />
+    <Content Include="wwwroot\js\locales\bootstrap-datepicker.cs.js" />
+    <Content Include="wwwroot\js\locales\bootstrap-datepicker.da.js" />
+    <Content Include="wwwroot\js\locales\bootstrap-datepicker.de.js" />
+    <Content Include="wwwroot\js\locales\bootstrap-datepicker.el.js" />
+    <Content Include="wwwroot\js\locales\bootstrap-datepicker.es.js" />
+    <Content Include="wwwroot\js\locales\bootstrap-datepicker.fi.js" />
+    <Content Include="wwwroot\js\locales\bootstrap-datepicker.fr.js" />
+    <Content Include="wwwroot\js\locales\bootstrap-datepicker.he.js" />
+    <Content Include="wwwroot\js\locales\bootstrap-datepicker.hr.js" />
+    <Content Include="wwwroot\js\locales\bootstrap-datepicker.id.js" />
+    <Content Include="wwwroot\js\locales\bootstrap-datepicker.is.js" />
+    <Content Include="wwwroot\js\locales\bootstrap-datepicker.it.js" />
+    <Content Include="wwwroot\js\locales\bootstrap-datepicker.ja.js" />
+    <Content Include="wwwroot\js\locales\bootstrap-datepicker.kr.js" />
+    <Content Include="wwwroot\js\locales\bootstrap-datepicker.lt.js" />
+    <Content Include="wwwroot\js\locales\bootstrap-datepicker.lv.js" />
+    <Content Include="wwwroot\js\locales\bootstrap-datepicker.ms.js" />
+    <Content Include="wwwroot\js\locales\bootstrap-datepicker.nb.js" />
+    <Content Include="wwwroot\js\locales\bootstrap-datepicker.nl.js" />
+    <Content Include="wwwroot\js\locales\bootstrap-datepicker.pl.js" />
+    <Content Include="wwwroot\js\locales\bootstrap-datepicker.pt-BR.js" />
+    <Content Include="wwwroot\js\locales\bootstrap-datepicker.pt.js" />
+    <Content Include="wwwroot\js\locales\bootstrap-datepicker.ro.js" />
+    <Content Include="wwwroot\js\locales\bootstrap-datepicker.rs-latin.js" />
+    <Content Include="wwwroot\js\locales\bootstrap-datepicker.rs.js" />
+    <Content Include="wwwroot\js\locales\bootstrap-datepicker.ru.js" />
+    <Content Include="wwwroot\js\locales\bootstrap-datepicker.sk.js" />
+    <Content Include="wwwroot\js\locales\bootstrap-datepicker.sl.js" />
+    <Content Include="wwwroot\js\locales\bootstrap-datepicker.sv.js" />
+    <Content Include="wwwroot\js\locales\bootstrap-datepicker.sw.js" />
+    <Content Include="wwwroot\js\locales\bootstrap-datepicker.th.js" />
+    <Content Include="wwwroot\js\locales\bootstrap-datepicker.tr.js" />
+    <Content Include="wwwroot\js\locales\bootstrap-datepicker.uk.js" />
+    <Content Include="wwwroot\js\locales\bootstrap-datepicker.zh-CN.js" />
+    <Content Include="wwwroot\js\locales\bootstrap-datepicker.zh-TW.js" />
+    <Content Include="wwwroot\js\site.js" />
+    <Content Include="wwwroot\js\site.min.js" />
     <Content Include="wwwroot\systemjs.config.extras.js" />
     <Content Include="wwwroot\systemjs.config.js" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AspNetCore.Security.OAuth.Vkontakte" Version="1.0.1" />
+    <PackageReference Include="Bootstrap.Datepicker" Version="1.6.4" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.1.1" />
     <PackageReference Include="Microsoft.AspNetCore" Version="1.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication" Version="1.1.2" />

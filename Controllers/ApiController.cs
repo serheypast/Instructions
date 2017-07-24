@@ -28,6 +28,7 @@ namespace A2SPA.Controllers
             UserProfile user = await db.UserProfile.FirstOrDefaultAsync(p => p.Id == currentUserId);
 
             return Ok(new {
+                id = user.Id,
                 firstName = user.FirstName,
                 secondName = user.SecondName,
                 urlPhoto = user.UrlPhoto,
@@ -37,6 +38,17 @@ namespace A2SPA.Controllers
                 dataOfBirth = user.DataOfBirth,
                 aboutMySelf = user.AboutMySelf,
             });
+        }
+
+        [HttpPost("[action]")]
+        public async Task<IActionResult> EditProfile([FromBody] UserProfile item)
+        {
+            db.UserProfile.Update(item);
+            User user = db.Users.First(p => p.Id == item.Id);
+            user.UserName = item.FirstName;
+            db.Users.Update(user);
+            await db.SaveChangesAsync();
+            return Ok();
         }
 
     }

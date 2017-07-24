@@ -23,7 +23,7 @@
                 }
                 else
                 {
-                    <form asp-controller="Account" asp-action="ExternalLogin" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal">
+                    <form ngNoForm asp-controller="Account" asp-action="ExternalLogin" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal">
                         <div>
                             <p>
                                 @foreach (var provider in loginProviders)
