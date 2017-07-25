@@ -11,17 +11,26 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var ng2_dragula_1 = require("ng2-dragula");
+var ng2_cloudinary_1 = require("ng2-cloudinary");
 var AboutComponent = (function () {
     function AboutComponent(dragulaService) {
         var _this = this;
         this.dragulaService = dragulaService;
         this.items = [];
+        this.uploader = new ng2_cloudinary_1.CloudinaryUploader(new ng2_cloudinary_1.CloudinaryOptions({ cloudName: 'dr4opxk5i', uploadPreset: 'ajvv2x7e' }));
         dragulaService.dropModel.subscribe(function (value) {
             _this.onDropModel(value.slice(1));
         });
         dragulaService.removeModel.subscribe(function (value) {
             _this.onRemoveModel(value.slice(1));
         });
+        this.uploader.onSuccessItem = function (item, response, status, headers) {
+            console.log("uploud");
+            var res = JSON.parse(response);
+            _this.imageId = res.public_id;
+            _this.AddPhoto();
+            return { item: item, response: response, status: status, headers: headers };
+        };
     }
     AboutComponent.prototype.onDropModel = function (args) {
         var el = args[0], target = args[1], source = args[2];
@@ -37,7 +46,7 @@ var AboutComponent = (function () {
     };
     AboutComponent.prototype.AddPhoto = function () {
         var elem = new Data();
-        elem.field = "";
+        elem.field = this.imageId;
         elem.type = "photo";
         this.items.push(elem);
     };
@@ -56,6 +65,9 @@ var AboutComponent = (function () {
             this.items[i].field = myContainer.innerHTML;
         }
         return true;
+    };
+    AboutComponent.prototype.onChange = function (event) {
+        this.uploader.uploadAll();
     };
     return AboutComponent;
 }());

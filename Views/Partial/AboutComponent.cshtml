@@ -42,20 +42,56 @@
                 <div  [dragula]='"first-bag"' [dragulaModel]='items'>
                     
                     <div *ngFor="let item of items; let i = index">
+                      
+                        <div ngSwitch="{{item.type}}">
 
-                        <div class="row element textM">
-                            <div class="pull-left" style="margin-left:-3%">
-                                <span class="glyphicon glyphicon-move"></span>
+                            <div *ngSwitchCase="'text'">
+                                <div class="row element textM"> 
+                                    <div class="pull-left" style="margin-left:-3%">
+                                        <span class="glyphicon glyphicon-move"></span>
+                                    </div>
+                                    <div class="pull-right" style="margin-right:-3%">
+                                        <span (click)="removeElement(i)" class="glyphicon glyphicon-trash "></span>
+                                    </div>
+                                    <div id="a{{i}}" contenteditable="true">
+                                        {{item.field}}
+                                    </div>
+                                </div>
                             </div>
-                            <div class="pull-right" style="margin-right:-3%">
-                                <span (click)="removeElement(i)" class="glyphicon glyphicon-trash "></span>
-                            </div>                         
-                            <div id="a{{i}}"  contenteditable="true">
-                                {{item.field}}
+
+                            <div *ngSwitchCase="'photo'">
+                                <div class="element">                                 
+                                    <div class="pull-left" style="margin-left:-3%">
+                                        <span class="glyphicon glyphicon-move"></span>
+                                    </div>
+
+                                    <div class="pull-right" style="margin-right:-3%">
+                                        <span (click)="removeElement(i)" class="glyphicon glyphicon-trash "></span>
+                                    </div>
+
+                                   <cl-image [public-id]=item.field [cloud-name]="uploader.cloudName"></cl-image>
+
+                                </div>
                             </div>
+
+                            <div *ngSwitchCase="'video'">
+                                <div class="element">
+                                    <div class="pull-left" style="margin-left:-3%">
+                                        <span class="glyphicon glyphicon-move"></span>
+                                    </div>
+
+                                    <div class="pull-right" style="margin-right:-3%">
+                                        <span (click)="removeElement(i)" class="glyphicon glyphicon-trash "></span>
+                                    </div>
+
+                                    <iframe width="560" height="315" src="https://www.youtube.com/embed/YkEIeYudrtM" frameborder="0" allowfullscreen></iframe>
+
+                                </div>
+                            </div>
+
                         </div>
 
-                    </div>
+                     </div>
 
          
 
@@ -67,28 +103,20 @@
 
                 <div class="instruments">
                     <button (click)="AddText()" title="Add text" class="btn instrument btn-default btn-lg"><span class="glyphicon glyphicon-pencil fa-lg"></span></button>
-                    <button (click)="AddPhoto()" title="Add photo" class="btn instrument btn-default btn-lg"><span class="glyphicon glyphicon-camera "></span></button>
+                    <label  title="Add photo" class="btn instrument btn-default btn-lg">
+                        <span class="glyphicon glyphicon-camera "></span>
+                        <input class="hidden" type="file" ng2FileSelect [uploader]="uploader" (change)="onChange($event)" />
+                    </label>
                     <button (click)="AddVideo()" title="Add video" class="btn instrument btn-default btn-lg"><span class="glyphicon glyphicon-facetime-video "></span></button>
                 </div>
         
             </div>
      </div>
 
-<a routerLink="">На главную</a>
 
 
 
-@*<div class="element">
 
-    <div class="pull-left" style="margin-left:-3%">
-        <span class="glyphicon glyphicon-move"></span>
-    </div>
 
-    <div class="pull-right" style="margin-right:-3%">
-        <span class="glyphicon glyphicon-remove "></span>
-    </div>
 
-    <img src="https://camo.mybb.com/e01de90be6012adc1b1701dba899491a9348ae79/687474703a2f2f7777772e6a71756572797363726970742e6e65742f696d616765732f53696d706c6573742d526573706f6e736976652d6a51756572792d496d6167652d4c69676874626f782d506c7567696e2d73696d706c652d6c69676874626f782e6a7067" />
-
-</div>*@
 

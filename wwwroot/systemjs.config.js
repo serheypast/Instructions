@@ -28,7 +28,9 @@
       'angular-in-memory-web-api': 'npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.js',
       'ng2-dragula': 'npm:ng2-dragula/bundles/ng2-dragula.umd.js',
       'primeng': 'npm:primeng',
-      '@angular/animations': 'npm:@angular/animations/bundles/animations.umd.js'
+      '@angular/animations': 'npm:@angular/animations/bundles/animations.umd.js',
+      'ng2-file-upload': 'npm:ng2-file-upload/bundles/ng2-file-upload.umd.js',
+      'ng2-cloudinary': 'npm:ng2-cloudinary/dist/umd/ng2-cloudinary.js'
       
     },
     // packages tells the System loader how to load when no filename and/or no extension
