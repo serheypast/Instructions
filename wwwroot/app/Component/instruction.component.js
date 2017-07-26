@@ -11,11 +11,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var ng2_dragula_1 = require("ng2-dragula");
+var platform_browser_1 = require("@angular/platform-browser");
 var ng2_cloudinary_1 = require("ng2-cloudinary");
-var AboutComponent = (function () {
-    function AboutComponent(dragulaService) {
+var InstructionComponent = (function () {
+    function InstructionComponent(dragulaService, sanitizer) {
         var _this = this;
         this.dragulaService = dragulaService;
+        this.sanitizer = sanitizer;
         this.items = [];
         this.uploader = new ng2_cloudinary_1.CloudinaryUploader(new ng2_cloudinary_1.CloudinaryOptions({ cloudName: 'dr4opxk5i', uploadPreset: 'ajvv2x7e' }));
         dragulaService.dropModel.subscribe(function (value) {
@@ -25,63 +27,90 @@ var AboutComponent = (function () {
             _this.onRemoveModel(value.slice(1));
         });
         this.uploader.onSuccessItem = function (item, response, status, headers) {
-            console.log("uploud");
             var res = JSON.parse(response);
             _this.imageId = res.public_id;
             _this.AddPhoto();
             return { item: item, response: response, status: status, headers: headers };
         };
     }
-    AboutComponent.prototype.onDropModel = function (args) {
+    InstructionComponent.prototype.onDropModel = function (args) {
         var el = args[0], target = args[1], source = args[2];
     };
-    AboutComponent.prototype.onRemoveModel = function (args) {
+    InstructionComponent.prototype.onRemoveModel = function (args) {
         var el = args[0], source = args[1];
     };
-    AboutComponent.prototype.AddText = function () {
-        var elem = new Data();
+    InstructionComponent.prototype.turn = function (index) {
+        this.items[index].state = !this.items[index].state;
+    };
+    InstructionComponent.prototype.AddText = function () {
+        var elem = new Block();
         elem.field = "";
         elem.type = "text";
+        elem.state = true;
         this.items.push(elem);
     };
-    AboutComponent.prototype.AddPhoto = function () {
-        var elem = new Data();
+    InstructionComponent.prototype.AddPhoto = function () {
+        var elem = new Block();
         elem.field = this.imageId;
         elem.type = "photo";
         this.items.push(elem);
     };
-    AboutComponent.prototype.AddVideo = function () {
-        var elem = new Data();
+    InstructionComponent.prototype.AddVideo = function () {
+        var elem = new Block();
         elem.field = "";
         elem.type = "video";
+        elem.state = false;
         this.items.push(elem);
     };
-    AboutComponent.prototype.removeElement = function (index) {
+    InstructionComponent.prototype.addYoutubeUrl = function (index) {
+        var url = this.items[index].field;
+        var standartUrl = "https://www.youtube.com/embed/";
+        var str = url.split("=");
+        this.items[index].field = standartUrl + str[1];
+        this.items[index].state = true;
+    };
+    InstructionComponent.prototype.safeOn = function (url) {
+        console.log(url);
+        return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+    };
+    InstructionComponent.prototype.removeElement = function (index) {
         this.items.splice(index, 1);
     };
-    AboutComponent.prototype.canDeactivate = function () {
+    InstructionComponent.prototype.canDeactivate = function () {
         for (var i = 0; i < this.items.length; i++) {
             var myContainer = document.querySelector("#a" + i);
             this.items[i].field = myContainer.innerHTML;
         }
         return true;
     };
-    AboutComponent.prototype.onChange = function (event) {
+    InstructionComponent.prototype.onChange = function (event) {
         this.uploader.uploadAll();
     };
-    return AboutComponent;
+    return InstructionComponent;
 }());
-AboutComponent = __decorate([
+InstructionComponent = __decorate([
     core_1.Component({
-        selector: 'my-about',
-        templateUrl: '/partial/aboutComponent',
+        selector: 'instruction',
+        templateUrl: '/partial/InstructionComponent',
     }),
-    __metadata("design:paramtypes", [ng2_dragula_1.DragulaService])
-], AboutComponent);
-exports.AboutComponent = AboutComponent;
-var Data = (function () {
-    function Data() {
+    __metadata("design:paramtypes", [ng2_dragula_1.DragulaService, platform_browser_1.DomSanitizer])
+], InstructionComponent);
+exports.InstructionComponent = InstructionComponent;
+var Block = (function () {
+    function Block() {
     }
-    return Data;
+    return Block;
 }());
-//# sourceMappingURL=about.component.js.map
+var Step = (function () {
+    function Step() {
+        this.blocks = [];
+    }
+    return Step;
+}());
+var Instruction = (function () {
+    function Instruction() {
+        this.steps = [];
+    }
+    return Instruction;
+}());
+//# sourceMappingURL=instruction.component.js.map

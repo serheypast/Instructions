@@ -12,20 +12,22 @@
 
     .textM {
         min-width: 98%;
-
+        margin-top: 1%;
+        margin-bottom: 1%;
+        margin-left:1%;
+        margin-right:1%;
     }
 
     .element {
-        margin-top: 1%;
-        margin-left: 1%;
-        margin-right: 1%;
+        margin-top: 1%;      
         margin-bottom: 1%;
+        text-align:center;
     }
 
     .instruments {
         margin-bottom:1%;
         margin-top:3%;
-        margin-left:35%;
+        text-align:center
     }
 
     .instrument {
@@ -37,25 +39,37 @@
 
 
 <div class="wrapper">        
-            <div id="abc" class='workspace'>
+            <div class='workspace'>
 
-                <div  [dragula]='"first-bag"' [dragulaModel]='items'>
-                    
-                    <div *ngFor="let item of items; let i = index">
-                      
+
+
+                <div  [dragula]='"first-bag"' [dragulaModel]='items'>                   
+                    <div *ngFor="let item of items; let i = index">                      
                         <div ngSwitch="{{item.type}}">
-
                             <div *ngSwitchCase="'text'">
-                                <div class="row element textM"> 
+                                <div class="row textM"> 
                                     <div class="pull-left" style="margin-left:-3%">
                                         <span class="glyphicon glyphicon-move"></span>
                                     </div>
                                     <div class="pull-right" style="margin-right:-3%">
                                         <span (click)="removeElement(i)" class="glyphicon glyphicon-trash "></span>
                                     </div>
-                                    <div id="a{{i}}" contenteditable="true">
-                                        {{item.field}}
+
+                                    <div style="word-wrap:break-word;" [innerHTML]="item.field" *ngIf="!item.state" (click)="turn(i)"> 
+                                        
                                     </div>
+
+                                    <p-editor *ngIf="item.state" [(ngModel)]="item.field" [style]="{'height':'200px'}">
+                                        <p-header>
+                                            <span class="ql-formats">
+                                                <button class="ql-bold" aria-label="Bold"></button>
+                                                <button class="ql-italic" aria-label="Italic"></button>
+                                                <button class="ql-underline" aria-label="Underline"></button>
+                                            </span>
+                                            <button class="pull-right" pButton type="button" icon="fa-close" (click)="turn(i)"></button>
+                                        </p-header>
+                                    </p-editor>
+
                                 </div>
                             </div>
 
@@ -64,12 +78,10 @@
                                     <div class="pull-left" style="margin-left:-3%">
                                         <span class="glyphicon glyphicon-move"></span>
                                     </div>
-
                                     <div class="pull-right" style="margin-right:-3%">
                                         <span (click)="removeElement(i)" class="glyphicon glyphicon-trash "></span>
                                     </div>
-
-                                   <cl-image [public-id]=item.field [cloud-name]="uploader.cloudName"></cl-image>
+                                   <cl-image width="450" height="250" [public-id]=item.field [cloud-name]="uploader.cloudName"></cl-image>
 
                                 </div>
                             </div>
@@ -79,25 +91,19 @@
                                     <div class="pull-left" style="margin-left:-3%">
                                         <span class="glyphicon glyphicon-move"></span>
                                     </div>
-
                                     <div class="pull-right" style="margin-right:-3%">
                                         <span (click)="removeElement(i)" class="glyphicon glyphicon-trash "></span>
                                     </div>
-
-                                    <iframe width="560" height="315" src="https://www.youtube.com/embed/YkEIeYudrtM" frameborder="0" allowfullscreen></iframe>
-
-                                </div>
+                                    <div *ngIf="!item.state" >
+                                        <input type="text" placeholder="Youtube URL" [(ngModel)]="item.field" />
+                                        <button (click)="addYoutubeUrl(i)" class="btn btn-success ">Add</button>
+                                    </div>
+                                    <iframe *ngIf="item.state" [src]="safeOn(item.field)" frameborder="0" allowfullscreen></iframe>                                   
+                               </div>
                             </div>
-
                         </div>
-
                      </div>
-
-         
-
                 </div>
-
-                
 
                 <hr />
 
@@ -108,15 +114,15 @@
                         <input class="hidden" type="file" ng2FileSelect [uploader]="uploader" (change)="onChange($event)" />
                     </label>
                     <button (click)="AddVideo()" title="Add video" class="btn instrument btn-default btn-lg"><span class="glyphicon glyphicon-facetime-video "></span></button>
-                </div>
-        
-            </div>
-     </div>
+                </div>    
+       </div>
+</div>
 
 
 
 
 
 
-
-
+@*<div id="a{{i}}" contenteditable="true">
+    {{item.field}}
+</div>*@

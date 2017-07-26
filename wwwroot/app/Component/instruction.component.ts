@@ -1,21 +1,24 @@
 ﻿import { Component, OnDestroy } from '@angular/core';
 import { DragulaService } from "ng2-dragula";
-
+import { DomSanitizer } from "@angular/platform-browser"
+import { SafeResourceUrl } from "@angular/platform-browser/src/platform-browser";
 import { Observable } from "rxjs/Rx";
 import { ComponentCanDeactivate } from './exit.about.guard';
 import { CloudinaryOptions, CloudinaryUploader, CloudinaryImageComponent } from 'ng2-cloudinary';
+import { EditorModule } from 'primeng/primeng';
 
 
 @Component({
-    selector: 'my-about',
-    templateUrl: '/partial/aboutComponent', 
+    selector: 'instruction',
+    templateUrl: '/partial/InstructionComponent', 
 })
 
-export class AboutComponent implements ComponentCanDeactivate {
+export class InstructionComponent implements ComponentCanDeactivate {
 
-    items: Data[] = []; 
-   
-    constructor(private dragulaService: DragulaService) {
+    items: Block[] = []; 
+    
+    constructor(private dragulaService: DragulaService, private sanitizer: DomSanitizer) {
+
         dragulaService.dropModel.subscribe((value:any) => {
             this.onDropModel(value.slice(1));
         });
@@ -24,24 +27,19 @@ export class AboutComponent implements ComponentCanDeactivate {
         });
 
         this.uploader.onSuccessItem = (item: any, response: string, status: number, headers: any): any => {
-            console.log("uploud");
             let res: any = JSON.parse(response);
             this.imageId = res.public_id;
             this.AddPhoto();
             return { item, response, status, headers };
-
         };
 
     }
-
-  
 
     imageId: string;
 
     uploader: CloudinaryUploader = new CloudinaryUploader(
         new CloudinaryOptions({ cloudName: 'dr4opxk5i', uploadPreset: 'ajvv2x7e' })
     );
-
 
     private onDropModel(args:any) {
         let [el, target, source] = args;   
@@ -51,27 +49,46 @@ export class AboutComponent implements ComponentCanDeactivate {
         let [el, source] = args;
     }
 
+    turn(index: number) {
+        this.items[index].state = !this.items[index].state;
+    }
+
+    
+
     AddText(): void {
-        let elem: Data = new Data();
+        let elem: Block = new Block();
         elem.field = "";
         elem.type = "text";
-        this.items.push(elem);
-      
+        elem.state = true;
+        this.items.push(elem);    
     }
 
     AddPhoto(): void {
-        let elem: Data = new Data();
+        let elem: Block = new Block();
         elem.field = this.imageId;
         elem.type = "photo";
         this.items.push(elem);
-
     }
 
     AddVideo(): void {
-        let elem: Data = new Data();
+        let elem: Block = new Block();
         elem.field = "";
         elem.type = "video";
+        elem.state = false;
         this.items.push(elem);
+    }
+
+    addYoutubeUrl(index: number): void {
+        let url: string = this.items[index].field;
+        let standartUrl: string = "https://www.youtube.com/embed/";
+        let str = url.split("=");
+        this.items[index].field = standartUrl + str[1];
+        this.items[index].state = true;
+    }
+
+    safeOn(url: string): SafeResourceUrl {
+        console.log(url);
+        return this.sanitizer.bypassSecurityTrustResourceUrl(url);
     }
 
     removeElement(index: number): void {
@@ -88,14 +105,28 @@ export class AboutComponent implements ComponentCanDeactivate {
         return true;
     }
 
-
     onChange(event: any) {
         this.uploader.uploadAll();
     }
 
 }
 
-class Data {
+class Block {
     type: string;
     field: string;
+    state: boolean;
+}
+
+class Step {
+    stepName: string;
+    blocks: Block[] = []; 
+}
+
+class Instruction {
+    instructionName: string;
+    mainImageUrl: string;
+    category: string;
+    
+    steps: Step[] = [];
+
 }
