@@ -7,6 +7,7 @@ import { AuthorizationComponent } from './authorization.component';
 import { ProfileComponent } from './profile.component';
 import { TestComponent } from './test.component';
 import { HomeComponent } from './home.component';
+import { InstructionBlockComponent } from './instructionBlock.component';
 
 const appRoutes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -17,9 +18,10 @@ const appRoutes: Routes = [
     { path: 'authorization', component: AuthorizationComponent, data: { title: 'Authorization' } },
     { path: 'test', component: TestComponent, data: { title: 'Test' } },
     { path: 'profile', component: ProfileComponent, data: { title: 'profile' } },
+    { path: 'instructionBlock', component: InstructionBlockComponent, data: { title: 'InstructionBlock' } },
 
 ];
 
 export const routing = RouterModule.forRoot(appRoutes);
 
-export const routedComponents = [HomeComponent, AboutComponent, IndexComponent, ContactComponent, AuthorizationComponent, ProfileComponent, TestComponent];
+export const routedComponents = [HomeComponent, InstructionBlockComponent, AboutComponent, IndexComponent, ContactComponent, AuthorizationComponent, ProfileComponent, TestComponent];
