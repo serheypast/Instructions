@@ -2,12 +2,14 @@
 @{
     ViewData["Title"] = "Home Page";
 }
-<style>
-    body{
-        padding: 10px !important;
-    }
-</style>
 
+<style>
+    body {
+        padding: 10px !important;
+        background: #f1f1f1 !important;
+    }
+
+</style>
 
   
 @*<div class="row">
@@ -22,7 +24,7 @@
         <p>222</p>
     </div>
 </div>*@
-
+<h1></h1>
 <div class="container">
     <div id="myCarousel" class="carousel slide" data-ride="carousel" style="width:100%;height:500px;">
         <!-- Indicators -->
@@ -57,16 +59,14 @@
             <span class="sr-only">Next</span>
         </a>
     </div>
-    <h1></h1>
     <div class="row">
-        <div class="main col-xs-1"></div>
-        <div class="main col-xs-8">
-           <div></div>
+        <div class="main col-xs-12 col-sm-9 col-lg-9">
+            <instructionBlock></instructionBlock>
         </div>
-        <div class="sidebar col-xs-3">
+        <div class="sidebar col-xs-3 hidden-xs" style=" padding: 20px;">
             <div class="well">
-               <p>Creating</p>
-               <button class="btn btn-primary">Create Instruction</button>
+                <p>Creating</p>
+                <button class="btn btn-primary">Create Instruction</button>
             </div>
             <div class="well">
                 <p>Cloud Tags</p>
@@ -103,5 +103,5 @@
             </div>
         </div>
 
-        </div>
+    </div>
 </div>

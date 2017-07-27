@@ -26,6 +26,20 @@ namespace A2SPA.Models
         public string City { get; set; }
         public string DataOfBirth { get; set; }
         public string AboutMySelf { get; set; }
-
     }
+
+    public class Instruction
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
+        public string AuthorId { get; set; }
+        public string Name { get; set; }
+        public string DataCreated { get; set; }
+        public string PreviewImageUrl { get; set; }
+        public int Rating { get; set; }
+        public string Category { get; set; }
+    }
+
+
 }

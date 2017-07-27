@@ -20,17 +20,12 @@ var ProfileComponent = (function () {
             dateFormat: 'dd.mm.yyyy',
         };
         this.changeField = true;
-        window.onbeforeunload = function (e) {
-            return false;
-        };
         http.get('/api/api/city/').subscribe(function (result) {
             _this.user = result.json();
             console.log(_this.user);
         });
     }
     ProfileComponent.prototype.change = function () {
-        console.log(this.user);
-        console.log(this.user.firstName);
         this.changeField = !this.changeField;
     };
     ProfileComponent.prototype.ngOnDestroy = function () {

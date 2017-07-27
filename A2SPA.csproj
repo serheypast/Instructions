@@ -32,6 +32,8 @@
     <Content Include="wwwroot\app\index.component.js" />
     <Content Include="wwwroot\app\index.component.js.map" />
     <Content Include="wwwroot\app\index.component.ts" />
+    <Content Include="wwwroot\app\instructionBlock.component..ts" />
+    <Content Include="wwwroot\app\instructionBlock.component.ts" />
     <Content Include="wwwroot\app\main.js" />
     <Content Include="wwwroot\app\main.js.map" />
     <Content Include="wwwroot\app\main.ts" />

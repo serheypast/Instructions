@@ -28,5 +28,7 @@ namespace A2SPA.Controllers
         public IActionResult TestComponent() => PartialView();
 
         public IActionResult HomeComponent() => PartialView();
+
+        public IActionResult InstructionBlockComponent() => PartialView();
     }
 }
