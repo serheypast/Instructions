@@ -26,29 +26,20 @@ export class ProfileComponent {
 
  
     public user: UserProfile;
+
     constructor(private http: Http) {
-        window.onbeforeunload = function (e) {
-            
-            return false;
-        };
         http.get('/api/api/city/').subscribe(result => {
             this.user = result.json();
             console.log(this.user);
-
         });
-
-        
-
     }
 
  
 
     changeField: boolean = true;
-    change(): void {
-        console.log(this.user);
-        console.log(this.user.firstName);
-        this.changeField = !this.changeField;
 
+    change(): void {
+        this.changeField = !this.changeField;
     }
 
     ngOnDestroy() {
@@ -66,7 +57,6 @@ export class ProfileComponent {
             (err) => { console.log('Error'); },
             () => console.log('Authentication Complete')
             );
-
     }
 
 

@@ -51,5 +51,11 @@ namespace A2SPA.Controllers
             return Ok();
         }
 
+        [HttpGet("[action]/{take}/{skip}")]
+        public IActionResult GetInstruction(int take, int skip)
+        {
+            var items = db.Instructoin.Skip(skip).Take(take).ToArray();
+            return new ObjectResult(items);
+        }
     }
 }

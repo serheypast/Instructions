@@ -6,13 +6,13 @@ import { AppComponent } from './app.component';
 import { HttpModule } from '@angular/http'
 import { FormsModule } from '@angular/forms';
 import { MyDatePickerModule } from 'mydatepicker';
-
+import { InfiniteScrollModule } from 'angular2-infinite-scroll';
 
 
 // enableProdMode();
 
 @NgModule({
-    imports: [BrowserModule, routing, HttpModule, FormsModule, MyDatePickerModule ],
+    imports: [BrowserModule, routing, HttpModule, FormsModule, MyDatePickerModule, InfiniteScrollModule ],
     declarations: [AppComponent, routedComponents],
     providers: [Title, { provide: APP_BASE_HREF, useValue: '/' }],
     bootstrap: [AppComponent]

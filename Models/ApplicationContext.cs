@@ -10,6 +10,7 @@ namespace A2SPA.Models
     public class ApplicationContext : IdentityDbContext<User>
     {
         public DbSet<UserProfile> UserProfile { get; set; }
+        public DbSet<Instruction> Instructoin { get; set; }
         public ApplicationContext(DbContextOptions<ApplicationContext> options)
             : base(options)
         {
