@@ -14,6 +14,9 @@ import { ComponentCanDeactivate } from './exit.about.guard';
 
 
 export class ContactComponent implements ComponentCanDeactivate {
+
+    items = ['Pizza', 'Pasta', 'Parmesan'];
+
     saved: boolean = false;
     save() {
         this.saved = true;

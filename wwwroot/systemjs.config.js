@@ -33,7 +33,8 @@
       'ng2-cloudinary': 'npm:ng2-cloudinary/dist/umd/ng2-cloudinary.js',
       '@angular/animations/browser': 'npm:@angular/animations/bundles/animations-browser.umd.js',
       '@angular/platform-browser/animations': 'npm:@angular/platform-browser/bundles/platform-browser-animations.umd.js',
-       
+      'ng2-tag-input': 'npm:ng2-tag-input/dist/ng2-tag-input.bundle.js',
+      'ng2-material-dropdown': 'npm:ng2-material-dropdown/dist/ng2-dropdown.bundle.js',
     },
     // packages tells the System loader how to load when no filename and/or no extension
     packages: {
@@ -48,6 +49,10 @@
           defaultExtension: 'js'
       },
 
+     
+     
+      
+      
       
     }
   });

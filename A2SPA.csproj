@@ -27,7 +27,6 @@
     <Content Include="wwwroot\app\authorization.component.js" />
     <Content Include="wwwroot\app\Component\instruction.component.js" />
     <Content Include="wwwroot\app\Component\instruction.component.js.map" />
-    <Content Include="wwwroot\app\Component\step.component.js.map" />
     <Content Include="wwwroot\app\Component\instruction.component.ts" />
     <Content Include="wwwroot\app\Component\authorization.component.ts" />
     <Content Include="wwwroot\app\Component\contact.component.js" />

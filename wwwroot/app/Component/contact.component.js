@@ -9,6 +9,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var ContactComponent = (function () {
     function ContactComponent() {
+        this.items = ['Pizza', 'Pasta', 'Parmesan'];
         this.saved = false;
     }
     ContactComponent.prototype.save = function () {

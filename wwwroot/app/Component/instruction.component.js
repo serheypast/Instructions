@@ -18,6 +18,7 @@ var InstructionComponent = (function () {
         var _this = this;
         this.dragulaService = dragulaService;
         this.sanitizer = sanitizer;
+        this.tags = ['Pizza', 'Pasta', 'Parmesan'];
         this.items = [];
         this.uploader = new ng2_cloudinary_1.CloudinaryUploader(new ng2_cloudinary_1.CloudinaryOptions({ cloudName: 'dr4opxk5i', uploadPreset: 'ajvv2x7e' }));
         dragulaService.dropModel.subscribe(function (value) {
@@ -92,6 +93,7 @@ InstructionComponent = __decorate([
     core_1.Component({
         selector: 'instruction',
         templateUrl: '/partial/InstructionComponent',
+        styleUrls: ['/Component/InstructionComponent.css']
     }),
     __metadata("design:paramtypes", [ng2_dragula_1.DragulaService, platform_browser_1.DomSanitizer])
 ], InstructionComponent);
@@ -109,6 +111,7 @@ var Step = (function () {
 }());
 var Instruction = (function () {
     function Instruction() {
+        this.tags = [];
         this.steps = [];
     }
     return Instruction;

@@ -5,18 +5,23 @@ import { SafeResourceUrl } from "@angular/platform-browser/src/platform-browser"
 import { Observable } from "rxjs/Rx";
 import { ComponentCanDeactivate } from './exit.about.guard';
 import { CloudinaryOptions, CloudinaryUploader, CloudinaryImageComponent } from 'ng2-cloudinary';
-import { EditorModule } from 'primeng/primeng';
+
 
 
 @Component({
     selector: 'instruction',
     templateUrl: '/partial/InstructionComponent', 
+    styleUrls: ['/Component/InstructionComponent.css']
 })
 
 export class InstructionComponent implements ComponentCanDeactivate {
 
+    tags = ['Pizza', 'Pasta', 'Parmesan'];
+
     items: Block[] = []; 
-    
+
+
+
     constructor(private dragulaService: DragulaService, private sanitizer: DomSanitizer) {
 
         dragulaService.dropModel.subscribe((value:any) => {
@@ -126,7 +131,7 @@ class Instruction {
     instructionName: string;
     mainImageUrl: string;
     category: string;
-    
+    tags: string[] = [];
     steps: Step[] = [];
 
 }

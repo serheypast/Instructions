@@ -9,13 +9,13 @@ import { ExitAboutGuard } from './Component/exit.about.guard';
 import { EditorModule } from 'primeng/primeng';
 import { Ng2CloudinaryModule } from 'ng2-cloudinary';
 import { FileUploadModule } from 'ng2-file-upload';
-import { ButtonModule } from 'primeng/primeng';
-//import { TagInputModule } from 'ng2-tag-input';
-//import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ButtonModule, PanelModule } from 'primeng/primeng';
+import { TagInputModule } from 'ng2-tag-input';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
-    imports: [ BrowserModule, routing, DragulaModule, FormsModule, FileUploadModule, Ng2CloudinaryModule, EditorModule, ButtonModule],
+    imports: [PanelModule,BrowserAnimationsModule, TagInputModule, BrowserModule, routing, DragulaModule, FormsModule, FileUploadModule, Ng2CloudinaryModule, EditorModule, ButtonModule],
     declarations: [AppComponent, routedComponents],
     providers: [ExitAboutGuard, Title, { provide: APP_BASE_HREF, useValue: '/' }],
     bootstrap: [AppComponent]
