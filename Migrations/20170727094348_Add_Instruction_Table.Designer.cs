@@ -8,35 +8,14 @@ using A2SPA.Models;
 namespace A2SPA.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20170727094348_Add_Instruction_Table")]
+    partial class Add_Instruction_Table
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("A2SPA.Models.Instruction", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("AuthorId");
-
-                    b.Property<string>("Category");
-
-                    b.Property<string>("DataCreated");
-
-                    b.Property<string>("Name");
-
-                    b.Property<string>("PreviewImageUrl");
-
-                    b.Property<int>("Rating");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Instructoin");
-                });
 
             modelBuilder.Entity("A2SPA.Models.User", b =>
                 {
