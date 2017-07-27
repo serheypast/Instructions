@@ -15,14 +15,6 @@ var ContactComponent = (function () {
     ContactComponent.prototype.save = function () {
         this.saved = true;
     };
-    ContactComponent.prototype.canDeactivate = function () {
-        if (!this.saved) {
-            return confirm("Вы хотите покинуть страницу?");
-        }
-        else {
-            return true;
-        }
-    };
     return ContactComponent;
 }());
 ContactComponent = __decorate([

@@ -33,90 +33,111 @@
         padding: 20px;
         background-color: black;
     }
+
+    .dragSteps {
+       display:inline-block;
+    }
+
 </style>
 
 
+<div [dragula]='"first-bag"' [dragulaModel]='instruction.steps'>
+    <div *ngFor="let step of instruction.steps; let j = index">
+        <p-panel [toggleable]="true" [style]="{'margin-top':'20px','width':'80%','margin-left':'10%'}">
+            <p-header >           
+                <label >Step {{j}}: {{step.name}}</label>  
+                <a class="btn-xs pull-right ui-panel-titlebar-icon ui-panel-titlebar-toggler ui-corner-all ui-state-default" (click)="deleteStep(j)" >
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                </a>
+             
+            </p-header>
+            <div style="margin-left:34%">
+                <input [(ngModel)]="step.name" class="form-control" placeholder="Input step name" style="text-align:center" />
+            </div>
+            <div [dragula]='"second-bag"' [dragulaModel]='step.blocks'>
+                <div *ngFor="let item of step.blocks; let i = index">
+                    <div ngSwitch="{{item.type}}">
+                        <div *ngSwitchCase="'text'">
+                            <div class="row textM">
+                                <div class="pull-left" style="margin-left:-4%">
+                                    <span class="fa fa-hand-rock-o fa-lg"></span>
+                                </div>
+                                <div class="pull-right" style="margin-right:-4%">
+                                    <span title="Delete" (click)="removeElement(j,i)" class="glyphicon glyphicon-trash "></span>
+                                </div>
 
+                                <div style="word-wrap:break-word;" [innerHTML]="item.field" *ngIf="!item.state" (click)="turn(j,i)">
+                                </div>
 
-<p-panel [toggleable]="true" [style]="{'margin-top':'2%'}">
-    <p-header >
-       <label>Step 1: LoL</label>
-    </p-header>
-       <div [dragula]='"first-bag"' [dragulaModel]='items'>
-           <div *ngFor="let item of items; let i = index">
-               <div ngSwitch="{{item.type}}">
-                   <div *ngSwitchCase="'text'">
-                       <div class="row textM">
-                           <div class="pull-left" style="margin-left:-4%">
-                               <span class="fa fa-hand-rock-o fa-lg"></span>
-                           </div>
-                           <div class="pull-right" style="margin-right:-4%">
-                               <span title="Delete" (click)="removeElement(i)" class="glyphicon glyphicon-trash "></span>
-                           </div>
+                                <p-editor *ngIf="item.state" [(ngModel)]="item.field" [style]="{'height':'200px'}">
+                                    <p-header>
+                                        <span class="ql-formats">
+                                            <select class="ql-header">
+                                                <option value="1">Heading</option>
+                                                <option value="2">Subheading</option>
+                                                <option selected="">Normal</option>
+                                            </select>
+                                            <button class="ql-bold" aria-label="Bold"></button>
+                                            <button class="ql-italic" aria-label="Italic"></button>
+                                            <button class="ql-underline" aria-label="Underline"></button>
+                                        </span>
+                                        <button class="pull-right" pButton type="button" icon="fa-close" (click)="turn(j,i)"></button>
+                                    </p-header>
+                                </p-editor>
 
-                           <div style="word-wrap:break-word;" [innerHTML]="item.field" *ngIf="!item.state" (click)="turn(i)">
-                           </div>
+                            </div>
+                        </div>
 
-                           <p-editor *ngIf="item.state" [(ngModel)]="item.field" [style]="{'height':'200px'}">
-                               <p-header>
-                                   <span class="ql-formats">
-                                       <select class="ql-header">
-                                           <option value="1">Heading</option>
-                                           <option value="2">Subheading</option>
-                                           <option selected="">Normal</option>
-                                       </select>
-                                       <button class="ql-bold" aria-label="Bold"></button>
-                                       <button class="ql-italic" aria-label="Italic"></button>
-                                       <button class="ql-underline" aria-label="Underline"></button>
-                                   </span>
-                                   <button class="pull-right" pButton type="button" icon="fa-close" (click)="turn(i)"></button>
-                               </p-header>
-                           </p-editor>
+                        <div *ngSwitchCase="'photo'">
+                            <div class="element">
+                                <div class="pull-left" style="margin-left:-3%">
+                                    <span class="fa fa-hand-rock-o fa-lg"></span>
+                                </div>
+                                <div class="pull-right" style="margin-right:-3%">
+                                    <span title="Delete" (click)="removeElement(j,i)" class="glyphicon glyphicon-trash "></span>
+                                </div>
+                                <cl-image width="450" height="250" [public-id]=item.field [cloud-name]="uploader.cloudName"></cl-image>
 
-                       </div>
-                   </div>
+                            </div>
+                        </div>
 
-                   <div *ngSwitchCase="'photo'">
-                       <div class="element">
-                           <div class="pull-left" style="margin-left:-3%">
-                               <span class="fa fa-hand-rock-o fa-lg"></span>
-                           </div>
-                           <div class="pull-right" style="margin-right:-3%">
-                               <span title="Delete" (click)="removeElement(i)" class="glyphicon glyphicon-trash "></span>
-                           </div>
-                           <cl-image width="450" height="250" [public-id]=item.field [cloud-name]="uploader.cloudName"></cl-image>
+                        <div *ngSwitchCase="'video'">
+                            <div class="element">
+                                <div class="pull-left" style="margin-left:-3%">
+                                    <span class="fa fa-hand-rock-o fa-lg"></span>
+                                </div>
+                                <div class="pull-right" style="margin-right:-3%">
+                                    <span title="Delete" (click)="removeElement(j,i)" class="glyphicon glyphicon-trash "></span>
+                                </div>
+                                <div *ngIf="!item.state">                                
 
-                       </div>
-                   </div>
+                                    <div class="form-horizontal">
+                                        <input type="text" [(ngModel)]="item.field"  class="form-control" placeholder="Youtube URL" style="width:280px;max-width:280px;display:inline-block" />
+                                        <button  (click)="addYoutubeUrl(j,i)" type="submit" class="btn btn-default" style="margin-left:-8px;margin-top:-2px; background-color:black;color:aliceblue">
+                                           Add
+                                        </button>
+                                    </div>
 
-                   <div *ngSwitchCase="'video'">
-                       <div class="element">
-                           <div class="pull-left" style="margin-left:-3%">
-                               <span class="fa fa-hand-rock-o fa-lg"></span>
-                           </div>
-                           <div class="pull-right" style="margin-right:-3%">
-                               <span title="Delete" (click)="removeElement(i)" class="glyphicon glyphicon-trash "></span>
-                           </div>
-                           <div *ngIf="!item.state">
-                               <input type="text" placeholder="Youtube URL" [(ngModel)]="item.field" />
-                               <button (click)="addYoutubeUrl(i)" class="btn btn-success ">Add</button>
-                           </div>
-                           <iframe *ngIf="item.state" [src]="safeOn(item.field)" frameborder="0" allowfullscreen></iframe>
-                       </div>
-                   </div>
-               </div>
-           </div>
-       </div>
-    <p-footer>
-        <div class="instruments">
-            <label (click)="AddText()" title="Add text" class="btn instrument btn-default btn-lg"><span class="glyphicon glyphicon-pencil fa-lg" style="color:aliceblue"></span></label>
-            <label title="Add photo" class="btn instrument btn-default btn-lg">
-                <span class="glyphicon glyphicon-camera " style="color:aliceblue"></span>
-                <input class="hidden" type="file" ng2FileSelect [uploader]="uploader" (change)="onChange($event)" />
-            </label>
-            <label (click)="AddVideo()" title="Add video" class="btn instrument btn-default btn-lg"><span class="glyphicon glyphicon-facetime-video" style="color:aliceblue"></span></label>
-        </div>
-    </p-footer>
-</p-panel>
+                                </div>
+                                <iframe *ngIf="item.state" [src]="item.field | safe" frameborder="0" allowfullscreen></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p-footer>
+                <div class="instruments">
+                    <label (click)="AddText(j)" title="Add text" class="btn instrument btn-default btn-lg"><span class="glyphicon glyphicon-pencil fa-lg" style="color:aliceblue"></span></label>
+                    <label title="Add photo" class="btn instrument btn-default btn-lg">
+                        <span class="glyphicon glyphicon-camera " style="color:aliceblue"></span>
+                        <input class="hidden" type="file" ng2FileSelect [uploader]="uploader" (change)="onChange($event,j)" />
+                    </label>
+                    <label (click)="AddVideo(j)" title="Add video" class="btn instrument btn-default btn-lg"><span class="glyphicon glyphicon-facetime-video" style="color:aliceblue"></span></label>
+                </div>
+            </p-footer>
+        </p-panel>
+    </div>
+</div>
 
-<button class="btn btn-default" style="background-color:black; color:aliceblue; margin-top:2%; margin-left:47%">Add step</button>
+    <button (click)="addStep()" class="btn btn-default" style="background-color:black; color:aliceblue; margin-top:2%; margin-left:47%">Add step</button>
+

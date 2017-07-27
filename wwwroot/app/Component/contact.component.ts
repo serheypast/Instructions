@@ -1,7 +1,5 @@
-﻿
-import { Component } from '@angular/core';
+﻿import { Component } from '@angular/core';
 import { Observable } from "rxjs/Rx";
-import { ComponentCanDeactivate } from './exit.about.guard';
 
 
 @Component({
@@ -13,7 +11,7 @@ import { ComponentCanDeactivate } from './exit.about.guard';
 })
 
 
-export class ContactComponent implements ComponentCanDeactivate {
+export class ContactComponent{
 
     items = ['Pizza', 'Pasta', 'Parmesan'];
 
@@ -21,14 +19,5 @@ export class ContactComponent implements ComponentCanDeactivate {
     save() {
         this.saved = true;
     }
-
-    canDeactivate(): boolean | Observable<boolean> {
-
-        if (!this.saved) {
-            return confirm("Вы хотите покинуть страницу?");
-        }
-        else {
-            return true;
-        }
-    }
+    
 }

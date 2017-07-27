@@ -1,12 +1,9 @@
-﻿import { Component, OnDestroy } from '@angular/core';
+﻿import { Component, Pipe, PipeTransform ,OnDestroy } from '@angular/core';
 import { DragulaService } from "ng2-dragula";
 import { DomSanitizer } from "@angular/platform-browser"
 import { SafeResourceUrl } from "@angular/platform-browser/src/platform-browser";
 import { Observable } from "rxjs/Rx";
-import { ComponentCanDeactivate } from './exit.about.guard';
 import { CloudinaryOptions, CloudinaryUploader, CloudinaryImageComponent } from 'ng2-cloudinary';
-
-
 
 @Component({
     selector: 'instruction',
@@ -14,13 +11,15 @@ import { CloudinaryOptions, CloudinaryUploader, CloudinaryImageComponent } from 
     styleUrls: ['/Component/InstructionComponent.css']
 })
 
-export class InstructionComponent implements ComponentCanDeactivate {
 
-    tags = ['Pizza', 'Pasta', 'Parmesan'];
+export class InstructionComponent {
 
-    items: Block[] = []; 
+    instruction: Instruction = new Instruction();
 
-
+    addStep() {
+        let step: Step = new Step();
+        this.instruction.steps.push(step);
+    }
 
     constructor(private dragulaService: DragulaService, private sanitizer: DomSanitizer) {
 
@@ -31,15 +30,24 @@ export class InstructionComponent implements ComponentCanDeactivate {
             this.onRemoveModel(value.slice(1));
         });
 
+        dragulaService.setOptions('first-bag', {
+            moves: function (el: any, container: any, handle: any) {
+                console.log(container.className);
+                console.log(handle.className);
+                return handle.className === 'ui-panel-titlebar ui-widget-header ui-helper-clearfix ui-corner-all';
+            }
+        });
+
         this.uploader.onSuccessItem = (item: any, response: string, status: number, headers: any): any => {
             let res: any = JSON.parse(response);
             this.imageId = res.public_id;
-            this.AddPhoto();
+            this.AddPhoto(this.imageIndex);
             return { item, response, status, headers };
         };
 
     }
 
+    imageIndex: number;
     imageId: string;
 
     uploader: CloudinaryUploader = new CloudinaryUploader(
@@ -54,67 +62,69 @@ export class InstructionComponent implements ComponentCanDeactivate {
         let [el, source] = args;
     }
 
-    turn(index: number) {
-        this.items[index].state = !this.items[index].state;
+    turn(indexI: number, indexJ: number) {
+        this.instruction.steps[indexI].blocks[indexJ].state = !this.instruction.steps[indexI].blocks[indexJ].state;
     }
 
-    
-
-    AddText(): void {
+    AddText(index: number): void {
         let elem: Block = new Block();
         elem.field = "";
         elem.type = "text";
         elem.state = true;
-        this.items.push(elem);    
+        this.instruction.steps[index].blocks.push(elem);
+       
     }
 
-    AddPhoto(): void {
+    AddPhoto(index : number): void {
         let elem: Block = new Block();
         elem.field = this.imageId;
         elem.type = "photo";
-        this.items.push(elem);
+        this.instruction.steps[index].blocks.push(elem);
     }
 
-    AddVideo(): void {
+    AddVideo(index: number): void {
         let elem: Block = new Block();
         elem.field = "";
         elem.type = "video";
         elem.state = false;
-        this.items.push(elem);
+        this.instruction.steps[index].blocks.push(elem);
     }
 
-    addYoutubeUrl(index: number): void {
-        let url: string = this.items[index].field;
+    addYoutubeUrl(indexI:number ,indexJ: number): void {
+        let url: string = this.instruction.steps[indexI].blocks[indexJ].field;
         let standartUrl: string = "https://www.youtube.com/embed/";
         let str = url.split("=");
-        this.items[index].field = standartUrl + str[1];
-        this.items[index].state = true;
+        this.instruction.steps[indexI].blocks[indexJ].field = standartUrl + str[1];
+        this.instruction.steps[indexI].blocks[indexJ].state = true;
     }
 
     safeOn(url: string): SafeResourceUrl {
-        console.log(url);
+        console.log("опача");
         return this.sanitizer.bypassSecurityTrustResourceUrl(url);
     }
 
-    removeElement(index: number): void {
-        this.items.splice(index,1);
+    removeElement(indexI: number, indexDel:number): void {
+        this.instruction.steps[indexI].blocks.splice(indexDel, 1);
     }
 
-    canDeactivate(): boolean | Observable<boolean> {
-        for (let i = 0; i < this.items.length; i++) {
-            let myContainer = <HTMLElement>document.querySelector("#a" + i);
-            this.items[i].field = myContainer.innerHTML;
-
-        }
-
-        return true;
+    deleteStep(j: number) {
+        this.instruction.steps.splice(j, 1);
     }
 
-    onChange(event: any) {
+    onChange(event: any, index: number) {
         this.uploader.uploadAll();
+        this.imageIndex = index;
     }
 
 }
+
+@Pipe({ name: 'safe' })
+export class SafePipe implements PipeTransform {
+    constructor(private sanitizer: DomSanitizer) { }
+    transform(url:any) {
+        return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+    }
+} 
 
 class Block {
     type: string;
