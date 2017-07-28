@@ -19,7 +19,21 @@ var InstructionComponent = (function () {
         this.dragulaService = dragulaService;
         this.sanitizer = sanitizer;
         this.instruction = new Instruction();
+        //mainImageId: string;
         this.uploader = new ng2_cloudinary_1.CloudinaryUploader(new ng2_cloudinary_1.CloudinaryOptions({ cloudName: 'dr4opxk5i', uploadPreset: 'ajvv2x7e' }));
+        this.items = ['Amsterdam', 'Antwerp', 'Athens', 'Barcelona',
+            'Berlin', 'Birmingham', 'Bradford', 'Bremen', 'Brussels', 'Bucharest',
+            'Budapest', 'Cologne', 'Copenhagen', 'Dortmund', 'Dresden', 'Dublin',
+            'Düsseldorf', 'Essen', 'Frankfurt', 'Genoa', 'Glasgow', 'Gothenburg',
+            'Hamburg', 'Hannover', 'Helsinki', 'Kraków', 'Leeds', 'Leipzig', 'Lisbon',
+            'London', 'Madrid', 'Manchester', 'Marseille', 'Milan', 'Munich', 'Málaga',
+            'Naples', 'Palermo', 'Paris', 'Poznań', 'Prague', 'Riga', 'Rome',
+            'Rotterdam', 'Seville', 'Sheffield', 'Sofia', 'Stockholm', 'Stuttgart',
+            'The Hague', 'Turin', 'Valencia', 'Vienna', 'Vilnius', 'Warsaw', 'Wrocław',
+            'Zagreb', 'Zaragoza', 'Łódź'];
+        this.value = {};
+        this.instruction.instructionName = "Name";
+        this.instruction.mainImageUrl = "j8khmafnd7hbxwpxy0kb";
         dragulaService.dropModel.subscribe(function (value) {
             _this.onDropModel(value.slice(1));
         });
@@ -28,15 +42,18 @@ var InstructionComponent = (function () {
         });
         dragulaService.setOptions('first-bag', {
             moves: function (el, container, handle) {
-                console.log(container.className);
-                console.log(handle.className);
                 return handle.className === 'ui-panel-titlebar ui-widget-header ui-helper-clearfix ui-corner-all';
             }
         });
         this.uploader.onSuccessItem = function (item, response, status, headers) {
             var res = JSON.parse(response);
-            _this.imageId = res.public_id;
-            _this.AddPhoto(_this.imageIndex);
+            if (_this.typePhoto) {
+                _this.instruction.mainImageUrl = res.public_id;
+            }
+            else {
+                _this.imageId = res.public_id;
+                _this.AddPhoto(_this.imageIndex);
+            }
             return { item: item, response: response, status: status, headers: headers };
         };
     }
@@ -91,8 +108,15 @@ var InstructionComponent = (function () {
         this.instruction.steps.splice(j, 1);
     };
     InstructionComponent.prototype.onChange = function (event, index) {
+        if (index == -1)
+            this.typePhoto = true;
+        else
+            this.typePhoto = false;
         this.uploader.uploadAll();
         this.imageIndex = index;
+    };
+    InstructionComponent.prototype.selected = function (value) {
+        this.instruction.category = value.text;
     };
     return InstructionComponent;
 }());

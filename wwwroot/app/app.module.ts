@@ -12,10 +12,11 @@ import { FileUploadModule } from 'ng2-file-upload';
 import { ButtonModule, PanelModule } from 'primeng/primeng';
 import { TagInputModule } from 'ng2-tag-input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SelectModule } from 'ng2-select';
 
 
 @NgModule({
-    imports: [PanelModule,BrowserAnimationsModule, TagInputModule, BrowserModule, routing, DragulaModule, FormsModule, FileUploadModule, Ng2CloudinaryModule, EditorModule, ButtonModule],
+    imports: [SelectModule, PanelModule,BrowserAnimationsModule, TagInputModule, BrowserModule, routing, DragulaModule, FormsModule, FileUploadModule, Ng2CloudinaryModule, EditorModule, ButtonModule],
     declarations: [AppComponent, routedComponents, SafePipe],
     providers: [Title, { provide: APP_BASE_HREF, useValue: '/' }],
     bootstrap: [AppComponent]

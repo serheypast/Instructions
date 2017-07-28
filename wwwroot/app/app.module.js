@@ -20,6 +20,7 @@ var ng2_file_upload_1 = require("ng2-file-upload");
 var primeng_2 = require("primeng/primeng");
 var ng2_tag_input_1 = require("ng2-tag-input");
 var animations_1 = require("@angular/platform-browser/animations");
+var ng2_select_1 = require("ng2-select");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -27,7 +28,7 @@ var AppModule = (function () {
 }());
 AppModule = __decorate([
     core_1.NgModule({
-        imports: [primeng_2.PanelModule, animations_1.BrowserAnimationsModule, ng2_tag_input_1.TagInputModule, platform_browser_1.BrowserModule, app_routing_1.routing, ng2_dragula_1.DragulaModule, forms_1.FormsModule, ng2_file_upload_1.FileUploadModule, ng2_cloudinary_1.Ng2CloudinaryModule, primeng_1.EditorModule, primeng_2.ButtonModule],
+        imports: [ng2_select_1.SelectModule, primeng_2.PanelModule, animations_1.BrowserAnimationsModule, ng2_tag_input_1.TagInputModule, platform_browser_1.BrowserModule, app_routing_1.routing, ng2_dragula_1.DragulaModule, forms_1.FormsModule, ng2_file_upload_1.FileUploadModule, ng2_cloudinary_1.Ng2CloudinaryModule, primeng_1.EditorModule, primeng_2.ButtonModule],
         declarations: [app_component_1.AppComponent, app_routing_1.routedComponents, instruction_component_1.SafePipe],
         providers: [platform_browser_1.Title, { provide: common_1.APP_BASE_HREF, useValue: '/' }],
         bootstrap: [app_component_1.AppComponent]

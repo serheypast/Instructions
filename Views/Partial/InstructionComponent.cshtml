@@ -38,7 +38,121 @@
        display:inline-block;
     }
 
+    .cat {
+        display:inline;
+    }
+  
+
+.index-content a:hover{
+    color:black;
+    text-decoration:none;
+}
+    .index-content {
+        margin-top: 3%;
+    }
+
+.index-content .card{
+    background-color: #FFFFFF;
+    padding:0;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius:4px;
+    box-shadow: 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12), 0 2px 4px -1px rgba(0,0,0,0.3);
+
+}
+.index-content .card:hover{
+    box-shadow: 0 16px 24px 2px rgba(0,0,0,0.14), 0 6px 30px 5px rgba(0,0,0,0.12), 0 8px 10px -5px rgba(0,0,0,0.3);
+    color:black;
+}
+    .index-content .card .img {
+        width: 100%;
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
+    }
+.index-content .card h4{
+    margin:20px;
+}
+
+    .content {
+       /*height:310px;*/
+    }
+
+    
+
 </style>
+
+
+
+@*<img src="http://cevirdikce.com/proje/hasem-2/images/finance-1.jpg">*@
+
+<div class="container">
+    <div class="row">
+        <div class="index-content">
+
+            <div class="col-md-5">
+                <div class="card">
+                    <cl-image width="458" height="255"  [public-id]=instruction.mainImageUrl [cloud-name]="uploader.cloudName"></cl-image>
+                    <h4>{{instruction.instructionName}}</h4>
+                    <div class="row">
+                        <div class="pull-left" style="margin-left:7%">
+                            <p>by Anton in {{instruction.category}}</p>
+                        </div>
+                        <div class="pull-right" style="margin-right:7%">
+                            <p>0</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-7 well" style="height:350px">
+                <div class="content">
+                    <div class="row">                                        
+                            <div class="form-group form-inline" style="text-align:center">
+                                <label>Title</label>
+                                <input [(ngModel)]='instruction.instructionName' type="text" class="form-control input-sm" placeholder="Title" tabindex="2" style="width:60%">
+                            </div>                      
+                    </div>
+                    <div class="row">              
+                            <div>
+                                <div class="pull-left" style="padding:6px; margin-left:26%">
+                                    <label>Category</label>
+                                </div>
+                                <div class="pull-left" style="width:235px; margin-left:1%">
+                                    <ng-select [allowClear]="true"
+                                               [items]="items"
+                                               (selected)="selected($event)"
+                                               [placeholder]="myPlaceholderText">
+                                    </ng-select>
+                                </div>
+                            </div>                                      
+                    </div>
+                    <div class="row" style="margin-top:2%">                       
+                        <tag-input theme='dark' [maxItems]='5' [(ngModel)]='instruction.tags'></tag-input>                                                          
+                    </div>
+
+                    <div class="row">
+                        <div class="dasasd" style="margin-top:23%;">
+                            <div class="pull-left">
+                                <label title="Add/Change main photo" class="btn btn-default" style="background-color:black; color:aliceblue;">
+                                    Add/Change photo
+                                    <input class="hidden" type="file" ng2FileSelect [uploader]="uploader" (change)="onChange($event,-1)" />
+                                </label>
+                            </div>
+                            <div class="pull-right">
+                                <button style="background-color:black; color:aliceblue;" class="btn btn-default">Preview</button>
+                                <button style="background-color:black; color:aliceblue;" class="btn btn-default">Publish</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+  
+ 
+  
 
 
 <div [dragula]='"first-bag"' [dragulaModel]='instruction.steps'>

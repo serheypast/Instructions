@@ -15,6 +15,7 @@ import { CloudinaryOptions, CloudinaryUploader, CloudinaryImageComponent } from 
 export class InstructionComponent {
 
     instruction: Instruction = new Instruction();
+    
 
     addStep() {
         let step: Step = new Step();
@@ -22,6 +23,9 @@ export class InstructionComponent {
     }
 
     constructor(private dragulaService: DragulaService, private sanitizer: DomSanitizer) {
+
+        this.instruction.instructionName = "Name";
+        this.instruction.mainImageUrl = "j8khmafnd7hbxwpxy0kb";
 
         dragulaService.dropModel.subscribe((value:any) => {
             this.onDropModel(value.slice(1));
@@ -32,23 +36,28 @@ export class InstructionComponent {
 
         dragulaService.setOptions('first-bag', {
             moves: function (el: any, container: any, handle: any) {
-                console.log(container.className);
-                console.log(handle.className);
                 return handle.className === 'ui-panel-titlebar ui-widget-header ui-helper-clearfix ui-corner-all';
             }
         });
 
         this.uploader.onSuccessItem = (item: any, response: string, status: number, headers: any): any => {
-            let res: any = JSON.parse(response);
-            this.imageId = res.public_id;
-            this.AddPhoto(this.imageIndex);
+            let res: any = JSON.parse(response);         
+            if (this.typePhoto) {
+                this.instruction.mainImageUrl = res.public_id;
+            }
+            else {
+                this.imageId = res.public_id;
+                this.AddPhoto(this.imageIndex);
+            }
             return { item, response, status, headers };
         };
 
     }
 
+    typePhoto: boolean;
     imageIndex: number;
     imageId: string;
+    //mainImageId: string;
 
     uploader: CloudinaryUploader = new CloudinaryUploader(
         new CloudinaryOptions({ cloudName: 'dr4opxk5i', uploadPreset: 'ajvv2x7e' })
@@ -112,8 +121,28 @@ export class InstructionComponent {
     }
 
     onChange(event: any, index: number) {
+        if (index == -1) this.typePhoto = true;
+        else this.typePhoto = false;
         this.uploader.uploadAll();
         this.imageIndex = index;
+    }
+
+
+    public items: Array<string> = ['Amsterdam', 'Antwerp', 'Athens', 'Barcelona',
+        'Berlin', 'Birmingham', 'Bradford', 'Bremen', 'Brussels', 'Bucharest',
+        'Budapest', 'Cologne', 'Copenhagen', 'Dortmund', 'Dresden', 'Dublin',
+        'Düsseldorf', 'Essen', 'Frankfurt', 'Genoa', 'Glasgow', 'Gothenburg',
+        'Hamburg', 'Hannover', 'Helsinki', 'Kraków', 'Leeds', 'Leipzig', 'Lisbon',
+        'London', 'Madrid', 'Manchester', 'Marseille', 'Milan', 'Munich', 'Málaga',
+        'Naples', 'Palermo', 'Paris', 'Poznań', 'Prague', 'Riga', 'Rome',
+        'Rotterdam', 'Seville', 'Sheffield', 'Sofia', 'Stockholm', 'Stuttgart',
+        'The Hague', 'Turin', 'Valencia', 'Vienna', 'Vilnius', 'Warsaw', 'Wrocław',
+        'Zagreb', 'Zaragoza', 'Łódź'];
+
+    private value: any = {};
+ 
+    public selected(value: any): void {
+        this.instruction.category = value.text;
     }
 
 }
