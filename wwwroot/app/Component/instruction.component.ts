@@ -85,8 +85,7 @@ export class InstructionComponent {
         elem.field = "";
         elem.type = "text";
         elem.state = true;
-        this.instruction.steps[index].blocks.push(elem);
-       
+        this.instruction.steps[index].blocks.push(elem);    
     }
 
     AddPhoto(index : number): void {
@@ -113,7 +112,6 @@ export class InstructionComponent {
     }
 
     safeOn(url: string): SafeResourceUrl {
-        console.log("опача");
         return this.sanitizer.bypassSecurityTrustResourceUrl(url);
     }
 

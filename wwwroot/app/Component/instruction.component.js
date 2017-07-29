@@ -105,7 +105,6 @@ var InstructionComponent = (function () {
         this.instruction.steps[indexI].blocks[indexJ].state = true;
     };
     InstructionComponent.prototype.safeOn = function (url) {
-        console.log("опача");
         return this.sanitizer.bypassSecurityTrustResourceUrl(url);
     };
     InstructionComponent.prototype.removeElement = function (indexI, indexDel) {

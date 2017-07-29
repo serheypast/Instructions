@@ -11,16 +11,28 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
+var ng2_cloudinary_1 = require("ng2-cloudinary");
 var ProfileComponent = (function () {
     function ProfileComponent(http) {
         var _this = this;
         this.http = http;
+        this.uploader = new ng2_cloudinary_1.CloudinaryUploader(new ng2_cloudinary_1.CloudinaryOptions({ cloudName: 'dr4opxk5i', uploadPreset: 'ajvv2x7e' }));
         this.changeField = true;
         http.get('/api/api/city/').subscribe(function (result) {
             _this.user = result.json();
+            if (_this.user.urlPhoto == null)
+                _this.user.urlPhoto = "j8khmafnd7hbxwpxy0kb";
             console.log(_this.user);
         });
+        this.uploader.onSuccessItem = function (item, response, status, headers) {
+            var res = JSON.parse(response);
+            _this.user.urlPhoto = res.public_id;
+            return { item: item, response: response, status: status, headers: headers };
+        };
     }
+    ProfileComponent.prototype.onChange = function (event) {
+        this.uploader.uploadAll();
+    };
     ProfileComponent.prototype.change = function () {
         this.changeField = !this.changeField;
     };

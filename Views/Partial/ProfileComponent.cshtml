@@ -14,18 +14,16 @@
         padding: 20px;
         -webkit-border-radius: 4px;
         -moz-border-radius: 4px;
-        /*ms-border-radius: 4px;
-            o-border-radius: 4px;*/
+        
         border-radius: 4px;
         border-bottom: 4px solid #ddd;
     }
 
-    #real-estates-detail #author img {
-        -webkit-border-radius: 100%;
-        -moz-border-radius: 100%;
-        /*-ms-border-radius: 100%;
-        -o-border-radius: 100%;*/
-        border-radius: 100%;
+    #real-estates-detail #author cl-image img {
+        /*-webkit-border-radius: 100%;
+        -moz-border-radius: 100%;*/
+        
+        /*border-radius: 100%;*/
         border: 5px solid #ecf0f1;
         margin-bottom: 10px;
     }
@@ -52,13 +50,39 @@
         padding: 5px;
         width: 100%;
     }
+
+    .hover {
+        display: none;
+    }
+
+    #real-estates-detail #author .imageBlock:hover .hover {
+        display:block;
+    }
+
+    .imageBlock {
+        width: 70%;
+        margin-left: 15%;
+    }
+
+    #labelPhoto {
+        position: absolute;
+        top: 60%;
+        left: 38%;
+        background-color: black;
+        background-color: rgba(0, 0, 0, .6);
+        color: aliceblue;
+        width: 61%;
+        margin-left: -17.2%;
+        height: 8%;
+    }
+
 </style>
 
 <div *ngIf="user">
     <div class="container">
         <div id="main">
-
-
+            @*<img src="http://bootstraptema.ru/snippets/element/2016/profilesection/myprofile.jpg">*@
+            @*<cl-image width="458" height="255" [public-id]=user.urlPhoto [cloud-name]="uploader.cloudName"></cl-image>*@
             <div class="row" id="real-estates-detail">
                 <div class="col-lg-4 col-md-4 col-xs-12">
                     <div class="panel panel-default">
@@ -71,10 +95,19 @@
                         </div>
                         <div class="panel-body">
                             <div class="text-center" id="author">
-                                <div>
-                                    <img src="http://bootstraptema.ru/snippets/element/2016/profilesection/myprofile.jpg">
+                                <div class="imageBlock">                              
+                                    <cl-image width="230" height="200" [public-id]=user.urlPhoto [cloud-name]="uploader.cloudName">
+                                       
+                                    </cl-image>                          
+                                    <div class="hover">
+                                        <label id="labelPhoto" title="Change main photo">
+                                            <span class="glyphicon glyphicon-camera" style="margin-top:3%;"></span>
+                                             Change photo
+                                            <input class="hidden" type="file" ng2FileSelect [uploader]="uploader" (change)="onChange($event)" />
+                                        </label>
+                                    </div>
                                 </div>
-                                <h4>{{user.firstName}}   {{user.secondName}}</h4>
+                                <h4><b>{{user.firstName}}   {{user.secondName}}</b></h4>
                                 <h5>Обо мне в трёх словах</h5>
                                 <input class="input-large" *ngIf="changeField" type="text" [(ngModel)]="user.aboutMySelf" style="border: none; padding: 0;" readonly="readonly" />
                                 <input class="inputProfile" *ngIf="!changeField" type="text" [(ngModel)]="user.aboutMySelf" style=" width:100%" />
