@@ -1,13 +1,14 @@
 ﻿import { Component, OnDestroy } from '@angular/core';
 import { Http, Headers, Response, Request, RequestOptions, RequestMethod  } from '@angular/http';
-import { IMyDpOptions, IMyDateModel } from 'mydatepicker';
-import { CloudinaryOptions, CloudinaryUploader } from 'ng2-cloudinary';
+import { RestServiceComponent } from "./service/RestService";
+
 
 
 
 @Component({
     selector: 'profile',
     templateUrl: '/partial/profileComponent',
+    providers: [RestServiceComponent],
 })
 
 
@@ -15,23 +16,16 @@ import { CloudinaryOptions, CloudinaryUploader } from 'ng2-cloudinary';
 
 export class ProfileComponent {
 
-    private myDatePickerOptions: IMyDpOptions = {
-        // other options...
-        dateFormat: 'dd.mm.yyyy',
-
-    };
-
-    // Initialized to specific date (09.10.2018).
- 
-
- 
     public user: UserProfile;
 
-    constructor(private http: Http) {
+    constructor(private http: Http,private service:RestServiceComponent) {
         http.get('/api/api/city/').subscribe(result => {
             this.user = result.json();
             console.log(this.user);
         });
+        console.log("asdad");
+        console.log(service.getUserById("e1022723-7508-40a4-9b99-c52785241552"));
+        console.log(service.getUserById("sadf"));
     }
 
  

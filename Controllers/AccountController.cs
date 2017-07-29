@@ -91,7 +91,7 @@ namespace Instruction.Controllers
                 var user = new User { UserName = login, Email = email };
                 var res = await _userManager.CreateAsync(user);
                 UserProfile userProfile = new UserProfile();
-                userProfile.Id = user.Id;
+                userProfile.IdUser = user.Id;
                 userProfile.FirstName = user.UserName;
                 userProfile.Rating = 0;
                 _db.UserProfile.Add(userProfile);
