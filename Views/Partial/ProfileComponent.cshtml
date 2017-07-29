@@ -74,7 +74,7 @@
                                 <div>
                                     <img src="http://bootstraptema.ru/snippets/element/2016/profilesection/myprofile.jpg">
                                 </div>
-                                <h4><b>{{user.firstName}}   {{user.secondName}}</b></h4>
+                                <h4>{{user.firstName}}   {{user.secondName}}</h4>
                                 <h5>Обо мне в трёх словах</h5>
                                 <input class="input-large" *ngIf="changeField" type="text" [(ngModel)]="user.aboutMySelf" style="border: none; padding: 0;" readonly="readonly" />
                                 <input class="inputProfile" *ngIf="!changeField" type="text" [(ngModel)]="user.aboutMySelf" style=" width:100%" />
