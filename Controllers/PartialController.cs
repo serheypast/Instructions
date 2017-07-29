@@ -9,15 +9,10 @@ namespace A2SPA.Controllers
 {
     public class PartialController : Controller
     {
-        
-
-        public IActionResult AboutComponent() => PartialView();
 
         public IActionResult AppComponent() => PartialView();
 
-        public IActionResult ContactComponent() {
-            return PartialView();
-        }
+        public IActionResult ContactComponent() => PartialView();
 
         public IActionResult IndexComponent() => PartialView();
 
@@ -25,6 +20,7 @@ namespace A2SPA.Controllers
 
         public IActionResult ProfileComponent() => PartialView();
 
+        public IActionResult InstructionComponent() => PartialView();
         public IActionResult TestComponent() => PartialView();
 
         public IActionResult HomeComponent() => PartialView();

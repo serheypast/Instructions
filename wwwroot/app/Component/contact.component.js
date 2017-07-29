@@ -9,13 +9,18 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var ContactComponent = (function () {
     function ContactComponent() {
+        this.items = ['Pizza', 'Pasta', 'Parmesan'];
+        this.saved = false;
     }
+    ContactComponent.prototype.save = function () {
+        this.saved = true;
+    };
     return ContactComponent;
 }());
 ContactComponent = __decorate([
     core_1.Component({
         selector: 'my-contact',
-        templateUrl: '/partial/contactComponent'
+        template: "<h3>\u041E \u0441\u0430\u0439\u0442\u0435</h3>\n                <button class=\"btn btn-default\" (click)=\"save()\">\u0421\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C</button>\n                <a routerLink=\"\">\u041D\u0430 \u0433\u043B\u0430\u0432\u043D\u0443\u044E</a>\n                "
     })
 ], ContactComponent);
 exports.ContactComponent = ContactComponent;

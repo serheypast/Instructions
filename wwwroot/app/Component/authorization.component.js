@@ -7,16 +7,16 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var AboutComponent = (function () {
-    function AboutComponent() {
+var AuthorizationComponent = (function () {
+    function AuthorizationComponent() {
     }
-    return AboutComponent;
+    return AuthorizationComponent;
 }());
-AboutComponent = __decorate([
+AuthorizationComponent = __decorate([
     core_1.Component({
-        selector: 'my-about',
-        templateUrl: '/partial/aboutComponent'
+        selector: 'authorization',
+        templateUrl: '/partial/authorizationComponent'
     })
-], AboutComponent);
-exports.AboutComponent = AboutComponent;
-//# sourceMappingURL=about.component.js.map
+], AuthorizationComponent);
+exports.AuthorizationComponent = AuthorizationComponent;
+//# sourceMappingURL=authorization.component.js.map
