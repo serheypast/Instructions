@@ -4,6 +4,8 @@ import { DomSanitizer } from "@angular/platform-browser"
 import { SafeResourceUrl } from "@angular/platform-browser/src/platform-browser";
 import { Observable } from "rxjs/Rx";
 import { CloudinaryOptions, CloudinaryUploader, CloudinaryImageComponent } from 'ng2-cloudinary';
+import { TagModel } from "ng2-tag-input/dist/modules/core";
+import { FormControl } from "@angular/forms/src/model";
 
 @Component({
     selector: 'instruction',
@@ -14,8 +16,7 @@ import { CloudinaryOptions, CloudinaryUploader, CloudinaryImageComponent } from 
 
 export class InstructionComponent {
 
-    instruction: Instruction = new Instruction();
-    
+    instruction: Instruction = new Instruction();  
 
     addStep() {
         let step: Step = new Step();
@@ -23,7 +24,7 @@ export class InstructionComponent {
     }
 
     constructor(private dragulaService: DragulaService, private sanitizer: DomSanitizer) {
-
+        console.log("created");
         this.instruction.instructionName = "Name";
         this.instruction.mainImageUrl = "j8khmafnd7hbxwpxy0kb";
 
@@ -54,10 +55,14 @@ export class InstructionComponent {
 
     }
 
+    ngOnDestroy() {
+        this.dragulaService.destroy('first-bag');
+        console.log("destroy");
+    }
+
     typePhoto: boolean;
     imageIndex: number;
     imageId: string;
-    //mainImageId: string;
 
     uploader: CloudinaryUploader = new CloudinaryUploader(
         new CloudinaryOptions({ cloudName: 'dr4opxk5i', uploadPreset: 'ajvv2x7e' })
@@ -139,8 +144,24 @@ export class InstructionComponent {
         'The Hague', 'Turin', 'Valencia', 'Vienna', 'Vilnius', 'Warsaw', 'Wrocław',
         'Zagreb', 'Zaragoza', 'Łódź'];
 
-    private value: any = {};
- 
+
+    public validators = [this.addTag];
+
+    private addTag(control: FormControl) {
+        
+        if (control.value.length > 25) {
+            return {
+                'addTag': true
+            };
+        }
+
+        return null;
+    }
+
+    public errorMessages = {
+        'addTag': 'Your tag can have max 15 symbols'       
+    };
+
     public selected(value: any): void {
         this.instruction.category = value.text;
     }

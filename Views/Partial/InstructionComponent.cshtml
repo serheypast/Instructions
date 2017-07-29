@@ -105,7 +105,7 @@
             </div>
 
             <div class="col-md-7 well" style="height:350px">
-                <div class="content">
+               
                     <div class="row">                                        
                             <div class="form-group form-inline" style="text-align:center">
                                 <label>Title</label>
@@ -127,25 +127,25 @@
                             </div>                                      
                     </div>
                     <div class="row" style="margin-top:2%">                       
-                        <tag-input theme='dark' [maxItems]='5' [(ngModel)]='instruction.tags'></tag-input>                                                          
+                        <tag-input theme='dark' [maxItems]='5' [(ngModel)]='instruction.tags' [validators]="validators" [errorMessages]="errorMessages"></tag-input>                                                          
                     </div>
 
-                    <div class="row">
+                   
                         <div class="dasasd" style="margin-top:23%;">
-                            <div class="pull-left">
+                            <div style="bottom:5px; position:absolute; left:7px">
                                 <label title="Add/Change main photo" class="btn btn-default" style="background-color:black; color:aliceblue;">
                                     Add/Change photo
                                     <input class="hidden" type="file" ng2FileSelect [uploader]="uploader" (change)="onChange($event,-1)" />
                                 </label>
                             </div>
-                            <div class="pull-right">
+                            <div style="bottom:5px;position:absolute;right:7px">
                                 <button style="background-color:black; color:aliceblue;" class="btn btn-default">Preview</button>
                                 <button style="background-color:black; color:aliceblue;" class="btn btn-default">Publish</button>
                             </div>
                         </div>
-                    </div>
+                   
 
-                </div>
+               
             </div>
         </div>
     </div>

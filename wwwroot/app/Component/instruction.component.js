@@ -19,7 +19,6 @@ var InstructionComponent = (function () {
         this.dragulaService = dragulaService;
         this.sanitizer = sanitizer;
         this.instruction = new Instruction();
-        //mainImageId: string;
         this.uploader = new ng2_cloudinary_1.CloudinaryUploader(new ng2_cloudinary_1.CloudinaryOptions({ cloudName: 'dr4opxk5i', uploadPreset: 'ajvv2x7e' }));
         this.items = ['Amsterdam', 'Antwerp', 'Athens', 'Barcelona',
             'Berlin', 'Birmingham', 'Bradford', 'Bremen', 'Brussels', 'Bucharest',
@@ -31,7 +30,11 @@ var InstructionComponent = (function () {
             'Rotterdam', 'Seville', 'Sheffield', 'Sofia', 'Stockholm', 'Stuttgart',
             'The Hague', 'Turin', 'Valencia', 'Vienna', 'Vilnius', 'Warsaw', 'Wrocław',
             'Zagreb', 'Zaragoza', 'Łódź'];
-        this.value = {};
+        this.validators = [this.addTag];
+        this.errorMessages = {
+            'addTag': 'Your tag can have max 15 symbols'
+        };
+        console.log("created");
         this.instruction.instructionName = "Name";
         this.instruction.mainImageUrl = "j8khmafnd7hbxwpxy0kb";
         dragulaService.dropModel.subscribe(function (value) {
@@ -60,6 +63,10 @@ var InstructionComponent = (function () {
     InstructionComponent.prototype.addStep = function () {
         var step = new Step();
         this.instruction.steps.push(step);
+    };
+    InstructionComponent.prototype.ngOnDestroy = function () {
+        this.dragulaService.destroy('first-bag');
+        console.log("destroy");
     };
     InstructionComponent.prototype.onDropModel = function (args) {
         var el = args[0], target = args[1], source = args[2];
@@ -114,6 +121,14 @@ var InstructionComponent = (function () {
             this.typePhoto = false;
         this.uploader.uploadAll();
         this.imageIndex = index;
+    };
+    InstructionComponent.prototype.addTag = function (control) {
+        if (control.value.length > 25) {
+            return {
+                'addTag': true
+            };
+        }
+        return null;
     };
     InstructionComponent.prototype.selected = function (value) {
         this.instruction.category = value.text;
