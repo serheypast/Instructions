@@ -38,6 +38,7 @@
     <Content Include="wwwroot\app\main.js.map" />
     <Content Include="wwwroot\app\main.ts" />
     <Content Include="wwwroot\app\profile.component.ts" />
+    <Content Include="wwwroot\app\service\RestService.ts" />
     <Content Include="wwwroot\app\test.component.ts" />
     <Content Include="wwwroot\css\datepicker.css" />
     <Content Include="wwwroot\css\site.css" />

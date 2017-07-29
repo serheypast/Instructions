@@ -10,18 +10,24 @@ namespace A2SPA.Models
     public class ApplicationContext : IdentityDbContext<User>
     {
         public DbSet<UserProfile> UserProfile { get; set; }
-        public DbSet<Instruction> Instructoin { get; set; }
+        public DbSet<Instruction> Instruction { get; set; }
+        public DbSet<Step> Step { get; set; }
+        public DbSet<Block> Block { get; set; }
+        public DbSet<Category> Category { get; set; }
+        public DbSet<InstructionTag> InstructionTag { get; set; }
+        public DbSet<Commentary> Commentary { get; set; }
+        public DbSet<Achivment> Achivment { get; set; }
+        public DbSet<AchivmentUser> AchivmentUser { get; set; }
+
+
         public ApplicationContext(DbContextOptions<ApplicationContext> options)
             : base(options)
         {
         }
 
-        protected override void OnModelCreating(ModelBuilder builder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(builder);
-            // Customize the ASP.NET Identity model and override the defaults if needed.
-            // For example, you can rename the ASP.NET Identity table names and more.
-            // Add your customizations after calling base.OnModelCreating(builder);
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

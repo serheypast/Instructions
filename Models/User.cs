@@ -10,14 +10,15 @@ namespace A2SPA.Models
 {
     public class User: IdentityUser
     {
-       
+        public UserProfile UserProfile;
     }
 
     public class UserProfile
     {
         [Key]
-        [ForeignKey("User")]
-        public string Id { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
+        public string IdUser { get; set; }
         public string FirstName { get; set; }
         public string SecondName { get; set; }
         public string UrlPhoto { get; set; }
@@ -26,6 +27,7 @@ namespace A2SPA.Models
         public string City { get; set; }
         public string DataOfBirth { get; set; }
         public string AboutMySelf { get; set; }
+
     }
 
     public class Instruction
@@ -33,13 +35,105 @@ namespace A2SPA.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public string AuthorId { get; set; }
+    
         public string Name { get; set; }
         public string DataCreated { get; set; }
         public string PreviewImageUrl { get; set; }
         public int Rating { get; set; }
-        public string Category { get; set; }
+        public Category Category { get; set; }
+        public User User { get; set; }
+
+        public ICollection<Tag> Tags { get; set; }
+        public ICollection<Step> Steps { get; set; }
+
+        public Instruction()
+        {
+            Steps = new List<Step>();
+            Tags = new List<Tag>();
+        }
+
     }
 
+    public class Step
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
 
+        public Instruction Instruction { get; set; }
+        public int Position { get; set; }
+        public string Name { get; set; }
+
+        public ICollection<Block> Blocks { get; set; }
+
+        public Step()
+        {
+            Blocks = new List<Block>();
+        }
+    }
+
+    public class Block
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
+        public Step Step { get; set; }
+        public string Type { get; set; }
+        public string Field { get; set; }
+    }
+
+    public class Category
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
+        public string Name { get; set; }
+    }
+
+    public class Tag
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
+        public string Name { get; set; }
+    }
+
+    public class InstructionTag
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
+
+        public Tag Tag { get; set; }
+        public Instruction Instruction { get; set; }
+    }
+
+    public class Commentary
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
+        public Instruction Instruction { get; set; }
+        public User User { get; set; }
+        public int Content { get; set; }
+    }
+
+    public class Achivment
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string UrlImage { get; set; }
+        public string Description { get; set; }
+    }
+
+    public class AchivmentUser
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
+        public Achivment Achivment { get; set; }
+        public User User { get; set; }
+    }
 }
