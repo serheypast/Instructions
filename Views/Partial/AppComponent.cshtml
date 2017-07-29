@@ -18,10 +18,10 @@
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li>
-                    <a class="nav-link" (click)="setTitle('Home - A2SPA')" routerLink="/home" routerLinkActive="active">Home</a>
+                    <a class="nav-link" routerLink="/home" routerLinkActive="active">Home</a>
                 </li>
                 <li>
-                    <a class="nav-link" (click)="setTitle('About - A2SPA')" routerLink="/instruction">CreateInst</a>
+                    <a class="nav-link" routerLink="/instruction">CreateInst</a>
                 </li>
                
             </ul>
@@ -45,11 +45,9 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> @UserManager.GetUserName(User)<span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a asp-area="" (click)="setTitle('UserProfile - A2SPA')"   routerLink="/profile">My Profile</a></li>
-                                <li><a href="#">Edit</a></li>
-                                <li><a href="#">Setting</a></li>                              
-                                <li><a  asp-area="" (click)="setTitle('UserProfile - A2SPA')"   routerLink="/test">AnyWhere</a></li>
-                                <li><a href="#">Log out</a></li>
+                                <li><a asp-area="" routerLink="/profile">My Profile</a></li>
+                                <li><a href="#">Create instruction</a></li>
+                                <li><a routerLink="/instruction">Log out</a></li>
                             </ul>
                         </li>
                         <li>
@@ -64,7 +62,7 @@
             else
             {
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a asp-area=""  (click)="setTitle('Sign - A2SPA')" routerLink="/authorization"> <span class="glyphicon glyphicon-user"></span> Sign in</a></li>
+                    <li><a asp-area=""  routerLink="/authorization"> <span class="glyphicon glyphicon-user"></span> Sign in</a></li>
                 </ul>
             }
         </div>

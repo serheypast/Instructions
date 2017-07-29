@@ -9,10 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="wwwroot/app\authorization.component.js" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Include="wwwroot\app\app.component.js" />
     <Content Include="wwwroot\app\app.component.js.map">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
@@ -24,17 +20,11 @@
     <Content Include="wwwroot\app\app.module.js.map" />
     <Content Include="wwwroot\app\app.module.ts" />
     <Content Include="wwwroot\app\app.routing.ts" />
-    <Content Include="wwwroot\app\authorization.component.js" />
     <Content Include="wwwroot\app\Component\instruction.component.js" />
     <Content Include="wwwroot\app\Component\instruction.component.js.map" />
     <Content Include="wwwroot\app\Component\instruction.component.ts" />
     <Content Include="wwwroot\app\Component\authorization.component.ts" />
-    <Content Include="wwwroot\app\Component\contact.component.js" />
-    <Content Include="wwwroot\app\Component\contact.component.ts" />
     <Content Include="wwwroot\app\home.component.ts" />
-    <Content Include="wwwroot\app\Component\index.component.js" />
-    <Content Include="wwwroot\app\Component\index.component.js.map" />
-    <Content Include="wwwroot\app\Component\index.component.ts" />
     <Content Include="wwwroot\app\instructionBlock.component.ts" />
     <Content Include="wwwroot\app\Component\profile.component.ts" />
     <Content Include="wwwroot\app\main.js" />

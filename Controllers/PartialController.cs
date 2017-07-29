@@ -12,8 +12,6 @@ namespace A2SPA.Controllers
 
         public IActionResult AppComponent() => PartialView();
 
-        public IActionResult ContactComponent() => PartialView();
-
         public IActionResult IndexComponent() => PartialView();
 
         public IActionResult AuthorizationComponent() => PartialView();
@@ -21,6 +19,7 @@ namespace A2SPA.Controllers
         public IActionResult ProfileComponent() => PartialView();
 
         public IActionResult InstructionComponent() => PartialView();
+
         public IActionResult TestComponent() => PartialView();
 
         public IActionResult HomeComponent() => PartialView();
