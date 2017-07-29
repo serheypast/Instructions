@@ -1,6 +1,6 @@
 ﻿import { Component, OnDestroy } from '@angular/core';
 import { Http, Headers, Response, Request, RequestOptions, RequestMethod  } from '@angular/http';
-import { IMyDpOptions, IMyDateModel } from 'mydatepicker';
+
 import { CloudinaryOptions, CloudinaryUploader } from 'ng2-cloudinary';
 
 
@@ -14,12 +14,6 @@ import { CloudinaryOptions, CloudinaryUploader } from 'ng2-cloudinary';
 
 
 export class ProfileComponent {
-
-    private myDatePickerOptions: IMyDpOptions = {
-        // other options...
-        dateFormat: 'dd.mm.yyyy',
-
-    };
 
     // Initialized to specific date (09.10.2018).
  

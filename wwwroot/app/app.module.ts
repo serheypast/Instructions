@@ -10,9 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { EditorModule } from 'primeng/primeng';
 import { Ng2CloudinaryModule } from 'ng2-cloudinary';
 import { FileUploadModule } from 'ng2-file-upload';
-import { MyDatePickerModule } from 'mydatepicker';
 import { InfiniteScrollModule } from 'angular2-infinite-scroll';
-
 import { ButtonModule, PanelModule } from 'primeng/primeng';
 import { TagInputModule } from 'ng2-tag-input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';

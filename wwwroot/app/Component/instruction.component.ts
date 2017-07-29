@@ -159,7 +159,7 @@ export class InstructionComponent {
     }
 
     public errorMessages = {
-        'addTag': 'Your tag can have max 15 symbols'       
+        'addTag': 'Your tag can have max 25 symbols'       
     };
 
     public selected(value: any): void {

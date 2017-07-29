@@ -32,7 +32,7 @@ var InstructionComponent = (function () {
             'Zagreb', 'Zaragoza', 'Łódź'];
         this.validators = [this.addTag];
         this.errorMessages = {
-            'addTag': 'Your tag can have max 15 symbols'
+            'addTag': 'Your tag can have max 25 symbols'
         };
         console.log("created");
         this.instruction.instructionName = "Name";

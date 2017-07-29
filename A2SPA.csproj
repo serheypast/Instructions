@@ -30,13 +30,11 @@
     <Content Include="wwwroot\app\Component\instruction.component.ts" />
     <Content Include="wwwroot\app\Component\authorization.component.ts" />
     <Content Include="wwwroot\app\Component\contact.component.js" />
-    <Content Include="wwwroot\app\Component\contact.component.js.map" />
     <Content Include="wwwroot\app\Component\contact.component.ts" />
     <Content Include="wwwroot\app\home.component.ts" />
     <Content Include="wwwroot\app\Component\index.component.js" />
     <Content Include="wwwroot\app\Component\index.component.js.map" />
     <Content Include="wwwroot\app\Component\index.component.ts" />
-    <Content Include="wwwroot\app\instructionBlock.component..ts" />
     <Content Include="wwwroot\app\instructionBlock.component.ts" />
     <Content Include="wwwroot\app\Component\profile.component.ts" />
     <Content Include="wwwroot\app\main.js" />
