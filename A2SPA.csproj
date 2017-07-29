@@ -9,11 +9,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="wwwroot\app\about.component.js" />
-    <Content Include="wwwroot\app\about.component.js.map" />
-    <Content Include="wwwroot\app\about.component.ts" />
+    <Content Remove="wwwroot/app\authorization.component.js" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="wwwroot\app\app.component.js" />
-    <Content Include="wwwroot\app\app.component.js.map" />
+    <Content Include="wwwroot\app\app.component.js.map">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
     <Content Include="wwwroot\app\app.component.spec.js" />
     <Content Include="wwwroot\app\app.component.spec.js.map" />
     <Content Include="wwwroot\app\app.component.ts" />
@@ -22,30 +25,36 @@
     <Content Include="wwwroot\app\app.module.ts" />
     <Content Include="wwwroot\app\app.routing.ts" />
     <Content Include="wwwroot\app\authorization.component.js" />
-    <Content Include="wwwroot\app\authorization.component.js.map" />
-    <Content Include="wwwroot\app\authorization.component.ts" />
-    <Content Include="wwwroot\app\authorization.js" />
-    <Content Include="wwwroot\app\authorization.js.map" />
-    <Content Include="wwwroot\app\contact.component.ts" />
-    <Content Include="wwwroot\app\authorization.ts" />
+    <Content Include="wwwroot\app\Component\instruction.component.js" />
+    <Content Include="wwwroot\app\Component\instruction.component.js.map" />
+    <Content Include="wwwroot\app\Component\instruction.component.ts" />
+    <Content Include="wwwroot\app\Component\authorization.component.ts" />
+    <Content Include="wwwroot\app\Component\contact.component.js" />
+    <Content Include="wwwroot\app\Component\contact.component.ts" />
     <Content Include="wwwroot\app\home.component.ts" />
+    <Content Include="wwwroot\app\Component\index.component.js" />
+    <Content Include="wwwroot\app\Component\index.component.js.map" />
+    <Content Include="wwwroot\app\Component\index.component.ts" />
     <Content Include="wwwroot\app\index.component.js" />
     <Content Include="wwwroot\app\index.component.js.map" />
     <Content Include="wwwroot\app\index.component.ts" />
     <Content Include="wwwroot\app\instructionBlock.component..ts" />
     <Content Include="wwwroot\app\instructionBlock.component.ts" />
+    <Content Include="wwwroot\app\Component\profile.component.ts" />
     <Content Include="wwwroot\app\main.js" />
     <Content Include="wwwroot\app\main.js.map" />
     <Content Include="wwwroot\app\main.ts" />
-    <Content Include="wwwroot\app\profile.component.ts" />
+    <Content Include="wwwroot\css\dragula.css" />
     <Content Include="wwwroot\app\service\RestService.ts" />
     <Content Include="wwwroot\app\test.component.ts" />
+    <Content Include="wwwroot\css\dragula.min.css" />
     <Content Include="wwwroot\css\datepicker.css" />
     <Content Include="wwwroot\css\site.css" />
     <Content Include="wwwroot\css\site.min.css" />
     <Content Include="wwwroot\css\styles.css" />
     <Content Include="wwwroot\favicon.ico" />
     <Content Include="wwwroot\js\bootstrap-datepicker.js" />
+    <Content Include="wwwroot\images\Facebook.png" />
     <Content Include="wwwroot\js\locales\bootstrap-datepicker.bg.js" />
     <Content Include="wwwroot\js\locales\bootstrap-datepicker.ca.js" />
     <Content Include="wwwroot\js\locales\bootstrap-datepicker.cs.js" />

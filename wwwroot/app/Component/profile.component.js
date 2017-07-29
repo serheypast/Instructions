@@ -15,10 +15,6 @@ var ProfileComponent = (function () {
     function ProfileComponent(http) {
         var _this = this;
         this.http = http;
-        this.myDatePickerOptions = {
-            // other options...
-            dateFormat: 'dd.mm.yyyy',
-        };
         this.changeField = true;
         http.get('/api/api/city/').subscribe(function (result) {
             _this.user = result.json();
