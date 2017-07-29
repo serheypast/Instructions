@@ -25,7 +25,7 @@ namespace A2SPA.Controllers
         public async Task<IActionResult> City()
         {
             var currentUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            UserProfile user = await db.UserProfile.FirstOrDefaultAsync(p => p.Id == currentUserId);
+            UserProfile user = await db.UserProfile.FirstOrDefaultAsync(p => p.IdUser == currentUserId);
 
             return Ok(new {
                 id = user.Id,
@@ -44,7 +44,7 @@ namespace A2SPA.Controllers
         public async Task<IActionResult> EditProfile([FromBody] UserProfile item)
         {
             db.UserProfile.Update(item);
-            User user = db.Users.First(p => p.Id == item.Id);
+            User user = db.Users.First(p => p.Id == item.IdUser);
             user.UserName = item.FirstName;
             db.Users.Update(user);
             await db.SaveChangesAsync();
@@ -54,7 +54,7 @@ namespace A2SPA.Controllers
         [HttpGet("[action]/{take}/{skip}")]
         public IActionResult GetInstruction(int take, int skip)
         {
-            var items = db.Instructoin.Skip(skip).Take(take).ToArray();
+            var items = db.Instruction.Skip(skip).Take(take).ToArray();
             return new ObjectResult(items);
         }
     }
