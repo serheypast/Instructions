@@ -27,8 +27,8 @@ export class InstructionComponent {
 
     confirm2(index: number) {
         this.confirmationService.confirm({
-            message: 'Do you want to delete this record?',
-            header: 'Delete Confirmation',
+            message: 'Do you want to delete this step?',
+            header: 'Delete step',
             icon: 'fa fa-trash',
             accept: () => {
                 this.deleteStep(index);
