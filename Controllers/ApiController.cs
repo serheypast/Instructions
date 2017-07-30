@@ -22,22 +22,11 @@ namespace A2SPA.Controllers
         }
 
         [HttpGet("[action]")]
-        public async Task<IActionResult> City()
+        public IActionResult City()
         {
             var currentUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            UserProfile user = await db.UserProfile.FirstOrDefaultAsync(p => p.IdUser == currentUserId);
-
-            return Ok(new {
-                id = user.Id,
-                firstName = user.FirstName,
-                secondName = user.SecondName,
-                urlPhoto = user.UrlPhoto,
-                rating = user.Rating,
-                country = user.Country,
-                city = user.City,
-                dataOfBirth = user.DataOfBirth,
-                aboutMySelf = user.AboutMySelf,
-            });
+            UserProfile user = db.UserProfile.First(p => p.IdUser == currentUserId);
+            return new ObjectResult(user);
         }
 
         [HttpPost("[action]")]

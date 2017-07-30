@@ -91,6 +91,7 @@ namespace Instruction.Controllers
                 userProfile.IdUser = user.Id;
                 userProfile.FirstName = user.UserName;
                 userProfile.Rating = 0;
+                user.UserProfile = userProfile;
                 _db.UserProfile.Add(userProfile);
                 _db.SaveChanges();
                 if (res.Succeeded)
