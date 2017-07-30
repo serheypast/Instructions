@@ -57,7 +57,8 @@ export class ProfileComponent {
 }
 
 class UserProfile {
-    id: string;
+    id: number;
+    idUser: string;
     firstName: string;
     secondName: string;
     urlPhoto: string;

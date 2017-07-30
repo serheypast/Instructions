@@ -35,12 +35,17 @@
     <Content Include="wwwroot\app\Component\index.component.js" />
     <Content Include="wwwroot\app\Component\index.component.js.map" />
     <Content Include="wwwroot\app\Component\index.component.ts" />
+    <Content Include="wwwroot\app\index.component.js" />
+    <Content Include="wwwroot\app\index.component.js.map" />
+    <Content Include="wwwroot\app\index.component.ts" />
+    <Content Include="wwwroot\app\instructionBlock.component..ts" />
     <Content Include="wwwroot\app\instructionBlock.component.ts" />
     <Content Include="wwwroot\app\Component\profile.component.ts" />
     <Content Include="wwwroot\app\main.js" />
     <Content Include="wwwroot\app\main.js.map" />
     <Content Include="wwwroot\app\main.ts" />
     <Content Include="wwwroot\css\dragula.css" />
+    <Content Include="wwwroot\app\service\RestService.ts" />
     <Content Include="wwwroot\app\test.component.ts" />
     <Content Include="wwwroot\css\dragula.min.css" />
     <Content Include="wwwroot\css\datepicker.css" />

@@ -16,14 +16,96 @@ namespace A2SPA.Migrations
                 .HasAnnotation("ProductVersion", "1.1.2")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("A2SPA.Models.Achivment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Description");
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("UrlImage");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Achivment");
+                });
+
+            modelBuilder.Entity("A2SPA.Models.AchivmentUser", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("AchivmentId");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AchivmentId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AchivmentUser");
+                });
+
+            modelBuilder.Entity("A2SPA.Models.Block", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Field");
+
+                    b.Property<int?>("StepId");
+
+                    b.Property<string>("Type");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("StepId");
+
+                    b.ToTable("Block");
+                });
+
+            modelBuilder.Entity("A2SPA.Models.Category", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Category");
+                });
+
+            modelBuilder.Entity("A2SPA.Models.Commentary", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("Content");
+
+                    b.Property<int?>("InstructionId");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("InstructionId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Commentary");
+                });
+
             modelBuilder.Entity("A2SPA.Models.Instruction", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("AuthorId");
-
-                    b.Property<string>("Category");
+                    b.Property<int?>("CategoryId");
 
                     b.Property<string>("DataCreated");
 
@@ -33,9 +115,67 @@ namespace A2SPA.Migrations
 
                     b.Property<int>("Rating");
 
+                    b.Property<string>("UserId");
+
                     b.HasKey("Id");
 
-                    b.ToTable("Instructoin");
+                    b.HasIndex("CategoryId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Instruction");
+                });
+
+            modelBuilder.Entity("A2SPA.Models.InstructionTag", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("InstructionId");
+
+                    b.Property<int?>("TagId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("InstructionId");
+
+                    b.HasIndex("TagId");
+
+                    b.ToTable("InstructionTag");
+                });
+
+            modelBuilder.Entity("A2SPA.Models.Step", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("InstructionId");
+
+                    b.Property<string>("Name");
+
+                    b.Property<int>("Position");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("InstructionId");
+
+                    b.ToTable("Step");
+                });
+
+            modelBuilder.Entity("A2SPA.Models.Tag", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("InstructionId");
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("InstructionId");
+
+                    b.ToTable("Tag");
                 });
 
             modelBuilder.Entity("A2SPA.Models.User", b =>
@@ -90,7 +230,7 @@ namespace A2SPA.Migrations
 
             modelBuilder.Entity("A2SPA.Models.UserProfile", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("AboutMySelf");
@@ -102,6 +242,8 @@ namespace A2SPA.Migrations
                     b.Property<string>("DataOfBirth");
 
                     b.Property<string>("FirstName");
+
+                    b.Property<string>("IdUser");
 
                     b.Property<int>("Rating");
 
@@ -219,6 +361,71 @@ namespace A2SPA.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("A2SPA.Models.AchivmentUser", b =>
+                {
+                    b.HasOne("A2SPA.Models.Achivment", "Achivment")
+                        .WithMany()
+                        .HasForeignKey("AchivmentId");
+
+                    b.HasOne("A2SPA.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("A2SPA.Models.Block", b =>
+                {
+                    b.HasOne("A2SPA.Models.Step", "Step")
+                        .WithMany("Blocks")
+                        .HasForeignKey("StepId");
+                });
+
+            modelBuilder.Entity("A2SPA.Models.Commentary", b =>
+                {
+                    b.HasOne("A2SPA.Models.Instruction", "Instruction")
+                        .WithMany()
+                        .HasForeignKey("InstructionId");
+
+                    b.HasOne("A2SPA.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("A2SPA.Models.Instruction", b =>
+                {
+                    b.HasOne("A2SPA.Models.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId");
+
+                    b.HasOne("A2SPA.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("A2SPA.Models.InstructionTag", b =>
+                {
+                    b.HasOne("A2SPA.Models.Instruction", "Instruction")
+                        .WithMany()
+                        .HasForeignKey("InstructionId");
+
+                    b.HasOne("A2SPA.Models.Tag", "Tag")
+                        .WithMany()
+                        .HasForeignKey("TagId");
+                });
+
+            modelBuilder.Entity("A2SPA.Models.Step", b =>
+                {
+                    b.HasOne("A2SPA.Models.Instruction", "Instruction")
+                        .WithMany("Steps")
+                        .HasForeignKey("InstructionId");
+                });
+
+            modelBuilder.Entity("A2SPA.Models.Tag", b =>
+                {
+                    b.HasOne("A2SPA.Models.Instruction")
+                        .WithMany("Tags")
+                        .HasForeignKey("InstructionId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<string>", b =>
