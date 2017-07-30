@@ -11,14 +11,14 @@ import { EditorModule } from 'primeng/primeng';
 import { Ng2CloudinaryModule } from 'ng2-cloudinary';
 import { FileUploadModule } from 'ng2-file-upload';
 import { InfiniteScrollModule } from 'angular2-infinite-scroll';
-import { ButtonModule, PanelModule } from 'primeng/primeng';
+import { ButtonModule, PanelModule, ConfirmDialogModule, ConfirmationService } from 'primeng/primeng';
 import { TagInputModule } from 'ng2-tag-input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SelectModule } from 'ng2-select';
 
 
 @NgModule({
-    imports: [SelectModule, PanelModule,BrowserAnimationsModule, TagInputModule, BrowserModule, routing, DragulaModule, FormsModule, FileUploadModule, Ng2CloudinaryModule, EditorModule, ButtonModule,  HttpModule, InfiniteScrollModule],
+    imports: [ConfirmDialogModule, SelectModule, PanelModule,BrowserAnimationsModule, TagInputModule, BrowserModule, routing, DragulaModule, FormsModule, FileUploadModule, Ng2CloudinaryModule, EditorModule, ButtonModule,  HttpModule, InfiniteScrollModule],
     declarations: [AppComponent, routedComponents, SafePipe],
     providers: [Title, { provide: APP_BASE_HREF, useValue: '/' }],
     bootstrap: [AppComponent]

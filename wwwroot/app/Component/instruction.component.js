@@ -13,11 +13,13 @@ var core_1 = require("@angular/core");
 var ng2_dragula_1 = require("ng2-dragula");
 var platform_browser_1 = require("@angular/platform-browser");
 var ng2_cloudinary_1 = require("ng2-cloudinary");
+var primeng_1 = require("primeng/primeng");
 var InstructionComponent = (function () {
-    function InstructionComponent(dragulaService, sanitizer) {
+    function InstructionComponent(dragulaService, sanitizer, confirmationService) {
         var _this = this;
         this.dragulaService = dragulaService;
         this.sanitizer = sanitizer;
+        this.confirmationService = confirmationService;
         this.instruction = new Instruction();
         this.uploader = new ng2_cloudinary_1.CloudinaryUploader(new ng2_cloudinary_1.CloudinaryOptions({ cloudName: 'dr4opxk5i', uploadPreset: 'ajvv2x7e' }));
         this.items = ['Amsterdam', 'Antwerp', 'Athens', 'Barcelona',
@@ -63,6 +65,19 @@ var InstructionComponent = (function () {
     InstructionComponent.prototype.addStep = function () {
         var step = new Step();
         this.instruction.steps.push(step);
+    };
+    InstructionComponent.prototype.confirm2 = function (index) {
+        var _this = this;
+        this.confirmationService.confirm({
+            message: 'Do you want to delete this record?',
+            header: 'Delete Confirmation',
+            icon: 'fa fa-trash',
+            accept: function () {
+                _this.deleteStep(index);
+            },
+            reject: function () {
+            }
+        });
     };
     InstructionComponent.prototype.ngOnDestroy = function () {
         this.dragulaService.destroy('first-bag');
@@ -138,9 +153,10 @@ InstructionComponent = __decorate([
     core_1.Component({
         selector: 'instruction',
         templateUrl: '/partial/InstructionComponent',
-        styleUrls: ['/Component/InstructionComponent.css']
+        styleUrls: ['/Component/InstructionComponent.css'],
+        providers: [primeng_1.ConfirmationService]
     }),
-    __metadata("design:paramtypes", [ng2_dragula_1.DragulaService, platform_browser_1.DomSanitizer])
+    __metadata("design:paramtypes", [ng2_dragula_1.DragulaService, platform_browser_1.DomSanitizer, primeng_1.ConfirmationService])
 ], InstructionComponent);
 exports.InstructionComponent = InstructionComponent;
 var SafePipe = (function () {
