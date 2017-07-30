@@ -1,7 +1,7 @@
 ﻿import { Component, OnDestroy } from '@angular/core';
 import { Http, Headers, Response, Request, RequestOptions, RequestMethod  } from '@angular/http';
 
-import { CloudinaryOptions, CloudinaryUploader } from 'ng2-cloudinary';
+import { CloudinaryOptions, CloudinaryUploader, CloudinaryImageComponent } from 'ng2-cloudinary';
 
 
 
@@ -10,25 +10,32 @@ import { CloudinaryOptions, CloudinaryUploader } from 'ng2-cloudinary';
     templateUrl: '/partial/profileComponent',
 })
 
-
-
-
 export class ProfileComponent {
 
-    // Initialized to specific date (09.10.2018).
- 
-
- 
     public user: UserProfile;
+
+    uploader: CloudinaryUploader = new CloudinaryUploader(
+        new CloudinaryOptions({ cloudName: 'dr4opxk5i', uploadPreset: 'ajvv2x7e' })
+    );
 
     constructor(private http: Http) {
         http.get('/api/api/city/').subscribe(result => {
             this.user = result.json();
+            if (this.user.urlPhoto == null)
+                this.user.urlPhoto = "j8khmafnd7hbxwpxy0kb";
             console.log(this.user);
         });
+
+        this.uploader.onSuccessItem = (item: any, response: string, status: number, headers: any): any => {
+            let res: any = JSON.parse(response);          
+            this.user.urlPhoto = res.public_id;              
+            return { item, response, status, headers };
+        };
     }
 
- 
+    onChange(event: any) {      
+        this.uploader.uploadAll();
+    }
 
     changeField: boolean = true;
 
