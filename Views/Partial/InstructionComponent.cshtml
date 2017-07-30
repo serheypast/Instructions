@@ -23,6 +23,10 @@
         text-align: center;
     }
 
+    .imageCenter {
+        text-align: center;
+    }
+
     .instruments {
         margin-bottom: 1%;
         margin-top: 1%;
@@ -139,8 +143,8 @@
                                 </label>
                             </div>
                             <div style="bottom:5px;position:absolute;right:7px">
-                                <button style="background-color:black; color:aliceblue;" class="btn btn-default">Preview</button>
-                                <button style="background-color:black; color:aliceblue;" class="btn btn-default">Publish</button>
+                                <button data-toggle="modal" data-target=".bd-example-modal-lg" style="background-color:black; color:aliceblue;" class="btn btn-default">Preview</button>
+                                <button (click)="publish()" style="background-color:black; color:aliceblue;" class="btn btn-default">Publish</button>
                             </div>
                         </div>
                    
@@ -257,3 +261,51 @@
 
 
 
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel"><b>{{instruction.instructionName}}</b></h4>
+            </div>
+            <div class="modal-body">
+
+                <div class="imageCenter">
+                    <cl-image width="450" height="250" [public-id]=instruction.mainImageUrl [cloud-name]="uploader.cloudName"></cl-image>
+                </div>
+
+                <div *ngFor="let step of instruction.steps; let j = index">
+                    <h3><b>Step {{j}}: {{step.name}}</b></h3>
+                    <div *ngFor="let item of step.blocks; let i = index">
+                        <div ngSwitch="{{item.type}}">
+                            <div *ngSwitchCase="'text'">
+                                <div class="row textM">
+                                    <div style="word-wrap:break-word;" [innerHTML]="item.field" *ngIf="!item.state">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div *ngSwitchCase="'photo'">
+                                <div class="imageCenter" >
+                                    <cl-image width="450" height="250" [public-id]=item.field [cloud-name]="uploader.cloudName"></cl-image>
+                                </div>
+                            </div>
+
+                            <div *ngSwitchCase="'video'">
+                                <div class="imageCenter" style="height:250px; width:450px;">
+                                    <iframe *ngIf="item.state" [src]="item.field | safe" frameborder="0" allowfullscreen></iframe>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                 </div>
+
+                </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

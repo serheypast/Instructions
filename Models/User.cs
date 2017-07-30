@@ -42,7 +42,6 @@ namespace A2SPA.Models
         public int Rating { get; set; }
         public Category Category { get; set; }
         public User User { get; set; }
-
         public ICollection<Tag> Tags { get; set; }
         public ICollection<Step> Steps { get; set; }
 
@@ -115,6 +114,7 @@ namespace A2SPA.Models
         public int Id { get; set; }
         public Instruction Instruction { get; set; }
         public User User { get; set; }
+        public string DataCreated { get; set; }
         public int Content { get; set; }
     }
 

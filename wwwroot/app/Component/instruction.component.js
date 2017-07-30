@@ -23,15 +23,7 @@ var InstructionComponent = (function () {
         this.instruction = new Instruction();
         this.uploader = new ng2_cloudinary_1.CloudinaryUploader(new ng2_cloudinary_1.CloudinaryOptions({ cloudName: 'dr4opxk5i', uploadPreset: 'ajvv2x7e' }));
         this.items = ['Amsterdam', 'Antwerp', 'Athens', 'Barcelona',
-            'Berlin', 'Birmingham', 'Bradford', 'Bremen', 'Brussels', 'Bucharest',
-            'Budapest', 'Cologne', 'Copenhagen', 'Dortmund', 'Dresden', 'Dublin',
-            'Düsseldorf', 'Essen', 'Frankfurt', 'Genoa', 'Glasgow', 'Gothenburg',
-            'Hamburg', 'Hannover', 'Helsinki', 'Kraków', 'Leeds', 'Leipzig', 'Lisbon',
-            'London', 'Madrid', 'Manchester', 'Marseille', 'Milan', 'Munich', 'Málaga',
-            'Naples', 'Palermo', 'Paris', 'Poznań', 'Prague', 'Riga', 'Rome',
-            'Rotterdam', 'Seville', 'Sheffield', 'Sofia', 'Stockholm', 'Stuttgart',
-            'The Hague', 'Turin', 'Valencia', 'Vienna', 'Vilnius', 'Warsaw', 'Wrocław',
-            'Zagreb', 'Zaragoza', 'Łódź'];
+            'Berlin'];
         this.validators = [this.addTag];
         this.errorMessages = {
             'addTag': 'Your tag can have max 25 symbols'
@@ -69,8 +61,8 @@ var InstructionComponent = (function () {
     InstructionComponent.prototype.confirm2 = function (index) {
         var _this = this;
         this.confirmationService.confirm({
-            message: 'Do you want to delete this record?',
-            header: 'Delete Confirmation',
+            message: 'Do you want to delete this step?',
+            header: 'Delete step',
             icon: 'fa fa-trash',
             accept: function () {
                 _this.deleteStep(index);
@@ -82,6 +74,9 @@ var InstructionComponent = (function () {
     InstructionComponent.prototype.ngOnDestroy = function () {
         this.dragulaService.destroy('first-bag');
         console.log("destroy");
+    };
+    InstructionComponent.prototype.publish = function () {
+        console.log(this.instruction);
     };
     InstructionComponent.prototype.onDropModel = function (args) {
         var el = args[0], target = args[1], source = args[2];
