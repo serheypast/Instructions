@@ -23,6 +23,10 @@
         text-align: center;
     }
 
+    .imageCenter {
+        text-align: center;
+    }
+
     .instruments {
         margin-bottom: 1%;
         margin-top: 1%;
@@ -139,8 +143,8 @@
                                 </label>
                             </div>
                             <div style="bottom:5px;position:absolute;right:7px">
-                                <button style="background-color:black; color:aliceblue;" class="btn btn-default">Preview</button>
-                                <button style="background-color:black; color:aliceblue;" class="btn btn-default">Publish</button>
+                                <button data-toggle="modal" data-target=".bd-example-modal-lg" style="background-color:black; color:aliceblue;" class="btn btn-default">Preview</button>
+                                <button (click)="publish()" style="background-color:black; color:aliceblue;" class="btn btn-default">Publish</button>
                             </div>
                         </div>
                    
@@ -152,7 +156,7 @@
 </div>
   
  
-  
+  <p-confirmDialog></p-confirmDialog>
 
 
 <div [dragula]='"first-bag"' [dragulaModel]='instruction.steps'>
@@ -160,7 +164,7 @@
         <p-panel [toggleable]="true" [style]="{'margin-top':'20px','width':'80%','margin-left':'10%'}">
             <p-header >           
                 <label >Step {{j}}: {{step.name}}</label>  
-                <a class="btn-xs pull-right ui-panel-titlebar-icon ui-panel-titlebar-toggler ui-corner-all ui-state-default" (click)="deleteStep(j)" >
+                <a class="btn-xs pull-right ui-panel-titlebar-icon ui-panel-titlebar-toggler ui-corner-all ui-state-default" (click)="confirm2(j)"  >
                     <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                 </a>
              
@@ -173,10 +177,10 @@
                     <div ngSwitch="{{item.type}}">
                         <div *ngSwitchCase="'text'">
                             <div class="row textM">
-                                <div class="pull-left" style="margin-left:-4%">
+                                <div class="pull-left" style="margin-left:-2%">
                                     <span class="fa fa-hand-rock-o fa-lg"></span>
                                 </div>
-                                <div class="pull-right" style="margin-right:-4%">
+                                <div class="pull-right" style="margin-right:-2%">
                                     <span title="Delete" (click)="removeElement(j,i)" class="glyphicon glyphicon-trash "></span>
                                 </div>
 
@@ -204,10 +208,10 @@
 
                         <div *ngSwitchCase="'photo'">
                             <div class="element">
-                                <div class="pull-left" style="margin-left:-3%">
+                                <div class="pull-left" style="margin-left:25%">
                                     <span class="fa fa-hand-rock-o fa-lg"></span>
                                 </div>
-                                <div class="pull-right" style="margin-right:-3%">
+                                <div class="pull-right" style="margin-right:25%">
                                     <span title="Delete" (click)="removeElement(j,i)" class="glyphicon glyphicon-trash "></span>
                                 </div>
                                 <cl-image width="450" height="250" [public-id]=item.field [cloud-name]="uploader.cloudName"></cl-image>
@@ -216,11 +220,11 @@
                         </div>
 
                         <div *ngSwitchCase="'video'">
-                            <div class="element">
-                                <div class="pull-left" style="margin-left:-3%">
+                            <div class="element" style="height:250px; width:450px;">
+                                <div class="pull-left" style="margin-left:25%">
                                     <span class="fa fa-hand-rock-o fa-lg"></span>
                                 </div>
-                                <div class="pull-right" style="margin-right:-3%">
+                                <div class="pull-right" style="margin-right:25%">
                                     <span title="Delete" (click)="removeElement(j,i)" class="glyphicon glyphicon-trash "></span>
                                 </div>
                                 <div *ngIf="!item.state">                                
@@ -255,3 +259,53 @@
 
     <button (click)="addStep()" class="btn btn-default" style="background-color:black; color:aliceblue; margin-top:2%; margin-left:47%">Add step</button>
 
+
+
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel"><b>{{instruction.instructionName}}</b></h4>
+            </div>
+            <div class="modal-body">
+
+                <div class="imageCenter">
+                    <cl-image width="450" height="250" [public-id]=instruction.mainImageUrl [cloud-name]="uploader.cloudName"></cl-image>
+                </div>
+
+                <div *ngFor="let step of instruction.steps; let j = index">
+                    <h3><b>Step {{j}}: {{step.name}}</b></h3>
+                    <div *ngFor="let item of step.blocks; let i = index">
+                        <div ngSwitch="{{item.type}}">
+                            <div *ngSwitchCase="'text'">
+                                <div class="row textM">
+                                    <div style="word-wrap:break-word;" [innerHTML]="item.field" *ngIf="!item.state">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div *ngSwitchCase="'photo'">
+                                <div class="imageCenter" >
+                                    <cl-image width="450" height="250" [public-id]=item.field [cloud-name]="uploader.cloudName"></cl-image>
+                                </div>
+                            </div>
+
+                            <div *ngSwitchCase="'video'">
+                                <div class="imageCenter" style="height:250px; width:450px;">
+                                    <iframe *ngIf="item.state" [src]="item.field | safe" frameborder="0" allowfullscreen></iframe>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                 </div>
+
+                </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

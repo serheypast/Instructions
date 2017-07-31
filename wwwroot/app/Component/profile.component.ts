@@ -1,7 +1,7 @@
 ﻿import { Component, OnDestroy } from '@angular/core';
 import { Http, Headers, Response, Request, RequestOptions, RequestMethod  } from '@angular/http';
 import { ActivatedRoute } from '@angular/router';
-import { CloudinaryOptions, CloudinaryUploader } from 'ng2-cloudinary';
+import { CloudinaryOptions, CloudinaryUploader, CloudinaryImageComponent } from 'ng2-cloudinary';
 import { Subscription } from 'rxjs/Subscription';
 import { RestService } from "./../RestService/RestService";
 
@@ -11,13 +11,8 @@ import { RestService } from "./../RestService/RestService";
     providers: [RestService],
 })
 
-
-
-
 export class ProfileComponent {
 
-    // Initialized to specific date (09.10.2018).
- 
     private id: number;
     private subscription: Subscription;
     public user: UserProfile;
@@ -27,9 +22,22 @@ export class ProfileComponent {
         console.log(this.id);
         service.getUserById(this.id.toString()).subscribe(result => {
             this.user = result.json();
+            if (this.user.urlPhoto == null)
+                this.user.urlPhoto = "j8khmafnd7hbxwpxy0kb";
+            console.log(this.user);
         });
     }
 
+        this.uploader.onSuccessItem = (item: any, response: string, status: number, headers: any): any => {
+            let res: any = JSON.parse(response);          
+            this.user.urlPhoto = res.public_id;              
+            return { item, response, status, headers };
+        };
+    }
+
+    onChange(event: any) {      
+        this.uploader.uploadAll();
+    }
 
     changeField: boolean = true;
 

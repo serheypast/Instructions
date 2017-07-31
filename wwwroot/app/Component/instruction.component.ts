@@ -6,11 +6,13 @@ import { Observable } from "rxjs/Rx";
 import { CloudinaryOptions, CloudinaryUploader, CloudinaryImageComponent } from 'ng2-cloudinary';
 import { TagModel } from "ng2-tag-input/dist/modules/core";
 import { FormControl } from "@angular/forms/src/model";
+import { ConfirmationService } from 'primeng/primeng';
 
 @Component({
     selector: 'instruction',
     templateUrl: '/partial/InstructionComponent', 
-    styleUrls: ['/Component/InstructionComponent.css']
+    styleUrls: ['/Component/InstructionComponent.css'],
+    providers: [ConfirmationService]
 })
 
 
@@ -23,7 +25,21 @@ export class InstructionComponent {
         this.instruction.steps.push(step);
     }
 
-    constructor(private dragulaService: DragulaService, private sanitizer: DomSanitizer) {
+    confirm2(index: number) {
+        this.confirmationService.confirm({
+            message: 'Do you want to delete this step?',
+            header: 'Delete step',
+            icon: 'fa fa-trash',
+            accept: () => {
+                this.deleteStep(index);
+            },
+            reject: () => {
+                
+            }
+        });
+    }
+
+    constructor(private dragulaService: DragulaService, private sanitizer: DomSanitizer, private confirmationService: ConfirmationService) {
         console.log("created");
         this.instruction.instructionName = "Name";
         this.instruction.mainImageUrl = "j8khmafnd7hbxwpxy0kb";
@@ -60,6 +76,11 @@ export class InstructionComponent {
         console.log("destroy");
     }
 
+    publish() {
+        console.log(this.instruction);
+        
+    }
+
     typePhoto: boolean;
     imageIndex: number;
     imageId: string;
@@ -85,8 +106,7 @@ export class InstructionComponent {
         elem.field = "";
         elem.type = "text";
         elem.state = true;
-        this.instruction.steps[index].blocks.push(elem);
-       
+        this.instruction.steps[index].blocks.push(elem);    
     }
 
     AddPhoto(index : number): void {
@@ -113,7 +133,6 @@ export class InstructionComponent {
     }
 
     safeOn(url: string): SafeResourceUrl {
-        console.log("опача");
         return this.sanitizer.bypassSecurityTrustResourceUrl(url);
     }
 
@@ -134,15 +153,7 @@ export class InstructionComponent {
 
 
     public items: Array<string> = ['Amsterdam', 'Antwerp', 'Athens', 'Barcelona',
-        'Berlin', 'Birmingham', 'Bradford', 'Bremen', 'Brussels', 'Bucharest',
-        'Budapest', 'Cologne', 'Copenhagen', 'Dortmund', 'Dresden', 'Dublin',
-        'Düsseldorf', 'Essen', 'Frankfurt', 'Genoa', 'Glasgow', 'Gothenburg',
-        'Hamburg', 'Hannover', 'Helsinki', 'Kraków', 'Leeds', 'Leipzig', 'Lisbon',
-        'London', 'Madrid', 'Manchester', 'Marseille', 'Milan', 'Munich', 'Málaga',
-        'Naples', 'Palermo', 'Paris', 'Poznań', 'Prague', 'Riga', 'Rome',
-        'Rotterdam', 'Seville', 'Sheffield', 'Sofia', 'Stockholm', 'Stuttgart',
-        'The Hague', 'Turin', 'Valencia', 'Vienna', 'Vilnius', 'Warsaw', 'Wrocław',
-        'Zagreb', 'Zaragoza', 'Łódź'];
+        'Berlin'];
 
 
     public validators = [this.addTag];

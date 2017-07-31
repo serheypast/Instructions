@@ -127,6 +127,7 @@ namespace A2SPA.Models
         public int Id { get; set; }
         public Instruction Instruction { get; set; }
         public User User { get; set; }
+        public string DataCreated { get; set; }
         public int Content { get; set; }
         public string Date { get; set; }
     }

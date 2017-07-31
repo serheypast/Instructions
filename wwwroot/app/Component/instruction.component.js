@@ -13,23 +13,17 @@ var core_1 = require("@angular/core");
 var ng2_dragula_1 = require("ng2-dragula");
 var platform_browser_1 = require("@angular/platform-browser");
 var ng2_cloudinary_1 = require("ng2-cloudinary");
+var primeng_1 = require("primeng/primeng");
 var InstructionComponent = (function () {
-    function InstructionComponent(dragulaService, sanitizer) {
+    function InstructionComponent(dragulaService, sanitizer, confirmationService) {
         var _this = this;
         this.dragulaService = dragulaService;
         this.sanitizer = sanitizer;
+        this.confirmationService = confirmationService;
         this.instruction = new Instruction();
         this.uploader = new ng2_cloudinary_1.CloudinaryUploader(new ng2_cloudinary_1.CloudinaryOptions({ cloudName: 'dr4opxk5i', uploadPreset: 'ajvv2x7e' }));
         this.items = ['Amsterdam', 'Antwerp', 'Athens', 'Barcelona',
-            'Berlin', 'Birmingham', 'Bradford', 'Bremen', 'Brussels', 'Bucharest',
-            'Budapest', 'Cologne', 'Copenhagen', 'Dortmund', 'Dresden', 'Dublin',
-            'Düsseldorf', 'Essen', 'Frankfurt', 'Genoa', 'Glasgow', 'Gothenburg',
-            'Hamburg', 'Hannover', 'Helsinki', 'Kraków', 'Leeds', 'Leipzig', 'Lisbon',
-            'London', 'Madrid', 'Manchester', 'Marseille', 'Milan', 'Munich', 'Málaga',
-            'Naples', 'Palermo', 'Paris', 'Poznań', 'Prague', 'Riga', 'Rome',
-            'Rotterdam', 'Seville', 'Sheffield', 'Sofia', 'Stockholm', 'Stuttgart',
-            'The Hague', 'Turin', 'Valencia', 'Vienna', 'Vilnius', 'Warsaw', 'Wrocław',
-            'Zagreb', 'Zaragoza', 'Łódź'];
+            'Berlin'];
         this.validators = [this.addTag];
         this.errorMessages = {
             'addTag': 'Your tag can have max 25 symbols'
@@ -64,9 +58,25 @@ var InstructionComponent = (function () {
         var step = new Step();
         this.instruction.steps.push(step);
     };
+    InstructionComponent.prototype.confirm2 = function (index) {
+        var _this = this;
+        this.confirmationService.confirm({
+            message: 'Do you want to delete this step?',
+            header: 'Delete step',
+            icon: 'fa fa-trash',
+            accept: function () {
+                _this.deleteStep(index);
+            },
+            reject: function () {
+            }
+        });
+    };
     InstructionComponent.prototype.ngOnDestroy = function () {
         this.dragulaService.destroy('first-bag');
         console.log("destroy");
+    };
+    InstructionComponent.prototype.publish = function () {
+        console.log(this.instruction);
     };
     InstructionComponent.prototype.onDropModel = function (args) {
         var el = args[0], target = args[1], source = args[2];
@@ -105,7 +115,6 @@ var InstructionComponent = (function () {
         this.instruction.steps[indexI].blocks[indexJ].state = true;
     };
     InstructionComponent.prototype.safeOn = function (url) {
-        console.log("опача");
         return this.sanitizer.bypassSecurityTrustResourceUrl(url);
     };
     InstructionComponent.prototype.removeElement = function (indexI, indexDel) {
@@ -139,9 +148,10 @@ InstructionComponent = __decorate([
     core_1.Component({
         selector: 'instruction',
         templateUrl: '/partial/InstructionComponent',
-        styleUrls: ['/Component/InstructionComponent.css']
+        styleUrls: ['/Component/InstructionComponent.css'],
+        providers: [primeng_1.ConfirmationService]
     }),
-    __metadata("design:paramtypes", [ng2_dragula_1.DragulaService, platform_browser_1.DomSanitizer])
+    __metadata("design:paramtypes", [ng2_dragula_1.DragulaService, platform_browser_1.DomSanitizer, primeng_1.ConfirmationService])
 ], InstructionComponent);
 exports.InstructionComponent = InstructionComponent;
 var SafePipe = (function () {
