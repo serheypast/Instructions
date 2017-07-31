@@ -11,6 +11,7 @@ import { InstructionComponent } from './Component/instruction.component';
 import { TestComponent } from './test.component';
 import { HomeComponent } from './home.component';
 import { InstructionBlockComponent } from './instructionBlock.component';
+import { CommentComponent } from './Component/comment.component';
 
 const appRoutes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -19,7 +20,8 @@ const appRoutes: Routes = [
     { path: 'profile/:id', component: ProfileComponent, data: { title: 'profile' } },
     { path: 'instruction', component: InstructionComponent, data: { title: 'instruction' }},
     { path: 'instructionBlock', component: InstructionBlockComponent, data: { title: 'InstructionBlock' } },
+    { path: 'comment', component: CommentComponent, data : { title: 'Comment' } },
 ];
 
 export const routing = RouterModule.forRoot(appRoutes);
-export const routedComponents = [HomeComponent, InstructionBlockComponent, AuthorizationComponent, ProfileComponent, TestComponent,InstructionComponent];
+export const routedComponents = [CommentComponent, HomeComponent, InstructionBlockComponent, AuthorizationComponent, ProfileComponent, TestComponent,InstructionComponent];

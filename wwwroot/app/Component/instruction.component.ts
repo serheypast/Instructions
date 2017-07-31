@@ -204,5 +204,5 @@ class Instruction {
     category: string;
     tags: string[] = [];
     steps: Step[] = [];
-
 }
+

@@ -150,4 +150,7 @@ namespace A2SPA.Models
         public Achivment Achivment { get; set; }
         public User User { get; set; }
     }
+
+    
+
 }
