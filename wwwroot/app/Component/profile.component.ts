@@ -17,6 +17,11 @@ export class ProfileComponent {
     private subscription: Subscription;
     public user: UserProfile;
 
+
+    uploader: CloudinaryUploader = new CloudinaryUploader(
+        new CloudinaryOptions({ cloudName: 'dr4opxk5i', uploadPreset: 'ajvv2x7e' })
+    );
+
     constructor(private http: Http, private activateRoute: ActivatedRoute, private service: RestService) {
         this.subscription = activateRoute.params.subscribe(params => this.id = params['id']);
         console.log(this.id);
@@ -26,7 +31,6 @@ export class ProfileComponent {
                 this.user.urlPhoto = "j8khmafnd7hbxwpxy0kb";
             console.log(this.user);
         });
-    }
 
         this.uploader.onSuccessItem = (item: any, response: string, status: number, headers: any): any => {
             let res: any = JSON.parse(response);          
