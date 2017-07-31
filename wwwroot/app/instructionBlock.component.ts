@@ -12,7 +12,7 @@ export class InstructionBlockComponent {
 
 
     constructor(private http: Http) {
-        http.get('/api/api/getInstruction/15/0').subscribe(result => {
+        http.get('/api/getInstruction/15/0').subscribe(result => {
             this.instructions = result.json();
         });
 
@@ -21,7 +21,7 @@ export class InstructionBlockComponent {
 
     onScroll() {
         console.log(this.instructions.length.toString());
-        this.http.get('/api/api/getInstruction/15/' + this.instructions.length.toString()).subscribe(result => {
+        this.http.get('/api/getInstruction/15/' + this.instructions.length.toString()).subscribe(result => {
             this.instructions = this.instructions.concat(result.json());
         });
     }

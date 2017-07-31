@@ -1,13 +1,14 @@
 ﻿import { Component, OnDestroy } from '@angular/core';
 import { Http, Headers, Response, Request, RequestOptions, RequestMethod  } from '@angular/http';
-
+import { ActivatedRoute } from '@angular/router';
 import { CloudinaryOptions, CloudinaryUploader } from 'ng2-cloudinary';
-
-
+import { Subscription } from 'rxjs/Subscription';
+import { RestService } from "./../RestService/RestService";
 
 @Component({
     selector: 'profile',
     templateUrl: '/partial/profileComponent',
+    providers: [RestService],
 })
 
 
@@ -17,18 +18,18 @@ export class ProfileComponent {
 
     // Initialized to specific date (09.10.2018).
  
-
- 
+    private id: number;
+    private subscription: Subscription;
     public user: UserProfile;
 
-    constructor(private http: Http) {
-        http.get('/api/api/city/').subscribe(result => {
+    constructor(private http: Http, private activateRoute: ActivatedRoute, private service: RestService) {
+        this.subscription = activateRoute.params.subscribe(params => this.id = params['id']);
+        console.log(this.id);
+        service.getUserById(this.id.toString()).subscribe(result => {
             this.user = result.json();
-            console.log(this.user);
         });
     }
 
- 
 
     changeField: boolean = true;
 
@@ -37,20 +38,7 @@ export class ProfileComponent {
     }
 
     ngOnDestroy() {
-        // prevent memory leak when component is destroyed
-        console.log("sergey byu");
-        let body = JSON.stringify(this.user);
-        let headers = new Headers({ 'Content-Type': 'application/json'  });
-
-        this.http.post("api/api/editProfile", body, { headers: headers })
-            .subscribe(
-            (data) => {
-                console.log('Response received');
-                console.log(data);
-            },
-            (err) => { console.log('Error'); },
-            () => console.log('Authentication Complete')
-            );
+        this.service.editProfile(this.user);
     }
 
 

@@ -11,29 +11,26 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
+var router_1 = require("@angular/router");
+var RestService_1 = require("./../RestService/RestService");
 var ProfileComponent = (function () {
-    function ProfileComponent(http) {
+    function ProfileComponent(http, activateRoute, service) {
         var _this = this;
         this.http = http;
+        this.activateRoute = activateRoute;
+        this.service = service;
         this.changeField = true;
-        http.get('/api/api/city/').subscribe(function (result) {
+        this.subscription = activateRoute.params.subscribe(function (params) { return _this.id = params['id']; });
+        console.log(this.id);
+        service.getUserById(this.id.toString()).subscribe(function (result) {
             _this.user = result.json();
-            console.log(_this.user);
         });
     }
     ProfileComponent.prototype.change = function () {
         this.changeField = !this.changeField;
     };
     ProfileComponent.prototype.ngOnDestroy = function () {
-        // prevent memory leak when component is destroyed
-        console.log("sergey byu");
-        var body = JSON.stringify(this.user);
-        var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
-        this.http.post("api/api/editProfile", body, { headers: headers })
-            .subscribe(function (data) {
-            console.log('Response received');
-            console.log(data);
-        }, function (err) { console.log('Error'); }, function () { return console.log('Authentication Complete'); });
+        this.service.editProfile(this.user);
     };
     return ProfileComponent;
 }());
@@ -41,8 +38,9 @@ ProfileComponent = __decorate([
     core_1.Component({
         selector: 'profile',
         templateUrl: '/partial/profileComponent',
+        providers: [RestService_1.RestService],
     }),
-    __metadata("design:paramtypes", [http_1.Http])
+    __metadata("design:paramtypes", [http_1.Http, router_1.ActivatedRoute, RestService_1.RestService])
 ], ProfileComponent);
 exports.ProfileComponent = ProfileComponent;
 var UserProfile = (function () {

@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace A2SPA.Models
 {
@@ -30,29 +31,7 @@ namespace A2SPA.Models
 
     }
 
-    public class Instruction
-    {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
-    
-        public string Name { get; set; }
-        public string DataCreated { get; set; }
-        public string PreviewImageUrl { get; set; }
-        public int Rating { get; set; }
-        public Category Category { get; set; }
-        public User User { get; set; }
-
-        public ICollection<Tag> Tags { get; set; }
-        public ICollection<Step> Steps { get; set; }
-
-        public Instruction()
-        {
-            Steps = new List<Step>();
-            Tags = new List<Tag>();
-        }
-
-    }
+ 
 
     public class Step
     {
@@ -87,7 +66,33 @@ namespace A2SPA.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+       
         public string Name { get; set; }
+    }
+
+    public class Instruction
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
+
+        public string Name { get; set; }
+        public string DataCreated { get; set; }
+        public string PreviewImageUrl { get; set; }
+        public int Rating { get; set; }
+
+        public Category Category { get; set; }
+        public User User { get; set; }
+
+        public ICollection<InstructionTag> Tags { get; set; }
+        public ICollection<Step> Steps { get; set; }
+
+        public Instruction()
+        {
+            Steps = new List<Step>();
+            Tags = new List<InstructionTag>();
+        }
+
     }
 
     public class Tag
@@ -96,6 +101,13 @@ namespace A2SPA.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public string Name { get; set; }
+
+        public ICollection<InstructionTag> Instructions { get; set; }
+
+        public Tag()
+        {
+            Instructions = new List<InstructionTag>();
+        }
     }
 
     public class InstructionTag
@@ -116,6 +128,7 @@ namespace A2SPA.Models
         public Instruction Instruction { get; set; }
         public User User { get; set; }
         public int Content { get; set; }
+        public string Date { get; set; }
     }
 
     public class Achivment

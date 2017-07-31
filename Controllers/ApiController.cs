@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace A2SPA.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api")]
     public class ApiController : Controller
     {
         private ApplicationContext db;
@@ -21,12 +21,11 @@ namespace A2SPA.Controllers
             db = _db;
         }
 
-        [HttpGet("[action]")]
-        public IActionResult City()
+        [HttpGet("[action]/{id}")]
+        public async Task<IActionResult> GetUserById(string id)
         {
-            var currentUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            UserProfile user = db.UserProfile.First(p => p.IdUser == currentUserId);
-            return new ObjectResult(user);
+            UserProfile user = (id.Equals("0")) ? await db.UserProfile.FirstOrDefaultAsync(p => p.IdUser == User.FindFirst(ClaimTypes.NameIdentifier).Value) : await db.UserProfile.FirstOrDefaultAsync(p => p.Id == Convert.ToInt32(id));
+            return (user == null || (user.IdUser = null) != null) ? Ok("No result") : new ObjectResult(user);
         }
 
         [HttpPost("[action]")]
@@ -46,5 +45,14 @@ namespace A2SPA.Controllers
             var items = db.Instruction.Skip(skip).Take(take).ToArray();
             return new ObjectResult(items);
         }
+
+        [HttpPost("[action]")]
+        public IActionResult AddInstruction([FromBody] A2SPA.Models.Instruction item)
+        {
+            db.Instruction.Add(item);
+            db.SaveChanges();
+            return Ok();
+        }
+
     }
 }

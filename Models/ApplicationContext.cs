@@ -18,7 +18,7 @@ namespace A2SPA.Models
         public DbSet<Commentary> Commentary { get; set; }
         public DbSet<Achivment> Achivment { get; set; }
         public DbSet<AchivmentUser> AchivmentUser { get; set; }
-
+        public DbSet<Tag> Tag { get; set; }
 
         public ApplicationContext(DbContextOptions<ApplicationContext> options)
             : base(options)
@@ -28,6 +28,9 @@ namespace A2SPA.Models
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Category>()
+            .HasIndex(u => u.Name)
+            .IsUnique();
         }
     }
 }

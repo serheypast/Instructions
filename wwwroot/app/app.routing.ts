@@ -1,5 +1,10 @@
 ﻿
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
+
 import { Routes, RouterModule } from '@angular/router';
+
 import { IndexComponent } from './Component/index.component';
 import { AuthorizationComponent } from './Component/authorization.component';
 import { ProfileComponent } from './Component/profile.component';
@@ -13,7 +18,7 @@ const appRoutes: Routes = [
     { path: 'home', component: HomeComponent, data: { title: 'Home' } },
     { path: 'index', component: IndexComponent, data: { title: 'Index' } },
     { path: 'authorization', component: AuthorizationComponent, data: { title: 'Authorization' } },
-    { path: 'profile', component: ProfileComponent, data: { title: 'profile' } },
+    { path: 'profile/:id', component: ProfileComponent, data: { title: 'profile' } },
     { path: 'instruction', component: InstructionComponent, data: { title: 'instruction' }},
     { path: 'instructionBlock', component: InstructionBlockComponent, data: { title: 'InstructionBlock' } },
 

@@ -17,14 +17,14 @@ var InstructionBlockComponent = (function () {
         this.http = http;
         //instructions: Instruction[];
         this.instructions = new Array();
-        http.get('/api/api/getInstruction/15/0').subscribe(function (result) {
+        http.get('/api/getInstruction/15/0').subscribe(function (result) {
             _this.instructions = result.json();
         });
     }
     InstructionBlockComponent.prototype.onScroll = function () {
         var _this = this;
         console.log(this.instructions.length.toString());
-        this.http.get('/api/api/getInstruction/15/' + this.instructions.length.toString()).subscribe(function (result) {
+        this.http.get('/api/getInstruction/15/' + this.instructions.length.toString()).subscribe(function (result) {
             _this.instructions = _this.instructions.concat(result.json());
         });
     };

@@ -9,6 +9,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\app\service\**" />
+    <Content Remove="wwwroot\app\service\**" />
+    <EmbeddedResource Remove="wwwroot\app\service\**" />
+    <None Remove="wwwroot\app\service\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Remove="wwwroot/app\authorization.component.js" />
   </ItemGroup>
 
@@ -44,8 +51,8 @@
     <Content Include="wwwroot\app\main.js" />
     <Content Include="wwwroot\app\main.js.map" />
     <Content Include="wwwroot\app\main.ts" />
+    <Content Include="wwwroot\app\RestService\RestService.ts" />
     <Content Include="wwwroot\css\dragula.css" />
-    <Content Include="wwwroot\app\service\RestService.ts" />
     <Content Include="wwwroot\app\test.component.ts" />
     <Content Include="wwwroot\css\dragula.min.css" />
     <Content Include="wwwroot\css\datepicker.css" />

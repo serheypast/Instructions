@@ -8,9 +8,10 @@ using A2SPA.Models;
 namespace A2SPA.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20170730173945_AddUniqFieldNameCategory")]
+    partial class AddUniqFieldNameCategory
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")
@@ -172,9 +173,13 @@ namespace A2SPA.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<int?>("InstructionId");
+
                     b.Property<string>("Name");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("InstructionId");
 
                     b.ToTable("Tag");
                 });
@@ -407,11 +412,11 @@ namespace A2SPA.Migrations
             modelBuilder.Entity("A2SPA.Models.InstructionTag", b =>
                 {
                     b.HasOne("A2SPA.Models.Instruction", "Instruction")
-                        .WithMany("Tags")
+                        .WithMany()
                         .HasForeignKey("InstructionId");
 
                     b.HasOne("A2SPA.Models.Tag", "Tag")
-                        .WithMany("Instructions")
+                        .WithMany()
                         .HasForeignKey("TagId");
                 });
 
@@ -419,6 +424,13 @@ namespace A2SPA.Migrations
                 {
                     b.HasOne("A2SPA.Models.Instruction", "Instruction")
                         .WithMany("Steps")
+                        .HasForeignKey("InstructionId");
+                });
+
+            modelBuilder.Entity("A2SPA.Models.Tag", b =>
+                {
+                    b.HasOne("A2SPA.Models.Instruction")
+                        .WithMany("Tags")
                         .HasForeignKey("InstructionId");
                 });
 

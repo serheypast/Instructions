@@ -13,7 +13,7 @@ var appRoutes = [
     { path: 'home', component: home_component_1.HomeComponent, data: { title: 'Home' } },
     { path: 'index', component: index_component_1.IndexComponent, data: { title: 'Index' } },
     { path: 'authorization', component: authorization_component_1.AuthorizationComponent, data: { title: 'Authorization' } },
-    { path: 'profile', component: profile_component_1.ProfileComponent, data: { title: 'profile' } },
+    { path: 'profile/:id', component: profile_component_1.ProfileComponent, data: { title: 'profile' } },
     { path: 'instruction', component: instruction_component_1.InstructionComponent, data: { title: 'instruction' } },
     { path: 'instructionBlock', component: instructionBlock_component_1.InstructionBlockComponent, data: { title: 'InstructionBlock' } },
 ];
