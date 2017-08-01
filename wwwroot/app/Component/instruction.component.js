@@ -34,7 +34,7 @@ var InstructionComponent = (function () {
         };
         console.log("created");
         this.instruction.name = "Name";
-        this.instruction.previewImageUrl = "j8khmafnd7hbxwpxy0kb";
+        this.instruction.previewImageUrl = "https://res.cloudinary.com/dr4opxk5i/image/upload/j8khmafnd7hbxwpxy0kb.jpg";
         this.instruction.category = this.category;
         dragulaService.dropModel.subscribe(function (value) {
             _this.onDropModel(value.slice(1));
@@ -50,7 +50,7 @@ var InstructionComponent = (function () {
         this.uploader.onSuccessItem = function (item, response, status, headers) {
             var res = JSON.parse(response);
             if (_this.typePhoto) {
-                _this.instruction.previewImageUrl = res.public_id;
+                _this.instruction.previewImageUrl = "https://res.cloudinary.com/dr4opxk5i/image/upload/" + res.public_id + ".jpg";
             }
             else {
                 _this.imageId = res.public_id;
@@ -112,7 +112,7 @@ var InstructionComponent = (function () {
     };
     InstructionComponent.prototype.AddPhoto = function (index) {
         var photo = new Block();
-        photo.field = this.imageId;
+        photo.field = "https://res.cloudinary.com/dr4opxk5i/image/upload/" + this.imageId;
         photo.type = "photo";
         this.instruction.steps[index].blocks.push(photo);
     };

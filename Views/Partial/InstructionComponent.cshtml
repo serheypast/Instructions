@@ -91,7 +91,8 @@
 
             <div class="col-md-5">
                 <div class="card">
-                    <cl-image width="458" height="255"  [public-id]=instruction.previewImageUrl [cloud-name]="uploader.cloudName"></cl-image>
+                   
+                    <img src={{instruction.previewImageUrl}} />
                     <h4>{{instruction.name}}</h4>
                     <div class="row">
                         <div class="pull-left" style="margin-left:7%">
@@ -218,8 +219,7 @@
                                 <div class="pull-right" style="margin-right:25%">
                                     <span title="Delete" (click)="removeElement(j,i)" class="glyphicon glyphicon-trash "></span>
                                 </div>
-                                <cl-image width="450" height="250" [public-id]=item.field [cloud-name]="uploader.cloudName"></cl-image>
-
+                                <img src={{item.field}} style="width:450px; height:250px;" />
                             </div>
                         </div>
 
@@ -313,3 +313,6 @@
         </div>
     </div>
 </div>
+
+
+<img src="https://res.cloudinary.com/dr4opxk5i/image/upload/nwval1kkastrloes97m4.jpg"/>

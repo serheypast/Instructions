@@ -27,12 +27,12 @@ var ProfileComponent = (function () {
         service.getUserById(this.id.toString()).subscribe(function (result) {
             _this.user = result.json();
             if (_this.user.urlPhoto == null)
-                _this.user.urlPhoto = "j8khmafnd7hbxwpxy0kb";
+                _this.user.urlPhoto = "https://res.cloudinary.com/dr4opxk5i/image/upload/j8khmafnd7hbxwpxy0kb.jpg";
             console.log(_this.user);
         });
         this.uploader.onSuccessItem = function (item, response, status, headers) {
             var res = JSON.parse(response);
-            _this.user.urlPhoto = res.public_id;
+            _this.user.urlPhoto = "https://res.cloudinary.com/dr4opxk5i/image/upload/" + res.public_id + ".jpg";
             return { item: item, response: response, status: status, headers: headers };
         };
     }

@@ -45,7 +45,7 @@ export class InstructionComponent {
     constructor(private service: RestService,private dragulaService: DragulaService, private sanitizer: DomSanitizer, private confirmationService: ConfirmationService) {
         console.log("created");
         this.instruction.name = "Name";
-        this.instruction.previewImageUrl = "j8khmafnd7hbxwpxy0kb";
+        this.instruction.previewImageUrl = "https://res.cloudinary.com/dr4opxk5i/image/upload/j8khmafnd7hbxwpxy0kb.jpg"; 
         this.instruction.category = this.category;
 
         dragulaService.dropModel.subscribe((value: any) => {
@@ -64,7 +64,7 @@ export class InstructionComponent {
         this.uploader.onSuccessItem = (item: any, response: string, status: number, headers: any): any => {
             let res: any = JSON.parse(response);
             if (this.typePhoto) {
-                this.instruction.previewImageUrl = res.public_id;
+                this.instruction.previewImageUrl = "https://res.cloudinary.com/dr4opxk5i/image/upload/" + res.public_id + ".jpg";
             }
             else {
                 this.imageId = res.public_id;
@@ -126,7 +126,7 @@ export class InstructionComponent {
 
     AddPhoto(index: number): void {
         let photo: Block = new Block();
-        photo.field = this.imageId;
+        photo.field = "https://res.cloudinary.com/dr4opxk5i/image/upload/" + this.imageId;
         photo.type = "photo";
         this.instruction.steps[index].blocks.push(photo);
     }

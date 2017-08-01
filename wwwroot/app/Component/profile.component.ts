@@ -28,13 +28,13 @@ export class ProfileComponent {
         service.getUserById(this.id.toString()).subscribe(result => {
             this.user = result.json();
             if (this.user.urlPhoto == null)
-                this.user.urlPhoto = "j8khmafnd7hbxwpxy0kb";
+                this.user.urlPhoto = "https://res.cloudinary.com/dr4opxk5i/image/upload/j8khmafnd7hbxwpxy0kb.jpg";    
             console.log(this.user);
         });
 
         this.uploader.onSuccessItem = (item: any, response: string, status: number, headers: any): any => {
             let res: any = JSON.parse(response);          
-            this.user.urlPhoto = res.public_id;              
+            this.user.urlPhoto = "https://res.cloudinary.com/dr4opxk5i/image/upload/" + res.public_id + ".jpg";          
             return { item, response, status, headers };
         };
     }

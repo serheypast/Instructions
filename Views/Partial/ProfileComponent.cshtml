@@ -96,9 +96,10 @@
                         <div class="panel-body">
                             <div class="text-center" id="author">
                                 <div class="imageBlock">                              
-                                    <cl-image width="230" height="200" [public-id]=user.urlPhoto [cloud-name]="uploader.cloudName">
+                                    @*<cl-image width="230" height="200" [public-id]=user.urlPhoto [cloud-name]="uploader.cloudName">
                                        
-                                    </cl-image>                          
+                                    </cl-image>*@   
+                                    <img src="{{user.urlPhoto}}" style="width:230px; height:200px;" />
                                     <div class="hover">
                                         <label id="labelPhoto" title="Change main photo">
                                             <span class="glyphicon glyphicon-camera" style="margin-top:3%;"></span>
