@@ -39,13 +39,13 @@ namespace A2SPA.Migrations
 
                     b.Property<int?>("AchivmentId");
 
-                    b.Property<string>("UserId");
+                    b.Property<int?>("UserProfileId");
 
                     b.HasKey("Id");
 
                     b.HasIndex("AchivmentId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserProfileId");
 
                     b.ToTable("AchivmentUser");
                 });
@@ -90,17 +90,19 @@ namespace A2SPA.Migrations
 
                     b.Property<int>("Content");
 
+                    b.Property<string>("DataCreated");
+
                     b.Property<string>("Date");
 
                     b.Property<int?>("InstructionId");
 
-                    b.Property<string>("UserId");
+                    b.Property<int?>("UserProfileId");
 
                     b.HasKey("Id");
 
                     b.HasIndex("InstructionId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserProfileId");
 
                     b.ToTable("Commentary");
                 });
@@ -120,13 +122,13 @@ namespace A2SPA.Migrations
 
                     b.Property<int>("Rating");
 
-                    b.Property<string>("UserId");
+                    b.Property<int?>("UserProfileId");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserProfileId");
 
                     b.ToTable("Instruction");
                 });
@@ -244,15 +246,17 @@ namespace A2SPA.Migrations
 
                     b.Property<string>("FirstName");
 
-                    b.Property<string>("IdUser");
-
                     b.Property<int>("Rating");
 
                     b.Property<string>("SecondName");
 
                     b.Property<string>("UrlPhoto");
 
+                    b.Property<string>("UserId");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("UserProfile");
                 });
@@ -370,9 +374,9 @@ namespace A2SPA.Migrations
                         .WithMany()
                         .HasForeignKey("AchivmentId");
 
-                    b.HasOne("A2SPA.Models.User", "User")
+                    b.HasOne("A2SPA.Models.UserProfile", "UserProfile")
                         .WithMany()
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserProfileId");
                 });
 
             modelBuilder.Entity("A2SPA.Models.Block", b =>
@@ -388,9 +392,9 @@ namespace A2SPA.Migrations
                         .WithMany()
                         .HasForeignKey("InstructionId");
 
-                    b.HasOne("A2SPA.Models.User", "User")
+                    b.HasOne("A2SPA.Models.UserProfile", "UserProfile")
                         .WithMany()
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserProfileId");
                 });
 
             modelBuilder.Entity("A2SPA.Models.Instruction", b =>
@@ -399,9 +403,9 @@ namespace A2SPA.Migrations
                         .WithMany()
                         .HasForeignKey("CategoryId");
 
-                    b.HasOne("A2SPA.Models.User", "User")
+                    b.HasOne("A2SPA.Models.UserProfile", "UserProfile")
                         .WithMany()
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserProfileId");
                 });
 
             modelBuilder.Entity("A2SPA.Models.InstructionTag", b =>
@@ -420,6 +424,13 @@ namespace A2SPA.Migrations
                     b.HasOne("A2SPA.Models.Instruction", "Instruction")
                         .WithMany("Steps")
                         .HasForeignKey("InstructionId");
+                });
+
+            modelBuilder.Entity("A2SPA.Models.UserProfile", b =>
+                {
+                    b.HasOne("A2SPA.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<string>", b =>

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace A2SPA.Migrations
 {
-    public partial class Initial : Migration
+    public partial class InitialDb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -38,6 +38,19 @@ namespace A2SPA.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Tag",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Tag", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetUsers",
                 columns: table => new
                 {
@@ -60,27 +73,6 @@ namespace A2SPA.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "UserProfile",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    AboutMySelf = table.Column<string>(nullable: true),
-                    City = table.Column<string>(nullable: true),
-                    Country = table.Column<string>(nullable: true),
-                    DataOfBirth = table.Column<string>(nullable: true),
-                    FirstName = table.Column<string>(nullable: true),
-                    IdUser = table.Column<string>(nullable: true),
-                    Rating = table.Column<int>(nullable: false),
-                    SecondName = table.Column<string>(nullable: true),
-                    UrlPhoto = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UserProfile", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -112,55 +104,26 @@ namespace A2SPA.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AchivmentUser",
+                name: "UserProfile",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    AchivmentId = table.Column<int>(nullable: true),
-                    UserId = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AchivmentUser", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_AchivmentUser_Achivment_AchivmentId",
-                        column: x => x.AchivmentId,
-                        principalTable: "Achivment",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_AchivmentUser_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Instruction",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CategoryId = table.Column<int>(nullable: true),
-                    DataCreated = table.Column<string>(nullable: true),
-                    Name = table.Column<string>(nullable: true),
-                    PreviewImageUrl = table.Column<string>(nullable: true),
+                    AboutMySelf = table.Column<string>(nullable: true),
+                    City = table.Column<string>(nullable: true),
+                    Country = table.Column<string>(nullable: true),
+                    DataOfBirth = table.Column<string>(nullable: true),
+                    FirstName = table.Column<string>(nullable: true),
                     Rating = table.Column<int>(nullable: false),
+                    SecondName = table.Column<string>(nullable: true),
+                    UrlPhoto = table.Column<string>(nullable: true),
                     UserId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Instruction", x => x.Id);
+                    table.PrimaryKey("PK_UserProfile", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Instruction_Category_CategoryId",
-                        column: x => x.CategoryId,
-                        principalTable: "Category",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Instruction_AspNetUsers_UserId",
+                        name: "FK_UserProfile_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
@@ -254,14 +217,72 @@ namespace A2SPA.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "AchivmentUser",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    AchivmentId = table.Column<int>(nullable: true),
+                    UserProfileId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AchivmentUser", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AchivmentUser_Achivment_AchivmentId",
+                        column: x => x.AchivmentId,
+                        principalTable: "Achivment",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_AchivmentUser_UserProfile_UserProfileId",
+                        column: x => x.UserProfileId,
+                        principalTable: "UserProfile",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Instruction",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    CategoryId = table.Column<int>(nullable: true),
+                    DataCreated = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: true),
+                    PreviewImageUrl = table.Column<string>(nullable: true),
+                    Rating = table.Column<int>(nullable: false),
+                    UserProfileId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Instruction", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Instruction_Category_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Category",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Instruction_UserProfile_UserProfileId",
+                        column: x => x.UserProfileId,
+                        principalTable: "UserProfile",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Commentary",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Content = table.Column<int>(nullable: false),
+                    DataCreated = table.Column<string>(nullable: true),
+                    Date = table.Column<string>(nullable: true),
                     InstructionId = table.Column<int>(nullable: true),
-                    UserId = table.Column<string>(nullable: true)
+                    UserProfileId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -273,71 +294,9 @@ namespace A2SPA.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Commentary_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Step",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    InstructionId = table.Column<int>(nullable: true),
-                    Name = table.Column<string>(nullable: true),
-                    Position = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Step", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Step_Instruction_InstructionId",
-                        column: x => x.InstructionId,
-                        principalTable: "Instruction",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Tag",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    InstructionId = table.Column<int>(nullable: true),
-                    Name = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Tag", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Tag_Instruction_InstructionId",
-                        column: x => x.InstructionId,
-                        principalTable: "Instruction",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Block",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Field = table.Column<string>(nullable: true),
-                    StepId = table.Column<int>(nullable: true),
-                    Type = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Block", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Block_Step_StepId",
-                        column: x => x.StepId,
-                        principalTable: "Step",
+                        name: "FK_Commentary_UserProfile_UserProfileId",
+                        column: x => x.UserProfileId,
+                        principalTable: "UserProfile",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -368,15 +327,57 @@ namespace A2SPA.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Step",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    InstructionId = table.Column<int>(nullable: true),
+                    Name = table.Column<string>(nullable: true),
+                    Position = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Step", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Step_Instruction_InstructionId",
+                        column: x => x.InstructionId,
+                        principalTable: "Instruction",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Block",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Field = table.Column<string>(nullable: true),
+                    StepId = table.Column<int>(nullable: true),
+                    Type = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Block", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Block_Step_StepId",
+                        column: x => x.StepId,
+                        principalTable: "Step",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AchivmentUser_AchivmentId",
                 table: "AchivmentUser",
                 column: "AchivmentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AchivmentUser_UserId",
+                name: "IX_AchivmentUser_UserProfileId",
                 table: "AchivmentUser",
-                column: "UserId");
+                column: "UserProfileId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Block_StepId",
@@ -384,14 +385,20 @@ namespace A2SPA.Migrations
                 column: "StepId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Category_Name",
+                table: "Category",
+                column: "Name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Commentary_InstructionId",
                 table: "Commentary",
                 column: "InstructionId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Commentary_UserId",
+                name: "IX_Commentary_UserProfileId",
                 table: "Commentary",
-                column: "UserId");
+                column: "UserProfileId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Instruction_CategoryId",
@@ -399,9 +406,9 @@ namespace A2SPA.Migrations
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Instruction_UserId",
+                name: "IX_Instruction_UserProfileId",
                 table: "Instruction",
-                column: "UserId");
+                column: "UserProfileId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_InstructionTag_InstructionId",
@@ -419,11 +426,6 @@ namespace A2SPA.Migrations
                 column: "InstructionId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Tag_InstructionId",
-                table: "Tag",
-                column: "InstructionId");
-
-            migrationBuilder.CreateIndex(
                 name: "EmailIndex",
                 table: "AspNetUsers",
                 column: "NormalizedEmail");
@@ -433,6 +435,11 @@ namespace A2SPA.Migrations
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserProfile_UserId",
+                table: "UserProfile",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "RoleNameIndex",
@@ -476,9 +483,6 @@ namespace A2SPA.Migrations
                 name: "InstructionTag");
 
             migrationBuilder.DropTable(
-                name: "UserProfile");
-
-            migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
             migrationBuilder.DropTable(
@@ -510,6 +514,9 @@ namespace A2SPA.Migrations
 
             migrationBuilder.DropTable(
                 name: "Category");
+
+            migrationBuilder.DropTable(
+                name: "UserProfile");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

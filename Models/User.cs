@@ -1,17 +1,18 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations.Schema;
+
 
 namespace A2SPA.Models
 {
     public class User: IdentityUser
     {
-        public UserProfile UserProfile;
+       
     }
 
     public class UserProfile
@@ -19,7 +20,6 @@ namespace A2SPA.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public string IdUser { get; set; }
         public string FirstName { get; set; }
         public string SecondName { get; set; }
         public string UrlPhoto { get; set; }
@@ -28,6 +28,8 @@ namespace A2SPA.Models
         public string City { get; set; }
         public string DataOfBirth { get; set; }
         public string AboutMySelf { get; set; }
+
+        public User User { get; set; }
 
     }
 
@@ -39,6 +41,7 @@ namespace A2SPA.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
+        [JsonIgnore]
         public Instruction Instruction { get; set; }
         public int Position { get; set; }
         public string Name { get; set; }
@@ -56,6 +59,7 @@ namespace A2SPA.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+        [JsonIgnore]
         public Step Step { get; set; }
         public string Type { get; set; }
         public string Field { get; set; }
@@ -82,8 +86,9 @@ namespace A2SPA.Models
         public int Rating { get; set; }
 
         public Category Category { get; set; }
-        public User User { get; set; }
+        public UserProfile UserProfile { get; set; }
 
+  
         public ICollection<InstructionTag> Tags { get; set; }
         public ICollection<Step> Steps { get; set; }
 
@@ -101,7 +106,7 @@ namespace A2SPA.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public string Name { get; set; }
-
+        [JsonIgnore]
         public ICollection<InstructionTag> Instructions { get; set; }
 
         public Tag()
@@ -117,6 +122,7 @@ namespace A2SPA.Models
         public int Id { get; set; }
 
         public Tag Tag { get; set; }
+        [JsonIgnore]
         public Instruction Instruction { get; set; }
     }
 
@@ -126,7 +132,7 @@ namespace A2SPA.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public Instruction Instruction { get; set; }
-        public User User { get; set; }
+        public UserProfile UserProfile { get; set; }
         public string DataCreated { get; set; }
         public int Content { get; set; }
         public string Date { get; set; }
@@ -148,6 +154,9 @@ namespace A2SPA.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public Achivment Achivment { get; set; }
-        public User User { get; set; }
+        public UserProfile UserProfile { get; set; }
     }
+
+   
+
 }
