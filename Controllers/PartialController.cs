@@ -31,6 +31,8 @@ namespace A2SPA.Controllers
 
         public IActionResult TestComponent() => PartialView();
 
+        public IActionResult CommentComponent() => PartialView();
+
         public IActionResult HomeComponent()
         {         
             return PartialView(); 

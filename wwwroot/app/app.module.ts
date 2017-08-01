@@ -16,7 +16,6 @@ import { TagInputModule } from 'ng2-tag-input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SelectModule } from 'ng2-select';
 
-
 @NgModule({
     imports: [ConfirmDialogModule, SelectModule, PanelModule,BrowserAnimationsModule, TagInputModule, BrowserModule, routing, DragulaModule, FormsModule, FileUploadModule, Ng2CloudinaryModule, EditorModule, ButtonModule,  HttpModule, InfiniteScrollModule],
     declarations: [AppComponent, routedComponents, SafePipe],

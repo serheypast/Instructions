@@ -157,6 +157,5 @@ namespace A2SPA.Models
         public UserProfile UserProfile { get; set; }
     }
 
-   
 
 }

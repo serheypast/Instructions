@@ -23,6 +23,8 @@ var InstructionComponent = (function () {
         this.sanitizer = sanitizer;
         this.confirmationService = confirmationService;
         this.instruction = new Instruction();
+        this.category = new Category();
+        this.tags = [];
         this.uploader = new ng2_cloudinary_1.CloudinaryUploader(new ng2_cloudinary_1.CloudinaryOptions({ cloudName: 'dr4opxk5i', uploadPreset: 'ajvv2x7e' }));
         this.items = ['Amsterdam', 'Antwerp', 'Athens', 'Barcelona',
             'Berlin'];
@@ -31,8 +33,9 @@ var InstructionComponent = (function () {
             'addTag': 'Your tag can have max 25 symbols'
         };
         console.log("created");
-        this.instruction.instructionName = "Name";
-        this.instruction.mainImageUrl = "j8khmafnd7hbxwpxy0kb";
+        this.instruction.name = "Name";
+        this.instruction.previewImageUrl = "j8khmafnd7hbxwpxy0kb";
+        this.instruction.category = this.category;
         dragulaService.dropModel.subscribe(function (value) {
             _this.onDropModel(value.slice(1));
         });
@@ -47,7 +50,7 @@ var InstructionComponent = (function () {
         this.uploader.onSuccessItem = function (item, response, status, headers) {
             var res = JSON.parse(response);
             if (_this.typePhoto) {
-                _this.instruction.mainImageUrl = res.public_id;
+                _this.instruction.previewImageUrl = res.public_id;
             }
             else {
                 _this.imageId = res.public_id;
@@ -75,11 +78,21 @@ var InstructionComponent = (function () {
     };
     InstructionComponent.prototype.ngOnDestroy = function () {
         this.dragulaService.destroy('first-bag');
-        console.log("destroy");
     };
     InstructionComponent.prototype.publish = function () {
+        this.addTags();
         console.log(this.instruction);
         this.service.publishInstruction(this.instruction);
+    };
+    InstructionComponent.prototype.addTags = function () {
+        for (var _i = 0, _a = this.tags; _i < _a.length; _i++) {
+            var tag1 = _a[_i];
+            var tag = new Tag();
+            tag.name = tag1.value;
+            var tagInst = new InstructionTag();
+            tagInst.tag = tag;
+            this.instruction.tags.push(tagInst);
+        }
     };
     InstructionComponent.prototype.onDropModel = function (args) {
         var el = args[0], target = args[1], source = args[2];
@@ -91,24 +104,24 @@ var InstructionComponent = (function () {
         this.instruction.steps[indexI].blocks[indexJ].state = !this.instruction.steps[indexI].blocks[indexJ].state;
     };
     InstructionComponent.prototype.AddText = function (index) {
-        var elem = new Block();
-        elem.field = "";
-        elem.type = "text";
-        elem.state = true;
-        this.instruction.steps[index].blocks.push(elem);
+        var text = new Block();
+        text.field = "";
+        text.type = "text";
+        text.state = true;
+        this.instruction.steps[index].blocks.push(text);
     };
     InstructionComponent.prototype.AddPhoto = function (index) {
-        var elem = new Block();
-        elem.field = this.imageId;
-        elem.type = "photo";
-        this.instruction.steps[index].blocks.push(elem);
+        var photo = new Block();
+        photo.field = this.imageId;
+        photo.type = "photo";
+        this.instruction.steps[index].blocks.push(photo);
     };
     InstructionComponent.prototype.AddVideo = function (index) {
-        var elem = new Block();
-        elem.field = "";
-        elem.type = "video";
-        elem.state = false;
-        this.instruction.steps[index].blocks.push(elem);
+        var video = new Block();
+        video.field = "";
+        video.type = "video";
+        video.state = false;
+        this.instruction.steps[index].blocks.push(video);
     };
     InstructionComponent.prototype.addYoutubeUrl = function (indexI, indexJ) {
         var url = this.instruction.steps[indexI].blocks[indexJ].field;
@@ -143,7 +156,7 @@ var InstructionComponent = (function () {
         return null;
     };
     InstructionComponent.prototype.selected = function (value) {
-        this.instruction.category = value.text;
+        this.category.name = value.text;
     };
     return InstructionComponent;
 }());
@@ -188,5 +201,21 @@ var Instruction = (function () {
         this.steps = [];
     }
     return Instruction;
+}());
+var Category = (function () {
+    function Category() {
+    }
+    return Category;
+}());
+var InstructionTag = (function () {
+    function InstructionTag() {
+    }
+    return InstructionTag;
+}());
+var Tag = (function () {
+    function Tag() {
+        this.instructoins = [];
+    }
+    return Tag;
 }());
 //# sourceMappingURL=instruction.component.js.map
