@@ -126,7 +126,7 @@ export class InstructionComponent {
 
     AddPhoto(index: number): void {
         let photo: Block = new Block();
-        photo.field = "https://res.cloudinary.com/dr4opxk5i/image/upload/" + this.imageId;
+        photo.field = "https://res.cloudinary.com/dr4opxk5i/image/upload/" + this.imageId + ".jpg";
         photo.type = "photo";
         this.instruction.steps[index].blocks.push(photo);
     }

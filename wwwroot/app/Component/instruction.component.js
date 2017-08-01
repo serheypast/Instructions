@@ -112,7 +112,7 @@ var InstructionComponent = (function () {
     };
     InstructionComponent.prototype.AddPhoto = function (index) {
         var photo = new Block();
-        photo.field = "https://res.cloudinary.com/dr4opxk5i/image/upload/" + this.imageId;
+        photo.field = "https://res.cloudinary.com/dr4opxk5i/image/upload/" + this.imageId + ".jpg";
         photo.type = "photo";
         this.instruction.steps[index].blocks.push(photo);
     };
