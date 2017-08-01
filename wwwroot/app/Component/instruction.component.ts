@@ -15,14 +15,16 @@ import { ConfirmationService } from 'primeng/primeng';
     providers: [ConfirmationService]
 })
 
-
 export class InstructionComponent {
 
-    instruction: Instruction = new Instruction();  
+    instruction: Instruction = new Instruction();
+    category: Category = new Category();
+    tags: any[] = [];
 
     addStep() {
         let step: Step = new Step();
         this.instruction.steps.push(step);
+        
     }
 
     confirm2(index: number) {
@@ -34,20 +36,21 @@ export class InstructionComponent {
                 this.deleteStep(index);
             },
             reject: () => {
-                
+
             }
         });
     }
 
     constructor(private dragulaService: DragulaService, private sanitizer: DomSanitizer, private confirmationService: ConfirmationService) {
         console.log("created");
-        this.instruction.instructionName = "Name";
-        this.instruction.mainImageUrl = "j8khmafnd7hbxwpxy0kb";
+        this.instruction.name = "Name";
+        this.instruction.previewImageUrl = "j8khmafnd7hbxwpxy0kb";
+        this.instruction.category = this.category;
 
-        dragulaService.dropModel.subscribe((value:any) => {
+        dragulaService.dropModel.subscribe((value: any) => {
             this.onDropModel(value.slice(1));
         });
-        dragulaService.removeModel.subscribe((value:any) => {
+        dragulaService.removeModel.subscribe((value: any) => {
             this.onRemoveModel(value.slice(1));
         });
 
@@ -58,9 +61,9 @@ export class InstructionComponent {
         });
 
         this.uploader.onSuccessItem = (item: any, response: string, status: number, headers: any): any => {
-            let res: any = JSON.parse(response);         
+            let res: any = JSON.parse(response);
             if (this.typePhoto) {
-                this.instruction.mainImageUrl = res.public_id;
+                this.instruction.previewImageUrl = res.public_id;
             }
             else {
                 this.imageId = res.public_id;
@@ -73,12 +76,23 @@ export class InstructionComponent {
 
     ngOnDestroy() {
         this.dragulaService.destroy('first-bag');
-        console.log("destroy");
     }
 
     publish() {
+        this.addTags();
         console.log(this.instruction);
-        
+
+
+    }
+
+    addTags() {
+        for (let tag1 of this.tags) {
+            let tag = new Tag();
+            tag.name = tag1.value;
+            let tagInst = new InstructionTag();
+            tagInst.tag = tag;
+            this.instruction.tags.push(tagInst);
+        }
     }
 
     typePhoto: boolean;
@@ -89,11 +103,11 @@ export class InstructionComponent {
         new CloudinaryOptions({ cloudName: 'dr4opxk5i', uploadPreset: 'ajvv2x7e' })
     );
 
-    private onDropModel(args:any) {
-        let [el, target, source] = args;   
+    private onDropModel(args: any) {
+        let [el, target, source] = args;
     }
 
-    private onRemoveModel(args:any) {
+    private onRemoveModel(args: any) {
         let [el, source] = args;
     }
 
@@ -102,29 +116,29 @@ export class InstructionComponent {
     }
 
     AddText(index: number): void {
-        let elem: Block = new Block();
-        elem.field = "";
-        elem.type = "text";
-        elem.state = true;
-        this.instruction.steps[index].blocks.push(elem);    
+        let text: Block = new Block();
+        text.field = "";
+        text.type = "text";
+        text.state = true;
+        this.instruction.steps[index].blocks.push(text);
     }
 
-    AddPhoto(index : number): void {
-        let elem: Block = new Block();
-        elem.field = this.imageId;
-        elem.type = "photo";
-        this.instruction.steps[index].blocks.push(elem);
+    AddPhoto(index: number): void {
+        let photo: Block = new Block();
+        photo.field = this.imageId;
+        photo.type = "photo";
+        this.instruction.steps[index].blocks.push(photo);
     }
 
     AddVideo(index: number): void {
-        let elem: Block = new Block();
-        elem.field = "";
-        elem.type = "video";
-        elem.state = false;
-        this.instruction.steps[index].blocks.push(elem);
+        let video: Block = new Block();
+        video.field = "";
+        video.type = "video";
+        video.state = false;
+        this.instruction.steps[index].blocks.push(video);
     }
 
-    addYoutubeUrl(indexI:number ,indexJ: number): void {
+    addYoutubeUrl(indexI: number, indexJ: number): void {
         let url: string = this.instruction.steps[indexI].blocks[indexJ].field;
         let standartUrl: string = "https://www.youtube.com/embed/";
         let str = url.split("=");
@@ -136,7 +150,7 @@ export class InstructionComponent {
         return this.sanitizer.bypassSecurityTrustResourceUrl(url);
     }
 
-    removeElement(indexI: number, indexDel:number): void {
+    removeElement(indexI: number, indexDel: number): void {
         this.instruction.steps[indexI].blocks.splice(indexDel, 1);
     }
 
@@ -159,7 +173,7 @@ export class InstructionComponent {
     public validators = [this.addTag];
 
     private addTag(control: FormControl) {
-        
+
         if (control.value.length > 25) {
             return {
                 'addTag': true
@@ -170,39 +184,78 @@ export class InstructionComponent {
     }
 
     public errorMessages = {
-        'addTag': 'Your tag can have max 25 symbols'       
+        'addTag': 'Your tag can have max 25 symbols'
     };
 
-    public selected(value: any): void {
-        this.instruction.category = value.text;
+    public selected(value: any): void {       
+        this.category.name = value.text;        
     }
+
+   
+
+    //public onItemAdded(tag1: any){       
+    //    console.log(tag1.value);     
+    //    let tag = new Tag();
+    //    tag.name = tag1.value;     
+    //    let tagInst = new InstructionTag();
+    //    tagInst.tag = tag;
+    //    this.instruction.tags.push(tagInst);
+    //}
+
+    //public onItemRemoved(tag1: any) {      
+    //    console.log(tag1.value);   
+    //    console.log(this.instruction);
+    //}
 
 }
 
 @Pipe({ name: 'safe' })
 export class SafePipe implements PipeTransform {
     constructor(private sanitizer: DomSanitizer) { }
-    transform(url:any) {
+    transform(url: any) {
         return this.sanitizer.bypassSecurityTrustResourceUrl(url);
     }
 } 
 
 class Block {
+    id: number;
     type: string;
     field: string;
     state: boolean;
 }
 
 class Step {
-    stepName: string;
-    blocks: Block[] = []; 
+    id: number;
+    position: number;
+    name: string;
+    blocks: Block[] = [];
 }
 
 class Instruction {
-    instructionName: string;
-    mainImageUrl: string;
-    category: string;
-    tags: string[] = [];
+    id: number;
+    name: string;
+    dataCreated: string;
+    previewImageUrl: string;
+    rating: number;
+    category: Category;
+    user: null;
+    tags: InstructionTag[] = [];
     steps: Step[] = [];
 }
 
+class Category {
+    id: number;
+    name: string;
+}
+
+class InstructionTag {
+    id: number;
+    tag: Tag;
+    instruction: Instruction;
+}
+
+class Tag {
+    id: number;
+    name: string;
+    instructoins: InstructionTag[] = [];
+}

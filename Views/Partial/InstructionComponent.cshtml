@@ -81,13 +81,9 @@
        /*height:310px;*/
     }
 
-    
-
 </style>
 
 
-
-@*<img src="http://cevirdikce.com/proje/hasem-2/images/finance-1.jpg">*@
 
 <div class="container">
     <div class="row">
@@ -95,11 +91,11 @@
 
             <div class="col-md-5">
                 <div class="card">
-                    <cl-image width="458" height="255"  [public-id]=instruction.mainImageUrl [cloud-name]="uploader.cloudName"></cl-image>
-                    <h4>{{instruction.instructionName}}</h4>
+                    <cl-image width="458" height="255"  [public-id]=instruction.previewImageUrl [cloud-name]="uploader.cloudName"></cl-image>
+                    <h4>{{instruction.name}}</h4>
                     <div class="row">
                         <div class="pull-left" style="margin-left:7%">
-                            <p>by Anton in {{instruction.category}}</p>
+                            <p>by Anton in {{instruction.category.name}}</p>
                         </div>
                         <div class="pull-right" style="margin-right:7%">
                             <p>0</p>
@@ -113,7 +109,7 @@
                     <div class="row">                                        
                             <div class="form-group form-inline" style="text-align:center">
                                 <label>Title</label>
-                                <input [(ngModel)]='instruction.instructionName' type="text" class="form-control input-sm" placeholder="Title" tabindex="2" style="width:60%">
+                                <input [(ngModel)]='instruction.name' type="text" class="form-control input-sm" placeholder="Title" tabindex="2" style="width:60%">
                             </div>                      
                     </div>
                     <div class="row">              
@@ -130,8 +126,16 @@
                                 </div>
                             </div>                                      
                     </div>
+                <!--Important -->
+
                     <div class="row" style="margin-top:2%">                       
-                        <tag-input theme='dark' [maxItems]='5' [(ngModel)]='instruction.tags' [validators]="validators" [errorMessages]="errorMessages"></tag-input>                                                          
+                        <tag-input  theme='dark'
+                                   [(ngModel)] = "tags"
+                                   [maxItems]='5'
+                                   [validators]="validators"
+                                   [errorMessages]="errorMessages">
+                                 
+                        </tag-input>                                                          
                     </div>
 
                    
@@ -191,7 +195,7 @@
                                     <p-header>
                                         <span class="ql-formats">
                                             <select class="ql-header">
-                                                <option value="1">Heading</option>
+                                               
                                                 <option value="2">Subheading</option>
                                                 <option selected="">Normal</option>
                                             </select>
@@ -268,12 +272,12 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title" id="myModalLabel"><b>{{instruction.instructionName}}</b></h4>
+                <h4 class="modal-title" id="myModalLabel"><b>{{instruction.name}}</b></h4>
             </div>
             <div class="modal-body">
 
                 <div class="imageCenter">
-                    <cl-image width="450" height="250" [public-id]=instruction.mainImageUrl [cloud-name]="uploader.cloudName"></cl-image>
+                    <cl-image width="450" height="250" [public-id]=instruction.previewImageUrl [cloud-name]="uploader.cloudName"></cl-image>
                 </div>
 
                 <div *ngFor="let step of instruction.steps; let j = index">
@@ -282,7 +286,7 @@
                         <div ngSwitch="{{item.type}}">
                             <div *ngSwitchCase="'text'">
                                 <div class="row textM">
-                                    <div style="word-wrap:break-word;" [innerHTML]="item.field" *ngIf="!item.state">
+                                    <div style="word-wrap:break-word;" [innerHTML]="item.field" >
                                     </div>
                                 </div>
                             </div>
