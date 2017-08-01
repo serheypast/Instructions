@@ -17,7 +17,8 @@ var InstructionBlockComponent = (function () {
         this.http = http;
         //instructions: Instruction[];
         this.instructions = new Array();
-        http.get('/api/getInstruction/15/0').subscribe(function (result) {
+        this.defaultInstruction = "15";
+        http.get('/api/getInstruction/' + this.defaultInstruction + '/0').subscribe(function (result) {
             _this.instructions = result.json();
         });
     }
@@ -42,5 +43,15 @@ var Instruction = (function () {
     function Instruction() {
     }
     return Instruction;
+}());
+var Category = (function () {
+    function Category() {
+    }
+    return Category;
+}());
+var UserProfile = (function () {
+    function UserProfile() {
+    }
+    return UserProfile;
 }());
 //# sourceMappingURL=instructionBlock.component.js.map

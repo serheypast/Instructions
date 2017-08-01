@@ -40,7 +40,7 @@ namespace A2SPA.Controllers
         [HttpGet("[action]/{take}/{skip}")]
         public IActionResult GetInstruction(int take, int skip)
         {
-            var items = db.Instruction.Skip(skip).Take(take).ToArray();
+            var items = db.Instruction.Include(p => p.UserProfile).Include(p => p.Category).Skip(skip).Take(take).ToArray();
             return new ObjectResult(items);
         }
 
@@ -58,6 +58,7 @@ namespace A2SPA.Controllers
                     : instTag = db.InstructionTag.FirstOrDefault(p => p.Tag.Name == instructTag.Tag.Name);
                 newTags.Add(instTag);
             }
+            item.UserProfile = db.UserProfile.Include(o => o.User).FirstOrDefault(p => p.User.Id == User.FindFirst(ClaimTypes.NameIdentifier).Value);
             item.Tags = newTags;
             db.Instruction.Add(item);
             db.SaveChanges();
@@ -67,7 +68,7 @@ namespace A2SPA.Controllers
         [HttpGet("[action]/{id}")]
         public IActionResult GetInstructionById(string id)
         {
-            Models.Instruction ins = db.Instruction.Include(p => p.Steps).ThenInclude(p => p.Blocks).Include(p => p.Tags).ThenInclude(p => p.Tag).FirstOrDefault(p => p.Id == Int32.Parse(id));
+            Models.Instruction ins = db.Instruction.Include(p => p.UserProfile).Include(p => p.Category).Include(p => p.Steps).ThenInclude(p => p.Blocks).Include(p => p.Tags).ThenInclude(p => p.Tag).FirstOrDefault(p => p.Id == Int32.Parse(id));
             return new ObjectResult(ins);
         }
 

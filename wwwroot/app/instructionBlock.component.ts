@@ -9,10 +9,10 @@ import { Http } from '@angular/http';
 export class InstructionBlockComponent {
     //instructions: Instruction[];
     instructions: Array<Instruction> = new Array<Instruction>();
-
+    private defaultInstruction: string = "15";
 
     constructor(private http: Http) {
-        http.get('/api/getInstruction/15/0').subscribe(result => {
+        http.get('/api/getInstruction/' + this.defaultInstruction + '/0').subscribe(result => {
             this.instructions = result.json();
         });
 
@@ -27,13 +27,30 @@ export class InstructionBlockComponent {
     }
 }
 
+
 class Instruction {
-    authorId: string;
-    category: string;
-    dataCreated: string;
     id: number;
     name: string;
+    dataCreated: string;
     previewImageUrl: string;
     rating: number;
+    category: Category;
+    userProfile: UserProfile;
+}
 
+class Category {
+    id: number;
+    name: string;
+}
+
+class UserProfile {
+    id: number;
+    firstName: string;
+    secondName: string;
+    urlPhoto: string;
+    rating: number;
+    country: string;
+    city: string;
+    dataOfBirth: string;
+    aboutMySelf: string;
 }
