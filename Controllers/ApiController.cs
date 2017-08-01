@@ -40,7 +40,7 @@ namespace A2SPA.Controllers
         [HttpGet("[action]/{take}/{skip}")]
         public IActionResult GetInstruction(int take, int skip)
         {
-            var items = db.Instruction.Include(p => p.UserProfile).Include(p => p.Category).Skip(skip).Take(take).ToArray();
+            var items = db.Instruction.Include(p => p.UserProfile).Include(p => p.Category).Skip(skip).Take(take).ToList();
             return new ObjectResult(items);
         }
 

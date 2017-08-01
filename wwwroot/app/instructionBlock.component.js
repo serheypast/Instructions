@@ -21,6 +21,7 @@ var InstructionBlockComponent = (function () {
         http.get('/api/getInstruction/' + this.defaultInstruction + '/0').subscribe(function (result) {
             _this.instructions = result.json();
         });
+        console.log(this.instructions);
     }
     InstructionBlockComponent.prototype.onScroll = function () {
         var _this = this;

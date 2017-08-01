@@ -82,7 +82,7 @@ export class InstructionComponent {
     publish() {
         this.addTags();
         console.log(this.instruction);
-        this.service.publishInstruction(this.instruction);
+        //this.service.publishInstruction(this.instruction);
 
     }
 

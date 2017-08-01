@@ -14,8 +14,9 @@ export class InstructionBlockComponent {
     constructor(private http: Http) {
         http.get('/api/getInstruction/' + this.defaultInstruction + '/0').subscribe(result => {
             this.instructions = result.json();
+       
         });
-
+        console.log(this.instructions);
     }
 
 
