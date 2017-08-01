@@ -21,13 +21,57 @@ var RestService = (function () {
         return this.http.get('api/getUserById/' + id);
     };
     RestService.prototype.editProfile = function (user) {
-        var body = JSON.stringify(user);
-        var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
-        this.http.post("api/editProfile", body, { headers: headers })
-            .subscribe(function (data) {
-            console.log('Response received');
-            console.log(data);
-        }, function (err) { console.log('Error'); }, function () { return console.log('Authentication Complete'); });
+        console.log("UserServiceRest");
+        console.log(user);
+        this.http.post("api/editProfile", user).subscribe(function (result) {
+            console.log(result.json());
+        });
+    };
+    RestService.prototype.publishInstruction = function (instruction) {
+        var instr = new Instruction();
+        var step1 = new Step();
+        var step2 = new Step();
+        step1.name = "FirstStep";
+        step2.name = "SecondStep";
+        var bl1 = new Block();
+        var bl2 = new Block();
+        bl1.type = "1";
+        bl1.field = "1 1";
+        bl2.type = "1";
+        bl2.field = "1 2";
+        var bl12 = new Block();
+        var bl22 = new Block();
+        bl12.type = "1";
+        bl12.field = "2 1";
+        bl22.type = "1";
+        bl22.field = "2 2";
+        step1.blocks = step1.blocks.concat(bl1, bl2);
+        step2.blocks = step2.blocks.concat(bl12, bl22);
+        instr.steps = instr.steps.concat(step1, step2);
+        instr.name = "FirstName";
+        var tag = new Tag();
+        tag.name = "One";
+        var tag1 = new Tag();
+        tag1.name = "Two";
+        var tag2 = new Tag();
+        tag2.name = "Three";
+        var tagInst = new InstructionTag();
+        tagInst.tag = tag;
+        var tagInst1 = new InstructionTag();
+        tagInst1.tag = tag1;
+        var tagInst2 = new InstructionTag();
+        tagInst2.tag = tag2;
+        instr.tags = instr.tags.concat(tagInst, tagInst1, tagInst2);
+        var category = new Category();
+        category.name = "pussy";
+        instr.category = category;
+        console.log("publishINst");
+        console.log(instr);
+        //let body = JSON.stringify(instruction);
+        this.http.post("api/publishInstruction", instr)
+            .subscribe(function (result) {
+            console.log(result.json());
+        });
     };
     return RestService;
 }());
@@ -41,5 +85,57 @@ var UserProfile = (function () {
     function UserProfile() {
     }
     return UserProfile;
+}());
+var Block = (function () {
+    function Block() {
+    }
+    return Block;
+}());
+var Step = (function () {
+    function Step() {
+        this.blocks = [];
+    }
+    return Step;
+}());
+var Instruction = (function () {
+    function Instruction() {
+        this.tags = [];
+        this.steps = [];
+    }
+    return Instruction;
+}());
+var Category = (function () {
+    function Category() {
+    }
+    return Category;
+}());
+var InstructionTag = (function () {
+    function InstructionTag() {
+    }
+    return InstructionTag;
+}());
+var Tag = (function () {
+    function Tag() {
+        this.instructoins = [];
+    }
+    return Tag;
+}());
+var Block1 = (function () {
+    function Block1() {
+    }
+    return Block1;
+}());
+var Step1 = (function () {
+    function Step1() {
+        this.blocks = [];
+    }
+    return Step1;
+}());
+var Instruction1 = (function () {
+    function Instruction1() {
+        this.tags = [];
+        this.steps = [];
+    }
+    return Instruction1;
 }());
 //# sourceMappingURL=RestService.js.map
