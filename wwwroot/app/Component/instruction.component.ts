@@ -7,12 +7,13 @@ import { CloudinaryOptions, CloudinaryUploader, CloudinaryImageComponent } from 
 import { TagModel } from "ng2-tag-input/dist/modules/core";
 import { FormControl } from "@angular/forms/src/model";
 import { ConfirmationService } from 'primeng/primeng';
+import { RestService } from "./../RestService/RestService";
 
 @Component({
     selector: 'instruction',
     templateUrl: '/partial/InstructionComponent', 
     styleUrls: ['/Component/InstructionComponent.css'],
-    providers: [ConfirmationService]
+    providers: [ConfirmationService, RestService]
 })
 
 
@@ -39,7 +40,7 @@ export class InstructionComponent {
         });
     }
 
-    constructor(private dragulaService: DragulaService, private sanitizer: DomSanitizer, private confirmationService: ConfirmationService) {
+    constructor(private service: RestService,private dragulaService: DragulaService, private sanitizer: DomSanitizer, private confirmationService: ConfirmationService) {
         console.log("created");
         this.instruction.instructionName = "Name";
         this.instruction.mainImageUrl = "j8khmafnd7hbxwpxy0kb";
@@ -78,7 +79,7 @@ export class InstructionComponent {
 
     publish() {
         console.log(this.instruction);
-        
+        this.service.publishInstruction(this.instruction);
     }
 
     typePhoto: boolean;
@@ -194,7 +195,7 @@ class Block {
 }
 
 class Step {
-    stepName: string;
+    name: string;
     blocks: Block[] = []; 
 }
 

@@ -50,15 +50,13 @@ export class ProfileComponent {
     }
 
     ngOnDestroy() {
+        console.log(this.user);
         this.service.editProfile(this.user);
     }
-
-
 }
 
 class UserProfile {
     id: number;
-    idUser: string;
     firstName: string;
     secondName: string;
     urlPhoto: string;

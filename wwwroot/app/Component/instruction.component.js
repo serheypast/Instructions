@@ -14,9 +14,11 @@ var ng2_dragula_1 = require("ng2-dragula");
 var platform_browser_1 = require("@angular/platform-browser");
 var ng2_cloudinary_1 = require("ng2-cloudinary");
 var primeng_1 = require("primeng/primeng");
+var RestService_1 = require("./../RestService/RestService");
 var InstructionComponent = (function () {
-    function InstructionComponent(dragulaService, sanitizer, confirmationService) {
+    function InstructionComponent(service, dragulaService, sanitizer, confirmationService) {
         var _this = this;
+        this.service = service;
         this.dragulaService = dragulaService;
         this.sanitizer = sanitizer;
         this.confirmationService = confirmationService;
@@ -77,6 +79,7 @@ var InstructionComponent = (function () {
     };
     InstructionComponent.prototype.publish = function () {
         console.log(this.instruction);
+        this.service.publishInstruction(this.instruction);
     };
     InstructionComponent.prototype.onDropModel = function (args) {
         var el = args[0], target = args[1], source = args[2];
@@ -149,9 +152,9 @@ InstructionComponent = __decorate([
         selector: 'instruction',
         templateUrl: '/partial/InstructionComponent',
         styleUrls: ['/Component/InstructionComponent.css'],
-        providers: [primeng_1.ConfirmationService]
+        providers: [primeng_1.ConfirmationService, RestService_1.RestService]
     }),
-    __metadata("design:paramtypes", [ng2_dragula_1.DragulaService, platform_browser_1.DomSanitizer, primeng_1.ConfirmationService])
+    __metadata("design:paramtypes", [RestService_1.RestService, ng2_dragula_1.DragulaService, platform_browser_1.DomSanitizer, primeng_1.ConfirmationService])
 ], InstructionComponent);
 exports.InstructionComponent = InstructionComponent;
 var SafePipe = (function () {

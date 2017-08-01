@@ -88,10 +88,10 @@ namespace Instruction.Controllers
                 var user = new User { UserName = login, Email = email };
                 var res = await _userManager.CreateAsync(user);
                 UserProfile userProfile = new UserProfile();
-                userProfile.IdUser = user.Id;
+                userProfile.User = _db.Users.FirstOrDefault(p => p.Id == user.Id);
                 userProfile.FirstName = user.UserName;
                 userProfile.Rating = 0;
-                user.UserProfile = userProfile;
+
                 _db.UserProfile.Add(userProfile);
                 _db.SaveChanges();
                 if (res.Succeeded)

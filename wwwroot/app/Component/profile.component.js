@@ -43,6 +43,7 @@ var ProfileComponent = (function () {
         this.changeField = !this.changeField;
     };
     ProfileComponent.prototype.ngOnDestroy = function () {
+        console.log(this.user);
         this.service.editProfile(this.user);
     };
     return ProfileComponent;
