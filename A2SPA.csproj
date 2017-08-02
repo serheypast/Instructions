@@ -32,6 +32,7 @@
     <Content Include="wwwroot\app\app.module.ts" />
     <Content Include="wwwroot\app\app.routing.ts" />
     <Content Include="wwwroot\app\Component\comment.component.ts" />
+    <Content Include="wwwroot\app\Component\displayInstruction.component.ts" />
     <Content Include="wwwroot\app\Component\instruction.component.js" />
     <Content Include="wwwroot\app\Component\instruction.component.js.map" />
     <Content Include="wwwroot\app\Component\instruction.component.ts" />

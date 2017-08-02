@@ -81,8 +81,6 @@
 <div *ngIf="user">
     <div class="container">
         <div id="main">
-            @*<img src="http://bootstraptema.ru/snippets/element/2016/profilesection/myprofile.jpg">*@
-            @*<cl-image width="458" height="255" [public-id]=user.urlPhoto [cloud-name]="uploader.cloudName"></cl-image>*@
             <div class="row" id="real-estates-detail">
                 <div class="col-lg-4 col-md-4 col-xs-12">
                     <div class="panel panel-default">
@@ -96,9 +94,7 @@
                         <div class="panel-body">
                             <div class="text-center" id="author">
                                 <div class="imageBlock">                              
-                                    @*<cl-image width="230" height="200" [public-id]=user.urlPhoto [cloud-name]="uploader.cloudName">
-                                       
-                                    </cl-image>*@   
+                                  
                                     <img src="{{user.urlPhoto}}" style="width:230px; height:200px;" />
                                     <div class="hover">
                                         <label id="labelPhoto" title="Change main photo">
@@ -217,5 +213,7 @@
         </div>
     </div>
 </div>
+
+
 
 

@@ -39,5 +39,7 @@ namespace A2SPA.Controllers
         } 
 
         public IActionResult InstructionBlockComponent() => PartialView();
+
+        public IActionResult DisplayInstructionComponent() => PartialView();
     }
 }

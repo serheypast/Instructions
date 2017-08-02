@@ -8,6 +8,7 @@ var test_component_1 = require("./test.component");
 var home_component_1 = require("./home.component");
 var instructionBlock_component_1 = require("./instructionBlock.component");
 var comment_component_1 = require("./Component/comment.component");
+var displayInstruction_component_1 = require("./Component/displayInstruction.component");
 var appRoutes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
     { path: 'home', component: home_component_1.HomeComponent, data: { title: 'Home' } },
@@ -16,7 +17,8 @@ var appRoutes = [
     { path: 'instruction', component: instruction_component_1.InstructionComponent, data: { title: 'instruction' } },
     { path: 'instructionBlock', component: instructionBlock_component_1.InstructionBlockComponent, data: { title: 'InstructionBlock' } },
     { path: 'comment', component: comment_component_1.CommentComponent, data: { title: 'Comment' } },
+    { path: 'displayInstruction', component: displayInstruction_component_1.DisplayInstructionComponent, data: { title: 'Display' } },
 ];
 exports.routing = router_1.RouterModule.forRoot(appRoutes);
-exports.routedComponents = [comment_component_1.CommentComponent, home_component_1.HomeComponent, instructionBlock_component_1.InstructionBlockComponent, authorization_component_1.AuthorizationComponent, profile_component_1.ProfileComponent, test_component_1.TestComponent, instruction_component_1.InstructionComponent];
+exports.routedComponents = [displayInstruction_component_1.DisplayInstructionComponent, comment_component_1.CommentComponent, home_component_1.HomeComponent, instructionBlock_component_1.InstructionBlockComponent, authorization_component_1.AuthorizationComponent, profile_component_1.ProfileComponent, test_component_1.TestComponent, instruction_component_1.InstructionComponent];
 //# sourceMappingURL=app.routing.js.map

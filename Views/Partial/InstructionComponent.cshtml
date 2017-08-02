@@ -163,7 +163,7 @@
     <div *ngFor="let step of instruction.steps; let j = index">
         <p-panel [toggleable]="true" [style]="{'margin-top':'20px','width':'80%','margin-left':'10%'}">
             <p-header >           
-                <label >Step {{j}}: </label>
+                <label >Step {{j+1}}: </label>
                 <input [(ngModel)]="step.name" placeholder="Input step name" style="width: 100%; border: 0; background-color: #f1f2f5;" />
                 <a class="btn-xs pull-right ui-panel-titlebar-icon ui-panel-titlebar-toggler ui-corner-all ui-state-default" (click)="confirm2(j)"  >
                     <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
@@ -273,36 +273,47 @@
             </div>
             <div class="modal-body">
 
-                <div class="imageCenter">
-                    <cl-image width="450" height="250"  [cloud-name]="uploader.cloudName"></cl-image>
-                    <img src={{instruction.previewImageUrl}} style="width:450px; height:250px;"/>
+               <div class="header container">
+        <h2>{{instruction.name}}</h2>
+        <p id="method_toc" class="sp_method_toc">
+            <span>{{instruction.steps.length}} Steps :</span>
+            
+                <a *ngFor="let stepName of instruction.steps" href="#">{{stepName.name}}</a>
+            
+        </p>
+        <img src={{instruction.previewImageUrl}} style="width:100%;"/>
+    </div>
+
+
+<div class="step container" *ngFor="let step of instruction.steps; let j = index">
+        <div class="section steps">
+            <h3 class="" style="padding: 0;margin-top: 0;">
+                <div class="altblock">
+                    <label class="method_label">Step {{j+1}}</label>
+                </div>
+                <span class="mw-headline">{{step.name}}</span>
+            </h3>
+        </div>
+
+        <div *ngFor="let item of step.blocks; let i = index">
+            <div ngSwitch="{{item.type}}">
+                <div *ngSwitchCase="'text'">                   
+                    <div style="word-wrap:break-word; padding:10px" [innerHTML]="item.field" >
+                        </div>                
                 </div>
 
-                <div *ngFor="let step of instruction.steps; let j = index">
-                    <h3><b>Step {{j}}: {{step.name}}</b></h3>
-                    <div *ngFor="let item of step.blocks; let i = index">
-                        <div ngSwitch="{{item.type}}">
-                            <div *ngSwitchCase="'text'">
-                                <div class="row textM">
-                                    <div style="word-wrap:break-word;" [innerHTML]="item.field">
-                                    </div>
-                                </div>
-                            </div>
+                <div *ngSwitchCase="'photo'">                   
+                        <img src={{item.field}} style="width:100%;"/>                  
+                </div>
 
-                            <div *ngSwitchCase="'photo'">
-                                <div class="imageCenter" >
-                                    <img src={{item.field}} style="width:450px; height:250px;" />
-                                </div>
-                            </div>
-
-                            <div *ngSwitchCase="'video'">
-                                <div class="imageCenter" style="height:250px; width:450px;">
-                                    <iframe *ngIf="item.state" [src]="item.field | safe" frameborder="0" allowfullscreen></iframe>
-                                </div>
-                            </div>
-                        </div>
+                <div *ngSwitchCase="'video'">
+                    <div  style="height:250px; width:450px;">
+                        <iframe *ngIf="item.state" [src]="item.field | safe" frameborder="0" allowfullscreen></iframe>
                     </div>
-                 </div>
+                </div>
+            </div>
+        </div>     
+</div>
 
                 </div>
             <div class="modal-footer">
