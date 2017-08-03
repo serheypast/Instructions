@@ -32,9 +32,9 @@ namespace A2SPA
         {
             ServiceAchivment.GetInstance().Subscribe(Events.CreatePost, x => AchievementForCreateOneInstruction((int)x));
             ServiceAchivment.GetInstance().Subscribe(Events.CreatePost, x => AchievementForCreateFiveInstruction((int)x));
-            ServiceAchivment.GetInstance().Subscribe(Events.CreatePost, x => AchievementForFiveLikeOnInstruction((int)x));
-            ServiceAchivment.GetInstance().Subscribe(Events.CreatePost, x => AchievementForTenLikeOnInstruction((int)x));
-            ServiceAchivment.GetInstance().Subscribe(Events.CreatePost, x => AchievementForFiveCommendOnInstruction((int)x));
+            ServiceAchivment.GetInstance().Subscribe(Events.LikePost, x => AchievementForManyLikeOnInstruction((int)x));
+            ServiceAchivment.GetInstance().Subscribe(Events.LikePost, x => AchievementForTenLikeOnInstruction((int)x));
+            ServiceAchivment.GetInstance().Subscribe(Events.CommentPost, x => AchievementForFiveCommendOnInstruction((int)x));
         }
 
         private static void AddAchivment(int idAchievement, UserProfile userProfile)
@@ -51,18 +51,22 @@ namespace A2SPA
         {
             const int forInstruction = 1;
             const int idAchievement = 1;
-            UserProfile userProfile = db.UserProfile.AsNoTracking().Include(p => p.Achivments).FirstOrDefault(p => p.Id == idUser);
+            UserProfile userProfile = GetUserById(idUser);
             if (db.Instruction.Include(p => p.UserProfile).Where(p => p.UserProfile == userProfile).LongCount() == forInstruction)
             {
                 AddAchivment(idAchievement, userProfile);
             }
         }
 
+        private static UserProfile GetUserById(int idUser) { 
+            return db.UserProfile.AsNoTracking().Include(p => p.Achivments).FirstOrDefault(p => p.Id == idUser);
+        }
+
         private static void AchievementForCreateFiveInstruction(int idUser)
         {
             const int forInstruction = 5;
             const int idAchievement = 2;
-            UserProfile userProfile = db.UserProfile.AsNoTracking().Include(p => p.Achivments).FirstOrDefault(p => p.Id == idUser);
+            UserProfile userProfile = GetUserById(idUser);
             if (db.Instruction.Include(p => p.UserProfile).Where(p => p.UserProfile == userProfile).LongCount() == forInstruction)
             {
                 AddAchivment(idAchievement, userProfile);
@@ -71,38 +75,41 @@ namespace A2SPA
 
       
 
-        private static void AchievementForFiveLikeOnInstruction(int idUser)
-        {
-            
-        }
-
-
         private static void AchievementForTenLikeOnInstruction(int idUser)
         {
             const int forLike = 10;
-            const int idAchievement = 3;
-            UserProfile userProfile = db.UserProfile.AsNoTracking().Include(p => p.Achivments).FirstOrDefault(p => p.Id == idUser);
-            if (db.Commentary.Include(p => p.UserProfile).Where(p => p.UserProfile == userProfile).LongCount() == forLike)
+            const int idAchievement = 4;
+            UserProfile userProfile = GetUserById(idUser);
+            if (userProfile.Rating == forLike)
             {
                 AddAchivment(idAchievement, userProfile);
             }
         }
 
 
-        private static void AchievementForFiveCommendOnInstruction(int id)
+        private static void AchievementForManyLikeOnInstruction(int idUser)
+        {
+            const int forLike = 100;
+            const int idAchievement = 5     ;
+            UserProfile userProfile = GetUserById(idUser);
+            if (userProfile.Rating == forLike)
+            {
+                AddAchivment(idAchievement, userProfile);
+            }
+        }
+
+
+        private static void AchievementForFiveCommendOnInstruction(int idUser)
         {
             const int forCommend = 5;
             const int idAchievement = 3;
-            UserProfile userProfile = db.UserProfile.AsNoTracking().Include(p => p.Achivments).FirstOrDefault(p => p.Id == idUser);
+            UserProfile userProfile = GetUserById(idUser);
             if (db.Commentary.Include(p => p.UserProfile).Where(p => p.UserProfile == userProfile).LongCount() == forCommend)
             {
                 AddAchivment(idAchievement, userProfile);
             }
         }
-
-
-
-
+        
         private static void setDbContext()
         {
             db = Startup.db;

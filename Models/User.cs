@@ -140,7 +140,7 @@ namespace A2SPA.Models
         public Instruction Instruction { get; set; }
         public UserProfile UserProfile { get; set; }
         public string DataCreated { get; set; }
-        public int Content { get; set; }
+        public string Content { get; set; }
         public string Date { get; set; }
     }
 
@@ -163,5 +163,12 @@ namespace A2SPA.Models
         public UserProfile UserProfile { get; set; }
     }
 
-
+    public class LikeInstruction
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
+        public UserProfile UserProfile { get; set;}
+        public Instruction Instruction { get; set; }
+    }
 }

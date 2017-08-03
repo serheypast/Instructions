@@ -8,9 +8,10 @@ using A2SPA.Models;
 namespace A2SPA.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20170803215546_AddLikeInstructionTable")]
+    partial class AddLikeInstructionTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")
@@ -149,24 +150,6 @@ namespace A2SPA.Migrations
                     b.HasIndex("TagId");
 
                     b.ToTable("InstructionTag");
-                });
-
-            modelBuilder.Entity("A2SPA.Models.LikeInstruction", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int?>("InstructionId");
-
-                    b.Property<int?>("UserProfileId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("InstructionId");
-
-                    b.HasIndex("UserProfileId");
-
-                    b.ToTable("LikeInstruction");
                 });
 
             modelBuilder.Entity("A2SPA.Models.Step", b =>
@@ -435,17 +418,6 @@ namespace A2SPA.Migrations
                     b.HasOne("A2SPA.Models.Tag", "Tag")
                         .WithMany("Instructions")
                         .HasForeignKey("TagId");
-                });
-
-            modelBuilder.Entity("A2SPA.Models.LikeInstruction", b =>
-                {
-                    b.HasOne("A2SPA.Models.Instruction", "Instruction")
-                        .WithMany()
-                        .HasForeignKey("InstructionId");
-
-                    b.HasOne("A2SPA.Models.UserProfile", "UserProfile")
-                        .WithMany()
-                        .HasForeignKey("UserProfileId");
                 });
 
             modelBuilder.Entity("A2SPA.Models.Step", b =>
