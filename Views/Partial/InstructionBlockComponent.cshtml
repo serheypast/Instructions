@@ -7,7 +7,6 @@
 
     .index-content {
         margin-bottom: 20px;
-        padding: 50px 0px;
     }
 
         .index-content .row {
@@ -95,7 +94,7 @@
                 <img src="{{item.previewImageUrl}}" style="max-height: 230px;">
                 <h4>{{item.name}}</h4>
                 <div class="bottom-align-text-left">
-                    <p>by <a href="#">Sergey</a> in <a href="#">{{item.category.name}}</a></p>
+                    <p>by <a  routerLink="/profile/{{item.userProfile.id}}">{{item.userProfile.firstName}}</a> in <a routerLink="/home/{{property}}/category/{{item.category.name}}">{{item.category.name}}</a></p>
                 </div>
                 
                 <div class="bottom-align-text">

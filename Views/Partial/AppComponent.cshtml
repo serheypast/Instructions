@@ -28,17 +28,18 @@
                 </li>
             </ul>
             
-                <form class="navbar-form navbar-left" >
+                <div class="navbar-form navbar-left" >
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search">
+                        @*<ng2-completer [(ngModel)]="searchStr" [datasource]="dataService" [minSearchLength]="1"></ng2-completer>*@
+                        <input type="text" (keyup.enter)="handleKeyDown($event)" class="form-control" [(ngModel)]="searchData1" placeholder="Search">
                         <div class="input-group-btn">
-                            <button class="btn btn-default" type="submit">
-                                <i href="#" class="glyphicon glyphicon-search"></i>
-                            </button>
+                            <a class="btn btn-default"  routerLink="/home/all/search/{{searchData1}}"  (click)="getRequest()">
+                                <i  class="glyphicon glyphicon-search"></i>
+                            </a>
                         </div>
                     </div>
-                </form>
-            
+                </div>
+            @*//routerLink="/home/all/search/{{searchData}}"*@
             @if (SignInManager.IsSignedIn(User))
             {
 

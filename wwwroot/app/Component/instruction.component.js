@@ -82,7 +82,7 @@ var InstructionComponent = (function () {
     InstructionComponent.prototype.publish = function () {
         this.addTags();
         console.log(this.instruction);
-        //this.service.publishInstruction(this.instruction);
+        this.service.publishInstruction(this.instruction);
     };
     InstructionComponent.prototype.addTags = function () {
         for (var _i = 0, _a = this.tags; _i < _a.length; _i++) {
