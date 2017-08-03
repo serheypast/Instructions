@@ -40,7 +40,8 @@
             'ng2-tag-input': 'npm:ng2-tag-input/dist/ng2-tag-input.bundle.js',
             'ng2-material-dropdown': 'npm:ng2-material-dropdown/dist/ng2-dropdown.bundle.js',
             'ng2-select': 'npm:ng2-select/bundles/ng2-select.umd.js',
-            'ng2-sticky': 'npm:ng2-sticky/dist/ng2-sticky.umd.js'
+            'ng2-sticky': 'npm:ng2-sticky/dist/ng2-sticky.umd.js',
+            '@ngui/scrollable': 'npm:@ngui/scrollable/dist/scrollable.umd.js'
             
         },
         // packages tells the System loader how to load when no filename and/or no extension

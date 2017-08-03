@@ -16,10 +16,11 @@ import { TagInputModule } from 'ng2-tag-input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SelectModule } from 'ng2-select';
 import { Ng2StickyModule } from 'ng2-sticky';
-import { CommentComponent } from './Component/comment.component'
+import { CommentComponent } from './Component/comment.component';
+import { NguiScrollableModule } from '@ngui/scrollable';
 
 @NgModule({
-    imports: [Ng2StickyModule, ConfirmDialogModule, SelectModule, PanelModule,BrowserAnimationsModule, TagInputModule, BrowserModule, routing, DragulaModule, FormsModule, FileUploadModule, Ng2CloudinaryModule, EditorModule, ButtonModule,  HttpModule, InfiniteScrollModule],
+    imports: [NguiScrollableModule, Ng2StickyModule, ConfirmDialogModule, SelectModule, PanelModule,BrowserAnimationsModule, TagInputModule, BrowserModule, routing, DragulaModule, FormsModule, FileUploadModule, Ng2CloudinaryModule, EditorModule, ButtonModule,  HttpModule, InfiniteScrollModule],
     declarations: [AppComponent, routedComponents, SafePipe, CommentComponent],
     providers: [Title, { provide: APP_BASE_HREF, useValue: '/' }],
     bootstrap: [AppComponent]

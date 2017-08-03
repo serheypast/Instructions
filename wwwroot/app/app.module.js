@@ -25,6 +25,7 @@ var animations_1 = require("@angular/platform-browser/animations");
 var ng2_select_1 = require("ng2-select");
 var ng2_sticky_1 = require("ng2-sticky");
 var comment_component_1 = require("./Component/comment.component");
+var scrollable_1 = require("@ngui/scrollable");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -32,7 +33,7 @@ var AppModule = (function () {
 }());
 AppModule = __decorate([
     core_1.NgModule({
-        imports: [ng2_sticky_1.Ng2StickyModule, primeng_2.ConfirmDialogModule, ng2_select_1.SelectModule, primeng_2.PanelModule, animations_1.BrowserAnimationsModule, ng2_tag_input_1.TagInputModule, platform_browser_1.BrowserModule, app_routing_1.routing, ng2_dragula_1.DragulaModule, forms_1.FormsModule, ng2_file_upload_1.FileUploadModule, ng2_cloudinary_1.Ng2CloudinaryModule, primeng_1.EditorModule, primeng_2.ButtonModule, http_1.HttpModule, angular2_infinite_scroll_1.InfiniteScrollModule],
+        imports: [scrollable_1.NguiScrollableModule, ng2_sticky_1.Ng2StickyModule, primeng_2.ConfirmDialogModule, ng2_select_1.SelectModule, primeng_2.PanelModule, animations_1.BrowserAnimationsModule, ng2_tag_input_1.TagInputModule, platform_browser_1.BrowserModule, app_routing_1.routing, ng2_dragula_1.DragulaModule, forms_1.FormsModule, ng2_file_upload_1.FileUploadModule, ng2_cloudinary_1.Ng2CloudinaryModule, primeng_1.EditorModule, primeng_2.ButtonModule, http_1.HttpModule, angular2_infinite_scroll_1.InfiniteScrollModule],
         declarations: [app_component_1.AppComponent, app_routing_1.routedComponents, instruction_component_1.SafePipe, comment_component_1.CommentComponent],
         providers: [platform_browser_1.Title, { provide: common_1.APP_BASE_HREF, useValue: '/' }],
         bootstrap: [app_component_1.AppComponent]

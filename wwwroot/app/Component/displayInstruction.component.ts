@@ -10,6 +10,10 @@ export class DisplayInstructionComponent {
 
     instruction: Instruction = new Instruction();
 
+    goTo(location: string): void {
+        window.location.hash = location;
+    }
+
     constructor() {  }
 
     ngOnInit() {
@@ -32,14 +36,17 @@ export class DisplayInstructionComponent {
         bl2.field = "http://wallpapers-image.ru/1920x1080/mountains/wallpapers/mountains-wallpapers-1920x1080-0007.jpg";
 
         let bl12 = new Block();
+        let bl13 = new Block();
         let bl22 = new Block();
+        bl13.type = "video";
+        bl13.field = "https://www.youtube.com/embed/d3GDvpfNNcY";
         bl12.type = "text";
-        bl12.field = "2 1";
+        bl12.field = "21";
         bl22.type = "text";
         bl22.field = "text";
 
         step1.blocks = step1.blocks.concat(bl1, bl2);
-        step2.blocks = step2.blocks.concat(bl12, bl22);
+        step2.blocks = step2.blocks.concat(bl12, bl22, bl13);
         this.instruction.steps = this.instruction.steps.concat(step1, step2,step1,step1,step1,step1,step1);
         this.instruction.name = "How to made potato";
         let tag = new Tag();
