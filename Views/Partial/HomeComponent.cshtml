@@ -59,14 +59,16 @@
             <span class="sr-only">Next</span>
         </a>
     </div>
+
     <div class="row">
-        <div class="main col-xs-12 col-sm-9 col-lg-9 col-md-9 ">
+        
+        <div class="main col-xs-12 col-sm-9 col-lg-9 col-md-9 ">           
             <instructionBlock></instructionBlock>
         </div>
         <div class="sidebar col-xs-3 hidden-xs" style=" padding: 20px;">
             <div class="well">
-                <p>Creating</p>
-                <button class="btn btn-primary">Create Instruction</button>
+                <p>Browse Categories</p>
+                <p *ngFor="let item of categories"><a routerLink="/home/all/category/{{item.name}}">{{item.name}}</a></p>
             </div>
             <div class="well">
                 <p>Cloud Tags</p>
@@ -85,21 +87,6 @@
                 <a>Instaction</a>
                 <a>mobile</a>
                 <a>Tags</a>
-            </div>
-            <div class="well">
-                <p>Browse Categories</p>
-                <p><a href="/">Искусство и развлечения</a></p>
-                <p><a href="/">Транспорт</a></p>
-                <p><a href="/">Компьютеры и электроника</a></p>
-                <p><a href="/">Финансы и бизнес</a></p>
-                <p><a href="/">Здоровье</a></p>
-                <p><a href="/">IT технологии</a></p>
-                <p><a href="/">Молодежь</a></p>
-                <p><a href="/">Филисофия и религия</a></p>
-                <p><a href="/">Спорт и фитнес</a></p>
-                <p><a href="/">Кулинария и гостеприимство</a></p>
-                <p><a href="/">Стиль и уход за собой</a></p>
-                <p><a href="/">Взаимоотношения</a></p>
             </div>
         </div>
 

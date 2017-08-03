@@ -15,6 +15,10 @@ import { CommentComponent } from './Component/comment.component';
 
 const appRoutes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
+    { path: 'home/:property/:type/:value', component: HomeComponent, data: { title: 'Home' } },
+    { path: 'home/:type/:value', component: HomeComponent, data: { title: 'Home' } },
+    { path: 'home/:property', component: HomeComponent, data: { title: 'Home' } },
+    { path: 'home/:property/:type', component: HomeComponent, data: { title: 'Home' } },
     { path: 'home', component: HomeComponent, data: { title: 'Home' } },
     { path: 'authorization', component: AuthorizationComponent, data: { title: 'Authorization' } },
     { path: 'profile/:id', component: ProfileComponent, data: { title: 'profile' } },
