@@ -30,6 +30,11 @@ namespace A2SPA.Models
         public string AboutMySelf { get; set; }
 
         public User User { get; set; }
+        public ICollection<AchivmentUser> Achivments { get; set; }
+
+        public UserProfile(){
+            Achivments = new List<AchivmentUser>();
+        }
 
     }
 
@@ -87,10 +92,11 @@ namespace A2SPA.Models
 
         public Category Category { get; set; }
         public UserProfile UserProfile { get; set; }
-
-  
+    
         public ICollection<InstructionTag> Tags { get; set; }
         public ICollection<Step> Steps { get; set; }
+
+
 
         public Instruction()
         {

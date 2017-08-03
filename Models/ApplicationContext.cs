@@ -9,6 +9,7 @@ namespace A2SPA.Models
 {
     public class ApplicationContext : IdentityDbContext<User>
     {
+        public static DbContextOptions<ApplicationContext> _options;
         public DbSet<UserProfile> UserProfile { get; set; }
         public DbSet<Instruction> Instruction { get; set; }
         public DbSet<Step> Step { get; set; }
@@ -23,7 +24,15 @@ namespace A2SPA.Models
         public ApplicationContext(DbContextOptions<ApplicationContext> options)
             : base(options)
         {
+            _options = options;
         }
+
+        
+        public ApplicationContext()
+        {
+
+        }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
