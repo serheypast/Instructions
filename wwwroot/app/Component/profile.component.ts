@@ -51,7 +51,6 @@ export class ProfileComponent {
 
     change(): void {
         this.changeField = !this.changeField;
-        console.log(this.achivments[0].achivment.name);
     }
 
     ngOnDestroy() {

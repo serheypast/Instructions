@@ -87,7 +87,6 @@ var InstructionComponent = (function () {
         console.log(this.instruction);
         this.service.publishInstruction(this.instruction);
     };
-        
     InstructionComponent.prototype.addCategory = function () {
         var category = new Category();
         category.name = this.selectedCity.name;

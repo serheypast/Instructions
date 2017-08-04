@@ -21,8 +21,7 @@
                      
                 <div class="navbar-form navbar-left" >
                     <div class="input-group">
-                        <input id="mainSearch"  type="text" class="form-control" placeholder="Search">
-                        <input type="text" (keyup.enter)="handleKeyDown($event)" class="form-control" [(ngModel)]="searchData1" placeholder="Search">
+                        <input id="mainSearch"  type="text" class="form-control" [(ngModel)]="searchData1" placeholder="Search">
                         <div class="input-group-btn">
                             <a class="btn btn-default"  routerLink="/home/all/search/{{searchData1}}"  (click)="getRequest()">
                                 <i  class="glyphicon glyphicon-search"></i>

@@ -93,11 +93,9 @@ export class InstructionComponent {
         this.addTags();
         this.addCategory();
         console.log(this.instruction);
-<<<<<<< HEAD
         this.service.publishInstruction(this.instruction);
-=======
     }
->>>>>>> displayInstructions
+
 
     addCategory() {
         let category: Category = new Category();

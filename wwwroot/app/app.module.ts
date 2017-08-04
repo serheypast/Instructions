@@ -15,15 +15,14 @@ import { ButtonModule, PanelModule, ConfirmDialogModule, ConfirmationService, Dr
 import { TagInputModule } from 'ng2-tag-input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SelectModule } from 'ng2-select';
-import { Ng2StickyModule } from 'ng2-sticky';
+
 import { CommentComponent } from './Component/comment.component';
 import { Ng2CompleterModule } from "ng2-completer";
 
-import { NguiScrollableModule } from '@ngui/scrollable';
 
 
 @NgModule({
-    imports: [DropdownModule ,NguiScrollableModule,Ng2CompleterModule,  Ng2StickyModule, ConfirmDialogModule, SelectModule, PanelModule,BrowserAnimationsModule, TagInputModule, BrowserModule, routing, DragulaModule, FormsModule, FileUploadModule, Ng2CloudinaryModule, EditorModule, ButtonModule,  HttpModule, InfiniteScrollModule],
+    imports: [DropdownModule ,Ng2CompleterModule, ConfirmDialogModule, SelectModule, PanelModule,BrowserAnimationsModule, TagInputModule, BrowserModule, routing, DragulaModule, FormsModule, FileUploadModule, Ng2CloudinaryModule, EditorModule, ButtonModule,  HttpModule, InfiniteScrollModule],
     declarations: [AppComponent, routedComponents, SafePipe, CommentComponent],
     providers: [Title, { provide: APP_BASE_HREF, useValue: '/' }],
     bootstrap: [AppComponent]

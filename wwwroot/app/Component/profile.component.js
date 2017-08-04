@@ -43,7 +43,6 @@ var ProfileComponent = (function () {
     };
     ProfileComponent.prototype.change = function () {
         this.changeField = !this.changeField;
-        console.log(this.achivments[0].achivment.name);
     };
     ProfileComponent.prototype.ngOnDestroy = function () {
         console.log(this.user);
