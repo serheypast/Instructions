@@ -67,26 +67,16 @@
         </div>
         <div class="sidebar col-xs-3 hidden-xs" style=" padding: 20px;">
             <div class="well">
+               <a routerLink="/home/all/{{type}}/{{value}}">Все</a>
+               <a routerLink="/home/popular/{{type}}/{{value}}">Популярные</a>
+            </div>
+            <div class="well">
                 <p>Browse Categories</p>
                 <p *ngFor="let item of categories"><a routerLink="/home/all/category/{{item.name}}">{{item.name}}</a></p>
             </div>
             <div class="well">
                 <p>Cloud Tags</p>
-                <a href="#">Wiki</a>
-                <a>Flown</a>
-                <a>Instaction</a>
-                <a>mobile</a>
-                <a>Tags</a>
-                <a>Wiki</a>
-                <a>Flown</a>
-                <a>Instaction</a>
-                <a>mobile</a>
-                <a>Tags</a>
-                <a>Wiki</a>
-                <a>Flown</a>
-                <a>Instaction</a>
-                <a>mobile</a>
-                <a>Tags</a>
+                <a *ngFor="let tag of tags" routerLink="/home/all/tag/{{tag.name}}">{{tag.name}}  </a>
             </div>
         </div>
 

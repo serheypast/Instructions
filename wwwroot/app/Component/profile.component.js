@@ -29,6 +29,8 @@ var ProfileComponent = (function () {
             if (_this.user.urlPhoto == null)
                 _this.user.urlPhoto = "https://res.cloudinary.com/dr4opxk5i/image/upload/j8khmafnd7hbxwpxy0kb.jpg";
             console.log(_this.user);
+            console.log(_this.user.achivments);
+            _this.achivments = _this.user.achivments;
         });
         this.uploader.onSuccessItem = function (item, response, status, headers) {
             var res = JSON.parse(response);
@@ -41,6 +43,7 @@ var ProfileComponent = (function () {
     };
     ProfileComponent.prototype.change = function () {
         this.changeField = !this.changeField;
+        console.log(this.achivments[0].achivment.name);
     };
     ProfileComponent.prototype.ngOnDestroy = function () {
         console.log(this.user);
@@ -61,5 +64,15 @@ var UserProfile = (function () {
     function UserProfile() {
     }
     return UserProfile;
+}());
+var Achivment = (function () {
+    function Achivment() {
+    }
+    return Achivment;
+}());
+var AchivmentUser = (function () {
+    function AchivmentUser() {
+    }
+    return AchivmentUser;
 }());
 //# sourceMappingURL=profile.component.js.map

@@ -25,6 +25,9 @@ var HomeComponent = (function () {
         service.getCategories().subscribe(function (result) {
             _this.categories = result.json();
         });
+        service.getTags().subscribe(function (result) {
+            _this.tags = result.json();
+        });
     }
     return HomeComponent;
 }());
@@ -41,5 +44,10 @@ var Category = (function () {
     function Category() {
     }
     return Category;
+}());
+var Tag = (function () {
+    function Tag() {
+    }
+    return Tag;
 }());
 //# sourceMappingURL=home.component.js.map

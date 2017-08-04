@@ -16,7 +16,7 @@ export class ProfileComponent {
     private id: number;
     private subscription: Subscription;
     public user: UserProfile;
-
+    public achivments: AchivmentUser[];
 
     uploader: CloudinaryUploader = new CloudinaryUploader(
         new CloudinaryOptions({ cloudName: 'dr4opxk5i', uploadPreset: 'ajvv2x7e' })
@@ -30,6 +30,8 @@ export class ProfileComponent {
             if (this.user.urlPhoto == null)
                 this.user.urlPhoto = "https://res.cloudinary.com/dr4opxk5i/image/upload/j8khmafnd7hbxwpxy0kb.jpg";    
             console.log(this.user);
+            console.log(this.user.achivments)
+            this.achivments = this.user.achivments;
         });
 
         this.uploader.onSuccessItem = (item: any, response: string, status: number, headers: any): any => {
@@ -37,6 +39,8 @@ export class ProfileComponent {
             this.user.urlPhoto = "https://res.cloudinary.com/dr4opxk5i/image/upload/" + res.public_id + ".jpg";          
             return { item, response, status, headers };
         };
+
+        
     }
 
     onChange(event: any) {      
@@ -47,6 +51,7 @@ export class ProfileComponent {
 
     change(): void {
         this.changeField = !this.changeField;
+        console.log(this.achivments[0].achivment.name);
     }
 
     ngOnDestroy() {
@@ -65,4 +70,19 @@ class UserProfile {
     city: string;
     dataOfBirth: string;
     aboutMySelf: string;
+    achivments: AchivmentUser[];
 }
+
+class Achivment {
+    id: number;
+    name: string;
+    urlImage: string;
+    description: string;
+}
+
+class AchivmentUser {
+    id: number;
+    achivment: Achivment;
+}
+
+

@@ -12,6 +12,7 @@ import { Subscription } from 'rxjs/Subscription';
 
 export class HomeComponent {
     categories: Category[];
+    tags: Tag[];
     public value: string;
     public type: string;
     public property: string;
@@ -25,11 +26,19 @@ export class HomeComponent {
         service.getCategories().subscribe(result => {
             this.categories = result.json();
         });
+        service.getTags().subscribe(result => {
+            this.tags = result.json();
+        });
     }
 }
 
 
 class Category {
+    id: number;
+    name: string;
+}
+
+class Tag {
     id: number;
     name: string;
 }
