@@ -28,6 +28,10 @@ textarea {
     width: 100%;
 }
 
+.ui-dropdown {
+    width:210px !important;
+}
+
 /* Hide/rearrange for smaller screens */
 @media screen and (max-width: 767px) {
     /* Hide captions */

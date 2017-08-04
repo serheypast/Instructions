@@ -32,9 +32,11 @@ var InstructionComponent = (function () {
         this.errorMessages = {
             'addTag': 'Your tag can have max 25 symbols'
         };
-        console.log("created");
+        this.cities = [];
+        this.cities.push({ label: 'New York', value: { name: 'New York' } });
+        this.addStep();
         this.instruction.name = "Name";
-        this.instruction.previewImageUrl = "https://res.cloudinary.com/dr4opxk5i/image/upload/j8khmafnd7hbxwpxy0kb.jpg";
+        this.instruction.previewImageUrl = "https://res.cloudinary.com/dr4opxk5i/image/upload/spt2r2sqiyotibnrfhch.jpg";
         this.instruction.category = this.category;
         dragulaService.dropModel.subscribe(function (value) {
             _this.onDropModel(value.slice(1));
@@ -81,8 +83,13 @@ var InstructionComponent = (function () {
     };
     InstructionComponent.prototype.publish = function () {
         this.addTags();
+        this.addCategory();
         console.log(this.instruction);
-        //this.service.publishInstruction(this.instruction);
+    };
+    InstructionComponent.prototype.addCategory = function () {
+        var category = new Category();
+        category.name = this.selectedCity.name;
+        this.instruction.category = category;
     };
     InstructionComponent.prototype.addTags = function () {
         for (var _i = 0, _a = this.tags; _i < _a.length; _i++) {

@@ -14,9 +14,6 @@ var DisplayInstructionComponent = (function () {
     function DisplayInstructionComponent() {
         this.instruction = new Instruction();
     }
-    DisplayInstructionComponent.prototype.goTo = function (location) {
-        window.location.hash = location;
-    };
     DisplayInstructionComponent.prototype.ngOnInit = function () {
         this.like = false;
         this.instruction.previewImageUrl = "http://wallpapers-images.ru/1920x1080/nature/wallpapers/wallpapers-nature-013.jpg";

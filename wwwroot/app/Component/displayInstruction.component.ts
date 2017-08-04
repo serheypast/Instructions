@@ -10,10 +10,6 @@ export class DisplayInstructionComponent {
 
     instruction: Instruction = new Instruction();
 
-    goTo(location: string): void {
-        window.location.hash = location;
-    }
-
     constructor() {  }
 
     ngOnInit() {
