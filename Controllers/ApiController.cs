@@ -23,7 +23,9 @@ namespace A2SPA.Controllers
         [HttpGet("[action]/{id}")]
         public async Task<IActionResult> GetUserById(string id)
         {
-            UserProfile user = (id.Equals("0")) ? await db.UserProfile.Include(p => p.Achivments).ThenInclude(p => p.Achivment).FirstOrDefaultAsync(p => p.User.Id == User.FindFirst(ClaimTypes.NameIdentifier).Value) : await db.UserProfile.Include(p=>p.Achivments).ThenInclude(p => p.Achivment).FirstOrDefaultAsync(p => p.Id == Convert.ToInt32(id));
+            UserProfile user = (id.Equals("0")) ? await db.UserProfile.Include(p => p.Achivments).ThenInclude(p => p.Achivment)
+                .FirstOrDefaultAsync(p => p.User.Id == User.FindFirst(ClaimTypes.NameIdentifier).Value) : 
+                await db.UserProfile.Include(p=>p.Achivments).ThenInclude(p => p.Achivment).FirstOrDefaultAsync(p => p.Id == Convert.ToInt32(id));
             return (user == null) ? Ok("No result") : new ObjectResult(user);
         }
 
@@ -42,7 +44,8 @@ namespace A2SPA.Controllers
         {
             Func<Models.Instruction, object> SortParams = getSortParams(property);
             Category category = db.Category.FirstOrDefault(p => p.Name == value);
-            return new ObjectResult(db.Instruction.Include(p => p.UserProfile).Include(p => p.Category).OrderByDescending(SortParams).Where(p => p.Category == category).Skip(skip).Take(take).ToList());
+            return new ObjectResult(db.Instruction.Include(p => p.UserProfile).Include(p => p.Category)
+                .OrderByDescending(SortParams).Where(p => p.Category == category).Skip(skip).Take(take).ToList());
         }
 
         private Func<Models.Instruction, object> getSortParams(string property)
@@ -65,7 +68,8 @@ namespace A2SPA.Controllers
         {
             Func<Models.Instruction, object> SortParams = getSortParams(property);
             var tag = db.Tag.FirstOrDefault(p => p.Name == value);
-            var arr = db.InstructionTag.Include(p => p.Tag).Include(p => p.Instruction).ThenInclude(p => p.Category).Include(p => p.Instruction).ThenInclude(p => p.UserProfile).Where(p => p.Tag == tag).ToList();
+            var arr = db.InstructionTag.Include(p => p.Tag).Include(p => p.Instruction).ThenInclude(p => p.Category)
+                .Include(p => p.Instruction).ThenInclude(p => p.UserProfile).Where(p => p.Tag == tag).ToList();
             var ans = new List<Models.Instruction>();
 
             foreach (InstructionTag item in arr)
@@ -79,14 +83,16 @@ namespace A2SPA.Controllers
         public List<Models.Instruction> GetInstructionDefaulttype(int take, int skip, string property, string type, string value)
         {
             Func<Models.Instruction, object> SortParams = getSortParams(property);
-            return db.Instruction.Include(p => p.UserProfile).Include(p => p.Category).OrderByDescending(SortParams).Skip(skip).Take(take).ToList();
+            return db.Instruction.Include(p => p.UserProfile).Include(p => p.Category)
+                .OrderByDescending(SortParams).Skip(skip).Take(take).ToList();
         }
 
         [HttpGet("getInstructions/{take}/{skip}/{property}/search/{value}")]
         public List<Models.Instruction> GetInstructionsBySearch(int take, int skip, string property, string type, string value)
         {
             Func<Models.Instruction, object> SortParams = getSortParams(property);
-            return db.Instruction.Include(p => p.UserProfile).Include(p => p.Category).OrderByDescending(SortParams).Where(p => p.Name.ToLower().Contains(value.ToLower())).Skip(skip).Take(take).ToList();
+            return db.Instruction.Include(p => p.UserProfile).Include(p => p.Category)
+                .OrderByDescending(SortParams).Where(p => p.Name.ToLower().Contains(value.ToLower())).Skip(skip).Take(take).ToList();
         }
 
         [HttpPost("[action]")]
@@ -113,7 +119,8 @@ namespace A2SPA.Controllers
         public IActionResult GetInstructionById(string id)
         {
 
-            Models.Instruction ins = db.Instruction.Include(p => p.UserProfile).Include(p => p.Category).Include(p => p.Steps).ThenInclude(p => p.Blocks).Include(p => p.Tags).ThenInclude(p => p.Tag).FirstOrDefault(p => p.Id == Int32.Parse(id));
+            Models.Instruction ins = db.Instruction.Include(p => p.UserProfile).Include(p => p.Category).Include(p => p.Steps)
+                .ThenInclude(p => p.Blocks).Include(p => p.Tags).ThenInclude(p => p.Tag).FirstOrDefault(p => p.Id == Int32.Parse(id));
             return new ObjectResult(ins);
         }
 
@@ -142,10 +149,12 @@ namespace A2SPA.Controllers
             return Ok();
         }
 
+        
         [HttpPost("[action]/{idUser}/{idInstruction}")]
         public IActionResult ChangeComentaryFromUser([FromBody] Commentary commentary, int idUser, int idInstruction)
         {
-            Commentary oldComment = db.Commentary.AsNoTracking().Include(p => p.Instruction).Include(p => p.UserProfile).FirstOrDefault(p => p.Id == commentary.Id);
+            Commentary oldComment = db.Commentary.AsNoTracking().Include(p => p.Instruction).Include(p => p.UserProfile)
+                .FirstOrDefault(p => p.Id == commentary.Id);
             UserProfile userProfile = db.UserProfile.FirstOrDefault(p => p.Id == commentary.UserProfile.Id);
             Models.Instruction instruction = db.Instruction.FirstOrDefault(p => p.Id == commentary.Instruction.Id);
             oldComment.Instruction = instruction;
@@ -174,7 +183,8 @@ namespace A2SPA.Controllers
         [HttpGet("[action]/idInstruction/idUser")]
         public IActionResult IsUserLikedIt(int idInstruction,int idUser)
         {
-            LikeInstruction likeInstruction =  db.LikeInstruction.Include(p => p.UserProfile).Include(p => p.Instruction).FirstOrDefault(p => p.Instruction.Id == idInstruction && p.UserProfile.Id == idUser);
+            LikeInstruction likeInstruction =  db.LikeInstruction.Include(p => p.UserProfile).Include(p => p.Instruction)
+                .FirstOrDefault(p => p.Instruction.Id == idInstruction && p.UserProfile.Id == idUser);
             return (likeInstruction != null) ? Ok(true) : Ok(false);
         }
 

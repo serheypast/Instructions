@@ -20,7 +20,7 @@ namespace A2SPA
                 .UseApplicationInsights()
                 .Build();
 
-            setDbContext();
+      
             SubscribeEvent();
             
             
@@ -110,7 +110,7 @@ namespace A2SPA
             }
         }
         
-        private static void setDbContext()
+        public static void setDbContext(ApplicationContext db)
         {
             db = Startup.db;
         }

@@ -62,11 +62,11 @@ namespace A2SPA
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
             db = app.ApplicationServices.GetService<ApplicationContext>();
-         
+            Program.setDbContext(db);
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                //app.UseBrowserLink();
+          
             }
             else
             {

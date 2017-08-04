@@ -34,7 +34,6 @@ var RestService = (function () {
         });
     };
     RestService.prototype.getInstructions = function (property, type, value, take, skip) {
-        console.log(property + " $type$  " + type + " $value$  " + value);
         return this.http.get('/api/getInstructions/' + take + '/' + skip + '/' + property + '/' + type + '/' + value);
     };
     RestService.prototype.getCategories = function () {

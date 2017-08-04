@@ -35,7 +35,6 @@ export class RestService {
     } 
 
     public getInstructions(property: string, type: string, value: string , take: string, skip: string) {
-        console.log(property + " $type$  " + type + " $value$  " + value);
         return this.http.get('/api/getInstructions/' + take + '/' + skip + '/' + property + '/' + type + '/' + value);
     }
 
