@@ -42,4 +42,8 @@ export class RestService {
     public getCategories() {
         return this.http.get('/api/getAllCategories');
     }
+
+    public getTags() {
+        return this.http.get('api/getTags');
+    }
 }

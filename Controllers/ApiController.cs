@@ -23,7 +23,7 @@ namespace A2SPA.Controllers
         [HttpGet("[action]/{id}")]
         public async Task<IActionResult> GetUserById(string id)
         {
-            UserProfile user = (id.Equals("0")) ? await db.UserProfile.FirstOrDefaultAsync(p => p.User.Id == User.FindFirst(ClaimTypes.NameIdentifier).Value) : await db.UserProfile.FirstOrDefaultAsync(p => p.Id == Convert.ToInt32(id));
+            UserProfile user = (id.Equals("0")) ? await db.UserProfile.Include(p => p.Achivments).ThenInclude(p => p.Achivment).FirstOrDefaultAsync(p => p.User.Id == User.FindFirst(ClaimTypes.NameIdentifier).Value) : await db.UserProfile.Include(p=>p.Achivments).ThenInclude(p => p.Achivment).FirstOrDefaultAsync(p => p.Id == Convert.ToInt32(id));
             return (user == null) ? Ok("No result") : new ObjectResult(user);
         }
 
@@ -40,10 +40,9 @@ namespace A2SPA.Controllers
         [HttpGet("getInstructions/{take}/{skip}/{property}/category/{value}")]
         public IActionResult GetInstrucitonsByCategory(int take, int skip, string property, string type, string value)
         {
-            ServiceAchivment.GetInstance().WasAction(Events.CreatePost, "lul");
             Func<Models.Instruction, object> SortParams = getSortParams(property);
             Category category = db.Category.FirstOrDefault(p => p.Name == value);
-            return new ObjectResult(db.Instruction.Include(p => p.UserProfile).Include(p => p.Category).OrderBy(SortParams).Where(p => p.Category == category).Skip(skip).Take(take).ToList());
+            return new ObjectResult(db.Instruction.Include(p => p.UserProfile).Include(p => p.Category).OrderByDescending(SortParams).Where(p => p.Category == category).Skip(skip).Take(take).ToList());
         }
 
         private Func<Models.Instruction, object> getSortParams(string property)
@@ -54,14 +53,10 @@ namespace A2SPA.Controllers
                 SortParams = new Func<Models.Instruction, object>(p => p.Rating);
 
             }
-            else if (property == "new")
-            {
-                SortParams = new Func<Models.Instruction, object>(p => p.DataCreated);
-            }
             else if (property == "all")
             {
                 SortParams = new Func<Models.Instruction, object>(p => p.Id);
-            }
+            }         
             return SortParams;
         }
 
@@ -77,25 +72,25 @@ namespace A2SPA.Controllers
             {
                 ans.Add(item.Instruction);
             }
-            return ans.OrderBy(SortParams).Skip(skip).Take(take).ToList();
+            return ans.OrderByDescending(SortParams).Skip(skip).Take(take).ToList();
         }
 
         [HttpGet("getInstructions/{take}/{skip}/{property}/{type}/{value}")]
-        public List<Models.Instruction> GetInstructionDefaulttype(int take, int skip, string property,string type ,string value )
+        public List<Models.Instruction> GetInstructionDefaulttype(int take, int skip, string property, string type, string value)
         {
             Func<Models.Instruction, object> SortParams = getSortParams(property);
-            return db.Instruction.Include(p => p.UserProfile).Include(p => p.Category).OrderBy(SortParams).Skip(skip).Take(take).ToList();
+            return db.Instruction.Include(p => p.UserProfile).Include(p => p.Category).OrderByDescending(SortParams).Skip(skip).Take(take).ToList();
         }
 
         [HttpGet("getInstructions/{take}/{skip}/{property}/search/{value}")]
         public List<Models.Instruction> GetInstructionsBySearch(int take, int skip, string property, string type, string value)
         {
             Func<Models.Instruction, object> SortParams = getSortParams(property);
-            return  db.Instruction.Include(p => p.UserProfile).Include(p => p.Category).OrderBy(SortParams).Where(p => p.Name.ToLower().Contains(value.ToLower())).Skip(skip).Take(take).ToList();
+            return db.Instruction.Include(p => p.UserProfile).Include(p => p.Category).OrderByDescending(SortParams).Where(p => p.Name.ToLower().Contains(value.ToLower())).Skip(skip).Take(take).ToList();
         }
 
         [HttpPost("[action]")]
-        public IActionResult PublishInstruction([FromBody] A2SPA.Models.Instruction item)
+        public IActionResult PublishInstruction([FromBody] Models.Instruction item)
         {
             Category category = db.Category.FirstOrDefault(p => p.Name == item.Category.Name);
             item.Category = (category != null) ? category : item.Category;
@@ -117,7 +112,7 @@ namespace A2SPA.Controllers
         [HttpGet("[action]/{id}")]
         public IActionResult GetInstructionById(string id)
         {
-            
+
             Models.Instruction ins = db.Instruction.Include(p => p.UserProfile).Include(p => p.Category).Include(p => p.Steps).ThenInclude(p => p.Blocks).Include(p => p.Tags).ThenInclude(p => p.Tag).FirstOrDefault(p => p.Id == Int32.Parse(id));
             return new ObjectResult(ins);
         }
@@ -128,7 +123,66 @@ namespace A2SPA.Controllers
             return new ObjectResult(db.Category.ToList());
         }
 
+        [HttpGet("[action]/{id}/{take}/{skip}")]
+        public IActionResult GetCommentaryFromInstruction(int idInstruction, int take, int skip)
+        {
+            Models.Instruction instruction = db.Instruction.FirstOrDefault(p => p.Id == idInstruction);
+            return new ObjectResult(db.Commentary.Include(p => p.UserProfile).Where(p => p.Instruction == instruction).ToList());
+        }
 
+        [HttpPost("[action]/{idUser}/{idInstruction}")]
+        public IActionResult AddComentaryFromUser([FromBody] Commentary commentary,int idUser,int idInstruction)
+        {
+            UserProfile userProfile = db.UserProfile.FirstOrDefault(p => p.Id == commentary.UserProfile.Id);
+            Models.Instruction instruction = db.Instruction.FirstOrDefault(p => p.Id == commentary.Instruction.Id);
+            commentary.Instruction = instruction;
+            commentary.UserProfile = userProfile;
+            db.Commentary.Add(commentary);
+            db.SaveChanges();
+            return Ok();
+        }
+
+        [HttpPost("[action]/{idUser}/{idInstruction}")]
+        public IActionResult ChangeComentaryFromUser([FromBody] Commentary commentary, int idUser, int idInstruction)
+        {
+            Commentary oldComment = db.Commentary.AsNoTracking().Include(p => p.Instruction).Include(p => p.UserProfile).FirstOrDefault(p => p.Id == commentary.Id);
+            UserProfile userProfile = db.UserProfile.FirstOrDefault(p => p.Id == commentary.UserProfile.Id);
+            Models.Instruction instruction = db.Instruction.FirstOrDefault(p => p.Id == commentary.Instruction.Id);
+            oldComment.Instruction = instruction;
+            oldComment.UserProfile = userProfile;
+            db.Commentary.Update(oldComment);
+            db.SaveChanges();
+            return Ok();
+        }
+
+        [HttpPost("[action]/{idUser}/{idInstruction}")]
+        public IActionResult ChangeRatingInstruction([FromBody] int value, int idUser, int idInstruction)
+        {
+
+            UserProfile userProfile = db.UserProfile.Include(p => p.User).FirstOrDefault(p => p.Id == idUser);
+            if (userProfile.User.Id == User.FindFirst(ClaimTypes.NameIdentifier).Value)
+            {
+                Models.Instruction instruction = db.Instruction.Include(p => p.UserProfile).FirstOrDefault(p => p.Id == idInstruction);
+                instruction.Rating += value;
+                instruction.UserProfile.Rating += value;
+                ServiceAchivment.GetInstance().WasAction(Events.LikePost, idInstruction);
+                return Ok();
+            }
+            return Ok("Autification Error");
+        }
+
+        [HttpGet("[action]/idInstruction/idUser")]
+        public IActionResult IsUserLikedIt(int idInstruction,int idUser)
+        {
+            LikeInstruction likeInstruction =  db.LikeInstruction.Include(p => p.UserProfile).Include(p => p.Instruction).FirstOrDefault(p => p.Instruction.Id == idInstruction && p.UserProfile.Id == idUser);
+            return (likeInstruction != null) ? Ok(true) : Ok(false);
+        }
+
+        [HttpGet("[action]")]
+        public IActionResult GetTags()
+        {
+            return new ObjectResult(db.Tag.OrderBy(p => Guid.NewGuid()).Take(10));
+        }
     }
-    
 }
+            

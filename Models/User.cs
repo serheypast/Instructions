@@ -160,6 +160,7 @@ namespace A2SPA.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public Achivment Achivment { get; set; }
+        [JsonIgnore]
         public UserProfile UserProfile { get; set; }
     }
 

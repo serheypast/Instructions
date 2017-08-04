@@ -40,6 +40,9 @@ var RestService = (function () {
     RestService.prototype.getCategories = function () {
         return this.http.get('/api/getAllCategories');
     };
+    RestService.prototype.getTags = function () {
+        return this.http.get('api/getTags');
+    };
     return RestService;
 }());
 RestService = __decorate([
