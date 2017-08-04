@@ -4,7 +4,9 @@
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager 
 
-<nav class="navbar navbar-inverse navbar-fixed-top">
+
+
+<nav class="navbar navbar-inverse navbar-fixed-top" style="background-color:#416b8f; border-color:#2f4c65">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -13,24 +15,13 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a routerLink="/home" routerLinkActive="active" class="navbar-brand">A2SPA</a>
+            <a style="color: #fff;" routerLink="/home" routerLinkActive="active" class="navbar-brand"><i style="padding-right:5px;" class="fa fa-graduation-cap" aria-hidden="true"></i>WoG</a>
         </div>
         <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li>
-                    <a class="nav-link" (click)="setTitle('Home - A2SPA')" routerLink="/home" routerLinkActive="active">Home</a>
-                </li>
-                <li>
-                    <a class="nav-link" (click)="setTitle('About - A2SPA')" routerLink="/instruction">CreateInst</a>
-                </li>
-                <li>
-                    <a class="nav-link"  routerLink="/comment" >Comment</a>
-                </li>
-            </ul>
-            
+                     
                 <div class="navbar-form navbar-left" >
                     <div class="input-group">
-                        @*<ng2-completer [(ngModel)]="searchStr" [datasource]="dataService" [minSearchLength]="1"></ng2-completer>*@
+                        <input id="mainSearch"  type="text" class="form-control" placeholder="Search">
                         <input type="text" (keyup.enter)="handleKeyDown($event)" class="form-control" [(ngModel)]="searchData1" placeholder="Search">
                         <div class="input-group-btn">
                             <a class="btn btn-default"  routerLink="/home/all/search/{{searchData1}}"  (click)="getRequest()">
@@ -46,20 +37,16 @@
                 <form ngNoForm asp-area="" asp-controller="Account" asp-action="Logout" method="post" id="logoutForm" class="navbar-right">
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> @UserManager.GetUserName(User)<span class="caret"></span></a>
+                            <a style="color: #fff;" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> @UserManager.GetUserName(User)<span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a asp-area="" (click)="setTitle('UserProfile - A2SPA')"   [routerLink]="['profile','0']">My Profile</a></li>
-                                <li><a href="#">Edit</a></li>
-                                <li><a href="#">Setting</a></li>                              
-                                <li><a  asp-area="" (click)="setTitle('UserProfile - A2SPA')"   routerLink="/test">AnyWhere</a></li>
-                                <li><a href="#">Log out</a></li>
+                                <li><a asp-area="" [routerLink]="['profile','0']">My Profile</a></li>
+                                <li><a asp-area="" [routerLink]="['instruction']">New instruction</a></li>
+                                <li><a asp-area="" [routerLink]="['displayInstruction']">Display</a></li>    
+                                <li><hr style="margin-top: 3px; margin-bottom: 3px;"/></li>
+                                <li>
+                                    <a href="#">Log out</a>
+                                </li>                 
                             </ul>
-                        </li>
-                        <li>
-                            
-                        </li>
-                        <li>
-                            <button type="submit" class="btn btn-link navbar-btn navbar-link"><span class="glyphicon glyphicon-log-in"></span> Log out</button>
                         </li>
                     </ul>
                 </form>
@@ -76,6 +63,7 @@
 </nav>
 <div class="">
 
+    <router-outlet></router-outlet>
     <router-outlet></router-outlet>
 
 </div>

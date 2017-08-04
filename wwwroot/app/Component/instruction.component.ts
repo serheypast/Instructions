@@ -8,6 +8,7 @@ import { TagModel } from "ng2-tag-input/dist/modules/core";
 import { FormControl } from "@angular/forms/src/model";
 import { ConfirmationService } from 'primeng/primeng';
 import { RestService } from "./../RestService/RestService";
+import { SelectItem } from "primeng/components/common/selectitem";
 
 @Component({
     selector: 'instruction',
@@ -17,6 +18,11 @@ import { RestService } from "./../RestService/RestService";
 })
 
 export class InstructionComponent {
+
+    cities: SelectItem[];
+
+    selectedCity: any;
+
 
     instruction: Instruction = new Instruction();
     category: Category = new Category();
@@ -43,9 +49,13 @@ export class InstructionComponent {
     }
 
     constructor(private service: RestService,private dragulaService: DragulaService, private sanitizer: DomSanitizer, private confirmationService: ConfirmationService) {
-        console.log("created");
+        this.cities = [];
+        this.cities.push({ label: 'New York', value: {name:'New York' }});
+
+        this.addStep();
+
         this.instruction.name = "Name";
-        this.instruction.previewImageUrl = "https://res.cloudinary.com/dr4opxk5i/image/upload/j8khmafnd7hbxwpxy0kb.jpg"; 
+        this.instruction.previewImageUrl = "https://res.cloudinary.com/dr4opxk5i/image/upload/spt2r2sqiyotibnrfhch.jpg"; 
         this.instruction.category = this.category;
 
         dragulaService.dropModel.subscribe((value: any) => {
@@ -81,9 +91,18 @@ export class InstructionComponent {
 
     publish() {
         this.addTags();
+        this.addCategory();
         console.log(this.instruction);
+<<<<<<< HEAD
         this.service.publishInstruction(this.instruction);
+=======
+    }
+>>>>>>> displayInstructions
 
+    addCategory() {
+        let category: Category = new Category();
+        category.name = this.selectedCity.name;
+        this.instruction.category = category;
     }
 
     addTags() {
@@ -191,22 +210,6 @@ export class InstructionComponent {
     public selected(value: any): void {       
         this.category.name = value.text;        
     }
-
-   
-
-    //public onItemAdded(tag1: any){       
-    //    console.log(tag1.value);     
-    //    let tag = new Tag();
-    //    tag.name = tag1.value;     
-    //    let tagInst = new InstructionTag();
-    //    tagInst.tag = tag;
-    //    this.instruction.tags.push(tagInst);
-    //}
-
-    //public onItemRemoved(tag1: any) {      
-    //    console.log(tag1.value);   
-    //    console.log(this.instruction);
-    //}
 
 }
 
