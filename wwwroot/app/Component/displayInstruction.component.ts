@@ -1,71 +1,73 @@
-﻿import { Component, OnInit } from '@angular/core';
+﻿import { Component, OnInit,OnDestroy } from '@angular/core';
+import { RestService } from "./../RestService/RestService";
+import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs/Subscription';
+
 
 
 @Component({
     selector: 'display-instructions',
-    templateUrl: '/partial/displayInstructionComponent'
+    templateUrl: '/partial/displayInstructionComponent',
+    providers: [RestService]
 })
 
 export class DisplayInstructionComponent {
 
     instruction: Instruction = new Instruction();
+    currentUser: UserProfile;
+    public id: string;
+    private subscription: Subscription;
+    public userProfileId: string;
+    public firstName: string;
+    public categoryName: string;
+    loadInfo: boolean = false;
+    loadTag: boolean = false;
+    loadUser: boolean = false;
+    beginRating: number;
+    constructor(private service: RestService, private activateRoute: ActivatedRoute, ) {
+        this.loadInfo = false;
+        this.loadUser = false;
+        this.subscription = this.activateRoute.params.subscribe(params => {
+            this.id = params['id'];
+        });
+        this.service.getInstrcutionById(this.id).subscribe(result => {
+            this.instruction = result.json();
+            this.beginRating = this.instruction.rating;
+            if (this.instruction.tags.length == 0) {
+                let tagInst = new InstructionTag();
+                let tag1 = new Tag();
+                tag1.name = "";
+                tagInst.tag = tag1;
+                this.instruction.tags.push(tagInst);
+            }
+            this.service.getCurrentUser().subscribe(result => {
+                this.currentUser = result.json();            
+                this.service.UserLikeIt(this.currentUser.id.toString(), this.instruction.id.toString()).subscribe(result => {
+                    this.like = result.json();
+                });
+                if (this.currentUser != null)
+                    this.loadUser = true;
+                
+              
+            });
+            console.log("LoadInfo");
 
-    constructor() {  }
+            this.loadInfo = true;
+        });
+       
+      
+    
+    }
 
     ngOnInit() {
-
-        this.like = false;
-        this.instruction.previewImageUrl = "http://wallpapers-images.ru/1920x1080/nature/wallpapers/wallpapers-nature-013.jpg";
-        this.instruction.rating = 23;
-
-        let step1 = new Step();
-        let step2 = new Step();
-
-        step1.name = "FirstStep";
-        step2.name = "SecondStep";
-
-        let bl1 = new Block();
-        let bl2 = new Block();
-        bl1.type = "text";
-        bl1.field = "У меня проблема. Ставлю анкоры на другую страницу. Их около 30 штук. Так вот, первые десять анкоров работают нормально, а остальные тупо перемещают в конец страницы. В чем может быть проблема?п.с.анкоры все разные с переходом на уникальные id";
-        bl2.type = "photo";
-        bl2.field = "http://wallpapers-image.ru/1920x1080/mountains/wallpapers/mountains-wallpapers-1920x1080-0007.jpg";
-
-        let bl12 = new Block();
-        let bl13 = new Block();
-        let bl22 = new Block();
-        bl13.type = "video";
-        bl13.field = "https://www.youtube.com/embed/d3GDvpfNNcY";
-        bl12.type = "text";
-        bl12.field = "21";
-        bl22.type = "text";
-        bl22.field = "text";
-
-        step1.blocks = step1.blocks.concat(bl1, bl2);
-        step2.blocks = step2.blocks.concat(bl12, bl22, bl13);
-        this.instruction.steps = this.instruction.steps.concat(step1, step2,step1,step1,step1,step1,step1);
-        this.instruction.name = "How to made potato";
-        let tag = new Tag();
-        tag.name = "One";
-        let tag1 = new Tag();
-        tag1.name = "Two";
-        let tag2 = new Tag();
-        tag2.name = "Three";
-        let tagInst = new InstructionTag();
-        tagInst.tag = tag;
-        let tagInst1 = new InstructionTag();
-        tagInst1.tag = tag1;
-        let tagInst2 = new InstructionTag();
-        tagInst2.tag = tag2;
-        this.instruction.tags = this.instruction.tags.concat(tagInst, tagInst1, tagInst2);
-        let category = new Category();
-        category.name = "Sport";
-        this.instruction.category = category;
+      
+       
     }
 
     like: boolean;
 
     putLike() {
+        console.log(this.like);
         if (this.like) {
             this.instruction.rating -= 1;
         }
@@ -75,6 +77,13 @@ export class DisplayInstructionComponent {
 
         this.like = !this.like;
         //request on server
+    }
+
+    ngOnDestroy() {
+        let oldRating: number = this.instruction.rating;
+        this.instruction.rating = oldRating - this.beginRating;
+        this.service.changeRatingInstruction(this.instruction);
+        this.instruction.rating = oldRating;
     }
 
 }
@@ -100,7 +109,7 @@ class Instruction {
     previewImageUrl: string;
     rating: number;
     category: Category;
-    user: null;
+    userProfile: UserProfile;
     tags: InstructionTag[] = [];
     steps: Step[] = [];
 }
@@ -121,3 +130,16 @@ class Tag {
     name: string;
     instructoins: InstructionTag[] = [];
 }
+
+class UserProfile {
+    id: number;
+    firstName: string;
+    secondName: string;
+    urlPhoto: string;
+    rating: number;
+    country: string;
+    city: string;
+    dataOfBirth: string;
+    aboutMySelf: string;
+}
+

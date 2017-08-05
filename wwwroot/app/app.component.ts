@@ -12,7 +12,11 @@ import { CompleterService, CompleterData } from 'ng2-completer';
     providers: [RestService],
 })
 export class AppComponent {
-    public constructor(private completerService: CompleterService,private titleService: Title, private router: Router) {
+
+    static user: User;
+    static restService: RestService;
+    public constructor(private completerService: CompleterService, private titleService: Title, private router: Router, private service: RestService) {
+        
         this.searchData1 = "";
         this.dataService = completerService.local(this.searchData, 'color', 'color');
     }
@@ -26,7 +30,7 @@ export class AppComponent {
 
     public setTitle(newTitle: string) {
         this.titleService.setTitle(newTitle);
-
+        
     }
 
     protected searchStr: string;
@@ -43,7 +47,12 @@ export class AppComponent {
     ];
     protected captains = ['James T. Kirk', 'Benjamin Sisko', 'Jean-Luc Picard', 'Spock', 'Jonathan Archer', 'Hikaru Sulu', 'Christopher Pike', 'Rachel Garrett'];
 
-    
+    public static getUser() {
+        if (this.user == null) {
+          
+        }
+    }
+
     text: string;
 
     results: string[];
@@ -55,5 +64,11 @@ export class AppComponent {
       
     }
 
+    
+}
 
+
+class User {
+    id: string;
+    role: string;
 }

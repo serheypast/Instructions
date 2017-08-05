@@ -95,13 +95,15 @@ namespace A2SPA.Models
     
         public ICollection<InstructionTag> Tags { get; set; }
         public ICollection<Step> Steps { get; set; }
-
-
+        public ICollection<UserProfile> UsersLike { get; set; }
+        //public ICollection<Commentary> Commentaries { get; set; }
 
         public Instruction()
         {
             Steps = new List<Step>();
             Tags = new List<InstructionTag>();
+            UsersLike = new List<UserProfile>();
+            //Commentaries = new List<Commentary>();
         }
 
     }
@@ -142,6 +144,7 @@ namespace A2SPA.Models
         public string DataCreated { get; set; }
         public string Content { get; set; }
         public string Date { get; set; }
+
     }
 
     public class Achivment
@@ -164,12 +167,5 @@ namespace A2SPA.Models
         public UserProfile UserProfile { get; set; }
     }
 
-    public class LikeInstruction
-    {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
-        public UserProfile UserProfile { get; set;}
-        public Instruction Instruction { get; set; }
-    }
+
 }

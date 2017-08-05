@@ -151,24 +151,6 @@ namespace A2SPA.Migrations
                     b.ToTable("InstructionTag");
                 });
 
-            modelBuilder.Entity("A2SPA.Models.LikeInstruction", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int?>("InstructionId");
-
-                    b.Property<int?>("UserProfileId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("InstructionId");
-
-                    b.HasIndex("UserProfileId");
-
-                    b.ToTable("LikeInstruction");
-                });
-
             modelBuilder.Entity("A2SPA.Models.Step", b =>
                 {
                     b.Property<int>("Id")
@@ -264,6 +246,8 @@ namespace A2SPA.Migrations
 
                     b.Property<string>("FirstName");
 
+                    b.Property<int?>("InstructionId");
+
                     b.Property<int>("Rating");
 
                     b.Property<string>("SecondName");
@@ -273,6 +257,8 @@ namespace A2SPA.Migrations
                     b.Property<string>("UserId");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("InstructionId");
 
                     b.HasIndex("UserId");
 
@@ -437,17 +423,6 @@ namespace A2SPA.Migrations
                         .HasForeignKey("TagId");
                 });
 
-            modelBuilder.Entity("A2SPA.Models.LikeInstruction", b =>
-                {
-                    b.HasOne("A2SPA.Models.Instruction", "Instruction")
-                        .WithMany()
-                        .HasForeignKey("InstructionId");
-
-                    b.HasOne("A2SPA.Models.UserProfile", "UserProfile")
-                        .WithMany()
-                        .HasForeignKey("UserProfileId");
-                });
-
             modelBuilder.Entity("A2SPA.Models.Step", b =>
                 {
                     b.HasOne("A2SPA.Models.Instruction", "Instruction")
@@ -457,6 +432,10 @@ namespace A2SPA.Migrations
 
             modelBuilder.Entity("A2SPA.Models.UserProfile", b =>
                 {
+                    b.HasOne("A2SPA.Models.Instruction")
+                        .WithMany("UsersLike")
+                        .HasForeignKey("InstructionId");
+
                     b.HasOne("A2SPA.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId");

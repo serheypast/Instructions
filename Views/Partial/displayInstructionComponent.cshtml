@@ -124,20 +124,22 @@
 
 </style>
 
-    <div class="header container">
+    <div class="header container" *ngIf="loadInfo">
         <h2>{{instruction.name}}</h2>
-        <p id="method_toc" class="sp_method_toc">
+        <p id="method_toc" class="sp_method_toc" *ngIf="loadTag">
             <span class="glyphicon glyphicon-cloud"></span>
-            <span>Tags: </span>          
-                <a *ngFor="let stepName of instruction.steps; let i = index" >#{{stepName.name}}</a>           
+            <span>Tags: </span>  
+          
+            <a *ngFor="let tag1 of instruction.tags; let i = index"  routerLink="/home/all/tag/{{tag1.tag.name}}">#{{tag1.tag.name}}</a>
+       
         </p>
         <p id="method_toc" class="sp_method_toc">
             <span>{{instruction.steps.length}} Steps :</span>
             <a *ngFor="let stepName of instruction.steps; let i = index" >{{i+1}}) {{stepName.name}}</a>
         </p>
         <img src={{instruction.previewImageUrl}} style="width: calc(100% + 30px);margin-left: -15px;" />
-        <div class="pull-left" style="line-height:40px">
-            Created by <a href="#">Sergey</a> in <a href="#">Sports</a> 
+        <div class="pull-left" style="line-height:40px" >
+            Created by <a routerLink="/profile/{{instruction.userProfile.id.toString()}}"> {{instruction.userProfile.firstName}}</a> in <a routerLink="/home/all/category/{{instruction.category.name}}">{{instruction.category.name}}</a>
         </div>
         <div class="pull-right" style="cursor:pointer;line-height:40px">            
                 <span *ngIf="!like" (click)="putLike()" >{{instruction.rating}} <span style="font-size: large ;margin-top: 12%; padding-left: 5px;" class="glyphicon glyphicon glyphicon-thumbs-up"></span></span>  
@@ -173,8 +175,6 @@
         </div>     
 </div>
 
-
-
-<comments></comments>  
-
-
+<div *ngIf="loadUser">
+    <comments *ngIf="loadUser" [idInstruction]="instruction.id" [userProfile]="currentUser"></comments>
+</div>

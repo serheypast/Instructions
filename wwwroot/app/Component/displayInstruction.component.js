@@ -10,55 +10,48 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
+var RestService_1 = require("./../RestService/RestService");
+var router_1 = require("@angular/router");
 var DisplayInstructionComponent = (function () {
-    function DisplayInstructionComponent() {
+    function DisplayInstructionComponent(service, activateRoute) {
+        var _this = this;
+        this.service = service;
+        this.activateRoute = activateRoute;
         this.instruction = new Instruction();
+        this.loadInfo = false;
+        this.loadTag = false;
+        this.loadUser = false;
+        this.loadInfo = false;
+        this.loadUser = false;
+        this.subscription = this.activateRoute.params.subscribe(function (params) {
+            _this.id = params['id'];
+        });
+        this.service.getInstrcutionById(this.id).subscribe(function (result) {
+            _this.instruction = result.json();
+            _this.beginRating = _this.instruction.rating;
+            if (_this.instruction.tags.length == 0) {
+                var tagInst = new InstructionTag();
+                var tag1 = new Tag();
+                tag1.name = "";
+                tagInst.tag = tag1;
+                _this.instruction.tags.push(tagInst);
+            }
+            _this.service.getCurrentUser().subscribe(function (result) {
+                _this.currentUser = result.json();
+                _this.service.UserLikeIt(_this.currentUser.id.toString(), _this.instruction.id.toString()).subscribe(function (result) {
+                    _this.like = result.json();
+                });
+                if (_this.currentUser != null)
+                    _this.loadUser = true;
+            });
+            console.log("LoadInfo");
+            _this.loadInfo = true;
+        });
     }
     DisplayInstructionComponent.prototype.ngOnInit = function () {
-        this.like = false;
-        this.instruction.previewImageUrl = "http://wallpapers-images.ru/1920x1080/nature/wallpapers/wallpapers-nature-013.jpg";
-        this.instruction.rating = 23;
-        var step1 = new Step();
-        var step2 = new Step();
-        step1.name = "FirstStep";
-        step2.name = "SecondStep";
-        var bl1 = new Block();
-        var bl2 = new Block();
-        bl1.type = "text";
-        bl1.field = "У меня проблема. Ставлю анкоры на другую страницу. Их около 30 штук. Так вот, первые десять анкоров работают нормально, а остальные тупо перемещают в конец страницы. В чем может быть проблема?п.с.анкоры все разные с переходом на уникальные id";
-        bl2.type = "photo";
-        bl2.field = "http://wallpapers-image.ru/1920x1080/mountains/wallpapers/mountains-wallpapers-1920x1080-0007.jpg";
-        var bl12 = new Block();
-        var bl13 = new Block();
-        var bl22 = new Block();
-        bl13.type = "video";
-        bl13.field = "https://www.youtube.com/embed/d3GDvpfNNcY";
-        bl12.type = "text";
-        bl12.field = "21";
-        bl22.type = "text";
-        bl22.field = "text";
-        step1.blocks = step1.blocks.concat(bl1, bl2);
-        step2.blocks = step2.blocks.concat(bl12, bl22, bl13);
-        this.instruction.steps = this.instruction.steps.concat(step1, step2, step1, step1, step1, step1, step1);
-        this.instruction.name = "How to made potato";
-        var tag = new Tag();
-        tag.name = "One";
-        var tag1 = new Tag();
-        tag1.name = "Two";
-        var tag2 = new Tag();
-        tag2.name = "Three";
-        var tagInst = new InstructionTag();
-        tagInst.tag = tag;
-        var tagInst1 = new InstructionTag();
-        tagInst1.tag = tag1;
-        var tagInst2 = new InstructionTag();
-        tagInst2.tag = tag2;
-        this.instruction.tags = this.instruction.tags.concat(tagInst, tagInst1, tagInst2);
-        var category = new Category();
-        category.name = "Sport";
-        this.instruction.category = category;
     };
     DisplayInstructionComponent.prototype.putLike = function () {
+        console.log(this.like);
         if (this.like) {
             this.instruction.rating -= 1;
         }
@@ -68,14 +61,21 @@ var DisplayInstructionComponent = (function () {
         this.like = !this.like;
         //request on server
     };
+    DisplayInstructionComponent.prototype.ngOnDestroy = function () {
+        var oldRating = this.instruction.rating;
+        this.instruction.rating = oldRating - this.beginRating;
+        this.service.changeRatingInstruction(this.instruction);
+        this.instruction.rating = oldRating;
+    };
     return DisplayInstructionComponent;
 }());
 DisplayInstructionComponent = __decorate([
     core_1.Component({
         selector: 'display-instructions',
-        templateUrl: '/partial/displayInstructionComponent'
+        templateUrl: '/partial/displayInstructionComponent',
+        providers: [RestService_1.RestService]
     }),
-    __metadata("design:paramtypes", [])
+    __metadata("design:paramtypes", [RestService_1.RestService, router_1.ActivatedRoute])
 ], DisplayInstructionComponent);
 exports.DisplayInstructionComponent = DisplayInstructionComponent;
 var Block = (function () {
@@ -111,5 +111,10 @@ var Tag = (function () {
         this.instructoins = [];
     }
     return Tag;
+}());
+var UserProfile = (function () {
+    function UserProfile() {
+    }
+    return UserProfile;
 }());
 //# sourceMappingURL=displayInstruction.component.js.map

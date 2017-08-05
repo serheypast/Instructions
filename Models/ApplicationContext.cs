@@ -20,7 +20,7 @@ namespace A2SPA.Models
         public DbSet<Achivment> Achivment { get; set; }
         public DbSet<AchivmentUser> AchivmentUser { get; set; }
         public DbSet<Tag> Tag { get; set; }
-        public DbSet<LikeInstruction> LikeInstruction { get; set; }
+
 
         public ApplicationContext(DbContextOptions<ApplicationContext> options)
             : base(options)
