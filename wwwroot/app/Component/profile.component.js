@@ -14,6 +14,7 @@ var http_1 = require("@angular/http");
 var router_1 = require("@angular/router");
 var ng2_cloudinary_1 = require("ng2-cloudinary");
 var RestService_1 = require("./../RestService/RestService");
+var angular_l10n_1 = require("angular-l10n");
 var ProfileComponent = (function () {
     function ProfileComponent(http, activateRoute, service) {
         var _this = this;
@@ -50,6 +51,10 @@ var ProfileComponent = (function () {
     };
     return ProfileComponent;
 }());
+__decorate([
+    angular_l10n_1.Language(),
+    __metadata("design:type", String)
+], ProfileComponent.prototype, "lang", void 0);
 ProfileComponent = __decorate([
     core_1.Component({
         selector: 'profile',

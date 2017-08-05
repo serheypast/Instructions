@@ -31,6 +31,9 @@ var HomeComponent = (function () {
             _this.tags = result.json();
         });
     }
+    HomeComponent.prototype.selectLanguage = function (language) {
+        this.locale.setCurrentLanguage(language);
+    };
     return HomeComponent;
 }());
 __decorate([

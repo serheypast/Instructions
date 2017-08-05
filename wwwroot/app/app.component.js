@@ -14,6 +14,7 @@ var platform_browser_1 = require("@angular/platform-browser");
 var RestService_1 = require("./RestService/RestService");
 var router_1 = require("@angular/router");
 var ng2_completer_1 = require("ng2-completer");
+var angular_l10n_1 = require("angular-l10n");
 var AppComponent = (function () {
     function AppComponent(completerService, titleService, router) {
         this.completerService = completerService;
@@ -45,6 +46,10 @@ var AppComponent = (function () {
     };
     return AppComponent;
 }());
+__decorate([
+    angular_l10n_1.Language(),
+    __metadata("design:type", String)
+], AppComponent.prototype, "lang", void 0);
 AppComponent = __decorate([
     core_1.Component({
         selector: 'my-app',

@@ -9,6 +9,7 @@ import { FormControl } from "@angular/forms/src/model";
 import { ConfirmationService, Message } from 'primeng/primeng';
 import { RestService } from "./../RestService/RestService";
 import { SelectItem } from "primeng/components/common/selectitem";
+import { Language } from 'angular-l10n';
 
 @Component({
     selector: 'instruction',
@@ -18,7 +19,7 @@ import { SelectItem } from "primeng/components/common/selectitem";
 })
 
 export class InstructionComponent {
-
+    @Language() lang: string;
     cities: SelectItem[];
     msgs: Message[] = [];
     selectedCity: any; 

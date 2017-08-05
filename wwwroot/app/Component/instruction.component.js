@@ -15,6 +15,7 @@ var platform_browser_1 = require("@angular/platform-browser");
 var ng2_cloudinary_1 = require("ng2-cloudinary");
 var primeng_1 = require("primeng/primeng");
 var RestService_1 = require("./../RestService/RestService");
+var angular_l10n_1 = require("angular-l10n");
 var InstructionComponent = (function () {
     function InstructionComponent(service, dragulaService, sanitizer, confirmationService) {
         var _this = this;
@@ -204,6 +205,10 @@ var InstructionComponent = (function () {
     };
     return InstructionComponent;
 }());
+__decorate([
+    angular_l10n_1.Language(),
+    __metadata("design:type", String)
+], InstructionComponent.prototype, "lang", void 0);
 InstructionComponent = __decorate([
     core_1.Component({
         selector: 'instruction',

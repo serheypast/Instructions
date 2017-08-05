@@ -43,21 +43,21 @@
         </div>
         <div class="sidebar col-xs-3 hidden-xs" style=" padding: 20px;">
             <div class="well">
-               <a routerLink="/home/all/{{type}}/{{value}}">All</a>
-               <a routerLink="/home/popular/{{type}}/{{value}}">Popular</a>
+               <a routerLink="/home/all/{{type}}/{{value}}">{{ 'All' | translate:lang }}</a>
+               <a routerLink="/home/popular/{{type}}/{{value}}">{{ 'Popular' | translate:lang }}</a>
             </div>
 
             <div class="well">
-                <a href="#">English</a>
-                <a href="#">Русский</a>
+                <a (click)="selectLanguage('en')">English</a>
+                <a (click)="selectLanguage('rus')">Русский</a>
             </div>
 
             <div class="well">
-                <p>Browse Categories</p>
+                <p>{{ 'Categories' | translate:lang }}</p>
                 <p *ngFor="let item of categories"><a routerLink="/home/all/category/{{item.name}}">{{item.name}}</a></p>
             </div>
             <div class="well">
-                <p>Cloud Tags</p>
+                <p>{{ 'CloudTag' | translate:lang }}</p>
                 <a *ngFor="let tag of tags" routerLink="/home/all/tag/{{tag.name}}">{{tag.name}}  </a>
             </div>
         </div>

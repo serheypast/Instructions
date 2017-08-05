@@ -97,7 +97,7 @@
                         <div class="panel-heading">
                             <header class="panel-title">
                                 <div class="text-center">
-                                    <strong>User</strong>
+                                    <strong>{{ 'ProfileComponent.User' | translate:lang }}</strong>
                                 </div>
                             </header>
                         </div>
@@ -109,7 +109,7 @@
                                     <div class="hover">
                                         <label id="labelPhoto" title="Change main photo">
                                             <span class="glyphicon glyphicon-camera" style="margin-top:3%;"></span>
-                                             Change photo
+                                             {{ 'ProfileComponent.ChangePhoto' | translate:lang }}
                                             <input class="hidden" type="file" ng2FileSelect [uploader]="uploader" (change)="onChange($event)" />
                                         </label>
                                     </div>
@@ -137,51 +137,51 @@
 
                         <div class="panel-body">
                             <ul id="myTab" class="nav nav-pills">
-                                <li class="active"><a href="#detail" data-toggle="tab">About me</a></li>
-                                <li class=""><a href="#contact" data-toggle="tab">Achievements</a></li>
-                                <li class=""><a href="#contact" data-toggle="tab">Publications</a></li>
+                                <li class="active"><a href="#detail" data-toggle="tab">{{ 'ProfileComponent.AboutMe' | translate:lang }}</a></li>
+                                <li class=""><a href="#contact" data-toggle="tab">{{ 'ProfileComponent.Achievements' | translate:lang }}</a></li>
+                                <li class=""><a href="#contact" data-toggle="tab">{{ 'ProfileComponent.Publications' | translate:lang }}</a></li>
                                 
                                 <li class="pull-right" style="cursor: pointer;">
-                                    <a (click)="change()"> <span class="glyphicon glyphicon-pencil"></span> Edit</a>
+                                    <a (click)="change()"> <span class="glyphicon glyphicon-pencil"></span> {{ 'ProfileComponent.Edit' | translate:lang }}</a>
                                 </li>
                             </ul>
                             <div id="myTabContent" class="tab-content">
                                 <hr>
                                 <div class="tab-pane fade active in" id="detail">
-                                    <h4>История профиля </h4>
+                                    <h4>{{ 'ProfileComponent.Profile' | translate:lang }}</h4>
                                     <table class="table table-th-block">
                                         <tbody>
-                                            <tr><td class="active">Зарегистрирован:</td><td>12-06-2016</td></tr>
+                                            <tr><td class="active">{{ 'ProfileComponent.Registered' | translate:lang }}:</td><td>12-06-2016</td></tr>
                                             <tr>
-                                                <td class="active">Имя:</td>
+                                                <td class="active">{{ 'ProfileComponent.FirstName' | translate:lang }}:</td>
                                                 <td>
                                                     <input class="input-large" *ngIf="changeField" type="text" [(ngModel)]="user.firstName" style="border: none; padding: 0;" readonly="readonly" />
                                                     <input class="inputProfile" *ngIf="!changeField" type="text" [(ngModel)]="user.firstName" style="width:100%" />
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td class="active">Фамилия:</td>
+                                                <td class="active">{{ 'ProfileComponent.LastName' | translate:lang }}:</td>
                                                 <td>
                                                     <input class="input-large" *ngIf="changeField" type="text" [(ngModel)]="user.secondName" style="outline: 0 ; border: 0; padding: 0;" readonly="readonly" />
                                                     <input class="inputProfile" *ngIf="!changeField" type="text" [(ngModel)]="user.secondName" />
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td class="active">Страна:</td>
+                                                <td class="active">{{ 'ProfileComponent.Country' | translate:lang }}:</td>
                                                 <td>
                                                     <input class="input-large" *ngIf="changeField" type="text" [(ngModel)]="user.country" style="outline: 0 ; border: 0; padding: 0;" readonly="readonly" />
                                                     <input class="inputProfile" *ngIf="!changeField" type="text" [(ngModel)]="user.country" />
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td class="active">Город:</td>
+                                                <td class="active">{{ 'ProfileComponent.City' | translate:lang }}:</td>
                                                 <td>
                                                     <input class="input-large" *ngIf="changeField" type="text" [(ngModel)]="user.city" style="outline: 0 ; border: 0; padding: 0;" readonly="readonly" />
                                                     <input class="inputProfile" *ngIf="!changeField" type="text" [(ngModel)]="user.city" />
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td class="active">Дата рождения:</td>
+                                                <td class="active">{{ 'ProfileComponent.DateofBirth' | translate:lang }}:</td>
                                                 <td>
                                                     <input type="date" *ngIf="changeField" [(ngModel)]="user.dataOfBirth" style="outline: 0 ; border: 0; padding: 0;" readonly="readonly" />
                                                     <input type="date" *ngIf="!changeField" [(ngModel)]="user.dataOfBirth"  />
@@ -190,7 +190,7 @@
                                           
                                             </tr>
                                             <tr>
-                                                <td class="active">Рейтинг пользователя:</td>
+                                                <td class="active">{{ 'ProfileComponent.Rating' | translate:lang }}:</td>
                                                 <td>{{user.rating}}</td>
                                             </tr>
                                           

@@ -34,9 +34,9 @@ export class HomeComponent {
         });
     }
 
-    //selectLanguage(language: string): void {
-    //    this.locale.setCurrentLanguage(language);
-    //}
+    selectLanguage(language: string): void {
+        this.locale.setCurrentLanguage(language);
+    }
 
 }
 

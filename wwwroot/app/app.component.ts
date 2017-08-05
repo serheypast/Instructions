@@ -5,7 +5,7 @@ import { RestService } from "./RestService/RestService";
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { CompleterService, CompleterData } from 'ng2-completer';
-
+import { Language } from 'angular-l10n';
 
 @Component({
     selector: 'my-app',
@@ -13,7 +13,7 @@ import { CompleterService, CompleterData } from 'ng2-completer';
     providers: [RestService],
 })
 export class AppComponent {
-   
+    @Language() lang: string;
 
     public constructor(private completerService: CompleterService,private titleService: Title, private router: Router) {
         this.searchData1 = "";
