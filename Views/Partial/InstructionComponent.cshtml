@@ -35,7 +35,8 @@
 
     .instrument {
         padding: 20px;
-        background-color: black;
+        background-color: #007ced;
+        border-radius: 30px;
     }
 
     .dragSteps {
@@ -208,79 +209,18 @@
         font-family: serif;
     }
 
+    .ui-growl-item {
+      z-index: 99999 !important;
+      top:200px;
+    }
+
+    .ui-widget {
+        z-index: 99999 !important;
+    }
+
 </style>
 
-
-
-
-
-@*<div class="container">
-    <div class="row">
-        <div class="index-content">
-
-            <div class="col-md-5">
-                <div class="card">
-                    <img src={{instruction.previewImageUrl}} style="width: 100%; height: 257px;"/>
-                    <h4>{{instruction.name}}</h4>
-                    <div class="row">
-                        <div class="pull-left" style="margin-left:7%">
-                            <p>by Anton in {{instruction.category.name}}</p>
-                        </div>
-                        <div class="pull-right" style="margin-right:7%">
-                            <p>0</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-7 well" style="height:350px; ">
-               <h2 id="createIns">Create Instruction</h2>
-                    <div class="row">                                        
-                            <div class="pull-left form-inline" style="text-align:center">
-                                <label >Title</label>
-                                <input [(ngModel)]='instruction.name' type="text" class="form-control input-sm" placeholder="Title" tabindex="2" style="width:300px">                             
-                            </div>      
-                       
-                            <div class="pull-right" style="width: 170px; margin-right: 3%;">                             
-                                <ng-select [allowClear]="true"
-                                           [items]="items"
-                                           (selected)="selected($event)"
-                                           placeholder="category">
-                                </ng-select>
-                            </div>
-                        <div class="pull-right">
-                            <label style="padding:7px">Category</label>
-                        </div>
-                    </div>
-                
-
-                    <div class="row" style="margin-top:2%">                       
-                        <tag-input theme='bootstrap'
-                                   [(ngModel)] = "tags"
-                                   [maxItems]='5'
-                                   [validators]="validators"
-                                   [errorMessages]="errorMessages">                             
-                        </tag-input>                                                          
-                    </div>
-
-                   
-                        <div class="dasasd" style="margin-top:23%;">
-                            <div style="bottom:5px; position:absolute; left:7px">
-                                <label title="Add/Change main photo" class="btn btn-default" style="background-color:black; color:aliceblue;">
-                                    Add/Change photo
-                                    <input class="hidden" type="file" ng2FileSelect [uploader]="uploader" (change)="onChange($event,-1)" />
-                                </label>
-                            </div>
-                            <div style="bottom:5px;position:absolute;right:7px">
-                                <button data-toggle="modal" data-target=".bd-example-modal-lg" style="background-color:black; color:aliceblue;" class="btn btn-default">Preview</button>
-                                <button (click)="publish()" style="background-color:black; color:aliceblue;" class="btn btn-default">Publish</button>
-                            </div>
-                        </div>            
-            </div>
-        </div>
-    </div>
-</div>*@
-  
+   <p-growl [(value)]="msgs"></p-growl>
 
 <div class="col-md-8">
         <div [dragula]='"first-bag"' [dragulaModel]='instruction.steps'>
@@ -366,8 +306,8 @@
                     </div>
                     <p-footer>
                         <div class="instruments">
-                            <label (click)="AddText(j)" title="Add text" class="btn instrument btn-default btn-lg"><span class="glyphicon glyphicon-pencil fa-lg" style="color:aliceblue"></span></label>
-                            <label title="Add photo" class="btn instrument btn-default btn-lg">
+                            <label (click)="AddText(j)" style="font-size: initial;" title="Add text" class="btn instrument btn-default btn-1x"><span class="glyphicon glyphicon-pencil fa-lg" style="color:aliceblue"></span></label>
+                            <label title="Add photo" class="btn instrument btn-default btn-lg" >
                                 <span class="glyphicon glyphicon-camera " style="color:aliceblue"></span>
                                 <input class="hidden" type="file" ng2FileSelect [uploader]="uploader" (change)="onChange($event,j)" />
                             </label>
@@ -378,12 +318,13 @@
             </div>
         </div>
 
-   <button (click)="addStep()" class="btn btn-default" style="margin-top: 2%;margin-left: 46%;background-color: #3f80b8;color: white;">Add step</button>
+   <button (click)="addStep()" class="btn btn-default" style="margin-top: 2%;margin-left: 46%;background-color: #1a89e9;color: white;">Add step</button>
 
 </div>
 
 
-<div class="col-md-3" style="background-color:white; margin-top:1.8%; margin-left: 3%; margin-bottom:3%">     
+<div class="col-md-3" style="background-color:white; margin-top:1.8%; margin-left: 3%; margin-bottom:3%">   
+    
     <div class="row" style="border: 1px solid #d1d4d5;">
 
         <div class="form-group form-inline" style="padding-top: 12px; padding-left: 10px;">
@@ -436,7 +377,7 @@
                      <h4>{{instruction.name}}</h4>
                      <div class="row">
                          <div class="pull-left" style="margin-left:7%">
-                             <p>by Anton in {{instruction.category.name}}</p>
+                             <p>by Anton in Sport</p>
                          </div>
                          <div class="pull-right" style="margin-right:7%">
                              <p>0</p>

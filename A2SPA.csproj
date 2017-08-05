@@ -44,6 +44,8 @@
     <Content Include="wwwroot\app\main.js.map" />
     <Content Include="wwwroot\app\main.ts" />
     <Content Include="wwwroot\app\RestService\RestService.ts" />
+    <Content Include="wwwroot\assets\locale-en.json" />
+    <Content Include="wwwroot\assets\locale-rus.json" />
     <Content Include="wwwroot\css\dragula.css" />
     <Content Include="wwwroot\app\test.component.ts" />
     <Content Include="wwwroot\css\dragula.min.css" />

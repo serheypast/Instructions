@@ -6,7 +6,7 @@
 
 
 
-<nav class="navbar navbar-inverse navbar-fixed-top" style="background-color:#416b8f; border-color:#2f4c65">
+<nav class="navbar navbar-inverse navbar-fixed-top" style="background-color:#416b8f; border-color:#2f4c65; z-index:1000">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -21,7 +21,7 @@
                      
                 <div class="navbar-form navbar-left" >
                     <div class="input-group">
-                        <input id="mainSearch"  type="text" class="form-control" [(ngModel)]="searchData1" placeholder="Search">
+                        <input #box (keyup.enter) = "search()" id="mainSearch"  type="text" class="form-control"  [(ngModel)]="searchData1" placeholder="Search">
                         <div class="input-group-btn">
                             <a class="btn btn-default"  routerLink="/home/all/search/{{searchData1}}"  (click)="getRequest()">
                                 <i  class="glyphicon glyphicon-search"></i>
@@ -60,9 +60,7 @@
        
     </div>
 </nav>
+
 <div class="">
-
     <router-outlet></router-outlet>
-    <router-outlet></router-outlet>
-
 </div>

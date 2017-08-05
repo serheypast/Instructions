@@ -22,15 +22,14 @@ var InstructionComponent = (function () {
         this.dragulaService = dragulaService;
         this.sanitizer = sanitizer;
         this.confirmationService = confirmationService;
+        this.msgs = [];
         this.instruction = new Instruction();
         this.category = new Category();
         this.tags = [];
         this.uploader = new ng2_cloudinary_1.CloudinaryUploader(new ng2_cloudinary_1.CloudinaryOptions({ cloudName: 'dr4opxk5i', uploadPreset: 'ajvv2x7e' }));
-        this.items = ['Amsterdam', 'Antwerp', 'Athens', 'Barcelona',
-            'Berlin'];
         this.validators = [this.addTag];
         this.errorMessages = {
-            'addTag': 'Your tag can have max 25 symbols'
+            'addTag': 'Your tag can have max 25 symbols',
         };
         this.cities = [];
         this.cities.push({ label: 'New York', value: { name: 'New York' } });
@@ -82,10 +81,47 @@ var InstructionComponent = (function () {
         this.dragulaService.destroy('first-bag');
     };
     InstructionComponent.prototype.publish = function () {
-        this.addTags();
-        this.addCategory();
-        console.log(this.instruction);
-        this.service.publishInstruction(this.instruction);
+        if (this.validate()) {
+            this.addTags();
+            this.addCategory();
+            this.service.publishInstruction(this.instruction);
+        }
+    };
+    InstructionComponent.prototype.validate = function () {
+        this.msgs = [];
+        return !(this.nameValidate() || this.tagsValidate() || this.categoryValidate() || this.stepNameValidate());
+    };
+    InstructionComponent.prototype.nameValidate = function () {
+        if (this.instruction.name.length == 0) {
+            this.msgs.push({ severity: 'error', summary: 'Error Message', detail: 'Name is empty' });
+            return true;
+        }
+        return false;
+    };
+    InstructionComponent.prototype.tagsValidate = function () {
+        if (this.tags.length == 0) {
+            this.msgs.push({ severity: 'error', summary: 'Error Message', detail: 'Tags is empty' });
+            return true;
+        }
+        return false;
+    };
+    InstructionComponent.prototype.categoryValidate = function () {
+        if (!this.selectedCity) {
+            this.msgs.push({ severity: 'error', summary: 'Error Message', detail: 'Category is not choosen' });
+            return true;
+        }
+        return false;
+    };
+    InstructionComponent.prototype.stepNameValidate = function () {
+        for (var _i = 0, _a = this.instruction.steps; _i < _a.length; _i++) {
+            var step = _a[_i];
+            console.log(step.name);
+            if (!step.name) {
+                this.msgs.push({ severity: 'error', summary: 'Error Message', detail: 'Enter the name in all steps' });
+                return true;
+            }
+        }
+        return false;
     };
     InstructionComponent.prototype.addCategory = function () {
         var category = new Category();

@@ -3,6 +3,7 @@ import { Http } from '@angular/http';
 import { RestService } from "./RestService/RestService";
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
+import { LocaleService, Language } from 'angular-l10n';
 
 @Component({
     selector: 'home',
@@ -11,13 +12,15 @@ import { Subscription } from 'rxjs/Subscription';
 })
 
 export class HomeComponent {
+    @Language() lang: string;
+
     categories: Category[];
     tags: Tag[];
     public value: string;
     public type: string;
     public property: string;
     public subscription: Subscription;
-    constructor(private service: RestService, private activateRoute: ActivatedRoute,) {
+    constructor(private service: RestService, private activateRoute: ActivatedRoute, public locale: LocaleService) {
         this.subscription = activateRoute.params.subscribe(params => {
             this.type = params['type'];
             this.property = params['property'];
@@ -30,6 +33,11 @@ export class HomeComponent {
             this.tags = result.json();
         });
     }
+
+    //selectLanguage(language: string): void {
+    //    this.locale.setCurrentLanguage(language);
+    //}
+
 }
 
 

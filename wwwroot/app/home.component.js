@@ -12,11 +12,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var RestService_1 = require("./RestService/RestService");
 var router_1 = require("@angular/router");
+var angular_l10n_1 = require("angular-l10n");
 var HomeComponent = (function () {
-    function HomeComponent(service, activateRoute) {
+    function HomeComponent(service, activateRoute, locale) {
         var _this = this;
         this.service = service;
         this.activateRoute = activateRoute;
+        this.locale = locale;
         this.subscription = activateRoute.params.subscribe(function (params) {
             _this.type = params['type'];
             _this.property = params['property'];
@@ -31,13 +33,17 @@ var HomeComponent = (function () {
     }
     return HomeComponent;
 }());
+__decorate([
+    angular_l10n_1.Language(),
+    __metadata("design:type", String)
+], HomeComponent.prototype, "lang", void 0);
 HomeComponent = __decorate([
     core_1.Component({
         selector: 'home',
         templateUrl: '/partial/homeComponent',
         providers: [RestService_1.RestService],
     }),
-    __metadata("design:paramtypes", [RestService_1.RestService, router_1.ActivatedRoute])
+    __metadata("design:paramtypes", [RestService_1.RestService, router_1.ActivatedRoute, angular_l10n_1.LocaleService])
 ], HomeComponent);
 exports.HomeComponent = HomeComponent;
 var Category = (function () {

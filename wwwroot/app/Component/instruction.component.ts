@@ -6,7 +6,7 @@ import { Observable } from "rxjs/Rx";
 import { CloudinaryOptions, CloudinaryUploader, CloudinaryImageComponent } from 'ng2-cloudinary';
 import { TagModel } from "ng2-tag-input/dist/modules/core";
 import { FormControl } from "@angular/forms/src/model";
-import { ConfirmationService } from 'primeng/primeng';
+import { ConfirmationService, Message } from 'primeng/primeng';
 import { RestService } from "./../RestService/RestService";
 import { SelectItem } from "primeng/components/common/selectitem";
 
@@ -20,9 +20,8 @@ import { SelectItem } from "primeng/components/common/selectitem";
 export class InstructionComponent {
 
     cities: SelectItem[];
-
-    selectedCity: any;
-
+    msgs: Message[] = [];
+    selectedCity: any; 
 
     instruction: Instruction = new Instruction();
     category: Category = new Category();
@@ -90,12 +89,52 @@ export class InstructionComponent {
     }
 
     publish() {
-        this.addTags();
-        this.addCategory();
-        console.log(this.instruction);
-        this.service.publishInstruction(this.instruction);
+        if (this.validate()) {
+            this.addTags();
+            this.addCategory();
+            this.service.publishInstruction(this.instruction);
+        }       
     }
 
+    validate(): boolean {
+        this.msgs = [];
+        return !(this.nameValidate() || this.tagsValidate() || this.categoryValidate() || this.stepNameValidate());          
+    }
+
+    nameValidate() {
+        if (this.instruction.name.length == 0) {
+            this.msgs.push({ severity: 'error', summary: 'Error Message', detail: 'Name is empty' });
+            return true;
+        }
+        return false;
+    }
+
+    tagsValidate() {
+        if (this.tags.length == 0) {
+            this.msgs.push({ severity: 'error', summary: 'Error Message', detail: 'Tags is empty' });
+            return true;
+        }
+        return false;
+    }
+
+    categoryValidate() {
+        if (!this.selectedCity) {
+            this.msgs.push({ severity: 'error', summary: 'Error Message', detail: 'Category is not choosen' });
+            return true;
+        }
+        return false;
+    }
+
+    stepNameValidate() {
+        for (let step of this.instruction.steps) {
+            console.log(step.name);
+            if (!step.name) {
+                this.msgs.push({ severity: 'error', summary: 'Error Message', detail: 'Enter the name in all steps' });
+                return true;
+            }
+        }
+        return false;
+    }
 
     addCategory() {
         let category: Category = new Category();
@@ -183,26 +222,19 @@ export class InstructionComponent {
         this.imageIndex = index;
     }
 
-
-    public items: Array<string> = ['Amsterdam', 'Antwerp', 'Athens', 'Barcelona',
-        'Berlin'];
-
-
     public validators = [this.addTag];
 
     private addTag(control: FormControl) {
-
         if (control.value.length > 25) {
             return {
                 'addTag': true
             };
         }
-
         return null;
     }
 
     public errorMessages = {
-        'addTag': 'Your tag can have max 25 symbols'
+        'addTag': 'Your tag can have max 25 symbols',
     };
 
     public selected(value: any): void {       

@@ -40,10 +40,8 @@ var AppComponent = (function () {
     AppComponent.prototype.setTitle = function (newTitle) {
         this.titleService.setTitle(newTitle);
     };
-    AppComponent.prototype.handleKeyDown = function (event) {
-        if (event.keyCode == 13) {
-            this.router.navigate(['home/all/search/' + this.searchData1]);
-        }
+    AppComponent.prototype.search = function () {
+        this.router.navigate(['home/all/search/' + this.searchData1]);
     };
     return AppComponent;
 }());

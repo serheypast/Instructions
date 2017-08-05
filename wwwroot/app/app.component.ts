@@ -6,12 +6,15 @@ import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { CompleterService, CompleterData } from 'ng2-completer';
 
+
 @Component({
     selector: 'my-app',
     templateUrl: '/partial/appComponent',
     providers: [RestService],
 })
 export class AppComponent {
+   
+
     public constructor(private completerService: CompleterService,private titleService: Title, private router: Router) {
         this.searchData1 = "";
         this.dataService = completerService.local(this.searchData, 'color', 'color');
@@ -48,11 +51,8 @@ export class AppComponent {
 
     results: string[];
 
-    public handleKeyDown(event: any) {
-        if (event.keyCode == 13) {
-            this.router.navigate(['home/all/search/' + this.searchData1]);
-        }
-      
+    public search() {      
+            this.router.navigate(['home/all/search/' + this.searchData1]);          
     }
 
 
