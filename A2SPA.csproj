@@ -31,6 +31,7 @@
     <Content Include="wwwroot\app\app.module.js.map" />
     <Content Include="wwwroot\app\app.module.ts" />
     <Content Include="wwwroot\app\app.routing.ts" />
+    <Content Include="wwwroot\app\AuthService\AuthService.ts" />
     <Content Include="wwwroot\app\Component\comment.component.ts" />
     <Content Include="wwwroot\app\Component\displayInstruction.component.ts" />
     <Content Include="wwwroot\app\Component\instruction.component.js" />

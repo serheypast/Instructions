@@ -21,7 +21,7 @@ var appRoutes = [
     { path: 'instruction', component: instruction_component_1.InstructionComponent, data: { title: 'instruction' } },
     { path: 'instructionBlock', component: instructionBlock_component_1.InstructionBlockComponent, data: { title: 'InstructionBlock' } },
     { path: 'comment', component: comment_component_1.CommentComponent, data: { title: 'Comment' } },
-    { path: 'displayInstruction', component: displayInstruction_component_1.DisplayInstructionComponent, data: { title: 'Display' } },
+    { path: 'instruction/:id', component: displayInstruction_component_1.DisplayInstructionComponent, data: { title: 'Display' } },
 ];
 exports.routing = router_1.RouterModule.forRoot(appRoutes);
 exports.routedComponents = [displayInstruction_component_1.DisplayInstructionComponent, comment_component_1.CommentComponent, home_component_1.HomeComponent, instructionBlock_component_1.InstructionBlockComponent, authorization_component_1.AuthorizationComponent, profile_component_1.ProfileComponent, test_component_1.TestComponent, instruction_component_1.InstructionComponent];

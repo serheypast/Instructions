@@ -45,4 +45,33 @@ export class RestService {
     public getTags() {
         return this.http.get('api/getTags');
     }
+
+    public getInstrcutionById(id: string) {
+        return this.http.get('api/getInstrcutionById/' + id);
+    }
+
+    public UserLikeIt(idUser: string,idInstruction:string) {
+        return this.http.get('api/isUserLikedIt/' + idUser + '/' + idInstruction );
+    }
+
+    public changeRatingInstruction(value: any) {
+        console.log("change");
+        this.http.post('api/changeRatingInstruction/', value).subscribe(result => {
+            console.log(result.json());
+        });
+    }
+
+    public getCurrentUser() {
+        return this.http.get('api/getCurrentUser/');
+    }
+
+    public getCommentsByInstruction(take: string, skip: string, idInstruction: string) {
+        return this.http.get('api/getCommentsByInstruction' + '/' + idInstruction + '/' + skip + '/' + take);
+    }
+
+    public sendCommentsOnServer(commentary: any) {
+        this.http.post('api/addCommentOnInstruction/', commentary).subscribe(result => {
+            console.log("hey");
+        });
+    }
 }

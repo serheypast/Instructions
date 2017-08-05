@@ -42,6 +42,29 @@ var RestService = (function () {
     RestService.prototype.getTags = function () {
         return this.http.get('api/getTags');
     };
+    RestService.prototype.getInstrcutionById = function (id) {
+        return this.http.get('api/getInstrcutionById/' + id);
+    };
+    RestService.prototype.UserLikeIt = function (idUser, idInstruction) {
+        return this.http.get('api/isUserLikedIt/' + idUser + '/' + idInstruction);
+    };
+    RestService.prototype.changeRatingInstruction = function (value) {
+        console.log("change");
+        this.http.post('api/changeRatingInstruction/', value).subscribe(function (result) {
+            console.log(result.json());
+        });
+    };
+    RestService.prototype.getCurrentUser = function () {
+        return this.http.get('api/getCurrentUser/');
+    };
+    RestService.prototype.getCommentsByInstruction = function (take, skip, idInstruction) {
+        return this.http.get('api/getCommentsByInstruction' + '/' + idInstruction + '/' + skip + '/' + take);
+    };
+    RestService.prototype.sendCommentsOnServer = function (commentary) {
+        this.http.post('api/addCommentOnInstruction/', commentary).subscribe(function (result) {
+            console.log("hey");
+        });
+    };
     return RestService;
 }());
 RestService = __decorate([

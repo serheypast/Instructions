@@ -141,13 +141,10 @@
             <div class="col-sm-8" style="background-color: white; margin-left: 16.7%;">          
                 <div class="newComment">
                     <h3 class="pull-left">New Comment</h3>
-                    <button type="submit" (click)="addComment()" class="btn btn-normal pull-right">Add</button>
+                   
                     <fieldset>
                         <div class="row">
-                            <div class="col-sm-3 col-lg-2 hidden-xs">
-                                <img class="img-responsive" src={{yourComment.urlPhoto}} alt="">
-                            </div>
-                            <div class="form-group col-xs-12 col-sm-9 col-lg-10">
+                            <div class="form-group col-xs-12 col-sm-12 col-lg-12">
                                 <p-editor  [(ngModel)]="yourComment.content">
                                     <p-header>
                                         <span class="ql-formats">
@@ -166,19 +163,23 @@
                             </div>
                         </div>
                     </fieldset>
+                    <button type="submit" (click)="addComment()" class="btn btn-normal pull-right">Add</button>
                </div>
 
                 <h3>{{comments.length}} Comments</h3>
 
                 <div *ngFor="let comment of comments; let i = index">
                     <div class="media">
-                        <a class="pull-left" href="#"><img class="media-object" src={{comment.urlPhoto}} alt=""></a>
+                        <div class="pull-right" style="">
+                            <span title="Delete" (click)="deleteComment(i)" class="glyphicon glyphicon-trash "></span>
+                        </div>
+                        <a class="pull-left" routerLink="/profile/{{comment.userProfile.id.toString()}}"><img class="media-object" src={{comment.userProfile.urlPhoto}} alt=""></a>
                         <div class="media-body">
-                            <h4 class="media-heading">{{comment.personName}}</h4>
+                            <h4 class="media-heading">{{comment.userProfile.firstName}} {{comment.userProfile.secondName}}</h4>
+                            
                             <div [innerHTML]="comment.content" style="word-wrap:break-word;"></div>
                             <ul class="list-unstyled list-inline media-detail pull-left">
-                                <li><i class="fa fa-calendar"></i>{{comment.date | date:'shortDate' }}</li>
-                                <li class="like"><i (click)="putLike(i)" style="cursor: pointer;" class="fa fa-thumbs-up"></i>{{comment.like}}</li>
+                                <li><i class="fa fa-calendar"></i>{{comment.dataCreated | date:'shortDate' }}</li>
                             </ul>
                         </div>
                     </div>

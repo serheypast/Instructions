@@ -16,10 +16,11 @@ var router_1 = require("@angular/router");
 var ng2_completer_1 = require("ng2-completer");
 var angular_l10n_1 = require("angular-l10n");
 var AppComponent = (function () {
-    function AppComponent(completerService, titleService, router) {
+    function AppComponent(completerService, titleService, router, service) {
         this.completerService = completerService;
         this.titleService = titleService;
         this.router = router;
+        this.service = service;
         this.angularClientSideData = 'Angular';
         this.searchData = [
             { color: 'red', value: '#f00' },
@@ -41,6 +42,10 @@ var AppComponent = (function () {
     AppComponent.prototype.setTitle = function (newTitle) {
         this.titleService.setTitle(newTitle);
     };
+    AppComponent.getUser = function () {
+        if (this.user == null) {
+        }
+    };
     AppComponent.prototype.search = function () {
         this.router.navigate(['home/all/search/' + this.searchData1]);
     };
@@ -56,7 +61,12 @@ AppComponent = __decorate([
         templateUrl: '/partial/appComponent',
         providers: [RestService_1.RestService],
     }),
-    __metadata("design:paramtypes", [ng2_completer_1.CompleterService, platform_browser_1.Title, router_1.Router])
+    __metadata("design:paramtypes", [ng2_completer_1.CompleterService, platform_browser_1.Title, router_1.Router, RestService_1.RestService])
 ], AppComponent);
 exports.AppComponent = AppComponent;
+var User = (function () {
+    function User() {
+    }
+    return User;
+}());
 //# sourceMappingURL=app.component.js.map

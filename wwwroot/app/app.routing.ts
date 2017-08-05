@@ -23,7 +23,8 @@ const appRoutes: Routes = [
     { path: 'instruction', component: InstructionComponent, data: { title: 'instruction' }},
     { path: 'instructionBlock', component: InstructionBlockComponent, data: { title: 'InstructionBlock' } },
     { path: 'comment', component: CommentComponent, data: { title: 'Comment' } },
-    { path: 'displayInstruction' , component: DisplayInstructionComponent, data: { title: 'Display' } },
+    { path: 'instruction/:id', component: DisplayInstructionComponent, data: { title: 'Display' } },
+
 ];
 
 export const routing = RouterModule.forRoot(appRoutes);

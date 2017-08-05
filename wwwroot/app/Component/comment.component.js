@@ -10,51 +10,90 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
+var RestService_1 = require("./../RestService/RestService");
+var core_2 = require("@angular/core");
 var CommentComponent = (function () {
-    function CommentComponent() {
+    function CommentComponent(service) {
+        this.service = service;
         this.comments = [];
         this.yourComment = new Comment;
+        this.take = "10";
     }
     CommentComponent.prototype.ngOnInit = function () {
-        this.yourComment.personName = "Vlad";
-        this.yourComment.urlPhoto = "http://crosti.ru/patterns/00/02/5e/08cc8338d5/picture.jpg";
+        console.log("NgOnInitComment");
+        console.log(this.idInstruction);
+        this.getCommentsFromServer();
         //get comments from server      
     };
     CommentComponent.prototype.addComment = function () {
-        this.yourComment.date = Date.now();
+        this.yourComment.dataCreated = Date.now();
         var comment = this.createComment();
         this.comments.push(comment);
-        this.sendCommentOnServer();
+        this.sendCommentOnServer(comment);
     };
     CommentComponent.prototype.createComment = function () {
         var comment = new Comment();
-        comment.date = Date.now();
-        comment.urlPhoto = this.yourComment.urlPhoto;
-        comment.personName = this.yourComment.personName;
+        comment.dataCreated = Date.now();
+        comment.userProfile = this.userProfile;
         comment.content = this.yourComment.content;
-        comment.like = 0;
+        comment.instruction = new Instruction();
+        comment.instruction.id = this.idInstruction;
         this.yourComment.content = "";
         return comment;
     };
-    CommentComponent.prototype.sendCommentOnServer = function () {
+    CommentComponent.prototype.sendCommentOnServer = function (comment) {
+        console.log(comment);
+        this.service.sendCommentsOnServer(comment);
     };
-    CommentComponent.prototype.putLike = function (index) {
-        //send on server and if true +1 else -1 like
-        this.comments[index].like += 1;
+    CommentComponent.prototype.getCommentsFromServer = function () {
+        var _this = this;
+        console.log("getCommentsFromServer");
+        console.log(this.idInstruction.toString());
+        this.service.getCommentsByInstruction(this.take, this.comments.length.toString(), this.idInstruction.toString()).subscribe(function (result) {
+            console.log("GetCommentresult= " + result.json());
+            var arrComments = result.json();
+            if (arrComments != null)
+                _this.comments = _this.comments.concat(arrComments);
+        });
+    };
+    CommentComponent.prototype.deleteComment = function (i) {
+        //request in bd
+        this.comments[i];
+        this.comments.splice(i, 1);
     };
     return CommentComponent;
 }());
+__decorate([
+    core_2.Input(),
+    __metadata("design:type", UserProfile)
+], CommentComponent.prototype, "userProfile", void 0);
+__decorate([
+    core_2.Input(),
+    __metadata("design:type", Number)
+], CommentComponent.prototype, "idInstruction", void 0);
 CommentComponent = __decorate([
     core_1.Component({
         selector: 'comments',
-        templateUrl: '/partial/commentComponent'
+        templateUrl: '/partial/commentComponent',
+        providers: [RestService_1.RestService],
     }),
-    __metadata("design:paramtypes", [])
+    __metadata("design:paramtypes", [RestService_1.RestService])
 ], CommentComponent);
 exports.CommentComponent = CommentComponent;
 var Comment = (function () {
     function Comment() {
     }
     return Comment;
+}());
+var UserProfile = (function () {
+    function UserProfile() {
+        this.secondName = "";
+    }
+    return UserProfile;
+}());
+var Instruction = (function () {
+    function Instruction() {
+    }
+    return Instruction;
 }());
 //# sourceMappingURL=comment.component.js.map

@@ -1,56 +1,90 @@
 ﻿import { Component, OnInit } from '@angular/core';
-
+import { RestService } from "./../RestService/RestService";
+import { Input } from '@angular/core';
 @Component({
     selector: 'comments',
-    templateUrl: '/partial/commentComponent'
+    templateUrl: '/partial/commentComponent',
+    providers: [RestService],
 })
 
 export class CommentComponent {
     comments: Comment[] = [];
     yourComment: Comment = new Comment;
-
-    constructor() {}
+    @Input() userProfile: UserProfile;
+    @Input() idInstruction: number;
+    take: string = "10";
+    skip: string;
+    constructor(private service: RestService) {
+        
+    }
 
     ngOnInit() {          
-      this.yourComment.personName = "Vlad";
-      this.yourComment.urlPhoto = "http://crosti.ru/patterns/00/02/5e/08cc8338d5/picture.jpg";
-      
+        console.log("NgOnInitComment");
+        console.log(this.idInstruction);
+        this.getCommentsFromServer();
       //get comments from server      
     }
 
     addComment() {
-        this.yourComment.date = Date.now();
+        this.yourComment.dataCreated = Date.now();
         let comment = this.createComment();
         this.comments.push(comment);      
-        this.sendCommentOnServer();
+        this.sendCommentOnServer(comment);
     }
 
     createComment(): Comment {
         let comment = new Comment();
-        comment.date = Date.now();
-        comment.urlPhoto = this.yourComment.urlPhoto;
-        comment.personName = this.yourComment.personName;
+        comment.dataCreated = Date.now();
+        comment.userProfile = this.userProfile;
         comment.content = this.yourComment.content;
-        comment.like = 0;
+        comment.instruction = new Instruction();
+        comment.instruction.id = this.idInstruction;
         this.yourComment.content = "";
         return comment;
     }
 
-    sendCommentOnServer() {
-
+    sendCommentOnServer(comment: Comment) {
+        console.log(comment);
+        this.service.sendCommentsOnServer(comment);
     }
 
-    putLike(index: number) {
-        //send on server and if true +1 else -1 like
-        this.comments[index].like += 1;
+    getCommentsFromServer() {
+        console.log("getCommentsFromServer");
+        console.log(this.idInstruction.toString());
+        this.service.getCommentsByInstruction(this.take, this.comments.length.toString(), this.idInstruction.toString()).subscribe(result => {
+            console.log("GetCommentresult= " + result.json());
+            let arrComments = result.json();
+            if (arrComments != null)
+                this.comments = this.comments.concat(arrComments);
+        });
     }
 
+    deleteComment(i: number): void {
+        //request in bd
+        this.comments[i];
+        this.comments.splice(i,1);
+    }
 }
 
 class Comment {
-    date: number;
-    personName: string;
-    urlPhoto: string;
+    id: number;
+    dataCreated: number;
+    userProfile: UserProfile;
+    instruction: Instruction;
     content: string;
-    like: number;
+}
+
+class UserProfile {
+    id: number;
+    firstName: string;
+    secondName: string = "";
+    urlPhoto: string;
+    rating: number;
+    country: string;
+    city: string;
+    dataOfBirth: string;
+    aboutMySelf: string;
+}
+class Instruction {
+    id: number;
 }
