@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
+var angular_l10n_1 = require("angular-l10n");
 var DisplayInstructionComponent = (function () {
     function DisplayInstructionComponent() {
         this.instruction = new Instruction();
@@ -70,6 +71,10 @@ var DisplayInstructionComponent = (function () {
     };
     return DisplayInstructionComponent;
 }());
+__decorate([
+    angular_l10n_1.Language(),
+    __metadata("design:type", String)
+], DisplayInstructionComponent.prototype, "lang", void 0);
 DisplayInstructionComponent = __decorate([
     core_1.Component({
         selector: 'display-instructions',

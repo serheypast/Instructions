@@ -1,5 +1,5 @@
 ﻿import { Component, OnInit } from '@angular/core';
-
+import { Language } from 'angular-l10n';
 
 @Component({
     selector: 'display-instructions',
@@ -7,7 +7,7 @@
 })
 
 export class DisplayInstructionComponent {
-
+    @Language() lang: string;
     instruction: Instruction = new Instruction();
 
     constructor() {  }
