@@ -75,7 +75,7 @@ namespace A2SPA.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-       
+        
         public string Name { get; set; }
     }
 
@@ -92,7 +92,7 @@ namespace A2SPA.Models
 
         public Category Category { get; set; }
         public UserProfile UserProfile { get; set; }
-    
+        
         public ICollection<InstructionTag> Tags { get; set; }
         public ICollection<Step> Steps { get; set; }
 
