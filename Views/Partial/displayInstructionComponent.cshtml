@@ -128,18 +128,18 @@
         <h2>{{instruction.name}}</h2>
         <p id="method_toc" class="sp_method_toc" *ngIf="loadTag">
             <span class="glyphicon glyphicon-cloud"></span>
-            <span>Tags: </span>  
+            <span>{{ 'DisplayInstruction.Tags' | translate:lang }}: </span>          
           
             <a *ngFor="let tag1 of instruction.tags; let i = index"  routerLink="/home/all/tag/{{tag1.tag.name}}">#{{tag1.tag.name}}</a>
        
         </p>
         <p id="method_toc" class="sp_method_toc">
-            <span>{{instruction.steps.length}} Steps :</span>
+            <span>{{instruction.steps.length}} {{ 'DisplayInstruction.Steps' | translate:lang }} :</span>
             <a *ngFor="let stepName of instruction.steps; let i = index" >{{i+1}}) {{stepName.name}}</a>
         </p>
         <img src={{instruction.previewImageUrl}} style="width: calc(100% + 30px);margin-left: -15px;" />
         <div class="pull-left" style="line-height:40px" >
-            Created by <a routerLink="/profile/{{instruction.userProfile.id.toString()}}"> {{instruction.userProfile.firstName}}</a> in <a routerLink="/home/all/category/{{instruction.category.name}}">{{instruction.category.name}}</a>
+            {{ 'DisplayInstruction.CreatedBy' | translate:lang }} <a routerLink="/profile/{{instruction.userProfile.id.toString()}}"> {{ 'DisplayInstruction.In' | translate:lang }} <a routerLink="/home/all/category/{{instruction.category.name}}">{{instruction.category.name}}</a>
         </div>
         <div class="pull-right" style="cursor:pointer;line-height:40px">            
                 <span *ngIf="!like" (click)="putLike()" >{{instruction.rating}} <span style="font-size: large ;margin-top: 12%; padding-left: 5px;" class="glyphicon glyphicon glyphicon-thumbs-up"></span></span>  
@@ -148,10 +148,10 @@
     </div>
 
 <div  class="step container " *ngFor="let step of instruction.steps; let j = index" >
-        <div id="s{{j}}" class="section steps">
+        <div  class="section steps">
             <h3 class="" style="padding: 0;margin-top: 0;">
                 <div class="altblock">
-                    <label class="method_label">Step {{j+1}}</label>
+                    <label class="method_label">{{ 'DisplayInstruction.Step' | translate:lang }} {{j+1}}</label>
                 </div>
                 <span class="mw-headline">{{step.name}}</span>
             </h3>

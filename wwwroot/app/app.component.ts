@@ -5,6 +5,7 @@ import { RestService } from "./RestService/RestService";
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { CompleterService, CompleterData } from 'ng2-completer';
+import { Language } from 'angular-l10n';
 
 @Component({
     selector: 'my-app',
@@ -14,6 +15,8 @@ import { CompleterService, CompleterData } from 'ng2-completer';
 export class AppComponent {
 
     static user: User;
+    @Language() lang: string;
+
     static restService: RestService;
     public constructor(private completerService: CompleterService, private titleService: Title, private router: Router, private service: RestService) {
         
@@ -57,11 +60,8 @@ export class AppComponent {
 
     results: string[];
 
-    public handleKeyDown(event: any) {
-        if (event.keyCode == 13) {
-            this.router.navigate(['home/all/search/' + this.searchData1]);
-        }
-      
+    public search() {      
+            this.router.navigate(['home/all/search/' + this.searchData1]);          
     }
 
     

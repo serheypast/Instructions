@@ -80,6 +80,7 @@
     .col-md-6 {
      
       
+
     }
     .bottom-align-text-left {
         position: absolute;
@@ -96,7 +97,7 @@
                     <a routerLink="/instruction/{{item.id}}">{{item.name}}</a>
                 </h4>
                 <div class="bottom-align-text-left">
-                    <p>by <a  routerLink="/profile/{{item.userProfile.id}}">{{item.userProfile.firstName}}</a> in <a routerLink="/home/{{property}}/category/{{item.category.name}}">{{item.category.name}}</a></p>
+                    <p>{{ 'InstructinComponent.By' | translate:lang }} <a  routerLink="/profile/{{item.userProfile.id}}">{{item.userProfile.firstName}}</a> {{ 'InstructinComponent.In' | translate:lang }} <a routerLink="/home/{{property}}/category/{{item.category.name}}">{{item.category.name}}</a></p>
                 </div>
                 
                 <div class="bottom-align-text">

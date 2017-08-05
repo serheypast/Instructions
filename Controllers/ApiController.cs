@@ -26,6 +26,7 @@ namespace A2SPA.Controllers
             UserProfile user = (id.Equals("0")) ? await db.UserProfile.Include(p => p.Achivments).ThenInclude(p => p.Achivment)
                 .FirstOrDefaultAsync(p => p.User.Id == User.FindFirst(ClaimTypes.NameIdentifier).Value) :
                 await db.UserProfile.Include(p => p.Achivments).ThenInclude(p => p.Achivment).FirstOrDefaultAsync(p => p.Id == Convert.ToInt32(id));
+            //UserProfile user = await db.UserProfile.Include(p => p.Achivments).ThenInclude(p => p.Achivment).FirstOrDefaultAsync(p => p.Id == (id ?? Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier).Value)));
             return (user == null) ? Ok("No result") : new ObjectResult(user);
         }
          

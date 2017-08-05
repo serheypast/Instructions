@@ -6,7 +6,7 @@
 
 
 
-<nav class="navbar navbar-inverse navbar-fixed-top" style="background-color:#416b8f; border-color:#2f4c65">
+<nav class="navbar navbar-inverse navbar-fixed-top" style="background-color:#416b8f; border-color:#2f4c65; z-index:1000">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -21,7 +21,7 @@
                      
                 <div class="navbar-form navbar-left" >
                     <div class="input-group">
-                        <input id="mainSearch"  type="text" class="form-control" [(ngModel)]="searchData1" placeholder="Search">
+                        <input #box (keyup.enter) = "search()" id="mainSearch"  type="text" class="form-control"  [(ngModel)]="searchData1" placeholder="{{ 'Search' | translate:lang }}">
                         <div class="input-group-btn">
                             <a class="btn btn-default"  routerLink="/home/all/search/{{searchData1}}"  (click)="getRequest()">
                                 <i  class="glyphicon glyphicon-search"></i>
@@ -38,12 +38,12 @@
                         <li class="dropdown">
                             <a style="color: #fff;" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> @UserManager.GetUserName(User)<span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a asp-area="" [routerLink]="['profile','0']">My Profile</a></li>
-                                <li><a asp-area="" [routerLink]="['instruction']">New instruction</a></li>
+                                <li><a asp-area="" [routerLink]="['profile','0']">{{ 'Profile' | translate:lang }}</a></li>
+                                <li><a asp-area="" [routerLink]="['instruction']">{{ 'NewInstruction' | translate:lang }}</a></li>
                                 <li><a asp-area="" [routerLink]="['displayInstruction']">Display</a></li>    
                                 <li><hr style="margin-top: 3px; margin-bottom: 3px;"/></li>
                                 <li>
-                                    <button type="submit" class="btn btn-link navbar-btn navbar-link"><span class="glyphicon glyphicon-log-in"></span> Log out</button>
+                                    <button type="submit" class="btn btn-link navbar-btn navbar-link"><span class="glyphicon glyphicon-log-in"></span> {{ 'LogOut' | translate:lang }}</button>                                    <a href="#"></a>
                                 </li>                 
                             </ul>
                         </li>
@@ -53,15 +53,14 @@
             else
             {
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a asp-area=""  (click)="setTitle('Sign - A2SPA')" routerLink="/authorization"> <span class="glyphicon glyphicon-user"></span> Sign in</a></li>
+                    <li><a asp-area="" routerLink="/authorization"> <span class="glyphicon glyphicon-user"></span> {{ 'SignIn' | translate:lang }}</a></li>
                 </ul>
             }
         </div>
        
     </div>
 </nav>
+
 <div class="">
-
     <router-outlet></router-outlet>
-
 </div>

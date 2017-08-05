@@ -1,29 +1,24 @@
 ﻿
-<script src="http://bootstraptema.ru/plugins/jquery/jquery-1.11.3.min.js"></script>
-<script src="http://bootstraptema.ru/plugins/2015/b-v3-3-6/bootstrap.min.js"></script>
+@*<script src="http://bootstraptema.ru/plugins/jquery/jquery-1.11.3.min.js"></script>
+<script src="http://bootstraptema.ru/plugins/2015/b-v3-3-6/bootstrap.min.js"></script>*@
 
 <br><br><br>
 
 <style>
-    body {
-        background: url(http://bootstraptema.ru/images/bg/bg-1.png)
-    }
+   
 
     #main {
-        background-color: #f2f2f2;
+       
         padding: 20px;
         -webkit-border-radius: 4px;
         -moz-border-radius: 4px;
         
         border-radius: 4px;
-        border-bottom: 4px solid #ddd;
+     
     }
 
     #real-estates-detail #author cl-image img {
-        /*-webkit-border-radius: 100%;
-        -moz-border-radius: 100%;*/
         
-        /*border-radius: 100%;*/
         border: 5px solid #ecf0f1;
         margin-bottom: 10px;
     }
@@ -60,23 +55,38 @@
     }
 
     .imageBlock {
-        width: 70%;
-        margin-left: 15%;
+      
     }
 
     #labelPhoto {
         position: absolute;
-        top: 60%;
-        left: 38%;
+        top: 67.5%;
         background-color: black;
         background-color: rgba(0, 0, 0, .6);
         color: aliceblue;
-        width: 61%;
-        margin-left: -17.2%;
+        width: 91%;
+        cursor:pointer;
+        text-align: center;
         height: 8%;
     }
 
+    .social-links li a {
+        -webkit-border-radius: 50%;
+        background: #4195d0;
+        color: white;
+        border-radius: 50%;
+        display: inline-block;
+        height: 30px;
+        line-height: 30px;
+        text-align: center;
+        width: 30px;
+    }
+
 </style>
+
+@*<h5>About me</h5>
+<input class="input-large" *ngIf="changeField" type="text" [(ngModel)]="user.aboutMySelf" style="border: none; padding: 0;" readonly="readonly" />
+<input class="inputProfile" *ngIf="!changeField" type="text" [(ngModel)]="user.aboutMySelf" style=" width:100%" />*@
 
 <div *ngIf="user">
     <div class="container">
@@ -87,29 +97,39 @@
                         <div class="panel-heading">
                             <header class="panel-title">
                                 <div class="text-center">
-                                    <strong>Пользователь сайта</strong>
+                                    <strong>{{ 'ProfileComponent.User' | translate:lang }}</strong>
                                 </div>
                             </header>
                         </div>
-                        <div class="panel-body">
-                            <div class="text-center" id="author">
+                       
+                            <div id="author">
                                 <div class="imageBlock">                              
                                   
-                                    <img src="{{user.urlPhoto}}" style="width:230px; height:200px;" />
+                                    <img src="{{user.urlPhoto}}" style="width:100%; height:267px; border-radius: 2px;" />
                                     <div class="hover">
                                         <label id="labelPhoto" title="Change main photo">
                                             <span class="glyphicon glyphicon-camera" style="margin-top:3%;"></span>
-                                             Change photo
+                                             {{ 'ProfileComponent.ChangePhoto' | translate:lang }}
                                             <input class="hidden" type="file" ng2FileSelect [uploader]="uploader" (change)="onChange($event)" />
                                         </label>
                                     </div>
                                 </div>
-                                <h4><b>{{user.firstName}}   {{user.secondName}}</b></h4>
-                                <h5>Обо мне в трёх словах</h5>
-                                <input class="input-large" *ngIf="changeField" type="text" [(ngModel)]="user.aboutMySelf" style="border: none; padding: 0;" readonly="readonly" />
-                                <input class="inputProfile" *ngIf="!changeField" type="text" [(ngModel)]="user.aboutMySelf" style=" width:100%" />
+                                <h4 style="text-align: center;"><b>{{user.firstName}}   {{user.secondName}}</b></h4>
+                                
+                                <ul class="social-links list-inline m-t-30" style="text-align: center;">
+                                    <li>
+                                        <a title="" data-placement="top" data-toggle="tooltip" class="tooltips" data-original-title="Facebook"><i class="fa fa-facebook fa-lg"></i></a>
+                                    </li>
+                                    <li>
+                                        <a title="" data-placement="top" data-toggle="tooltip" class="tooltips" data-original-title="Twitter"><i class="fa fa-twitter fa-lg"></i></a>
+                                    </li>
+                                    <li>
+                                        <a title="" data-placement="top" data-toggle="tooltip" class="tooltips" data-original-title="Skype"><i class="fa fa-vk fa-lg"></i></a>
+                                    </li>
+                                </ul>
+
                             </div>
-                        </div>
+                       
                     </div>
                 </div>
                 <div class="col-lg-8 col-md-8 col-xs-12">
@@ -117,47 +137,51 @@
 
                         <div class="panel-body">
                             <ul id="myTab" class="nav nav-pills">
-                                <li class="active"><a href="#detail" data-toggle="tab">О пользователе</a></li>
-                                <li class=""><a href="#contact" data-toggle="tab">Достижения</a></li>
-                                <li class="pull-right"  style="font-size:14px;cursor:pointer;"><a class="pull-right"  (click)="change()" style="font-size:14px;cursor:pointer;">Редактировать</a></li>
+                                <li class="active"><a href="#detail" data-toggle="tab">{{ 'ProfileComponent.AboutMe' | translate:lang }}</a></li>
+                                <li class=""><a href="#contact" data-toggle="tab">{{ 'ProfileComponent.Achievements' | translate:lang }}</a></li>
+                                <li class=""><a href="#contact" data-toggle="tab">{{ 'ProfileComponent.Publications' | translate:lang }}</a></li>
+                                
+                                <li class="pull-right" style="cursor: pointer;">
+                                    <a (click)="change()"> <span class="glyphicon glyphicon-pencil"></span> {{ 'ProfileComponent.Edit' | translate:lang }}</a>
+                                </li>
                             </ul>
                             <div id="myTabContent" class="tab-content">
                                 <hr>
                                 <div class="tab-pane fade active in" id="detail">
-                                    <h4>История профиля </h4>
+                                    <h4>{{ 'ProfileComponent.Profile' | translate:lang }}</h4>
                                     <table class="table table-th-block">
                                         <tbody>
-                                            <tr><td class="active">Зарегистрирован:</td><td>12-06-2016</td></tr>
+                                            <tr><td class="active">{{ 'ProfileComponent.Registered' | translate:lang }}:</td><td>12-06-2016</td></tr>
                                             <tr>
-                                                <td class="active">Имя:</td>
+                                                <td class="active">{{ 'ProfileComponent.FirstName' | translate:lang }}:</td>
                                                 <td>
                                                     <input class="input-large" *ngIf="changeField" type="text" [(ngModel)]="user.firstName" style="border: none; padding: 0;" readonly="readonly" />
                                                     <input class="inputProfile" *ngIf="!changeField" type="text" [(ngModel)]="user.firstName" style="width:100%" />
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td class="active">Фамилия:</td>
+                                                <td class="active">{{ 'ProfileComponent.LastName' | translate:lang }}:</td>
                                                 <td>
                                                     <input class="input-large" *ngIf="changeField" type="text" [(ngModel)]="user.secondName" style="outline: 0 ; border: 0; padding: 0;" readonly="readonly" />
                                                     <input class="inputProfile" *ngIf="!changeField" type="text" [(ngModel)]="user.secondName" />
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td class="active">Страна:</td>
+                                                <td class="active">{{ 'ProfileComponent.Country' | translate:lang }}:</td>
                                                 <td>
                                                     <input class="input-large" *ngIf="changeField" type="text" [(ngModel)]="user.country" style="outline: 0 ; border: 0; padding: 0;" readonly="readonly" />
                                                     <input class="inputProfile" *ngIf="!changeField" type="text" [(ngModel)]="user.country" />
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td class="active">Город:</td>
+                                                <td class="active">{{ 'ProfileComponent.City' | translate:lang }}:</td>
                                                 <td>
                                                     <input class="input-large" *ngIf="changeField" type="text" [(ngModel)]="user.city" style="outline: 0 ; border: 0; padding: 0;" readonly="readonly" />
                                                     <input class="inputProfile" *ngIf="!changeField" type="text" [(ngModel)]="user.city" />
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td class="active">Дата рождения:</td>
+                                                <td class="active">{{ 'ProfileComponent.DateofBirth' | translate:lang }}:</td>
                                                 <td>
                                                     <input type="date" *ngIf="changeField" [(ngModel)]="user.dataOfBirth" style="outline: 0 ; border: 0; padding: 0;" readonly="readonly" />
                                                     <input type="date" *ngIf="!changeField" [(ngModel)]="user.dataOfBirth"  />
@@ -166,7 +190,7 @@
                                           
                                             </tr>
                                             <tr>
-                                                <td class="active">Рейтинг пользователя:</td>
+                                                <td class="active">{{ 'ProfileComponent.Rating' | translate:lang }}:</td>
                                                 <td>{{user.rating}}</td>
                                             </tr>
                                           

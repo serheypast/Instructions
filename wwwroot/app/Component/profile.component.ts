@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { CloudinaryOptions, CloudinaryUploader, CloudinaryImageComponent } from 'ng2-cloudinary';
 import { Subscription } from 'rxjs/Subscription';
 import { RestService } from "./../RestService/RestService";
+import { Language } from 'angular-l10n';
 
 @Component({
     selector: 'profile',
@@ -12,7 +13,7 @@ import { RestService } from "./../RestService/RestService";
 })
 
 export class ProfileComponent {
-
+    @Language() lang: string;
     private id: number;
     private subscription: Subscription;
     public user: UserProfile;

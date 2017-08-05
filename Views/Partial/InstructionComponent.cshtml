@@ -35,7 +35,8 @@
 
     .instrument {
         padding: 20px;
-        background-color: black;
+        background-color: #007ced;
+        border-radius: 30px;
     }
 
     .dragSteps {
@@ -208,87 +209,26 @@
         font-family: serif;
     }
 
+    .ui-growl-item {
+      z-index: 99999 !important;
+      top:200px;
+    }
+
+    .ui-widget {
+        z-index: 99999 !important;
+    }
+
 </style>
 
-
-
-
-
-@*<div class="container">
-    <div class="row">
-        <div class="index-content">
-
-            <div class="col-md-5">
-                <div class="card">
-                    <img src={{instruction.previewImageUrl}} style="width: 100%; height: 257px;"/>
-                    <h4>{{instruction.name}}</h4>
-                    <div class="row">
-                        <div class="pull-left" style="margin-left:7%">
-                            <p>by Anton in {{instruction.category.name}}</p>
-                        </div>
-                        <div class="pull-right" style="margin-right:7%">
-                            <p>0</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-7 well" style="height:350px; ">
-               <h2 id="createIns">Create Instruction</h2>
-                    <div class="row">                                        
-                            <div class="pull-left form-inline" style="text-align:center">
-                                <label >Title</label>
-                                <input [(ngModel)]='instruction.name' type="text" class="form-control input-sm" placeholder="Title" tabindex="2" style="width:300px">                             
-                            </div>      
-                       
-                            <div class="pull-right" style="width: 170px; margin-right: 3%;">                             
-                                <ng-select [allowClear]="true"
-                                           [items]="items"
-                                           (selected)="selected($event)"
-                                           placeholder="category">
-                                </ng-select>
-                            </div>
-                        <div class="pull-right">
-                            <label style="padding:7px">Category</label>
-                        </div>
-                    </div>
-                
-
-                    <div class="row" style="margin-top:2%">                       
-                        <tag-input theme='bootstrap'
-                                   [(ngModel)] = "tags"
-                                   [maxItems]='5'
-                                   [validators]="validators"
-                                   [errorMessages]="errorMessages">                             
-                        </tag-input>                                                          
-                    </div>
-
-                   
-                        <div class="dasasd" style="margin-top:23%;">
-                            <div style="bottom:5px; position:absolute; left:7px">
-                                <label title="Add/Change main photo" class="btn btn-default" style="background-color:black; color:aliceblue;">
-                                    Add/Change photo
-                                    <input class="hidden" type="file" ng2FileSelect [uploader]="uploader" (change)="onChange($event,-1)" />
-                                </label>
-                            </div>
-                            <div style="bottom:5px;position:absolute;right:7px">
-                                <button data-toggle="modal" data-target=".bd-example-modal-lg" style="background-color:black; color:aliceblue;" class="btn btn-default">Preview</button>
-                                <button (click)="publish()" style="background-color:black; color:aliceblue;" class="btn btn-default">Publish</button>
-                            </div>
-                        </div>            
-            </div>
-        </div>
-    </div>
-</div>*@
-  
+   <p-growl [(value)]="msgs"></p-growl>
 
 <div class="col-md-8">
         <div [dragula]='"first-bag"' [dragulaModel]='instruction.steps'>
             <div *ngFor="let step of instruction.steps; let j = index">
                 <p-panel [toggleable]="true" [style]="{'margin-top':'20px','width':'101%'}">
                     <p-header>
-                        <label>Step {{j+1}}: </label>
-                        <input [(ngModel)]="step.name" placeholder="Input step name" style="width: 100%; border: 0; background-color: #f1f2f5;" />
+                        <label>{{ 'InstructinComponent.Step' | translate:lang }} {{j+1}}: </label>
+                        <input [(ngModel)]="step.name" placeholder="{{ 'InstructinComponent.InputStepName' | translate:lang }}" style="width: 100%; border: 0; background-color: #f1f2f5;" />
                         <a class="btn-xs pull-right ui-panel-titlebar-icon ui-panel-titlebar-toggler ui-corner-all ui-state-default" (click)="confirm2(j)">
                             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                         </a>
@@ -366,8 +306,8 @@
                     </div>
                     <p-footer>
                         <div class="instruments">
-                            <label (click)="AddText(j)" title="Add text" class="btn instrument btn-default btn-lg"><span class="glyphicon glyphicon-pencil fa-lg" style="color:aliceblue"></span></label>
-                            <label title="Add photo" class="btn instrument btn-default btn-lg">
+                            <label (click)="AddText(j)" style="font-size: initial;" title="Add text" class="btn instrument btn-default btn-1x"><span class="glyphicon glyphicon-pencil fa-lg" style="color:aliceblue"></span></label>
+                            <label title="Add photo" class="btn instrument btn-default btn-lg" >
                                 <span class="glyphicon glyphicon-camera " style="color:aliceblue"></span>
                                 <input class="hidden" type="file" ng2FileSelect [uploader]="uploader" (change)="onChange($event,j)" />
                             </label>
@@ -378,24 +318,26 @@
             </div>
         </div>
 
-   <button (click)="addStep()" class="btn btn-default" style="margin-top: 2%;margin-left: 46%;background-color: #3f80b8;color: white;">Add step</button>
+   <button (click)="addStep()" class="btn btn-default" style="margin-top: 2%;margin-left: 46%;background-color: #1a89e9;color: white;">{{ 'InstructinComponent.AddStep' | translate:lang }}</button>
 
 </div>
 
 
-<div class="col-md-3" style="background-color:white; margin-top:1.8%; margin-left: 3%; margin-bottom:3%">     
+
+<div class="col-md-3" style="background-color:white; margin-top:1.8%; margin-left: 3%; margin-bottom:3%">   
+    
     <div class="row" style="border: 1px solid #d1d4d5;">
 
         <div class="form-group form-inline" style="padding-top: 12px; padding-left: 10px;">
-            <label>Title</label>
-            <input class="form-control" name="name" [(ngModel)]="instruction.name" required style="width: 80%; height: 27px;" />
+            <label>{{ 'InstructinComponent.Title' | translate:lang }}</label>
+            <input class="form-control" name="name" placeholder="{{ 'InstructinComponent.Title' | translate:lang }}" [(ngModel)]="instruction.name" required style="width: 80%; height: 27px;" />
         </div>
 
         <hr style="margin-top: 0px;margin-bottom: 5px;" />
 
         <div class="form-group form-inline" style="padding-left:10px; padding-top: 5px;">
-            <label >Category</label>
-            <p-dropdown [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City"></p-dropdown>
+            <label >{{ 'InstructinComponent.CategoryCreate' | translate:lang }}</label>
+            <p-dropdown [options]="cities" [(ngModel)]="selectedCity" placeholder="{{ 'InstructinComponent.SelectCategory' | translate:lang }}"></p-dropdown>
         </div>
         
         <hr style="margin-top: 0px;margin-bottom: 5px;" />
@@ -404,7 +346,9 @@
                    [(ngModel)]="tags"
                    [maxItems]='5'
                    [validators]="validators"
-                   [errorMessages]="errorMessages">
+                   [errorMessages]="errorMessages"
+                   placeholder="{{ 'InstructinComponent.EnterTags' | translate:lang }}"
+                   secondaryPlaceholder="{{ 'InstructinComponent.EnterTags' | translate:lang }}">
         </tag-input>
 
 
@@ -413,14 +357,14 @@
         <div class="row">
             <div class="btn-group btn-group-justified" role="group" aria-label="...">
                 <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-default" style="background-color: #3897f0;border-radius: 0px;color: white;">Main image</button>
+                    <button type="button" class="btn btn-default" style="background-color: #3897f0;border-radius: 0px;color: white;">{{ 'InstructinComponent.MainImageInstruction' | translate:lang }}</button>
                 </div>
                 <div class="btn-group" role="group">
-                    <button data-toggle="modal" data-target=".bd-example-modal-lg" type="button" class="btn btn-default" style="background-color: #3897f0;border-radius: 0px;color: white;">Preview</button>
+                    <button data-toggle="modal" data-target=".bd-example-modal-lg" type="button" class="btn btn-default" style="background-color: #3897f0;border-radius: 0px;color: white;">{{ 'InstructinComponent.Preview' | translate:lang }}</button>
                     
                 </div>
                 <div class="btn-group" role="group">
-                    <button (click)="publish()" type="button" class="btn btn-default" style="background-color: #3897f0;border-radius: 0px;color: white;">Publish</button>
+                    <button (click)="publish()" type="button" class="btn btn-default" style="background-color: #3897f0;border-radius: 0px;color: white;">{{ 'InstructinComponent.Publish' | translate:lang }}</button>
                 </div>
             </div>
         </div>
@@ -435,10 +379,10 @@
                      <img src={{instruction.previewImageUrl}} style="width: 100%; height: 200px;" />
                      <h4>{{instruction.name}}</h4>
                      <div class="row">
-                         <div class="pull-left" style="margin-left:7%">
-                             <p>by Anton in {{instruction.category.name}}</p>
+                         <div class="pull-left" style="margin-left:10%">
+                             <p>{{ 'InstructinComponent.By' | translate:lang }} Anton {{ 'InstructinComponent.In' | translate:lang }} Sport</p>
                          </div>
-                         <div class="pull-right" style="margin-right:7%">
+                         <div class="pull-right" style="margin-right:10%">
                              <p>0</p>
                          </div>
                      </div>
