@@ -13,13 +13,13 @@ var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 var router_1 = require("@angular/router");
 var RestService_1 = require("./RestService/RestService");
+var angular_l10n_1 = require("angular-l10n");
 var InstructionBlockComponent = (function () {
     function InstructionBlockComponent(http, activateRoute, service) {
         var _this = this;
         this.http = http;
         this.activateRoute = activateRoute;
         this.service = service;
-        //instructions: Instruction[];
         this.instructions = new Array();
         this.defaultInstruction = "15";
         this.stopRequest = true;
@@ -48,6 +48,10 @@ var InstructionBlockComponent = (function () {
     };
     return InstructionBlockComponent;
 }());
+__decorate([
+    angular_l10n_1.Language(),
+    __metadata("design:type", String)
+], InstructionBlockComponent.prototype, "lang", void 0);
 InstructionBlockComponent = __decorate([
     core_1.Component({
         selector: 'instructionBlock',

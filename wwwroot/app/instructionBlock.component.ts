@@ -3,6 +3,7 @@ import { Http } from '@angular/http';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { RestService } from "./RestService/RestService";
+import { Language } from 'angular-l10n';
 
 @Component({
     selector: 'instructionBlock',
@@ -12,6 +13,7 @@ import { RestService } from "./RestService/RestService";
 
 export class InstructionBlockComponent {
     //instructions: Instruction[];
+    @Language() lang: string;
     instructions: Array<Instruction> = new Array<Instruction>();
     private defaultInstruction: string = "15";
     public value: string;

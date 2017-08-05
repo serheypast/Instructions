@@ -2,6 +2,7 @@
 import { Language } from 'angular-l10n';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
+import { RestService } from "./../RestService/RestService";
 
 
 @Component({
