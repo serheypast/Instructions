@@ -40,14 +40,15 @@ export class InstructionBlockComponent {
        
     }
 
-
-
     stopRequest: boolean = true;
     onScroll() {
-        if (this.stopRequest)
-        this.service.getInstructions(this.property, this.type, this.value, this.defaultInstruction, this.instructions.length.toString()).subscribe(result => {
-            this.instructions = this.instructions.concat(result.json());
-        });
+        if (this.stopRequest) {
+            this.stopRequest = false;
+            this.service.getInstructions(this.property, this.type, this.value, this.defaultInstruction, this.instructions.length.toString()).subscribe(result => {
+                this.instructions = this.instructions.concat(result.json());
+                this.stopRequest = true;
+            });
+        }
     }
 }
 

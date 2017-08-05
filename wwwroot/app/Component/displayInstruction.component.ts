@@ -32,6 +32,7 @@ export class DisplayInstructionComponent {
         });
         this.service.getInstrcutionById(this.id).subscribe(result => {
             this.instruction = result.json();
+            console.log(this.instruction);
             this.beginRating = this.instruction.rating;
             if (this.instruction.tags.length == 0) {
                 let tagInst = new InstructionTag();

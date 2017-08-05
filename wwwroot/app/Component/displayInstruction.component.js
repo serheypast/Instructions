@@ -28,6 +28,7 @@ var DisplayInstructionComponent = (function () {
         });
         this.service.getInstrcutionById(this.id).subscribe(function (result) {
             _this.instruction = result.json();
+            console.log(_this.instruction);
             _this.beginRating = _this.instruction.rating;
             if (_this.instruction.tags.length == 0) {
                 var tagInst = new InstructionTag();

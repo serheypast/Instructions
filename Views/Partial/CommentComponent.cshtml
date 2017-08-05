@@ -135,7 +135,7 @@
 
 </style>
 
-<div class="content-item" id="comments" style="background-color: #ecebe8;">
+<div class="content-item" id="comments" style="background-color: #ecebe8;" infinite-scroll [infiniteScrollDistance]="1" [infiniteScrollThrottle]="500" (scrolled)="onScroll()">
     <div class="container">
        
             <div class="col-sm-8" style="background-color: white; margin-left: 16.7%;">          
@@ -168,7 +168,7 @@
 
                 <h3>{{comments.length}} Comments</h3>
 
-                <div *ngFor="let comment of comments; let i = index">
+                <div *ngFor="let comment of comments; let i = index" >
                     <div class="media">
                         <div class="pull-right" style="">
                             <span title="Delete" (click)="deleteComment(i)" class="glyphicon glyphicon-trash "></span>

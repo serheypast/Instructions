@@ -51,18 +51,28 @@ export class CommentComponent {
     getCommentsFromServer() {
         console.log("getCommentsFromServer");
         console.log(this.idInstruction.toString());
-        this.service.getCommentsByInstruction(this.take, this.comments.length.toString(), this.idInstruction.toString()).subscribe(result => {
-            console.log("GetCommentresult= " + result.json());
-            let arrComments = result.json();
-            if (arrComments != null)
-                this.comments = this.comments.concat(arrComments);
-        });
+        if (this.stopRequest) {
+            this.stopRequest = false;
+            this.service.getCommentsByInstruction(this.take, this.comments.length.toString(), this.idInstruction.toString()).subscribe(result => {
+                this.stopRequest = true;
+                console.log("GetCommentresult= " + result.json());
+                let arrComments = result.json();
+                if (arrComments != null)
+                    this.comments = this.comments.concat(arrComments);
+            });
+        }
+      
     }
 
     deleteComment(i: number): void {
         //request in bd
         this.comments[i];
         this.comments.splice(i,1);
+    }
+
+    stopRequest: boolean = true;
+    onScroll() {
+        this.getCommentsFromServer();
     }
 }
 

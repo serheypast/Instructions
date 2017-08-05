@@ -65,6 +65,8 @@ var RestService = (function () {
             console.log("hey");
         });
     };
+    RestService.prototype.getInstructionByUser = function (idUser, skip, get) {
+    };
     return RestService;
 }());
 RestService = __decorate([

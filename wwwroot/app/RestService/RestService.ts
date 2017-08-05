@@ -74,4 +74,8 @@ export class RestService {
             console.log("hey");
         });
     }
+
+    public getInstructionByUser(idUser: string, skip: string, get:string) {
+
+    }
 }

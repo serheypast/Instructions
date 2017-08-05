@@ -42,6 +42,8 @@ namespace A2SPA
             AchivmentUser achiv = new AchivmentUser();
             Achivment achivment = db.Achivment.FirstOrDefault(p => p.Id == idAchievement);
             achiv.Achivment = achivment;
+            if (userProfile.Achivments.Any(x => x.Achivment.Id == idAchievement))
+                    return;
             userProfile.Achivments.Add(achiv);
             db.SaveChanges();
         }
@@ -58,8 +60,8 @@ namespace A2SPA
         }
 
         private static UserProfile GetUserById(int idUser)
-        { 
-            var userProfile =  db.UserProfile.Include(p =>p.Achivments).FirstOrDefault(p => p.Id == idUser);
+        {
+            UserProfile userProfile =  db.UserProfile.Include(p =>p.Achivments).FirstOrDefault(p => p.Id == idUser);
             return userProfile;
         }
 
@@ -78,6 +80,7 @@ namespace A2SPA
 
         private static void AchievementForFiveLikeOnInstruction(int idUser)
         {
+            // поставь с большой
             const int forLike = 5;
             const int idAchievement = 4;
             UserProfile userProfile = GetUserById(idUser);

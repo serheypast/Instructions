@@ -18,6 +18,7 @@ var CommentComponent = (function () {
         this.comments = [];
         this.yourComment = new Comment;
         this.take = "10";
+        this.stopRequest = true;
     }
     CommentComponent.prototype.ngOnInit = function () {
         console.log("NgOnInitComment");
@@ -49,17 +50,24 @@ var CommentComponent = (function () {
         var _this = this;
         console.log("getCommentsFromServer");
         console.log(this.idInstruction.toString());
-        this.service.getCommentsByInstruction(this.take, this.comments.length.toString(), this.idInstruction.toString()).subscribe(function (result) {
-            console.log("GetCommentresult= " + result.json());
-            var arrComments = result.json();
-            if (arrComments != null)
-                _this.comments = _this.comments.concat(arrComments);
-        });
+        if (this.stopRequest) {
+            this.stopRequest = false;
+            this.service.getCommentsByInstruction(this.take, this.comments.length.toString(), this.idInstruction.toString()).subscribe(function (result) {
+                _this.stopRequest = true;
+                console.log("GetCommentresult= " + result.json());
+                var arrComments = result.json();
+                if (arrComments != null)
+                    _this.comments = _this.comments.concat(arrComments);
+            });
+        }
     };
     CommentComponent.prototype.deleteComment = function (i) {
         //request in bd
         this.comments[i];
         this.comments.splice(i, 1);
+    };
+    CommentComponent.prototype.onScroll = function () {
+        this.getCommentsFromServer();
     };
     return CommentComponent;
 }());

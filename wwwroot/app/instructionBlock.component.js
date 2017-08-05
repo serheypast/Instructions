@@ -41,10 +41,13 @@ var InstructionBlockComponent = (function () {
     };
     InstructionBlockComponent.prototype.onScroll = function () {
         var _this = this;
-        if (this.stopRequest)
+        if (this.stopRequest) {
+            this.stopRequest = false;
             this.service.getInstructions(this.property, this.type, this.value, this.defaultInstruction, this.instructions.length.toString()).subscribe(function (result) {
                 _this.instructions = _this.instructions.concat(result.json());
+                _this.stopRequest = true;
             });
+        }
     };
     return InstructionBlockComponent;
 }());
