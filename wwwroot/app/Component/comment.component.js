@@ -56,6 +56,11 @@ var CommentComponent = (function () {
                 _this.comments = _this.comments.concat(arrComments);
         });
     };
+    CommentComponent.prototype.deleteComment = function (i) {
+        //request in bd
+        this.comments[i];
+        this.comments.splice(i, 1);
+    };
     return CommentComponent;
 }());
 __decorate([

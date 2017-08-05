@@ -105,7 +105,7 @@ namespace A2SPA
             const int forCommend = 5;
             const int idAchievement = 3;
             UserProfile userProfile = GetUserById(idUser);
-            if (db.Commentary.Include(p => p.UserProfile).Where(p => p.UserProfile == userProfile).LongCount() == forCommend)
+            if (db.Commentary.Include(p => p.Instruction).ThenInclude(p => p.UserProfile).Where(p => p.Instruction.UserProfile.Id == idUser).LongCount() == forCommend)
             {
                 AddAchivment(idAchievement, userProfile);
             }

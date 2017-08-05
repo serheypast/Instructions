@@ -46,9 +46,7 @@ export class DisplayInstructionComponent {
                     this.like = result.json();
                 });
                 if (this.currentUser != null)
-                    this.loadUser = true;
-                
-              
+                    this.loadUser = true;                          
             });
             console.log("LoadInfo");
 

@@ -142,12 +142,12 @@ namespace A2SPA.Controllers
         public IActionResult AddCommentOnInstruction([FromBody] Commentary commentary)
         {
             UserProfile userProfile = db.UserProfile.FirstOrDefault(p => p.Id == commentary.UserProfile.Id);
-            Models.Instruction instruction = db.Instruction.FirstOrDefault(p => p.Id == commentary.Instruction.Id);
+            Models.Instruction instruction = db.Instruction.Include(p => p.UserProfile).FirstOrDefault(p => p.Id == commentary.Instruction.Id);
             commentary.Instruction = instruction;
             commentary.UserProfile = userProfile;
             db.Commentary.Add(commentary);
             db.SaveChanges();
-            ServiceAchivment.GetInstance().WasAction(Events.CommentPost, userProfile.Id);
+            ServiceAchivment.GetInstance().WasAction(Events.CommentPost, instruction.UserProfile.Id);
             return Ok();
         }
 
@@ -183,8 +183,7 @@ namespace A2SPA.Controllers
                 instruction.Rating += item.Rating;
                 instruction.UserProfile.Rating += item.Rating;
                 db.SaveChanges();
-                int id = instruction.UserProfile.Id;
-                ServiceAchivment.GetInstance().WasAction(Events.LikePost, id);
+                ServiceAchivment.GetInstance().WasAction(Events.LikePost, instruction.UserProfile.Id);
                 return Ok();
             }
             return Ok("Autification Error");

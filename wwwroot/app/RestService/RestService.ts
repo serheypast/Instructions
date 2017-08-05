@@ -71,7 +71,7 @@ export class RestService {
 
     public sendCommentsOnServer(commentary: any) {
         this.http.post('api/addCommentOnInstruction/', commentary).subscribe(result => {
-            console.log(result.json());
+            console.log("hey");
         });
     }
 }

@@ -91,8 +91,10 @@
     <div class="index-content">
         <div class="col-md-6" *ngFor="let item of instructions">
             <div class="card">
-                <img src="{{item.previewImageUrl}}" style="max-height: 230px;">
-                <h4>{{item.name}}</h4>
+                <img routerLink="/instruction/{{item.id}}" src="{{item.previewImageUrl}}" style="max-height: 230px;">
+                <h4>
+                    <a routerLink="/instruction/{{item.id}}">{{item.name}}</a>
+                </h4>
                 <div class="bottom-align-text-left">
                     <p>by <a  routerLink="/profile/{{item.userProfile.id}}">{{item.userProfile.firstName}}</a> in <a routerLink="/home/{{property}}/category/{{item.category.name}}">{{item.category.name}}</a></p>
                 </div>

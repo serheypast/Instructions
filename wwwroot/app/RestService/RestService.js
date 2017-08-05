@@ -62,7 +62,7 @@ var RestService = (function () {
     };
     RestService.prototype.sendCommentsOnServer = function (commentary) {
         this.http.post('api/addCommentOnInstruction/', commentary).subscribe(function (result) {
-            console.log(result.json());
+            console.log("hey");
         });
     };
     return RestService;
