@@ -11,7 +11,46 @@
 
 </style>
 
-<div id="myCarousel" class="carousel slide" data-ride="carousel" style="width:100%;height:600px;">
+<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+        <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+        <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+    </ol>
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+        <div class="item active">
+            <img src="http://placehold.it/1200x315" alt="...">
+            <div class="carousel-caption">
+                <h3>Caption Text</h3>
+            </div>
+        </div>
+        <div class="item">
+            <img src="http://placehold.it/1200x315" alt="...">
+            <div class="carousel-caption">
+                <h3>Caption Text</h3>
+            </div>
+        </div>
+        <div class="item">
+            <img src="http://placehold.it/1200x315" alt="...">
+            <div class="carousel-caption">
+                <h3>Caption Text</h3>
+            </div>
+        </div>
+    </div>
+
+    <!-- Controls -->
+    <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+    </a>
+    <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right"></span>
+    </a>
+</div> <!-- Carousel -->
+
+<div id="myCarousel" class="carousel slide" style="width:100%;height:600px;">
     <!-- Indicators -->
     <ol class="carousel-indicators">
         <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -19,22 +58,32 @@
         <li data-target="#myCarousel" data-slide-to="2"></li>
     </ol>
 
+
+
     <!-- Wrapper for slides -->
-    <div class="carousel-inner">
+    <div class="carousel-inner" >
         <div class="item active">
-            <img style="width:100%;height:600px;" src="https://wallpaperscraft.com/image/wave_3d_surface_terrain_rendering_102566_3840x2400.jpg" alt="Los Angeles">
+            <img style="width:100%;height:600px;" src="https://wallpaperscraft.com/image/wave_3d_surface_terrain_rendering_102566_3840x2400.jpg" alt="Los Angeles">        
         </div>
 
         <div class="item">
-            <img style="width:100%;height:600px;" src="https://wallpaperscraft.com/image/drift_nissan_sport_cars_smoke_81217_1920x1200.jpg" alt="Chicago">
+            <img style="width:100%;height:600px;" src="https://wallpaperscraft.com/image/drift_nissan_sport_cars_smoke_81217_1920x1200.jpg" alt="Chicago">            
         </div>
 
         <div class="item">
-            <img style="width:100%;height:600px;" src="https://wallpaperscraft.com/image/iy_tujiki_art_night_train_anime_starry_sky_98589_2000x1178.jpg" alt="New york">
+            <img style="width:100%;height:600px;" src="https://wallpaperscraft.com/image/iy_tujiki_art_night_train_anime_starry_sky_98589_2000x1178.jpg" alt="New york">           
         </div>
     </div>
 
+    <a href="#myCarousel" class="left carousel-control" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+    </a>
+    <a href="#myCarousel" class="right carousel-control" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right"></span>
+    </a>
+
 </div>
+
 <div class="container">
     <div class="row">
         

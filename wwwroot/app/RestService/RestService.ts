@@ -34,6 +34,14 @@ export class RestService {
             });
     } 
 
+    public editInstruction(instruction: any) {
+        this.http.post("api/editInstruction", instruction)
+            .subscribe(result => {
+                console.log("after editing");
+                console.log(result.json());
+            });
+    } 
+
     public getInstructions(property: string, type: string, value: string , take: string, skip: string) {
         return this.http.get('/api/getInstructions/' + take + '/' + skip + '/' + property + '/' + type + '/' + value);
     }
@@ -46,7 +54,7 @@ export class RestService {
         return this.http.get('api/getTags');
     }
 
-    public getInstrcutionById(id: string) {
+    public getInstrcutionById(id: number) {
         return this.http.get('api/getInstrcutionById/' + id);
     }
 

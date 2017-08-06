@@ -8,9 +8,10 @@ using A2SPA.Models;
 namespace A2SPA.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20170806152247_CascadeDelete")]
+    partial class CascadeDelete
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")
@@ -57,7 +58,7 @@ namespace A2SPA.Migrations
 
                     b.Property<string>("Field");
 
-                    b.Property<int>("StepId");
+                    b.Property<int?>("StepId");
 
                     b.Property<string>("Type");
 
@@ -138,7 +139,7 @@ namespace A2SPA.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("InstructionId");
+                    b.Property<int?>("InstructionId");
 
                     b.Property<int?>("TagId");
 
@@ -156,7 +157,7 @@ namespace A2SPA.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("InstructionId");
+                    b.Property<int?>("InstructionId");
 
                     b.Property<string>("Name");
 
@@ -387,8 +388,7 @@ namespace A2SPA.Migrations
                 {
                     b.HasOne("A2SPA.Models.Step", "Step")
                         .WithMany("Blocks")
-                        .HasForeignKey("StepId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("StepId");
                 });
 
             modelBuilder.Entity("A2SPA.Models.Commentary", b =>
@@ -417,8 +417,7 @@ namespace A2SPA.Migrations
                 {
                     b.HasOne("A2SPA.Models.Instruction", "Instruction")
                         .WithMany("Tags")
-                        .HasForeignKey("InstructionId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("InstructionId");
 
                     b.HasOne("A2SPA.Models.Tag", "Tag")
                         .WithMany("Instructions")
@@ -429,8 +428,7 @@ namespace A2SPA.Migrations
                 {
                     b.HasOne("A2SPA.Models.Instruction", "Instruction")
                         .WithMany("Steps")
-                        .HasForeignKey("InstructionId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("InstructionId");
                 });
 
             modelBuilder.Entity("A2SPA.Models.UserProfile", b =>

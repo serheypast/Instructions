@@ -8,9 +8,10 @@ using A2SPA.Models;
 namespace A2SPA.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20170806152533_FixCascadeDelete")]
+    partial class FixCascadeDelete
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")
@@ -138,7 +139,7 @@ namespace A2SPA.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("InstructionId");
+                    b.Property<int?>("InstructionId");
 
                     b.Property<int?>("TagId");
 
@@ -417,8 +418,7 @@ namespace A2SPA.Migrations
                 {
                     b.HasOne("A2SPA.Models.Instruction", "Instruction")
                         .WithMany("Tags")
-                        .HasForeignKey("InstructionId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("InstructionId");
 
                     b.HasOne("A2SPA.Models.Tag", "Tag")
                         .WithMany("Instructions")

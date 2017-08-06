@@ -18,6 +18,7 @@ var appRoutes = [
     { path: 'home', component: home_component_1.HomeComponent, data: { title: 'Home' } },
     { path: 'authorization', component: authorization_component_1.AuthorizationComponent, data: { title: 'Authorization' } },
     { path: 'profile/:id', component: profile_component_1.ProfileComponent, data: { title: 'profile' } },
+    { path: 'createInstruction/:id', component: instruction_component_1.InstructionComponent, data: { title: 'Instruction' } },
     { path: 'instruction', component: instruction_component_1.InstructionComponent, data: { title: 'instruction' } },
     { path: 'instructionBlock', component: instructionBlock_component_1.InstructionBlockComponent, data: { title: 'InstructionBlock' } },
     { path: 'comment', component: comment_component_1.CommentComponent, data: { title: 'Comment' } },

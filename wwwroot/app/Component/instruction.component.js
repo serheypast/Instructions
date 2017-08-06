@@ -16,13 +16,15 @@ var ng2_cloudinary_1 = require("ng2-cloudinary");
 var primeng_1 = require("primeng/primeng");
 var RestService_1 = require("./../RestService/RestService");
 var angular_l10n_1 = require("angular-l10n");
+var router_1 = require("@angular/router");
 var InstructionComponent = (function () {
-    function InstructionComponent(service, dragulaService, sanitizer, confirmationService) {
+    function InstructionComponent(service, dragulaService, sanitizer, confirmationService, activateRoute) {
         var _this = this;
         this.service = service;
         this.dragulaService = dragulaService;
         this.sanitizer = sanitizer;
         this.confirmationService = confirmationService;
+        this.activateRoute = activateRoute;
         this.msgs = [];
         this.instruction = new Instruction();
         this.category = new Category();
@@ -32,12 +34,28 @@ var InstructionComponent = (function () {
         this.errorMessages = {
             'addTag': 'Your tag can have max 25 symbols',
         };
-        this.cities = [];
-        this.cities.push({ label: 'New York', value: { name: 'New York' } });
-        this.addStep();
-        this.instruction.name = "Name";
-        this.instruction.previewImageUrl = "https://res.cloudinary.com/dr4opxk5i/image/upload/spt2r2sqiyotibnrfhch.jpg";
-        this.instruction.category = this.category;
+        this.subscription = this.activateRoute.params.subscribe(function (params) {
+            _this.id = params['id'];
+        });
+        this.service.getCategories().subscribe(function (result) {
+            _this.categories = [];
+            for (var _i = 0, _a = result.json(); _i < _a.length; _i++) {
+                var cat = _a[_i];
+                _this.categories.push({ label: cat.name, value: { name: cat.name } });
+            }
+        });
+        if (this.id)
+            this.service.getInstrcutionById(this.id).subscribe(function (result) {
+                _this.instruction = result.json();
+                _this.getTags();
+                _this.category.name = _this.instruction.category.name;
+            });
+        else {
+            this.create = true;
+            this.instruction.name = "Name";
+            this.instruction.previewImageUrl = "https://res.cloudinary.com/dr4opxk5i/image/upload/spt2r2sqiyotibnrfhch.jpg";
+            this.instruction.category = this.category;
+        }
         dragulaService.dropModel.subscribe(function (value) {
             _this.onDropModel(value.slice(1));
         });
@@ -60,6 +78,7 @@ var InstructionComponent = (function () {
             }
             return { item: item, response: response, status: status, headers: headers };
         };
+        this.addStep();
     }
     InstructionComponent.prototype.addStep = function () {
         var step = new Step();
@@ -78,14 +97,24 @@ var InstructionComponent = (function () {
             }
         });
     };
+    InstructionComponent.prototype.getTags = function () {
+        for (var _i = 0, _a = this.instruction.tags; _i < _a.length; _i++) {
+            var tag = _a[_i];
+            this.tags.push(tag.tag.name);
+        }
+    };
     InstructionComponent.prototype.ngOnDestroy = function () {
         this.dragulaService.destroy('first-bag');
     };
     InstructionComponent.prototype.publish = function () {
         if (this.validate()) {
-            this.addTags();
-            this.addCategory();
-            this.service.publishInstruction(this.instruction);
+            this.instruction.category = this.category;
+            if (!this.id) {
+                this.addTags();
+                this.service.publishInstruction(this.instruction);
+            }
+            else
+                this.service.editInstruction(this.instruction);
         }
     };
     InstructionComponent.prototype.validate = function () {
@@ -107,7 +136,7 @@ var InstructionComponent = (function () {
         return false;
     };
     InstructionComponent.prototype.categoryValidate = function () {
-        if (!this.selectedCity) {
+        if (this.category.name.length == 0) {
             this.msgs.push({ severity: 'error', summary: 'Error Message', detail: 'Category is not choosen' });
             return true;
         }
@@ -123,11 +152,6 @@ var InstructionComponent = (function () {
             }
         }
         return false;
-    };
-    InstructionComponent.prototype.addCategory = function () {
-        var category = new Category();
-        category.name = this.selectedCity.name;
-        this.instruction.category = category;
     };
     InstructionComponent.prototype.addTags = function () {
         for (var _i = 0, _a = this.tags; _i < _a.length; _i++) {
@@ -216,7 +240,8 @@ InstructionComponent = __decorate([
         styleUrls: ['/Component/InstructionComponent.css'],
         providers: [primeng_1.ConfirmationService, RestService_1.RestService]
     }),
-    __metadata("design:paramtypes", [RestService_1.RestService, ng2_dragula_1.DragulaService, platform_browser_1.DomSanitizer, primeng_1.ConfirmationService])
+    __metadata("design:paramtypes", [RestService_1.RestService, ng2_dragula_1.DragulaService, platform_browser_1.DomSanitizer,
+        primeng_1.ConfirmationService, router_1.ActivatedRoute])
 ], InstructionComponent);
 exports.InstructionComponent = InstructionComponent;
 var SafePipe = (function () {
@@ -266,5 +291,10 @@ var Tag = (function () {
         this.instructoins = [];
     }
     return Tag;
+}());
+var Categ = (function () {
+    function Categ() {
+    }
+    return Categ;
 }());
 //# sourceMappingURL=instruction.component.js.map

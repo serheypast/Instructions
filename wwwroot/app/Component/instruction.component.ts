@@ -10,6 +10,8 @@ import { ConfirmationService, Message } from 'primeng/primeng';
 import { RestService } from "./../RestService/RestService";
 import { SelectItem } from "primeng/components/common/selectitem";
 import { Language } from 'angular-l10n';
+import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
     selector: 'instruction',
@@ -19,19 +21,19 @@ import { Language } from 'angular-l10n';
 })
 
 export class InstructionComponent {
-    @Language() lang: string;
-    cities: SelectItem[];
+    @Language() lang: string;   
     msgs: Message[] = [];
-    selectedCity: any; 
-
+    categories: SelectItem[];
+    public id: number;
+    private subscription: Subscription;
     instruction: Instruction = new Instruction();
     category: Category = new Category();
     tags: any[] = [];
+    create: boolean;
 
     addStep() {
         let step: Step = new Step();
-        this.instruction.steps.push(step);
-        
+        this.instruction.steps.push(step);      
     }
 
     confirm2(index: number) {
@@ -48,16 +50,34 @@ export class InstructionComponent {
         });
     }
 
-    constructor(private service: RestService,private dragulaService: DragulaService, private sanitizer: DomSanitizer, private confirmationService: ConfirmationService) {
-        this.cities = [];
-        this.cities.push({ label: 'New York', value: {name:'New York' }});
+    constructor(private service: RestService, private dragulaService: DragulaService, private sanitizer: DomSanitizer,
+        private confirmationService: ConfirmationService, private activateRoute: ActivatedRoute) {
 
-        this.addStep();
+        this.subscription = this.activateRoute.params.subscribe(params => {
+            this.id = params['id'];            
+        });
 
-        this.instruction.name = "Name";
-        this.instruction.previewImageUrl = "https://res.cloudinary.com/dr4opxk5i/image/upload/spt2r2sqiyotibnrfhch.jpg"; 
-        this.instruction.category = this.category;
+        this.service.getCategories().subscribe(result => {  
+            this.categories = [];
+            for (let cat of result.json()) {
+                this.categories.push({ label: cat.name, value: { name: cat.name } });
+            }
+        });
 
+        if (this.id)
+            this.service.getInstrcutionById(this.id).subscribe(result => {
+                this.instruction = result.json();
+                this.getTags();     
+                this.category.name = this.instruction.category.name;
+                
+            });
+        else {
+            this.create = true;
+            this.instruction.name = "Name";
+            this.instruction.previewImageUrl = "https://res.cloudinary.com/dr4opxk5i/image/upload/spt2r2sqiyotibnrfhch.jpg";
+            this.instruction.category = this.category;
+        }
+        
         dragulaService.dropModel.subscribe((value: any) => {
             this.onDropModel(value.slice(1));
         });
@@ -83,6 +103,14 @@ export class InstructionComponent {
             return { item, response, status, headers };
         };
 
+        this.addStep();
+
+    }
+
+    getTags() {
+        for (let tag of this.instruction.tags) {
+            this.tags.push(tag.tag.name);
+        }
     }
 
     ngOnDestroy() {
@@ -90,10 +118,13 @@ export class InstructionComponent {
     }
 
     publish() {
-        if (this.validate()) {
-            this.addTags();
-            this.addCategory();
-            this.service.publishInstruction(this.instruction);
+        if (this.validate()) {             
+            this.instruction.category = this.category;
+            if (!this.id) {
+                this.addTags();         
+                this.service.publishInstruction(this.instruction);
+            }
+            else this.service.editInstruction(this.instruction);
         }       
     }
 
@@ -119,7 +150,7 @@ export class InstructionComponent {
     }
 
     categoryValidate() {
-        if (!this.selectedCity) {
+        if (this.category.name.length == 0) {
             this.msgs.push({ severity: 'error', summary: 'Error Message', detail: 'Category is not choosen' });
             return true;
         }
@@ -135,12 +166,6 @@ export class InstructionComponent {
             }
         }
         return false;
-    }
-
-    addCategory() {
-        let category: Category = new Category();
-        category.name = this.selectedCity.name;
-        this.instruction.category = category;
     }
 
     addTags() {
@@ -253,14 +278,14 @@ export class SafePipe implements PipeTransform {
 } 
 
 class Block {
-    id: number;
+    id: null;
     type: string;
     field: string;
     state: boolean;
 }
 
 class Step {
-    id: number;
+    id: null;
     position: number;
     name: string;
     blocks: Block[] = [];
@@ -293,4 +318,8 @@ class Tag {
     id: number;
     name: string;
     instructoins: InstructionTag[] = [];
+}
+
+class Categ {
+    name: string;
 }

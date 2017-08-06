@@ -52,7 +52,6 @@ var DisplayInstructionComponent = (function () {
     DisplayInstructionComponent.prototype.ngOnInit = function () {
     };
     DisplayInstructionComponent.prototype.putLike = function () {
-        console.log(this.like);
         if (this.like) {
             this.instruction.rating -= 1;
         }
@@ -60,7 +59,9 @@ var DisplayInstructionComponent = (function () {
             this.instruction.rating += 1;
         }
         this.like = !this.like;
-        //request on server
+    };
+    DisplayInstructionComponent.prototype.editInstruction = function () {
+        console.log(this.instruction);
     };
     DisplayInstructionComponent.prototype.ngOnDestroy = function () {
         var oldRating = this.instruction.rating;

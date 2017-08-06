@@ -4,7 +4,6 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { RestService } from "./../RestService/RestService";
 
-
 @Component({
     selector: 'display-instructions',
     templateUrl: '/partial/displayInstructionComponent',
@@ -15,7 +14,7 @@ export class DisplayInstructionComponent {
     @Language() lang: string;
     instruction: Instruction = new Instruction();
     currentUser: UserProfile;
-    public id: string;
+    public id: number;
     private subscription: Subscription;
     public userProfileId: string;
     public firstName: string;
@@ -52,9 +51,7 @@ export class DisplayInstructionComponent {
 
             this.loadInfo = true;
         });
-       
-      
-    
+          
     }
 
     ngOnInit() {
@@ -64,17 +61,18 @@ export class DisplayInstructionComponent {
 
     like: boolean;
 
-    putLike() {
-        console.log(this.like);
+    putLike() {    
         if (this.like) {
             this.instruction.rating -= 1;
         }
         else {
             this.instruction.rating += 1;
         }
-
         this.like = !this.like;
-        //request on server
+    }
+
+    editInstruction() {
+        console.log(this.instruction);
     }
 
     ngOnDestroy() {
