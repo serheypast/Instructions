@@ -17,10 +17,12 @@ var ng2_completer_1 = require("ng2-completer");
 var angular_l10n_1 = require("angular-l10n");
 var AppComponent = (function () {
     function AppComponent(completerService, titleService, router, service) {
+        var _this = this;
         this.completerService = completerService;
         this.titleService = titleService;
         this.router = router;
         this.service = service;
+        this.user = new User();
         this.angularClientSideData = 'Angular';
         this.searchData = [
             { color: 'red', value: '#f00' },
@@ -32,6 +34,10 @@ var AppComponent = (function () {
             { color: 'black', value: '#000' }
         ];
         this.captains = ['James T. Kirk', 'Benjamin Sisko', 'Jean-Luc Picard', 'Spock', 'Jonathan Archer', 'Hikaru Sulu', 'Christopher Pike', 'Rachel Garrett'];
+        this.service.getCurrentUser().subscribe(function (result) {
+            _this.user = result.json();
+            console.log(_this.user);
+        });
         this.searchData1 = "";
         this.dataService = completerService.local(this.searchData, 'color', 'color');
     }
@@ -42,11 +48,8 @@ var AppComponent = (function () {
     AppComponent.prototype.setTitle = function (newTitle) {
         this.titleService.setTitle(newTitle);
     };
-    AppComponent.getUser = function () {
-        if (this.user == null) {
-        }
-    };
     AppComponent.prototype.search = function () {
+        console.log("search");
         this.router.navigate(['home/all/search/' + this.searchData1]);
     };
     return AppComponent;
@@ -66,6 +69,7 @@ AppComponent = __decorate([
 exports.AppComponent = AppComponent;
 var User = (function () {
     function User() {
+        this.id = 0;
     }
     return User;
 }());

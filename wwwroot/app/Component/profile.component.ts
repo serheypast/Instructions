@@ -18,7 +18,7 @@ export class ProfileComponent {
     private subscription: Subscription;
     public user: UserProfile;
     public achivments: AchivmentUser[];
-
+    instructionBool: boolean = true;
     uploader: CloudinaryUploader = new CloudinaryUploader(
         new CloudinaryOptions({ cloudName: 'dr4opxk5i', uploadPreset: 'ajvv2x7e' })
     );
@@ -32,6 +32,7 @@ export class ProfileComponent {
                 this.user.urlPhoto = "https://res.cloudinary.com/dr4opxk5i/image/upload/j8khmafnd7hbxwpxy0kb.jpg";    
             console.log(this.user);
             console.log(this.user.achivments)
+            console.log("GetUserById");
             this.achivments = this.user.achivments;
         });
 

@@ -42,18 +42,19 @@ export class DisplayInstructionComponent {
                 this.instruction.tags.push(tagInst);
             }
             this.service.getCurrentUser().subscribe(result => {
-                this.currentUser = result.json();            
+                this.currentUser = result.json();
                 this.service.UserLikeIt(this.currentUser.id.toString(), this.instruction.id.toString()).subscribe(result => {
+                    console.log("InService answer = " + result.json());
                     this.like = result.json();
                 });
                 if (this.currentUser != null)
-                    this.loadUser = true;                          
+                    this.loadUser = true;
             });
             console.log("LoadInfo");
 
             this.loadInfo = true;
         });
-       
+    
       
     
     }
@@ -64,14 +65,16 @@ export class DisplayInstructionComponent {
     }
 
     like: boolean;
-
+    likeChanged: number = 0;
     putLike() {
         console.log(this.like);
         if (this.like) {
             this.instruction.rating -= 1;
+            this.likeChanged = -1;
         }
         else {
             this.instruction.rating += 1;
+            this.likeChanged = 1;
         }
 
         this.like = !this.like;
@@ -79,10 +82,8 @@ export class DisplayInstructionComponent {
     }
 
     ngOnDestroy() {
-        let oldRating: number = this.instruction.rating;
-        this.instruction.rating = oldRating - this.beginRating;
+        if (this.likeChanged != 0)
         this.service.changeRatingInstruction(this.instruction);
-        this.instruction.rating = oldRating;
     }
 
 }

@@ -1,9 +1,10 @@
-﻿import { Component } from '@angular/core';
+﻿import { Component,OnInit } from '@angular/core';
 import { Http } from '@angular/http';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { RestService } from "./RestService/RestService";
-
+import { Input } from '@angular/core';
+import { Language } from 'angular-l10n';
 @Component({
     selector: 'instructionBlock',
     templateUrl: '/partial/instructionBlockComponent',
@@ -11,43 +12,76 @@ import { RestService } from "./RestService/RestService";
 })
 
 export class InstructionBlockComponent {
-    //instructions: Instruction[];
+  @Language() lang: string;
     instructions: Array<Instruction> = new Array<Instruction>();
-    private defaultInstruction: string = "15";
+    private defaultGetInstruction: string = "10";
+    private defaultSkipInstruction: string = "0";
     public value: string;
     public type: string;
     public property: string;
     private subscription: Subscription;
-
+    @Input() idUser: number;
+    @Input() fromProfileComponent: boolean = false;
+    private get: number = 8;
     constructor(private http: Http, private activateRoute: ActivatedRoute, private service: RestService) {
-
-        this.subscription = activateRoute.params.subscribe(params => {
-            this.type = params['type'];
-            this.property = params['property'];
-            this.value = params['value'];
-            if (this.property == null)
-                this.property = "all";
-            service.getInstructions(this.property , this.type, this.value, this.defaultInstruction, '0').subscribe(result => {
-                this.instructions = result.json();
-            });
-        });       
-        console.log(this.instructions);
-        console.log(this.type);
-        console.log(this.value);
+       
     }
 
     private selectRequest() {
-       
+        if (this.stopRequest) {
+            this.stopRequest = false;
+            this.service.getInstructionByUser(this.idUser.toString(), this.instructions.length.toString(), this.get.toString()).subscribe(result => {
+                this.instructions = this.instructions.concat(result.json());
+                this.stopRequest = true;
+            });
+        }
+    }
+    
+
+    private getHomePageRequest() {
+        if (this.stopRequest) {
+            this.stopRequest = false;
+            this.service.getInstructions(this.property, this.type, this.value, this.defaultGetInstruction, this.defaultSkipInstruction).subscribe(result => {
+                this.instructions = result.json();
+                this.stopRequest = true;
+            });
+        }
+    }
+
+    ngOnInit() {
+        console.log("IBlock");
+        console.log(this.idUser);
+        console.log(this.fromProfileComponent);
+        if (this.fromProfileComponent) {
+            this.selectRequest();
+        }
+        else {
+            this.subscription = this.activateRoute.params.subscribe(params => {
+                this.type = params['type'];
+                this.property = params['property'];
+                this.value = params['value'];
+                if (this.property == null)
+                    this.property = "all";
+                this.getHomePageRequest();
+            });
+        }
     }
 
     stopRequest: boolean = true;
     onScroll() {
-        if (this.stopRequest) {
-            this.stopRequest = false;
-            this.service.getInstructions(this.property, this.type, this.value, this.defaultInstruction, this.instructions.length.toString()).subscribe(result => {
-                this.instructions = this.instructions.concat(result.json());
-                this.stopRequest = true;
-            });
+        if (this.fromProfileComponent) {
+            console.log(this.idUser);
+            console.log(this.fromProfileComponent);
+            console.log("fromProfile");
+            this.selectRequest();
+        } else {
+            if (this.stopRequest) {
+                this.stopRequest = false;
+                this.service.getInstructions(this.property, this.type, this.value, this.defaultGetInstruction, this.instructions.length.toString()).subscribe(result => {
+                    this.instructions = this.instructions.concat(result.json());
+                    this.stopRequest = true;
+                });
+            }
         }
     }
 }

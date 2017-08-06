@@ -21,6 +21,7 @@ var DisplayInstructionComponent = (function () {
         this.loadInfo = false;
         this.loadTag = false;
         this.loadUser = false;
+        this.likeChanged = 0;
         this.loadInfo = false;
         this.loadUser = false;
         this.subscription = this.activateRoute.params.subscribe(function (params) {
@@ -40,6 +41,7 @@ var DisplayInstructionComponent = (function () {
             _this.service.getCurrentUser().subscribe(function (result) {
                 _this.currentUser = result.json();
                 _this.service.UserLikeIt(_this.currentUser.id.toString(), _this.instruction.id.toString()).subscribe(function (result) {
+                    console.log("InService answer = " + result.json());
                     _this.like = result.json();
                 });
                 if (_this.currentUser != null)
@@ -55,18 +57,18 @@ var DisplayInstructionComponent = (function () {
         console.log(this.like);
         if (this.like) {
             this.instruction.rating -= 1;
+            this.likeChanged = -1;
         }
         else {
             this.instruction.rating += 1;
+            this.likeChanged = 1;
         }
         this.like = !this.like;
         //request on server
     };
     DisplayInstructionComponent.prototype.ngOnDestroy = function () {
-        var oldRating = this.instruction.rating;
-        this.instruction.rating = oldRating - this.beginRating;
-        this.service.changeRatingInstruction(this.instruction);
-        this.instruction.rating = oldRating;
+        if (this.likeChanged != 0)
+            this.service.changeRatingInstruction(this.instruction);
     };
     return DisplayInstructionComponent;
 }());

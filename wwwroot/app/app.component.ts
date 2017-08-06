@@ -14,12 +14,14 @@ import { Language } from 'angular-l10n';
 })
 export class AppComponent {
 
-    static user: User;
+    user: User = new User();
     @Language() lang: string;
 
-    static restService: RestService;
     public constructor(private completerService: CompleterService, private titleService: Title, private router: Router, private service: RestService) {
-        
+        this.service.getCurrentUser().subscribe(result => {
+            this.user = result.json();
+            console.log(this.user);
+        });
         this.searchData1 = "";
         this.dataService = completerService.local(this.searchData, 'color', 'color');
     }
@@ -50,18 +52,15 @@ export class AppComponent {
     ];
     protected captains = ['James T. Kirk', 'Benjamin Sisko', 'Jean-Luc Picard', 'Spock', 'Jonathan Archer', 'Hikaru Sulu', 'Christopher Pike', 'Rachel Garrett'];
 
-    public static getUser() {
-        if (this.user == null) {
-          
-        }
-    }
+  
 
     text: string;
 
     results: string[];
 
-    public search() {      
-            this.router.navigate(['home/all/search/' + this.searchData1]);          
+    public search() {
+        console.log("search");
+        this.router.navigate(['home/all/search/' + this.searchData1]);          
     }
 
     
@@ -69,6 +68,6 @@ export class AppComponent {
 
 
 class User {
-    id: string;
+    id: number = 0;
     role: string;
 }

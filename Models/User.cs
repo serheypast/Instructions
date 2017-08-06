@@ -31,9 +31,11 @@ namespace A2SPA.Models
 
         public User User { get; set; }
         public ICollection<AchivmentUser> Achivments { get; set; }
+        public ICollection<UserLike> UsersLike { get; set; }
 
         public UserProfile(){
             Achivments = new List<AchivmentUser>();
+            UsersLike = new List<UserLike>();
         }
 
     }
@@ -95,18 +97,29 @@ namespace A2SPA.Models
         
         public ICollection<InstructionTag> Tags { get; set; }
         public ICollection<Step> Steps { get; set; }
-        public ICollection<UserProfile> UsersLike { get; set; }
+        public ICollection<UserLike> UsersLike { get; set; }
         //public ICollection<Commentary> Commentaries { get; set; }
 
         public Instruction()
         {
             Steps = new List<Step>();
             Tags = new List<InstructionTag>();
-            UsersLike = new List<UserProfile>();
+            UsersLike = new List<UserLike>();
             //Commentaries = new List<Commentary>();
         }
 
     }
+
+    public class UserLike
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
+        public UserProfile UserProfile { get; set; }
+        public Instruction Instruction { get; set; }
+    }
+
+
 
     public class Tag
     {

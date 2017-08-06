@@ -50,7 +50,8 @@ export class RestService {
         return this.http.get('api/getInstrcutionById/' + id);
     }
 
-    public UserLikeIt(idUser: string,idInstruction:string) {
+    public UserLikeIt(idUser: string, idInstruction: string) {
+        console.log("userLikeIt" + idUser + "/" + idInstruction);
         return this.http.get('api/isUserLikedIt/' + idUser + '/' + idInstruction );
     }
 
@@ -75,7 +76,7 @@ export class RestService {
         });
     }
 
-    public getInstructionByUser(idUser: string, skip: string, get:string) {
-
+    public getInstructionByUser(idUser: string, skip: string, get: string) {
+        return this.http.get('api/getUserInstruction/' + idUser + '/' + get + '/' + skip);
     }
 }

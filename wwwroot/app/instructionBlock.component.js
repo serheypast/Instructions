@@ -13,44 +13,91 @@ var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 var router_1 = require("@angular/router");
 var RestService_1 = require("./RestService/RestService");
+var core_2 = require("@angular/core");
+var angular_l10n_1 = require("angular-l10n");
 var InstructionBlockComponent = (function () {
     function InstructionBlockComponent(http, activateRoute, service) {
-        var _this = this;
         this.http = http;
         this.activateRoute = activateRoute;
         this.service = service;
-        //instructions: Instruction[];
         this.instructions = new Array();
-        this.defaultInstruction = "15";
+        this.defaultGetInstruction = "10";
+        this.defaultSkipInstruction = "0";
+        this.fromProfileComponent = false;
+        this.get = 8;
         this.stopRequest = true;
-        this.subscription = activateRoute.params.subscribe(function (params) {
-            _this.type = params['type'];
-            _this.property = params['property'];
-            _this.value = params['value'];
-            if (_this.property == null)
-                _this.property = "all";
-            service.getInstructions(_this.property, _this.type, _this.value, _this.defaultInstruction, '0').subscribe(function (result) {
-                _this.instructions = result.json();
-            });
-        });
-        console.log(this.instructions);
-        console.log(this.type);
-        console.log(this.value);
     }
     InstructionBlockComponent.prototype.selectRequest = function () {
-    };
-    InstructionBlockComponent.prototype.onScroll = function () {
         var _this = this;
         if (this.stopRequest) {
             this.stopRequest = false;
-            this.service.getInstructions(this.property, this.type, this.value, this.defaultInstruction, this.instructions.length.toString()).subscribe(function (result) {
+            this.service.getInstructionByUser(this.idUser.toString(), this.instructions.length.toString(), this.get.toString()).subscribe(function (result) {
                 _this.instructions = _this.instructions.concat(result.json());
                 _this.stopRequest = true;
             });
         }
     };
+    InstructionBlockComponent.prototype.getHomePageRequest = function () {
+        var _this = this;
+        if (this.stopRequest) {
+            this.stopRequest = false;
+            this.service.getInstructions(this.property, this.type, this.value, this.defaultGetInstruction, this.defaultSkipInstruction).subscribe(function (result) {
+                _this.instructions = result.json();
+                _this.stopRequest = true;
+            });
+        }
+    };
+    InstructionBlockComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        console.log("IBlock");
+        console.log(this.idUser);
+        console.log(this.fromProfileComponent);
+        if (this.fromProfileComponent) {
+            this.selectRequest();
+        }
+        else {
+            this.subscription = this.activateRoute.params.subscribe(function (params) {
+                _this.type = params['type'];
+                _this.property = params['property'];
+                _this.value = params['value'];
+                if (_this.property == null)
+                    _this.property = "all";
+                _this.getHomePageRequest();
+            });
+        }
+    };
+    InstructionBlockComponent.prototype.onScroll = function () {
+        var _this = this;
+        if (this.fromProfileComponent) {
+            console.log(this.idUser);
+            console.log(this.fromProfileComponent);
+            console.log("fromProfile");
+            this.selectRequest();
+        }
+        else {
+            if (this.stopRequest) {
+                this.stopRequest = false;
+                this.service.getInstructions(this.property, this.type, this.value, this.defaultGetInstruction, this.instructions.length.toString()).subscribe(function (result) {
+                    _this.instructions = _this.instructions.concat(result.json());
+                    _this.stopRequest = true;
+                });
+            }
+        }
+    };
     return InstructionBlockComponent;
 }());
+__decorate([
+    angular_l10n_1.Language(),
+    __metadata("design:type", String)
+], InstructionBlockComponent.prototype, "lang", void 0);
+__decorate([
+    core_2.Input(),
+    __metadata("design:type", Number)
+], InstructionBlockComponent.prototype, "idUser", void 0);
+__decorate([
+    core_2.Input(),
+    __metadata("design:type", Boolean)
+], InstructionBlockComponent.prototype, "fromProfileComponent", void 0);
 InstructionBlockComponent = __decorate([
     core_1.Component({
         selector: 'instructionBlock',

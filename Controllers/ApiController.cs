@@ -6,6 +6,13 @@ using Microsoft.AspNetCore.Mvc;
 using A2SPA.Models;
 using System.Security.Claims;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using A2SPA.Controllers;
+
 
 namespace A2SPA.Controllers
 {
@@ -29,8 +36,8 @@ namespace A2SPA.Controllers
             //UserProfile user = await db.UserProfile.Include(p => p.Achivments).ThenInclude(p => p.Achivment).FirstOrDefaultAsync(p => p.Id == (id ?? Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier).Value)));
             return (user == null) ? Ok("No result") : new ObjectResult(user);
         }
-         
 
+        [Authorize]
         [HttpPost("[action]")]
         public IActionResult EditProfile([FromBody] UserProfile item)
         {
@@ -98,6 +105,7 @@ namespace A2SPA.Controllers
                 .OrderByDescending(SortParams).Where(p => p.Name.ToLower().Contains(value.ToLower())).Skip(skip).Take(take).ToList();
         }
 
+        [Authorize]
         [HttpPost("[action]")]
         public IActionResult PublishInstruction([FromBody] Models.Instruction item)
         {
@@ -146,6 +154,7 @@ namespace A2SPA.Controllers
             return new ObjectResult(db.Commentary.Include(p => p.UserProfile).Where(p => p.Instruction == instruction).Skip(skip).Take(take).ToList());
         }
 
+        [Authorize]
         [HttpPost("[action]")]
         public IActionResult AddCommentOnInstruction([FromBody] Commentary commentary)
         {
@@ -159,22 +168,30 @@ namespace A2SPA.Controllers
             return Ok();
         }
 
+        [Authorize]
         [HttpPost("[action]")]
         public IActionResult ChangeRatingInstruction([FromBody] Models.Instruction item)
         {
             UserProfile userProfile = db.UserProfile.Include(p => p.User).FirstOrDefault(p => p.User.Id == User.FindFirst(ClaimTypes.NameIdentifier).Value);
             if (userProfile != null)
             {
+                int rating = 0;
                 Models.Instruction instruction = db.Instruction.Include(p => p.UsersLike).Include(p => p.UserProfile).FirstOrDefault(p => p.Id == item.Id);
-                if (item.Rating == -1)
+                if(instruction.UsersLike.Any(p => p.UserProfile.Id == userProfile.Id))
                 {
-                    instruction.UsersLike.Remove(userProfile);
-                } else
-                {
-                    instruction.UsersLike.Add(userProfile);
+                    var temp = instruction.UsersLike.FirstOrDefault(p => p.UserProfile.Id == userProfile.Id);
+                    db.UserLike.Remove(temp);
+                    rating = -1;
                 }
-                instruction.Rating += item.Rating;
-                instruction.UserProfile.Rating += item.Rating;
+                else
+                {
+                    var temp = new UserLike();
+                    temp.UserProfile = userProfile;
+                    instruction.UsersLike.Add(temp);
+                    rating = 1;
+                }
+                instruction.Rating += rating;
+                instruction.UserProfile.Rating += rating;
                 db.SaveChanges();
                 ServiceAchivment.GetInstance().WasAction(Events.LikePost, instruction.UserProfile.Id);
                 return Ok();
@@ -185,15 +202,14 @@ namespace A2SPA.Controllers
         [HttpGet("[action]/{idUser}/{idInstruction}")]
         public IActionResult IsUserLikedIt(int idUser, int idInstruction)
         {
-            UserProfile userProfile = db.UserProfile.FirstOrDefault(p => p.Id == idUser);
-            Models.Instruction instruction = db.Instruction.Include(p => p.UsersLike).Include(p => p.UserProfile).FirstOrDefault(p => p.Id == idInstruction);
-            return (instruction.UsersLike.Contains(userProfile) == true) ? Ok(true) : Ok(false);
+            Models.Instruction instruction = db.Instruction.Include(p => p.UsersLike).ThenInclude(p =>p.UserProfile).FirstOrDefault(p => p.Id == idInstruction);
+            return new ObjectResult((instruction.UsersLike.Any(x => x.UserProfile.Id == idUser)) ? true : false);
         }
 
         [HttpGet("[action]")]
         public IActionResult GetTags()
         {
-            return new ObjectResult(db.Tag.OrderBy(p => Guid.NewGuid()).Take(10));
+            return new ObjectResult(db.Tag.OrderBy(p => Guid.NewGuid()).Take(20));
         }
 
         [HttpGet("[action]")]
@@ -201,7 +217,13 @@ namespace A2SPA.Controllers
         {
             return new ObjectResult(db.UserProfile.Include(p => p.User).FirstOrDefault(p => p.User.Id == User.FindFirst(ClaimTypes.NameIdentifier).Value));
         }
-        
+
+        [HttpGet("[action]/{idUser}/{take}/{skip}")]
+        public IActionResult GetUserInstruction(int idUser,int take,int skip)
+        {
+            return new ObjectResult(db.Instruction.Include(p => p.UserProfile).Include(p => p.Category).Where(p => p.UserProfile.Id == idUser).Skip(skip).Take(take).ToList());
+        }
+
     }
 }
             

@@ -21,6 +21,7 @@ var ProfileComponent = (function () {
         this.http = http;
         this.activateRoute = activateRoute;
         this.service = service;
+        this.instructionBool = true;
         this.uploader = new ng2_cloudinary_1.CloudinaryUploader(new ng2_cloudinary_1.CloudinaryOptions({ cloudName: 'dr4opxk5i', uploadPreset: 'ajvv2x7e' }));
         this.changeField = true;
         this.subscription = activateRoute.params.subscribe(function (params) { return _this.id = params['id']; });
@@ -31,6 +32,7 @@ var ProfileComponent = (function () {
                 _this.user.urlPhoto = "https://res.cloudinary.com/dr4opxk5i/image/upload/j8khmafnd7hbxwpxy0kb.jpg";
             console.log(_this.user);
             console.log(_this.user.achivments);
+            console.log("GetUserById");
             _this.achivments = _this.user.achivments;
         });
         this.uploader.onSuccessItem = function (item, response, status, headers) {

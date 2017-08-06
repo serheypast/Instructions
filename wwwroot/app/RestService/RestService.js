@@ -46,6 +46,7 @@ var RestService = (function () {
         return this.http.get('api/getInstrcutionById/' + id);
     };
     RestService.prototype.UserLikeIt = function (idUser, idInstruction) {
+        console.log("userLikeIt" + idUser + "/" + idInstruction);
         return this.http.get('api/isUserLikedIt/' + idUser + '/' + idInstruction);
     };
     RestService.prototype.changeRatingInstruction = function (value) {
@@ -66,6 +67,7 @@ var RestService = (function () {
         });
     };
     RestService.prototype.getInstructionByUser = function (idUser, skip, get) {
+        return this.http.get('api/getUserInstruction/' + idUser + '/' + get + '/' + skip);
     };
     return RestService;
 }());

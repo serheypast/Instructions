@@ -173,7 +173,7 @@
                         <div class="pull-right" style="">
                             <span title="Delete" (click)="deleteComment(i)" class="glyphicon glyphicon-trash "></span>
                         </div>
-                        <a class="pull-left" routerLink="/profile/{{comment.userProfile.id.toString()}}"><img class="media-object" src={{comment.userProfile.urlPhoto}} alt=""></a>
+                        <a class="pull-left" routerLink="/profile/{{comment.userProfile.id.toString()}}"><img class="media-object img-circle" src={{comment.userProfile.urlPhoto}} alt=""></a>
                         <div class="media-body">
                             <h4 class="media-heading">{{comment.userProfile.firstName}} {{comment.userProfile.secondName}}</h4>
                             
@@ -184,9 +184,6 @@
                         </div>
                     </div>
                 </div>
-
-
-               
         </div>
     </div>
 </div>
