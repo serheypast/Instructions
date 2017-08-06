@@ -139,7 +139,7 @@
                             <ul id="myTab" class="nav nav-pills">
                                 <li class="active"><a href="#detail" data-toggle="tab">{{ 'ProfileComponent.AboutMe' | translate:lang }}</a></li>
                                 <li class=""><a href="#contact" data-toggle="tab">{{ 'ProfileComponent.Achievements' | translate:lang }}</a></li>
-                                <li class=""><a href="#contact" data-toggle="tab">{{ 'ProfileComponent.Publications' | translate:lang }}</a></li>
+                                <li class=""><a href="#instruction" data-toggle="tab">{{ 'ProfileComponent.Publications' | translate:lang }}</a></li>
                                 
                                 <li class="pull-right" style="cursor: pointer;">
                                     <a (click)="change()"> <span class="glyphicon glyphicon-pencil"></span> {{ 'ProfileComponent.Edit' | translate:lang }}</a>
@@ -151,7 +151,7 @@
                                     <h4>{{ 'ProfileComponent.Profile' | translate:lang }}</h4>
                                     <table class="table table-th-block">
                                         <tbody>
-                                            <tr><td class="active">{{ 'ProfileComponent.Registered' | translate:lang }}:</td><td>12-06-2016</td></tr>
+                                            <tr><td class="active">{{ 'ProfileComponent.Registered' | translate:lang }}:</td><td>07-08-2017</td></tr>
                                             <tr>
                                                 <td class="active">{{ 'ProfileComponent.FirstName' | translate:lang }}:</td>
                                                 <td>
@@ -213,6 +213,11 @@
                                         
                                     </div>
                                 </div>
+                                <div *ngIf="user" class="tab-pane fade" id="instruction">
+                                    <p></p>
+                                    <instructionBlock *ngIf="user" [idUser]="user.id" [fromProfileComponent]="instructionBool"></instructionBlock>
+                                </div>
+                             
                             </div>
                         </div>
                     </div>

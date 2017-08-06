@@ -25,12 +25,12 @@
                 {
                     <form ngNoForm asp-controller="Account" asp-action="ExternalLogin" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal">
                         <div>
-                            <p>
+                        
                                 @foreach (var provider in loginProviders)
                                 {
-                                    <input type="submit" class="btn btn-default" name="provider" value="@provider.AuthenticationScheme" title="Log in using your @provider.DisplayName account"  />
+                                    <input   type="submit" class="btn btn-default" name="provider" value="@provider.AuthenticationScheme" title="Log in using your @provider.DisplayName account"  />
                                 }
-                            </p>
+                      
                         </div>
                     </form>
                 }

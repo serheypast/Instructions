@@ -55,6 +55,10 @@
     <Content Include="wwwroot\css\site.min.css" />
     <Content Include="wwwroot\css\styles.css" />
     <Content Include="wwwroot\favicon.ico" />
+    <Content Include="wwwroot\images\267.gif" />
+    <Content Include="wwwroot\images\Google.png" />
+    <Content Include="wwwroot\images\Twitter.png" />
+    <Content Include="wwwroot\images\Vkontakte.png" />
     <Content Include="wwwroot\js\bootstrap-datepicker.js" />
     <Content Include="wwwroot\images\Facebook.png" />
     <Content Include="wwwroot\js\locales\bootstrap-datepicker.bg.js" />
