@@ -133,11 +133,41 @@ namespace A2SPA.Controllers
             return newTags;
         }
 
+        [HttpPost("[action]")]
+        public IActionResult EditInstruction([FromBody] Models.Instruction item)
+        {
+            Category category = db.Category.FirstOrDefault(p => p.Name == item.Category.Name);
+            item.Category = category ?? item.Category;
+            Models.Instruction instruction = db.Instruction.AsNoTracking().
+                Include(p => p.Category).
+                Include(p => p.Steps).ThenInclude(p => p.Blocks).
+                Include(p => p.Tags).ThenInclude(p => p.Instruction).
+                FirstOrDefault(p => p.Id == item.Id);
+            foreach(Models.Step step in instruction.Steps)
+            {
+                db.Step.Remove(db.Step.FirstOrDefault(p => p.Id == step.Id));   
+            }
+            foreach (Models.Step step in item.Steps)
+            {
+                step.Id = 0;
+                foreach (Block block in step.Blocks)
+                {
+                    block.Id = 0;
+                }
+            }
+            var steps = item.Steps;
+            db.Step.AddRange(steps);
+            item.UserProfile = null;
+            db.Update(item);  
+            db.SaveChanges();
+            return Ok(item);
+        }
+
         [HttpGet("[action]/{id}")]
-        public IActionResult GetInstrcutionById(string id)
+        public IActionResult GetInstrcutionById(int id)
         {
             Models.Instruction ins = db.Instruction.Include(p => p.UserProfile).Include(p => p.Category).Include(p => p.Steps)
-                .ThenInclude(p => p.Blocks).Include(p => p.Tags).ThenInclude(p => p.Tag).FirstOrDefault(p => p.Id == Int32.Parse(id));
+                .ThenInclude(p => p.Blocks).Include(p => p.Tags).ThenInclude(p => p.Tag).FirstOrDefault(p => p.Id == id) ?? new Models.Instruction();
             return new ObjectResult(ins);
         }
 

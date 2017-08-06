@@ -33,6 +33,13 @@ var RestService = (function () {
             console.log(result.json());
         });
     };
+    RestService.prototype.editInstruction = function (instruction) {
+        this.http.post("api/editInstruction", instruction)
+            .subscribe(function (result) {
+            console.log("after editing");
+            console.log(result.json());
+        });
+    };
     RestService.prototype.getInstructions = function (property, type, value, take, skip) {
         return this.http.get('/api/getInstructions/' + take + '/' + skip + '/' + property + '/' + type + '/' + value);
     };

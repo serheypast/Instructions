@@ -1,9 +1,8 @@
 ﻿import { Component, OnInit,OnDestroy } from '@angular/core';
-import { RestService } from "./../RestService/RestService";
+import { Language } from 'angular-l10n';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
-
-
+import { RestService } from "./../RestService/RestService";
 
 @Component({
     selector: 'display-instructions',
@@ -12,10 +11,10 @@ import { Subscription } from 'rxjs/Subscription';
 })
 
 export class DisplayInstructionComponent {
-
+    @Language() lang: string;
     instruction: Instruction = new Instruction();
     currentUser: UserProfile;
-    public id: string;
+    public id: number;
     private subscription: Subscription;
     public userProfileId: string;
     public firstName: string;
@@ -55,8 +54,6 @@ export class DisplayInstructionComponent {
             this.loadInfo = true;
         });
     
-      
-    
     }
 
     ngOnInit() {
@@ -66,8 +63,7 @@ export class DisplayInstructionComponent {
 
     like: boolean;
     likeChanged: number = 0;
-    putLike() {
-        console.log(this.like);
+    putLike() {    
         if (this.like) {
             this.instruction.rating -= 1;
             this.likeChanged = -1;
@@ -76,9 +72,11 @@ export class DisplayInstructionComponent {
             this.instruction.rating += 1;
             this.likeChanged = 1;
         }
-
         this.like = !this.like;
-        //request on server
+    }
+
+    editInstruction() {
+        console.log(this.instruction);
     }
 
     ngOnDestroy() {

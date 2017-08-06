@@ -13,6 +13,7 @@ import { Language } from 'angular-l10n';
 
 export class InstructionBlockComponent {
   @Language() lang: string;
+    @Language() lang: string;
     instructions: Array<Instruction> = new Array<Instruction>();
     private defaultGetInstruction: string = "10";
     private defaultSkipInstruction: string = "0";

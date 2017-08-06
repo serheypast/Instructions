@@ -8,9 +8,10 @@ using A2SPA.Models;
 namespace A2SPA.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20170806152820_AddCascadeDeleteTag")]
+    partial class AddCascadeDeleteTag
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")
@@ -231,24 +232,6 @@ namespace A2SPA.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("A2SPA.Models.UserLike", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int?>("InstructionId");
-
-                    b.Property<int?>("UserProfileId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("InstructionId");
-
-                    b.HasIndex("UserProfileId");
-
-                    b.ToTable("UserLike");
-                });
-
             modelBuilder.Entity("A2SPA.Models.UserProfile", b =>
                 {
                     b.Property<int>("Id")
@@ -264,6 +247,8 @@ namespace A2SPA.Migrations
 
                     b.Property<string>("FirstName");
 
+                    b.Property<int?>("InstructionId");
+
                     b.Property<int>("Rating");
 
                     b.Property<string>("SecondName");
@@ -273,6 +258,8 @@ namespace A2SPA.Migrations
                     b.Property<string>("UserId");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("InstructionId");
 
                     b.HasIndex("UserId");
 
@@ -447,19 +434,12 @@ namespace A2SPA.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("A2SPA.Models.UserLike", b =>
+            modelBuilder.Entity("A2SPA.Models.UserProfile", b =>
                 {
-                    b.HasOne("A2SPA.Models.Instruction", "Instruction")
+                    b.HasOne("A2SPA.Models.Instruction")
                         .WithMany("UsersLike")
                         .HasForeignKey("InstructionId");
 
-                    b.HasOne("A2SPA.Models.UserProfile", "UserProfile")
-                        .WithMany("UsersLike")
-                        .HasForeignKey("UserProfileId");
-                });
-
-            modelBuilder.Entity("A2SPA.Models.UserProfile", b =>
-                {
                     b.HasOne("A2SPA.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId");

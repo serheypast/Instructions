@@ -10,8 +10,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var RestService_1 = require("./../RestService/RestService");
+var angular_l10n_1 = require("angular-l10n");
 var router_1 = require("@angular/router");
+var RestService_1 = require("./../RestService/RestService");
 var DisplayInstructionComponent = (function () {
     function DisplayInstructionComponent(service, activateRoute) {
         var _this = this;
@@ -54,7 +55,6 @@ var DisplayInstructionComponent = (function () {
     DisplayInstructionComponent.prototype.ngOnInit = function () {
     };
     DisplayInstructionComponent.prototype.putLike = function () {
-        console.log(this.like);
         if (this.like) {
             this.instruction.rating -= 1;
             this.likeChanged = -1;
@@ -64,7 +64,9 @@ var DisplayInstructionComponent = (function () {
             this.likeChanged = 1;
         }
         this.like = !this.like;
-        //request on server
+    };
+    DisplayInstructionComponent.prototype.editInstruction = function () {
+        console.log(this.instruction);
     };
     DisplayInstructionComponent.prototype.ngOnDestroy = function () {
         if (this.likeChanged != 0)
@@ -72,6 +74,10 @@ var DisplayInstructionComponent = (function () {
     };
     return DisplayInstructionComponent;
 }());
+__decorate([
+    angular_l10n_1.Language(),
+    __metadata("design:type", String)
+], DisplayInstructionComponent.prototype, "lang", void 0);
 DisplayInstructionComponent = __decorate([
     core_1.Component({
         selector: 'display-instructions',

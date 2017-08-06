@@ -20,6 +20,7 @@ const appRoutes: Routes = [
     { path: 'home', component: HomeComponent, data: { title: 'Home' } },
     { path: 'authorization', component: AuthorizationComponent, data: { title: 'Authorization' } },
     { path: 'profile/:id', component: ProfileComponent, data: { title: 'profile' } },
+    { path: 'createInstruction/:id', component: InstructionComponent, data: { title: 'Instruction' } },
     { path: 'instruction', component: InstructionComponent, data: { title: 'instruction' }},
     { path: 'instructionBlock', component: InstructionBlockComponent, data: { title: 'InstructionBlock' } },
     { path: 'comment', component: CommentComponent, data: { title: 'Comment' } },

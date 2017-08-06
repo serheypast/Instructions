@@ -49,10 +49,10 @@ namespace A2SPA.Models
         public int Id { get; set; }
 
         [JsonIgnore]
+        [Required]
         public Instruction Instruction { get; set; }
         public int Position { get; set; }
         public string Name { get; set; }
-
         public ICollection<Block> Blocks { get; set; }
 
         public Step()
@@ -67,6 +67,7 @@ namespace A2SPA.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         [JsonIgnore]
+        [Required]
         public Step Step { get; set; }
         public string Type { get; set; }
         public string Field { get; set; }
@@ -94,7 +95,7 @@ namespace A2SPA.Models
 
         public Category Category { get; set; }
         public UserProfile UserProfile { get; set; }
-        
+
         public ICollection<InstructionTag> Tags { get; set; }
         public ICollection<Step> Steps { get; set; }
         public ICollection<UserLike> UsersLike { get; set; }
@@ -143,6 +144,7 @@ namespace A2SPA.Models
         public int Id { get; set; }
 
         public Tag Tag { get; set; }
+        [Required]
         [JsonIgnore]
         public Instruction Instruction { get; set; }
     }
