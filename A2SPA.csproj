@@ -9,9 +9,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\app\AuthService\**" />
     <Compile Remove="wwwroot\app\service\**" />
+    <Content Remove="wwwroot\app\AuthService\**" />
     <Content Remove="wwwroot\app\service\**" />
+    <EmbeddedResource Remove="wwwroot\app\AuthService\**" />
     <EmbeddedResource Remove="wwwroot\app\service\**" />
+    <None Remove="wwwroot\app\AuthService\**" />
     <None Remove="wwwroot\app\service\**" />
   </ItemGroup>
 
@@ -31,7 +35,6 @@
     <Content Include="wwwroot\app\app.module.js.map" />
     <Content Include="wwwroot\app\app.module.ts" />
     <Content Include="wwwroot\app\app.routing.ts" />
-    <Content Include="wwwroot\app\AuthService\AuthService.ts" />
     <Content Include="wwwroot\app\Component\comment.component.ts" />
     <Content Include="wwwroot\app\Component\displayInstruction.component.ts" />
     <Content Include="wwwroot\app\Component\instruction.component.js" />
@@ -45,6 +48,7 @@
     <Content Include="wwwroot\app\main.js.map" />
     <Content Include="wwwroot\app\main.ts" />
     <Content Include="wwwroot\app\RestService\RestService.ts" />
+    <Content Include="wwwroot\app\RoleService\RoleService.ts" />
     <Content Include="wwwroot\assets\locale-en.json" />
     <Content Include="wwwroot\assets\locale-rus.json" />
     <Content Include="wwwroot\css\dragula.css" />

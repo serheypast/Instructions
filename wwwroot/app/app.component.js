@@ -15,6 +15,7 @@ var RestService_1 = require("./RestService/RestService");
 var router_1 = require("@angular/router");
 var ng2_completer_1 = require("ng2-completer");
 var angular_l10n_1 = require("angular-l10n");
+var RoleService_1 = require("./RoleService/RoleService");
 var AppComponent = (function () {
     function AppComponent(completerService, titleService, router, service) {
         var _this = this;
@@ -22,24 +23,20 @@ var AppComponent = (function () {
         this.titleService = titleService;
         this.router = router;
         this.service = service;
-        this.user = new User();
+        this.user = new AuthUser();
         this.angularClientSideData = 'Angular';
-        this.searchData = [
-            { color: 'red', value: '#f00' },
-            { color: 'green', value: '#0f0' },
-            { color: 'blue', value: '#00f' },
-            { color: 'cyan', value: '#0ff' },
-            { color: 'magenta', value: '#f0f' },
-            { color: 'yellow', value: '#ff0' },
-            { color: 'black', value: '#000' }
-        ];
-        this.captains = ['James T. Kirk', 'Benjamin Sisko', 'Jean-Luc Picard', 'Spock', 'Jonathan Archer', 'Hikaru Sulu', 'Christopher Pike', 'Rachel Garrett'];
+        console.log("CheckRoleServiceInAppComponent");
+        console.log(RoleService_1.RoleService.getCurrentAuthUser());
         this.service.getCurrentUser().subscribe(function (result) {
             _this.user = result.json();
-            console.log(_this.user);
+            if (_this.user == null) {
+                _this.user = new AuthUser();
+                _this.user.id = 0;
+                _this.user.role = "Guest";
+            }
+            RoleService_1.RoleService.setCurrentAuthUser(_this.user);
         });
         this.searchData1 = "";
-        this.dataService = completerService.local(this.searchData, 'color', 'color');
     }
     AppComponent.prototype.getRequest = function () {
         console.log(this.searchData1);
@@ -62,7 +59,7 @@ AppComponent = __decorate([
     core_1.Component({
         selector: 'my-app',
         templateUrl: '/partial/appComponent',
-        providers: [RestService_1.RestService],
+        providers: [RestService_1.RestService, RoleService_1.RoleService],
     }),
     __metadata("design:paramtypes", [ng2_completer_1.CompleterService, platform_browser_1.Title, router_1.Router, RestService_1.RestService])
 ], AppComponent);
@@ -72,5 +69,11 @@ var User = (function () {
         this.id = 0;
     }
     return User;
+}());
+var AuthUser = (function () {
+    function AuthUser() {
+        this.id = 0;
+    }
+    return AuthUser;
 }());
 //# sourceMappingURL=app.component.js.map

@@ -6,24 +6,32 @@ import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { CompleterService, CompleterData } from 'ng2-completer';
 import { Language } from 'angular-l10n';
+import { RoleService } from "./RoleService/RoleService";
 
 @Component({
     selector: 'my-app',
     templateUrl: '/partial/appComponent',
-    providers: [RestService],
+    providers: [RestService,RoleService],
 })
 export class AppComponent {
 
-    user: User = new User();
+   
     @Language() lang: string;
-
+    user: AuthUser = new AuthUser();
     public constructor(private completerService: CompleterService, private titleService: Title, private router: Router, private service: RestService) {
+              
+        console.log("CheckRoleServiceInAppComponent");
+        console.log(RoleService.getCurrentAuthUser());
         this.service.getCurrentUser().subscribe(result => {
             this.user = result.json();
-            console.log(this.user);
+            if (this.user == null) {
+                this.user = new AuthUser();
+                this.user.id = 0;
+                this.user.role = "Guest";
+            }
+            RoleService.setCurrentAuthUser(this.user);
         });
         this.searchData1 = "";
-        this.dataService = completerService.local(this.searchData, 'color', 'color');
     }
     public searchData1: string;
     angularClientSideData = 'Angular';
@@ -40,18 +48,6 @@ export class AppComponent {
 
     protected searchStr: string;
     protected captain: string;
-    protected dataService: CompleterData;
-    protected searchData = [
-        { color: 'red', value: '#f00' },
-        { color: 'green', value: '#0f0' },
-        { color: 'blue', value: '#00f' },
-        { color: 'cyan', value: '#0ff' },
-        { color: 'magenta', value: '#f0f' },
-        { color: 'yellow', value: '#ff0' },
-        { color: 'black', value: '#000' }
-    ];
-    protected captains = ['James T. Kirk', 'Benjamin Sisko', 'Jean-Luc Picard', 'Spock', 'Jonathan Archer', 'Hikaru Sulu', 'Christopher Pike', 'Rachel Garrett'];
-
   
 
     text: string;
@@ -65,9 +61,12 @@ export class AppComponent {
 
     
 }
-
-
 class User {
+    id: number = 0;
+    role: string;
+}
+
+class AuthUser {
     id: number = 0;
     role: string;
 }

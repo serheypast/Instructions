@@ -5,10 +5,11 @@ import { Subscription } from 'rxjs/Subscription';
 import { RestService } from "./RestService/RestService";
 import { Input } from '@angular/core';
 import { Language } from 'angular-l10n';
+import { RoleService } from "./RoleService/RoleService";
 @Component({
     selector: 'instructionBlock',
     templateUrl: '/partial/instructionBlockComponent',
-    providers: [RestService],
+    providers: [RestService, RoleService],
 })
 
 export class InstructionBlockComponent {
@@ -24,7 +25,8 @@ export class InstructionBlockComponent {
     @Input() fromProfileComponent: boolean = false;
     private get: number = 8;
     constructor(private http: Http, private activateRoute: ActivatedRoute, private service: RestService) {
-       
+        console.log("CheckRoleServiceInInstructionBlock");
+        console.log(RoleService.getCurrentAuthUser());  
     }
 
     private selectRequest() {
@@ -112,4 +114,9 @@ class UserProfile {
     city: string;
     dataOfBirth: string;
     aboutMySelf: string;
+}
+
+class AuthUser {
+    id: number;
+    role: string;
 }

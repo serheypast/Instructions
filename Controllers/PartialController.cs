@@ -27,6 +27,7 @@ namespace A2SPA.Controllers
 
         public IActionResult ProfileComponent() => PartialView();
 
+        [Authorize]
         public IActionResult InstructionComponent() => PartialView();
 
         public IActionResult TestComponent() => PartialView();

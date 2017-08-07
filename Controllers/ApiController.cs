@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using A2SPA.Controllers;
-
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace A2SPA.Controllers
 {
@@ -34,7 +34,7 @@ namespace A2SPA.Controllers
                 .FirstOrDefaultAsync(p => p.User.Id == User.FindFirst(ClaimTypes.NameIdentifier).Value) :
                 await db.UserProfile.Include(p => p.Achivments).ThenInclude(p => p.Achivment).FirstOrDefaultAsync(p => p.Id == Convert.ToInt32(id));
             //UserProfile user = await db.UserProfile.Include(p => p.Achivments).ThenInclude(p => p.Achivment).FirstOrDefaultAsync(p => p.Id == (id ?? Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier).Value)));
-            return (user == null) ? Ok("No result") : new ObjectResult(user);
+            return (user == null) ? BadRequest("No result") : new ObjectResult(user);
         }
 
         [Authorize]
@@ -202,7 +202,8 @@ namespace A2SPA.Controllers
         [HttpPost("[action]")]
         public IActionResult ChangeRatingInstruction([FromBody] Models.Instruction item)
         {
-            UserProfile userProfile = db.UserProfile.Include(p => p.User).FirstOrDefault(p => p.User.Id == User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            UserProfile userProfile = db.UserProfile.Include(p => p.UserRole).Include(p => p.User).FirstOrDefault(p => p.User.Id == User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            
             if (userProfile != null)
             {
                 int rating = 0;
@@ -226,7 +227,7 @@ namespace A2SPA.Controllers
                 ServiceAchivment.GetInstance().WasAction(Events.LikePost, instruction.UserProfile.Id);
                 return Ok();
             }
-            return Ok("Autification Error");
+            return Unauthorized();
         }
 
         [HttpGet("[action]/{idUser}/{idInstruction}")]
@@ -245,13 +246,31 @@ namespace A2SPA.Controllers
         [HttpGet("[action]")]
         public IActionResult GetCurrentUser()
         {
-            return new ObjectResult(db.UserProfile.Include(p => p.User).FirstOrDefault(p => p.User.Id == User.FindFirst(ClaimTypes.NameIdentifier).Value));
+            UserProfile userProfile = db.UserProfile.Include(p => p.User).Include(p=>p.UserRole).FirstOrDefault(p => p.User.Id == User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            return Ok(new { id = userProfile.Id, role = userProfile.UserRole.Role });
         }
 
         [HttpGet("[action]/{idUser}/{take}/{skip}")]
         public IActionResult GetUserInstruction(int idUser,int take,int skip)
         {
             return new ObjectResult(db.Instruction.Include(p => p.UserProfile).Include(p => p.Category).Where(p => p.UserProfile.Id == idUser).Skip(skip).Take(take).ToList());
+        }
+
+        [Authorize]
+        [HttpPost("[action]")]
+        public IActionResult RemoveCommentOnInstruction([FromBody] Commentary commentary)
+        {
+            User user = new User();
+            var a = user.Roles;
+            
+            UserProfile userProfile = db.UserProfile.FirstOrDefault(p => p.Id == commentary.UserProfile.Id);
+            Models.Instruction instruction = db.Instruction.Include(p => p.UserProfile).FirstOrDefault(p => p.Id == commentary.Instruction.Id);
+            commentary.Instruction = instruction;
+            commentary.UserProfile = userProfile;
+            db.Commentary.Add(commentary);
+            db.SaveChanges();
+            ServiceAchivment.GetInstance().WasAction(Events.CommentPost, instruction.UserProfile.Id);
+            return Ok();
         }
 
     }

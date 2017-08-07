@@ -13,6 +13,7 @@ using A2SPA.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Identity;
 
 namespace A2SPA
 {
@@ -52,17 +53,19 @@ namespace A2SPA
         }
 
         public static ApplicationContext db;
-       // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
             db = app.ApplicationServices.GetService<ApplicationContext>();
             Program.setDbContext(db);
+
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-          
+
             }
             else
             {
@@ -116,6 +119,10 @@ namespace A2SPA
                 // in case multiple SPAs required.
                 routes.MapSpaFallbackRoute("spa-fallback", new { controller = "home", action = "index" });
             });
+
+
         }
     }
 }
+
+

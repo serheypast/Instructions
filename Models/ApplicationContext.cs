@@ -21,6 +21,7 @@ namespace A2SPA.Models
         public DbSet<AchivmentUser> AchivmentUser { get; set; }
         public DbSet<Tag> Tag { get; set; }
         public DbSet<UserLike> UserLike { get; set; }
+        public DbSet<UserRole> UserRole { get; set; }
 
         public ApplicationContext(DbContextOptions<ApplicationContext> options)
             : base(options)

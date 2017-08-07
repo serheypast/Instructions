@@ -28,7 +28,7 @@ namespace A2SPA.Models
         public string City { get; set; }
         public string DataOfBirth { get; set; }
         public string AboutMySelf { get; set; }
-
+        public UserRole UserRole { get; set; }
         public User User { get; set; }
         public ICollection<AchivmentUser> Achivments { get; set; }
         public ICollection<UserLike> UsersLike { get; set; }
@@ -40,6 +40,19 @@ namespace A2SPA.Models
 
     }
 
+    public class UserRole
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
+        public string Role { get; set; }
+        public ICollection<UserProfile> UserProfiles { get;set;}
+    
+        public UserRole()
+        {
+            UserProfiles = new List<UserProfile>();
+        }
+    }
  
 
     public class Step
@@ -99,17 +112,17 @@ namespace A2SPA.Models
         public ICollection<InstructionTag> Tags { get; set; }
         public ICollection<Step> Steps { get; set; }
         public ICollection<UserLike> UsersLike { get; set; }
-        //public ICollection<Commentary> Commentaries { get; set; }
 
         public Instruction()
         {
             Steps = new List<Step>();
             Tags = new List<InstructionTag>();
             UsersLike = new List<UserLike>();
-            //Commentaries = new List<Commentary>();
         }
 
     }
+
+
 
     public class UserLike
     {

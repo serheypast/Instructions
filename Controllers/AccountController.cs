@@ -12,6 +12,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using A2SPA.Models;
 using A2SPA.Controllers;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace Instruction.Controllers
 {
@@ -47,7 +49,6 @@ namespace Instruction.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult ExternalLogin(string provider, string returnUrl = null)
         {
-            // Request a redirect to the external login provider.
             var redirectUrl = Url.Action(nameof(ExternalLoginCallback), "Account", new { ReturnUrl = returnUrl });
             var properties = _signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
             return Challenge(properties, provider);
@@ -58,6 +59,7 @@ namespace Instruction.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> ExternalLoginCallback(string returnUrl = null, string remoteError = null)
         {
+
             if (remoteError != null)
             {
                 ModelState.AddModelError(string.Empty, $"Error from external provider: {remoteError}");
@@ -84,14 +86,16 @@ namespace Instruction.Controllers
             {
                 var email = info.Principal.FindFirstValue(ClaimTypes.Email);
                 var login = info.Principal.FindFirstValue(ClaimTypes.GivenName) ?? info.Principal.FindFirstValue(ClaimTypes.Name);
+              
 
                 var user = new User { UserName = login, Email = email };
+                UserRole role = _db.UserRole.FirstOrDefault(p => p.Role == "User");
                 var res = await _userManager.CreateAsync(user);
                 UserProfile userProfile = new UserProfile();
                 userProfile.User = _db.Users.FirstOrDefault(p => p.Id == user.Id);
                 userProfile.FirstName = user.UserName;
                 userProfile.Rating = 0;
-
+                role.UserProfiles.Add(userProfile);
                 _db.UserProfile.Add(userProfile);
                 _db.SaveChanges();
                 if (res.Succeeded)
