@@ -10,13 +10,6 @@ namespace A2SPA.Controllers
 {
     public class PartialController : Controller
     {
-        private ApplicationContext db;
-
-        public PartialController(ApplicationContext _db)
-        {
-            db = _db;
-        }
-
         public IActionResult AppComponent() => PartialView();
 
         public IActionResult ContactComponent() => PartialView();
@@ -34,11 +27,8 @@ namespace A2SPA.Controllers
 
         public IActionResult CommentComponent() => PartialView();
 
-        public IActionResult HomeComponent()
-        {         
-            return PartialView(); 
-        } 
-
+        public IActionResult HomeComponent() => PartialView();
+ 
         public IActionResult InstructionBlockComponent() => PartialView();
 
         public IActionResult DisplayInstructionComponent() => PartialView();

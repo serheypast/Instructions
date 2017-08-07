@@ -5,12 +5,6 @@ using System.Threading.Tasks;
 
 namespace A2SPA.Models
 {
-    public enum Events
-    {
-        CreatePost,
-        LikePost,
-        CommentPost,
-    }
     public class ServiceAchivment
     {
         private static readonly ServiceAchivment instance = new ServiceAchivment();

@@ -23,24 +23,13 @@ namespace A2SPA.Models
 
         private static void AddAchivment(int idAchievement, UserProfile userProfile)
         {
-            AchivmentUser achiv = new AchivmentUser();
+            AchivmentUser achivmentUser = new AchivmentUser();
             Achivment achivment = db.Achivment.FirstOrDefault(p => p.Id == idAchievement);
-            achiv.Achivment = achivment;
+            achivmentUser.Achivment = achivment;
             if (userProfile.Achivments.Any(x => x.Achivment.Id == idAchievement))
                 return;
-            userProfile.Achivments.Add(achiv);
+            userProfile.Achivments.Add(achivmentUser);
             db.SaveChanges();
-        }
-
-        private static void AchievementForCreateOneInstruction(int idUser)
-        {
-            const int forInstruction = 1;
-            const int idAchievement = 1;
-            UserProfile userProfile = GetUserById(idUser);
-            if (db.Instruction.Include(p => p.UserProfile).Where(p => p.UserProfile == userProfile).LongCount() == forInstruction)
-            {
-                AddAchivment(idAchievement, userProfile);
-            }
         }
 
         private static UserProfile GetUserById(int idUser)
@@ -49,31 +38,38 @@ namespace A2SPA.Models
             return userProfile;
         }
 
-        private static void AchievementForCreateFiveInstruction(int idUser)
+        private static void AchievementForCreateOneInstruction(int idUser)
         {
-            const int forInstruction = 5;
-            const int idAchievement = 2;
+            const int FULFILLMENT_CONDITION = 1;
+            const int ID_ACHIEVEMENT = 1;
             UserProfile userProfile = GetUserById(idUser);
-            if (db.Instruction.Include(p => p.UserProfile).Where(p => p.UserProfile == userProfile).LongCount() == forInstruction)
+            if (db.Instruction.Include(p => p.UserProfile).Where(p => p.UserProfile == userProfile).LongCount() == FULFILLMENT_CONDITION)
             {
-                AddAchivment(idAchievement, userProfile);
+                AddAchivment(ID_ACHIEVEMENT, userProfile);
             }
         }
 
-
+        private static void AchievementForCreateFiveInstruction(int idUser)
+        {
+            const int FULFILLMENT_CONDITION = 5;
+            const int ID_ACHIEVEMENT = 2;
+            UserProfile userProfile = GetUserById(idUser);
+            if (db.Instruction.Include(p => p.UserProfile).Where(p => p.UserProfile == userProfile).LongCount() == FULFILLMENT_CONDITION)
+            {
+                AddAchivment(ID_ACHIEVEMENT, userProfile);
+            }
+        }
 
         private static void AchievementForFiveLikeOnInstruction(int idUser)
         {
-            // поставь с большой
-            const int forLike = 5;
-            const int idAchievement = 4;
+            const int FULFILLMENT_CONDITION = 5;
+            const int ID_ACHIEVEMENT = 4;
             UserProfile userProfile = GetUserById(idUser);
-            if (userProfile.Rating == forLike)
+            if (userProfile.Rating == FULFILLMENT_CONDITION)
             {
-                AddAchivment(idAchievement, userProfile);
+                AddAchivment(ID_ACHIEVEMENT, userProfile);
             }
         }
-
 
         private static void AchievementForManyLikeOnInstruction(int idUser)
         {
@@ -85,7 +81,6 @@ namespace A2SPA.Models
                 AddAchivment(idAchievement, userProfile);
             }
         }
-
 
         private static void AchievementForFiveCommendOnInstruction(int idUser)
         {
