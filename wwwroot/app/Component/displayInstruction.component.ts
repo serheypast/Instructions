@@ -31,7 +31,9 @@ export class DisplayInstructionComponent {
     }
 
     public removeInstruction() {
-        this.service.removeInstruction(this.instruction.id);
+        console.log("remove");
+        console.log("remove" + this.instruction);
+        this.service.removeInstruction(this.instruction);
     }
 
     constructor(private service: RestService, private activateRoute: ActivatedRoute, ) {

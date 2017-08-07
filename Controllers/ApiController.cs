@@ -264,16 +264,23 @@ namespace A2SPA.Controllers
 
         [Authorize]
         [HttpPost("[action]")]
-        public IActionResult RemoveInstructionById([FromBody] int idInstrictoin)
+        public IActionResult RemoveInstructionById([FromBody] Models.Instruction itemInstruction)
         {
             Models.Instruction instruction = db.Instruction.Include(p => p.Steps)
-                .ThenInclude(p => p.Blocks).Include(p => p.Tags).ThenInclude(p => p.Tag).FirstOrDefault(p => p.Id == idInstrictoin);
+                .ThenInclude(p => p.Blocks).Include(p => p.Tags).ThenInclude(p => p.Tag).FirstOrDefault(p => p.Id == itemInstruction.Id);
            
             foreach(InstructionTag item in instruction.Tags)
             {
                 db.InstructionTag.Remove(item);
+
+            }
+            var commentaries = db.Commentary.Include(p => p.Instruction).Where(p => p.Instruction.Id == instruction.Id);
+            foreach(Commentary comment in commentaries)
+            {
+                db.Commentary.Remove(comment);
             }
             db.Instruction.Remove(instruction);
+            db.SaveChanges();
             return Ok();
         }
 

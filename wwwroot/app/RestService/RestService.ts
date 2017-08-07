@@ -88,10 +88,17 @@ export class RestService {
         return this.http.get('api/getUserInstruction/' + idUser + '/' + get + '/' + skip);
     }
 
-    public removeInstruction(instruction: any) {
-        this.http.post("api/removeInstructionById", instruction)
+    public removeCommentOnInstrucion(commentary: any) {
+        return this.http.post('api/removeCommentOnInstruction/', commentary).subscribe(result => {
+            console.log("commend is delete");
+        });
+    }
+
+
+    public removeInstruction(idInstriction: any) {
+        this.http.post("api/removeInstructionById", idInstriction)
             .subscribe(result => {
-                console.log(result.json());
+                
             });
     } 
 

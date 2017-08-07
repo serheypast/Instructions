@@ -61,7 +61,9 @@ var DisplayInstructionComponent = (function () {
         return (this.AuthUser.role == 'Admin' || this.AuthUser.id == this.instruction.userProfile.id);
     };
     DisplayInstructionComponent.prototype.removeInstruction = function () {
-        this.service.removeInstruction(this.instruction.id);
+        console.log("remove");
+        console.log("remove" + this.instruction);
+        this.service.removeInstruction(this.instruction);
     };
     DisplayInstructionComponent.prototype.ngOnInit = function () {
     };

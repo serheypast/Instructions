@@ -131,6 +131,7 @@ namespace A2SPA.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public UserProfile UserProfile { get; set; }
+        [Required]
         [JsonIgnore]
         public Instruction Instruction { get; set; }
     }
