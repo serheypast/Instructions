@@ -1,0 +1,53 @@
+﻿<div class="content-item" id="comments" infinite-scroll [infiniteScrollDistance]="1" [infiniteScrollThrottle]="500" (scrolled)="onScroll()" style="background-color: #e1dde0;">
+    <div class="container">
+       
+            <div class="col-sm-8" id="MainComment">          
+                <div class="newComment" *ngIf="checkRole()">
+                    <h3 class="pull-left">New Comment</h3>
+                   
+                    <fieldset>
+                        <div class="row">
+                            <div class="form-group col-xs-12 col-sm-12 col-lg-12">
+                                <p-editor  [(ngModel)]="yourComment.content">
+                                    <p-header>
+                                        <span class="ql-formats">
+                                            <select class="ql-header">
+                                               
+                                                <option value="2">Subheading</option>
+                                                <option selected="">Normal</option>
+                                            </select>
+                                            <button class="ql-bold" aria-label="Bold"></button>
+                                            <button class="ql-italic" aria-label="Italic"></button>
+                                            <button class="ql-underline" aria-label="Underline"></button>
+                                        </span>
+       
+                                    </p-header>
+                                </p-editor>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <button type="submit" (click)="addComment()" class="btn btn-normal pull-right">Add</button>
+               </div>
+
+                <h3>{{comments.length}} Comments</h3>
+
+                <div *ngFor="let comment of comments; let i = index" >
+                    <div class="media">
+                        <div class="pull-right" style="" *ngIf="checkRoleForDeleteComment(i)">
+                            <span title="Delete" (click)="deleteComment(i)" class="glyphicon glyphicon-trash "></span>
+                        </div>
+                        <a class="pull-left" routerLink="/profile/{{comment.userProfile.id.toString()}}"><img class="media-object img-circle" style="height:100px" src={{comment.userProfile.urlPhoto}} alt=""></a>
+                        <div class="media-body">
+                            <h4 class="media-heading">{{comment.userProfile.firstName}} {{comment.userProfile.secondName}}</h4>
+                            
+                            <div [innerHTML]="comment.content" style="word-wrap:break-word;"></div>
+                            <ul class="list-unstyled list-inline media-detail pull-left">
+                                <li><i class="fa fa-calendar"></i>{{comment.dataCreated | date:'shortDate' }}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>
+

@@ -1,14 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using A2SPA.Models;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
 
 namespace A2SPA
 {
     public class Program
     {
+        private static ApplicationContext db;
+
         public static void Main(string[] args)
         {
             var host = new WebHostBuilder()
@@ -20,6 +21,11 @@ namespace A2SPA
                 .Build();
 
             host.Run();
+        }
+
+        public static void SetDbContext(ApplicationContext _db)
+        {
+            SubscribeEvents.Subscribe(_db);
         }
     }
 }

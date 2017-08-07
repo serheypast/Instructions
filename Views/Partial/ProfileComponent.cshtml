@@ -1,0 +1,136 @@
+﻿<br><br><br>
+
+<div *ngIf="user">
+    <div class="container">
+        <div id="main">
+            <div class="row" id="real-estates-detail">
+                <div class="col-lg-4 col-md-4 col-xs-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <header class="panel-title">
+                                <div class="text-center">
+                                    <strong>{{ 'ProfileComponent.User' | translate:lang }}</strong>
+                                </div>
+                            </header>
+                        </div>
+                       
+                            <div id="author">
+                                <div class="imageBlock">                                                             
+                                    <img src="{{user.urlPhoto}}" id="mainPhoto" />
+                                    <div class="hover" *ngIf="checkRole()">
+                                        <label id="labelPhoto" title="Change main photo">
+                                            <span class="glyphicon glyphicon-camera" style="margin-top:3%;"></span>
+                                             {{ 'ProfileComponent.ChangePhoto' | translate:lang }}
+                                            <input class="hidden" type="file" ng2FileSelect [uploader]="uploader" (change)="onChange($event)" />
+                                        </label>
+                                    </div>
+                                </div>
+                                <h4 style="text-align: center;"><b>{{user.firstName}}   {{user.secondName}}</b></h4>                              
+                                <ul class="social-links list-inline m-t-30" style="text-align: center;">
+                                    <li>
+                                        <a title="" data-placement="top" data-toggle="tooltip" class="tooltips" data-original-title="Facebook"><i class="fa fa-facebook fa-lg"></i></a>
+                                    </li>
+                                    <li>
+                                        <a title="" data-placement="top" data-toggle="tooltip" class="tooltips" data-original-title="Twitter"><i class="fa fa-twitter fa-lg"></i></a>
+                                    </li>
+                                    <li>
+                                        <a title="" data-placement="top" data-toggle="tooltip" class="tooltips" data-original-title="Skype"><i class="fa fa-vk fa-lg"></i></a>
+                                    </li>
+                                </ul>
+
+                            </div>
+                       
+                    </div>
+                </div>
+                <div class="col-lg-8 col-md-8 col-xs-12">
+                    <div class="panel">
+
+                        <div class="panel-body">
+                            <ul id="myTab" class="nav nav-pills">
+                                <li class="active"><a href="#detail" data-toggle="tab">{{ 'ProfileComponent.AboutMe' | translate:lang }}</a></li>
+                                <li class=""><a href="#contact" data-toggle="tab">{{ 'ProfileComponent.Achievements' | translate:lang }}</a></li>
+                                <li class=""><a href="#instruction" data-toggle="tab">{{ 'ProfileComponent.Publications' | translate:lang }}</a></li>
+                                
+                                <li class="pull-right" style="cursor: pointer;" *ngIf="checkRole()">
+                                    <a (click)="change()"> <span class="glyphicon glyphicon-pencil"></span> {{ 'ProfileComponent.Edit' | translate:lang }}</a>
+                                </li>
+                            </ul>
+                            <div id="myTabContent" class="tab-content">
+                                <hr>
+                                <div class="tab-pane fade active in" id="detail">
+                                    <h4>{{ 'ProfileComponent.Profile' | translate:lang }}</h4>
+                                    <table class="table table-th-block">
+                                        <tbody>
+                                            <tr><td class="active">{{ 'ProfileComponent.Registered' | translate:lang }}:</td><td>07-08-2017</td></tr>
+                                            <tr>
+                                                <td class="active">{{ 'ProfileComponent.FirstName' | translate:lang }}:</td>
+                                                <td>
+                                                    <input class="input-large" *ngIf="changeField" type="text" [(ngModel)]="user.firstName" style="border: none; padding: 0;" readonly="readonly" />
+                                                    <input maxlength="20" class="inputProfile" *ngIf="!changeField" type="text" [(ngModel)]="user.firstName" style="width:100%" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="active">{{ 'ProfileComponent.LastName' | translate:lang }}:</td>
+                                                <td>
+                                                    <input class="input-large readInput" *ngIf="changeField" type="text" [(ngModel)]="user.secondName"  readonly="readonly" />
+                                                    <input maxlength="20" class="inputProfile" *ngIf="!changeField" type="text" [(ngModel)]="user.secondName" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="active">{{ 'ProfileComponent.Country' | translate:lang }}:</td>
+                                                <td>
+                                                    <input class="input-large readInput" *ngIf="changeField" type="text" [(ngModel)]="user.country" style="outline: 0 ; border: 0; padding: 0;" readonly="readonly" />
+                                                    <input maxlength="20" class="inputProfile" *ngIf="!changeField" type="text" [(ngModel)]="user.country" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="active">{{ 'ProfileComponent.City' | translate:lang }}:</td>
+                                                <td>
+                                                    <input class="input-large readInput" *ngIf="changeField" type="text" [(ngModel)]="user.city" style="outline: 0 ; border: 0; padding: 0;" readonly="readonly" />
+                                                    <input maxlength="20" class="inputProfile" *ngIf="!changeField" type="text" [(ngModel)]="user.city" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="active">{{ 'ProfileComponent.DateofBirth' | translate:lang }}:</td>
+                                                <td>
+                                                    <input type="date" *ngIf="changeField" [(ngModel)]="user.dataOfBirth" class="readInput" readonly="readonly" />
+                                                    <input type="date" *ngIf="!changeField" [(ngModel)]="user.dataOfBirth"  />                                          
+                                                </td>                                         
+                                            </tr>
+                                            <tr>
+                                                <td class="active">{{ 'ProfileComponent.Rating' | translate:lang }}:</td>
+                                                <td>{{user.rating}}</td>
+                                            </tr>
+                                          
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="tab-pane fade" id="contact">
+                                    <p></p>
+                                    <div class="row-fluid">
+                                        <div class="col-md-4 col-lg-4 col-xs-4 col-sm-4"  *ngFor="let achivment of achivments">
+                                            <h3 class="text-center" style="align-content:center;">{{achivment.achivment.name}}</h3>
+                                            <img src="{{achivment.achivment.urlImage}}" style="width: 200px; height: 200px;">
+                                            <div class="caption">                       
+                                                <p class="text-center" style="padding-top:10px;">{{achivment.achivment.description}}</p>
+                                            </div>
+                                        </div>                                                                                
+                                    </div>
+                                </div>
+                                <div *ngIf="user" class="tab-pane fade" id="instruction">
+                                    <p></p>
+                                    <instructionBlock *ngIf="user" [idUser]="user.id" [fromProfileComponent]="instructionBool"></instructionBlock>
+                                </div>
+                             
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

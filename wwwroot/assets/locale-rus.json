@@ -1,0 +1,54 @@
+﻿{
+  "All": "Все",
+  "Popular": "Популярные",
+  "Categories": "Категории",
+  "CloudTag": "Облако тегов",
+  "SignIn": "Войти",
+  "Search": "Поиск",
+  "Profile": "Мой профиль",
+  "NewInstruction": "Новая инструкция",
+  "LogOut": "Выйти",
+
+  "InstructinComponent": {
+    "Title": "Имя",
+    "CategoryCreate": "Категория",
+    "SelectCategory": "Выберите категорию",
+    "EnterTags": "Введите новый тег",
+    "MainImageInstruction": "Изображение",
+    "Preview": "Превью",
+    "Save": "Сохранить",
+    "Publish": "Публикация",
+    "By": "создал",
+    "In": "в",
+    "Step": "Шаг",
+    "InputStepName": "Введите имя шага",
+    "AddStep": "Добавить шаг"
+  },
+
+  "ProfileComponent": {
+    "User": "Пользователь",
+    "ChangePhoto": "Изменить фото",
+    "AboutMe": "Обо мне",
+    "Achievements": "Достижения",
+    "Publications": "Публикации",
+    "Edit": "Изменить",
+    "Profile": "Профиль",
+    "Registered": "Зарегистрирован",
+    "FirstName": "Имя",
+    "LastName": "Фамилия",
+    "Country": "Страна",
+    "City": "Город",
+    "DateofBirth": "Дата рождения",
+    "Rating": "Рейтинг пользователя"
+  },
+
+  "DisplayInstruction": {
+    "Tags": "Тэги",
+    "Steps": "Шагов",
+    "CreatedBy": "Опубликовал",
+    "In": "в",
+    "Step": "Шаг"
+  }
+
+
+}

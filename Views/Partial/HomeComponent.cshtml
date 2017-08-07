@@ -1,0 +1,65 @@
+﻿
+<div id="myCarousel" class="carousel slide" style=" width: 100%; height: 600px;"> 
+    <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="2"></li>
+    </ol>
+
+    <div class="carousel-inner" >
+        <div class="item active">
+            <img style=" width: 100%; height: 600px;" src="https://wallpaperscraft.com/image/wave_3d_surface_terrain_rendering_102566_3840x2400.jpg" alt="Los Angeles">        
+        </div>
+
+        <div class="item">
+            <img style="width: 100%; height: 600px;" src="https://wallpaperscraft.com/image/drift_nissan_sport_cars_smoke_81217_1920x1200.jpg" alt="Chicago">            
+        </div>
+
+        <div class="item">
+            <img style="width: 100%; height: 600px;" src="https://wallpaperscraft.com/image/iy_tujiki_art_night_train_anime_starry_sky_98589_2000x1178.jpg" alt="New york">           
+        </div>
+    </div>
+
+    <a href="#myCarousel" class="left carousel-control" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+    </a>
+    <a href="#myCarousel" class="right carousel-control" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right"></span>
+    </a>
+
+</div>
+
+<div class="container">
+    <div class="row">
+        
+        <div class="main col-xs-12 col-sm-9 col-lg-9 col-md-9 ">           
+            <instructionBlock></instructionBlock>
+        </div>
+        <div class="sidebar col-xs-3 hidden-xs" style=" padding: 20px;">
+            <div class="well" style="background-color:#fff">
+               <a routerLink="/home/all/{{type}}/{{value}}">{{ 'All' | translate:lang }}</a>
+               <a routerLink="/home/popular/{{type}}/{{value}}">{{ 'Popular' | translate:lang }}</a>
+            </div>
+
+            <div class="well" style="background-color:#fff">
+                <h4 style="margin-top:0">Other languages</h4>
+                <img id="imageLang" src="https://ru.wikihow.com/skins/WikiHow/images/worldWide_globe.png" />
+                <a style="cursor:pointer" (click)="selectLanguage('en')">English</a>
+                <a style="cursor:pointer" (click)="selectLanguage('rus')">Русский</a>    
+            </div>
+
+            <div class="well" style="background-color:#fff">
+                <h4 style="margin-top:0">{{ 'Categories' | translate:lang }}</h4>
+                <p *ngFor="let item of categories; let i = index">
+                    <i style="color: #3079a7;font-size: large;" class="fa {{icons[i]}}" aria-hidden="true"></i>
+                    <a style="font-size: medium;" routerLink="/home/all/category/{{item.name}}">{{item.name}}</a>
+                </p>
+            </div>
+            <div class="well" style="background-color:#fff">
+                <h4 style="margin-top:0">{{ 'CloudTag' | translate:lang }}</h4>
+                <a *ngFor="let tag of tags" routerLink="/home/all/tag/{{tag.name}}">#{{tag.name}}  </a>
+            </div>
+        </div>
+
+    </div>
+</div>

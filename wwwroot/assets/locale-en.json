@@ -1,0 +1,52 @@
+﻿{
+  "All": "All",
+  "Popular": "Popular",
+  "Categories": "Categories",
+  "CloudTag": "Cloud Tags",
+  "SignIn": "Sign in",
+  "Search": "Search",
+  "Profile": "My profile",
+  "NewInstruction": "New instruction",
+  "LogOut": "Log out",
+
+  "InstructinComponent": {
+    "Title": "Title",
+    "CategoryCreate": "Category",
+    "SelectCategory": "Select a category",
+    "EnterTags": "Enter a new tag",
+    "MainImageInstruction": "Main Image",
+    "Preview": "Preview",
+    "Publish": "Publish",
+    "Save": "Save",
+    "By": "by",
+    "In": "in",
+    "Step": "Step",
+    "InputStepName": "Input step name",
+    "AddStep": "Add step"
+  },
+  "ProfileComponent": {
+    "User": "User",
+    "ChangePhoto": "Change photo",
+    "AboutMe": "About me",
+    "Achievements": "Achievements",
+    "Publications": "Publications",
+    "Edit": "Edit",
+    "Profile": "Profile",
+    "Registered": "Registered",
+    "FirstName": "First Name",
+    "LastName": "LastName",
+    "Country": "Country",
+    "City": "Current city",
+    "DateofBirth": "Date of birth",
+    "Rating": "Rating"
+  },
+
+  "DisplayInstruction" :{
+    "Tags": "Tags",
+    "Steps": "Steps",
+    "CreatedBy": "Created by",
+    "In": "in",
+    "Step": "Step"
+  }
+  
+}

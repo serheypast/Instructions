@@ -1,0 +1,23 @@
+﻿
+<div class="row" infinite-scroll [infiniteScrollDistance]="1" [infiniteScrollThrottle]="500" (scrolled)="onScroll()">
+    <div class="index-content">
+        <div class="col-md-6" *ngFor="let item of instructions; let i = index">
+            <div class="card">
+                <img routerLink="/instruction/{{item.id}}" src="{{item.previewImageUrl}}" style="max-height: 230px;">
+                <h4>
+                    <a routerLink="/instruction/{{item.id}}">{{item.name}}</a>
+                </h4>
+                <div class="bottom-align-text-left">
+                    <p>{{ 'InstructinComponent.By' | translate:lang }} <a style="color:#0884f5" routerLink="/profile/{{item.userProfile.id}}">{{item.userProfile.firstName}}</a> {{ 'InstructinComponent.In' | translate:lang }} <a style="color:#0884f5" routerLink="/home/{{property}}/category/{{item.category.name}}">{{item.category.name}}</a></p>
+                </div>
+                
+                <div class="bottom-align-text">
+                   <p style="font-size: larger;">{{item.rating}}
+                       <span *ngIf="!likes[i]" class="glyphicon glyphicon glyphicon-thumbs-up like"></span>
+                       <span *ngIf="likes[i]" style="color: #187bd5" class="glyphicon glyphicon glyphicon-thumbs-up like"></span>
+                    </p> 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

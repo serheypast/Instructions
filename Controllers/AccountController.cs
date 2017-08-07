@@ -12,6 +12,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using A2SPA.Models;
 using A2SPA.Controllers;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace Instruction.Controllers
 {
@@ -23,17 +25,20 @@ namespace Instruction.Controllers
 
         private readonly ILogger _logger;
         private readonly string _externalCookieScheme;
+        private ApplicationContext _db;
 
         public AccountController(
             UserManager<User> userManager,
             SignInManager<User> signInManager,
             IOptions<IdentityCookieOptions> identityCookieOptions,
-            ILoggerFactory loggerFactory)
+            ILoggerFactory loggerFactory,
+            ApplicationContext db)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _externalCookieScheme = identityCookieOptions.Value.ExternalCookieAuthenticationScheme;
             _logger = loggerFactory.CreateLogger<AccountController>();
+            _db = db;
         }
 
       
@@ -44,20 +49,17 @@ namespace Instruction.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult ExternalLogin(string provider, string returnUrl = null)
         {
-            // Request a redirect to the external login provider.
             var redirectUrl = Url.Action(nameof(ExternalLoginCallback), "Account", new { ReturnUrl = returnUrl });
             var properties = _signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
             return Challenge(properties, provider);
         }
-
-
-
 
         // GET: /Account/ExternalLoginCallback
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> ExternalLoginCallback(string returnUrl = null, string remoteError = null)
         {
+
             if (remoteError != null)
             {
                 ModelState.AddModelError(string.Empty, $"Error from external provider: {remoteError}");
@@ -84,9 +86,18 @@ namespace Instruction.Controllers
             {
                 var email = info.Principal.FindFirstValue(ClaimTypes.Email);
                 var login = info.Principal.FindFirstValue(ClaimTypes.GivenName) ?? info.Principal.FindFirstValue(ClaimTypes.Name);
+              
 
                 var user = new User { UserName = login, Email = email };
+                UserRole role = _db.UserRole.FirstOrDefault(p => p.Role == "User");
                 var res = await _userManager.CreateAsync(user);
+                UserProfile userProfile = new UserProfile();
+                userProfile.User = _db.Users.FirstOrDefault(p => p.Id == user.Id);
+                userProfile.FirstName = user.UserName;
+                userProfile.Rating = 0;
+                role.UserProfiles.Add(userProfile);
+                _db.UserProfile.Add(userProfile);
+                _db.SaveChanges();
                 if (res.Succeeded)
                 {
                     res = await _userManager.AddLoginAsync(user, info);
@@ -97,44 +108,10 @@ namespace Instruction.Controllers
                     }
                 }
                 AddErrors(res);
-
+              
                 return RedirectToAction("Index", "Home");
             }
         }
-
-        ////
-        //// POST: /Account/ExternalLoginConfirmation
-        //[HttpPost]
-        //[AllowAnonymous]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> ExternalLoginConfirmation(ExternalLoginConfirmationViewModel model, string returnUrl = null)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        // Get the information about the user from the external login provider
-        //        var info = await _signInManager.GetExternalLoginInfoAsync();
-        //        if (info == null)
-        //        {
-        //            return View("ExternalLoginFailure");
-        //        }
-        //        var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-        //        var result = await _userManager.CreateAsync(user);
-        //        if (result.Succeeded)
-        //        {
-        //            result = await _userManager.AddLoginAsync(user, info);
-        //            if (result.Succeeded)
-        //            {
-        //                await _signInManager.SignInAsync(user, isPersistent: false);
-        //                _logger.LogInformation(6, "User created an account using {Name} provider.", info.LoginProvider);
-        //                return RedirectToLocal(returnUrl);
-        //            }
-        //        }
-        //        AddErrors(result);
-        //    }
-
-        //    ViewData["ReturnUrl"] = returnUrl;
-        //    return View(model);
-        //}
 
         private IActionResult RedirectToLocal(string returnUrl)
         {
