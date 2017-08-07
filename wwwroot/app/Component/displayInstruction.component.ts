@@ -3,11 +3,11 @@ import { Language } from 'angular-l10n';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { RestService } from "./../RestService/RestService";
-
+import { RoleService } from "./../RoleService/RoleService";
 @Component({
     selector: 'display-instructions',
     templateUrl: '/partial/displayInstructionComponent',
-    providers: [RestService]
+    providers: [RestService, RoleService]
 })
 
 export class DisplayInstructionComponent {
@@ -23,6 +23,12 @@ export class DisplayInstructionComponent {
     loadTag: boolean = false;
     loadUser: boolean = false;
     beginRating: number;
+    AuthUser: AuthUser;
+    public checkRole(): boolean {
+        this.AuthUser = RoleService.getCurrentAuthUser();      
+        return (this.AuthUser.role == 'Admin' || this.AuthUser.id == this.instruction.userProfile.id) ? true : false;
+    }
+
     constructor(private service: RestService, private activateRoute: ActivatedRoute, ) {
         this.loadInfo = false;
         this.loadUser = false;
@@ -40,22 +46,28 @@ export class DisplayInstructionComponent {
                 tagInst.tag = tag1;
                 this.instruction.tags.push(tagInst);
             }
-            this.service.getCurrentUser().subscribe(result => {
-                this.currentUser = result.json();
-                this.service.UserLikeIt(this.currentUser.id.toString(), this.instruction.id.toString()).subscribe(result => {
-                    console.log("InService answer = " + result.json());
-                    this.like = result.json();
+            let userId = RoleService.getCurrentAuthUser().id;
+            if (userId == -1) {
+                this.currentUser = new UserProfile();
+                this.currentUser.id = -1;
+                this.loadComment = true;
+            } else {
+                this.service.getUserById(userId.toString()).subscribe(result => {
+                    this.loadComment = true;
+                    this.currentUser = result.json();
+                    this.service.UserLikeIt(this.currentUser.id.toString(), this.instruction.id.toString()).subscribe(result => {
+                        this.like = result.json();
+                    });
+                    if (this.currentUser != null)
+                        this.loadUser = true;
                 });
-                if (this.currentUser != null)
-                    this.loadUser = true;
-            });
-            console.log("LoadInfo");
+            }
 
             this.loadInfo = true;
         });
     
     }
-
+    loadComment: boolean = false;
     ngOnInit() {
       
        
@@ -63,16 +75,21 @@ export class DisplayInstructionComponent {
 
     like: boolean;
     likeChanged: number = 0;
-    putLike() {    
-        if (this.like) {
-            this.instruction.rating -= 1;
-            this.likeChanged = -1;
+    putLike() {
+        if (RoleService.getCurrentAuthUser().role != 'Guest') {
+            if (this.like) {
+                this.instruction.rating -= 1;
+                this.likeChanged = -1;
+            }
+            else {
+                this.instruction.rating += 1;
+                this.likeChanged = 1;
+            }
+            this.like = !this.like;
         }
         else {
-            this.instruction.rating += 1;
-            this.likeChanged = 1;
+            //input Info about sign in
         }
-        this.like = !this.like;
     }
 
     editInstruction() {
@@ -141,3 +158,7 @@ class UserProfile {
     aboutMySelf: string;
 }
 
+class AuthUser {
+    id: number = 0;
+    role: string;
+}

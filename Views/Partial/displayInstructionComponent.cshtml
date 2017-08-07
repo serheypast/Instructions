@@ -127,7 +127,7 @@
     <div class="header container" *ngIf="loadInfo">
      
         <h2>{{instruction.name}}
-            <button class="btn btn-default pull-right">
+            <button class="btn btn-default pull-right" *ngIf="checkRole()">
                 <span routerLink="/createInstruction/{{id}}" class="glyphicon glyphicon-pencil"></span>
             </button>
         </h2>
@@ -181,6 +181,6 @@
         </div>     
 </div>
 
-<div *ngIf="loadUser">
-    <comments *ngIf="loadUser" [idInstruction]="instruction.id" [userProfile]="currentUser"></comments>
+<div *ngIf="loadComment">
+    <comments  [idInstruction]="instruction.id" [userProfile]="currentUser"></comments>
 </div>

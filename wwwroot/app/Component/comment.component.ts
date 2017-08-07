@@ -1,10 +1,11 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { RestService } from "./../RestService/RestService";
+import { RoleService } from "./../RoleService/RoleService";
 import { Input } from '@angular/core';
 @Component({
     selector: 'comments',
     templateUrl: '/partial/commentComponent',
-    providers: [RestService],
+    providers: [RestService, RoleService],
 })
 
 export class CommentComponent {
@@ -14,6 +15,12 @@ export class CommentComponent {
     @Input() idInstruction: number;
     take: string = "10";
     skip: string;
+    AuthUser: AuthUser;
+    public checkRole(): boolean {
+        this.AuthUser = RoleService.getCurrentAuthUser();
+        return (this.AuthUser.role == 'Admin' || (this.AuthUser.id == this.userProfile.id && this.AuthUser.role != 'Guest')) ? true : false;
+    }
+
     constructor(private service: RestService) {
         
     }
@@ -97,4 +104,8 @@ class UserProfile {
 }
 class Instruction {
     id: number;
+}
+class AuthUser {
+    id: number = 0;
+    role: string;
 }

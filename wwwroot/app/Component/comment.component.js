@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var RestService_1 = require("./../RestService/RestService");
+var RoleService_1 = require("./../RoleService/RoleService");
 var core_2 = require("@angular/core");
 var CommentComponent = (function () {
     function CommentComponent(service) {
@@ -20,6 +21,10 @@ var CommentComponent = (function () {
         this.take = "10";
         this.stopRequest = true;
     }
+    CommentComponent.prototype.checkRole = function () {
+        this.AuthUser = RoleService_1.RoleService.getCurrentAuthUser();
+        return (this.AuthUser.role == 'Admin' || (this.AuthUser.id == this.userProfile.id && this.AuthUser.role != 'Guest')) ? true : false;
+    };
     CommentComponent.prototype.ngOnInit = function () {
         console.log("NgOnInitComment");
         console.log(this.idInstruction);
@@ -83,7 +88,7 @@ CommentComponent = __decorate([
     core_1.Component({
         selector: 'comments',
         templateUrl: '/partial/commentComponent',
-        providers: [RestService_1.RestService],
+        providers: [RestService_1.RestService, RoleService_1.RoleService],
     }),
     __metadata("design:paramtypes", [RestService_1.RestService])
 ], CommentComponent);
@@ -103,5 +108,11 @@ var Instruction = (function () {
     function Instruction() {
     }
     return Instruction;
+}());
+var AuthUser = (function () {
+    function AuthUser() {
+        this.id = 0;
+    }
+    return AuthUser;
 }());
 //# sourceMappingURL=comment.component.js.map

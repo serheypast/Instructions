@@ -139,7 +139,7 @@
     <div class="container">
        
             <div class="col-sm-8" style="background-color: white; margin-left: 16.7%;">          
-                <div class="newComment">
+                <div class="newComment" *ngIf="checkRole()">
                     <h3 class="pull-left">New Comment</h3>
                    
                     <fieldset>

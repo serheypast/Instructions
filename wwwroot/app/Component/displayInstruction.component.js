@@ -13,6 +13,7 @@ var core_1 = require("@angular/core");
 var angular_l10n_1 = require("angular-l10n");
 var router_1 = require("@angular/router");
 var RestService_1 = require("./../RestService/RestService");
+var RoleService_1 = require("./../RoleService/RoleService");
 var DisplayInstructionComponent = (function () {
     function DisplayInstructionComponent(service, activateRoute) {
         var _this = this;
@@ -22,6 +23,7 @@ var DisplayInstructionComponent = (function () {
         this.loadInfo = false;
         this.loadTag = false;
         this.loadUser = false;
+        this.loadComment = false;
         this.likeChanged = 0;
         this.loadInfo = false;
         this.loadUser = false;
@@ -39,31 +41,47 @@ var DisplayInstructionComponent = (function () {
                 tagInst.tag = tag1;
                 _this.instruction.tags.push(tagInst);
             }
-            _this.service.getCurrentUser().subscribe(function (result) {
-                _this.currentUser = result.json();
-                _this.service.UserLikeIt(_this.currentUser.id.toString(), _this.instruction.id.toString()).subscribe(function (result) {
-                    console.log("InService answer = " + result.json());
-                    _this.like = result.json();
+            var userId = RoleService_1.RoleService.getCurrentAuthUser().id;
+            if (userId == -1) {
+                _this.currentUser = new UserProfile();
+                _this.currentUser.id = -1;
+                _this.loadComment = true;
+            }
+            else {
+                _this.service.getUserById(userId.toString()).subscribe(function (result) {
+                    _this.loadComment = true;
+                    _this.currentUser = result.json();
+                    _this.service.UserLikeIt(_this.currentUser.id.toString(), _this.instruction.id.toString()).subscribe(function (result) {
+                        _this.like = result.json();
+                    });
+                    if (_this.currentUser != null)
+                        _this.loadUser = true;
                 });
-                if (_this.currentUser != null)
-                    _this.loadUser = true;
-            });
-            console.log("LoadInfo");
+            }
             _this.loadInfo = true;
         });
     }
+    DisplayInstructionComponent.prototype.checkRole = function () {
+        this.AuthUser = RoleService_1.RoleService.getCurrentAuthUser();
+        return (this.AuthUser.role == 'Admin' || this.AuthUser.id == this.instruction.userProfile.id) ? true : false;
+    };
     DisplayInstructionComponent.prototype.ngOnInit = function () {
     };
     DisplayInstructionComponent.prototype.putLike = function () {
-        if (this.like) {
-            this.instruction.rating -= 1;
-            this.likeChanged = -1;
+        if (RoleService_1.RoleService.getCurrentAuthUser().role != 'Guest') {
+            if (this.like) {
+                this.instruction.rating -= 1;
+                this.likeChanged = -1;
+            }
+            else {
+                this.instruction.rating += 1;
+                this.likeChanged = 1;
+            }
+            this.like = !this.like;
         }
         else {
-            this.instruction.rating += 1;
-            this.likeChanged = 1;
+            //input Info about sign in
         }
-        this.like = !this.like;
     };
     DisplayInstructionComponent.prototype.editInstruction = function () {
         console.log(this.instruction);
@@ -82,7 +100,7 @@ DisplayInstructionComponent = __decorate([
     core_1.Component({
         selector: 'display-instructions',
         templateUrl: '/partial/displayInstructionComponent',
-        providers: [RestService_1.RestService]
+        providers: [RestService_1.RestService, RoleService_1.RoleService]
     }),
     __metadata("design:paramtypes", [RestService_1.RestService, router_1.ActivatedRoute])
 ], DisplayInstructionComponent);
@@ -125,5 +143,11 @@ var UserProfile = (function () {
     function UserProfile() {
     }
     return UserProfile;
+}());
+var AuthUser = (function () {
+    function AuthUser() {
+        this.id = 0;
+    }
+    return AuthUser;
 }());
 //# sourceMappingURL=displayInstruction.component.js.map
