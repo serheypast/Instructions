@@ -26,7 +26,6 @@ namespace A2SPA.ApiControllers
         public async Task<IActionResult> GetUserById(int id)
         {
             UserProfile user = await db.UserProfile.Include(p => p.Achivments).ThenInclude(p => p.Achivment).FirstOrDefaultAsync(p => p.Id == id);
-            //UserProfile user = await db.UserProfile.Include(p => p.Achivments).ThenInclude(p => p.Achivment).FirstOrDefaultAsync(p => p.Id == (id ?? Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier).Value)));
             return (user == null) ? BadRequest("No result") : new ObjectResult(user);
         }
 
