@@ -59,7 +59,7 @@ namespace A2SPA
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
             db = app.ApplicationServices.GetService<ApplicationContext>();
-            Program.setDbContext(db);
+            Program.SetDbContext(db);
 
 
             if (env.IsDevelopment())

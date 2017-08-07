@@ -260,16 +260,26 @@ namespace A2SPA.Controllers
         [HttpPost("[action]")]
         public IActionResult RemoveCommentOnInstruction([FromBody] Commentary commentary)
         {
-            User user = new User();
-            var a = user.Roles;
-            
             UserProfile userProfile = db.UserProfile.FirstOrDefault(p => p.Id == commentary.UserProfile.Id);
             Models.Instruction instruction = db.Instruction.Include(p => p.UserProfile).FirstOrDefault(p => p.Id == commentary.Instruction.Id);
-            commentary.Instruction = instruction;
-            commentary.UserProfile = userProfile;
-            db.Commentary.Add(commentary);
+            Commentary comment = db.Commentary.Include(p => p.Instruction).Include(p => p.UserProfile).FirstOrDefault(p => p.Instruction == instruction && p.UserProfile == userProfile);
+            db.Commentary.Remove(comment);
             db.SaveChanges();
-            ServiceAchivment.GetInstance().WasAction(Events.CommentPost, instruction.UserProfile.Id);
+            return Ok();
+        }
+
+        [Authorize]
+        [HttpPost("[action]")]
+        public IActionResult RemoveInstructionById([FromBody] int idInstrictoin)
+        {
+            Models.Instruction instruction = db.Instruction.Include(p => p.Steps)
+                .ThenInclude(p => p.Blocks).Include(p => p.Tags).ThenInclude(p => p.Tag).FirstOrDefault(p => p.Id == idInstrictoin);
+           
+            foreach(InstructionTag item in instruction.Tags)
+            {
+                db.InstructionTag.Remove(item);
+            }
+            db.Instruction.Remove(instruction);
             return Ok();
         }
 

@@ -25,6 +25,10 @@ var CommentComponent = (function () {
         this.AuthUser = RoleService_1.RoleService.getCurrentAuthUser();
         return (this.AuthUser.role == 'Admin' || (this.AuthUser.id == this.userProfile.id && this.AuthUser.role != 'Guest')) ? true : false;
     };
+    CommentComponent.prototype.checkRoleForDeleteComment = function (i) {
+        this.AuthUser = RoleService_1.RoleService.getCurrentAuthUser();
+        return (this.AuthUser.role == 'Admin' || this.AuthUser.id == this.comments[i].userProfile.id) ? true : false;
+    };
     CommentComponent.prototype.ngOnInit = function () {
         console.log("NgOnInitComment");
         console.log(this.idInstruction);
@@ -68,7 +72,8 @@ var CommentComponent = (function () {
     };
     CommentComponent.prototype.deleteComment = function (i) {
         //request in bd
-        this.comments[i];
+        var comment = this.comments[i];
+        this.service.removeCommentOnInstrucion(comment);
         this.comments.splice(i, 1);
     };
     CommentComponent.prototype.onScroll = function () {

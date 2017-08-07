@@ -21,6 +21,11 @@ export class CommentComponent {
         return (this.AuthUser.role == 'Admin' || (this.AuthUser.id == this.userProfile.id && this.AuthUser.role != 'Guest')) ? true : false;
     }
 
+    public checkRoleForDeleteComment(i:number): boolean {
+        this.AuthUser = RoleService.getCurrentAuthUser();
+        return (this.AuthUser.role == 'Admin' || this.AuthUser.id == this.comments[i].userProfile.id) ? true : false;
+    }
+
     constructor(private service: RestService) {
         
     }
@@ -73,8 +78,11 @@ export class CommentComponent {
 
     deleteComment(i: number): void {
         //request in bd
-        this.comments[i];
-        this.comments.splice(i,1);
+        let comment = this.comments[i];
+        this.service.removeCommentOnInstrucion(comment);
+        this.comments.splice(i, 1);
+        
+       
     }
 
     stopRequest: boolean = true;

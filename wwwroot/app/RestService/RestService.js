@@ -37,7 +37,6 @@ var RestService = (function () {
         this.http.post("api/editInstruction", instruction)
             .subscribe(function (result) {
             console.log("after editing");
-            console.log(result.json());
         });
     };
     RestService.prototype.getInstructions = function (property, type, value, take, skip) {
@@ -75,6 +74,11 @@ var RestService = (function () {
     };
     RestService.prototype.getInstructionByUser = function (idUser, skip, get) {
         return this.http.get('api/getUserInstruction/' + idUser + '/' + get + '/' + skip);
+    };
+    RestService.prototype.removeCommentOnInstrucion = function (commentary) {
+        return this.http.post('api/removeCommentOnInstruction/', commentary).subscribe(function (result) {
+            console.log("commend is delete");
+        });
     };
     return RestService;
 }());

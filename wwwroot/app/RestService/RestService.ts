@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
 import { Http, Headers, Response, Request, RequestOptions, RequestMethod } from '@angular/http';
 
 @Component({
- 
+
 })
 
 @Injectable()
@@ -12,7 +12,7 @@ export class RestService {
 
 
     constructor(private http: Http) {
-        
+
     }
 
     public getUserById(id: string) {
@@ -32,17 +32,16 @@ export class RestService {
             .subscribe(result => {
                 console.log(result.json());
             });
-    } 
+    }
 
     public editInstruction(instruction: any) {
         this.http.post("api/editInstruction", instruction)
             .subscribe(result => {
                 console.log("after editing");
-                console.log(result.json());
             });
-    } 
+    }
 
-    public getInstructions(property: string, type: string, value: string , take: string, skip: string) {
+    public getInstructions(property: string, type: string, value: string, take: string, skip: string) {
         return this.http.get('/api/getInstructions/' + take + '/' + skip + '/' + property + '/' + type + '/' + value);
     }
 
@@ -60,7 +59,7 @@ export class RestService {
 
     public UserLikeIt(idUser: string, idInstruction: string) {
         console.log("userLikeIt" + idUser + "/" + idInstruction);
-        return this.http.get('api/isUserLikedIt/' + idUser + '/' + idInstruction );
+        return this.http.get('api/isUserLikedIt/' + idUser + '/' + idInstruction);
     }
 
     public changeRatingInstruction(value: any) {
@@ -86,5 +85,11 @@ export class RestService {
 
     public getInstructionByUser(idUser: string, skip: string, get: string) {
         return this.http.get('api/getUserInstruction/' + idUser + '/' + get + '/' + skip);
+    }
+
+    public removeCommentOnInstrucion(commentary: any) {
+        return this.http.post('api/removeCommentOnInstruction/', commentary).subscribe(result => {
+            console.log("commend is delete");
+        });
     }
 }

@@ -170,7 +170,7 @@
 
                 <div *ngFor="let comment of comments; let i = index" >
                     <div class="media">
-                        <div class="pull-right" style="">
+                        <div class="pull-right" style="" *ngIf="checkRoleForDeleteComment(i)">
                             <span title="Delete" (click)="deleteComment(i)" class="glyphicon glyphicon-trash "></span>
                         </div>
                         <a class="pull-left" routerLink="/profile/{{comment.userProfile.id.toString()}}"><img class="media-object img-circle" style="height:100px" src={{comment.userProfile.urlPhoto}} alt=""></a>
