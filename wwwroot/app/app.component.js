@@ -22,24 +22,13 @@ var AppComponent = (function () {
         this.titleService = titleService;
         this.router = router;
         this.service = service;
-        this.user = new User();
         this.angularClientSideData = 'Angular';
-        this.searchData = [
-            { color: 'red', value: '#f00' },
-            { color: 'green', value: '#0f0' },
-            { color: 'blue', value: '#00f' },
-            { color: 'cyan', value: '#0ff' },
-            { color: 'magenta', value: '#f0f' },
-            { color: 'yellow', value: '#ff0' },
-            { color: 'black', value: '#000' }
-        ];
-        this.captains = ['James T. Kirk', 'Benjamin Sisko', 'Jean-Luc Picard', 'Spock', 'Jonathan Archer', 'Hikaru Sulu', 'Christopher Pike', 'Rachel Garrett'];
+        this.user = new User();
         this.service.getCurrentUser().subscribe(function (result) {
             _this.user = result.json();
             console.log(_this.user);
         });
         this.searchData1 = "";
-        this.dataService = completerService.local(this.searchData, 'color', 'color');
     }
     AppComponent.prototype.getRequest = function () {
         console.log(this.searchData1);

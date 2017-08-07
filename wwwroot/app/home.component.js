@@ -19,6 +19,7 @@ var HomeComponent = (function () {
         this.service = service;
         this.activateRoute = activateRoute;
         this.locale = locale;
+        this.icons = [];
         this.subscription = activateRoute.params.subscribe(function (params) {
             _this.type = params['type'];
             _this.property = params['property'];
@@ -30,9 +31,18 @@ var HomeComponent = (function () {
         service.getTags().subscribe(function (result) {
             _this.tags = result.json();
         });
+        this.loadIcons();
     }
     HomeComponent.prototype.selectLanguage = function (language) {
         this.locale.setCurrentLanguage(language);
+    };
+    HomeComponent.prototype.loadIcons = function () {
+        this.icons.push("fa-medkit");
+        this.icons.push("fa-picture-o");
+        this.icons.push("fa-car");
+        this.icons.push("fa-flask");
+        this.icons.push("fa-briefcase");
+        this.icons.push("fa-desktop");
     };
     return HomeComponent;
 }());
