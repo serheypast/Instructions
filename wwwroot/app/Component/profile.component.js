@@ -14,6 +14,7 @@ var http_1 = require("@angular/http");
 var router_1 = require("@angular/router");
 var ng2_cloudinary_1 = require("ng2-cloudinary");
 var RestService_1 = require("./../RestService/RestService");
+var RoleService_1 = require("./../RoleService/RoleService");
 var angular_l10n_1 = require("angular-l10n");
 var ProfileComponent = (function () {
     function ProfileComponent(http, activateRoute, service) {
@@ -41,6 +42,15 @@ var ProfileComponent = (function () {
             return { item: item, response: response, status: status, headers: headers };
         };
     }
+    ProfileComponent.prototype.checkRole = function () {
+        console.log("CheckRole");
+        this.AuthUser = RoleService_1.RoleService.getCurrentAuthUser();
+        console.log("AuthUser = " + this.AuthUser.id.toString() + "/" + this.AuthUser.role);
+        return (this.AuthUser.role == 'Admin' || this.AuthUser.id == this.user.id) ? true : false;
+    };
+    ProfileComponent.prototype.isAdmin = function () {
+        return (RoleService_1.RoleService.getCurrentAuthUser().role == 'Admin') ? true : false;
+    };
     ProfileComponent.prototype.onChange = function (event) {
         this.uploader.uploadAll();
     };
@@ -61,7 +71,7 @@ ProfileComponent = __decorate([
     core_1.Component({
         selector: 'profile',
         templateUrl: '/partial/profileComponent',
-        providers: [RestService_1.RestService],
+        providers: [RestService_1.RestService, RoleService_1.RoleService],
     }),
     __metadata("design:paramtypes", [http_1.Http, router_1.ActivatedRoute, RestService_1.RestService])
 ], ProfileComponent);
@@ -80,5 +90,11 @@ var AchivmentUser = (function () {
     function AchivmentUser() {
     }
     return AchivmentUser;
+}());
+var AuthUser = (function () {
+    function AuthUser() {
+        this.id = 0;
+    }
+    return AuthUser;
 }());
 //# sourceMappingURL=profile.component.js.map

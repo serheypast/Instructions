@@ -12,12 +12,13 @@ import { SelectItem } from "primeng/components/common/selectitem";
 import { Language } from 'angular-l10n';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
+import { RoleService } from "./../RoleService/RoleService";
 
 @Component({
     selector: 'instruction',
     templateUrl: '/partial/InstructionComponent', 
     styleUrls: ['/Component/InstructionComponent.css'],
-    providers: [ConfirmationService, RestService]
+    providers: [ConfirmationService, RestService,RoleService]
 })
 
 export class InstructionComponent {
@@ -30,7 +31,7 @@ export class InstructionComponent {
     category: Category = new Category();
     tags: any[] = [];
     create: boolean;
-
+    AuthUser: AuthUser;
     addStep() {
         let step: Step = new Step();
         this.instruction.steps.push(step);      
@@ -50,9 +51,19 @@ export class InstructionComponent {
         });
     }
 
+    public checkRole(): boolean {
+        console.log("CheckRole");
+        this.AuthUser = RoleService.getCurrentAuthUser();
+        console.log("AuthUser = " + this.AuthUser.id.toString() + "/" + this.AuthUser.role);
+        if (this.AuthUser.role == 'Admin' || this.AuthUser.id == this.instruction.userProfile.id) {
+            return true;
+        }
+        return false;
+    }
+
     constructor(private service: RestService, private dragulaService: DragulaService, private sanitizer: DomSanitizer,
         private confirmationService: ConfirmationService, private activateRoute: ActivatedRoute) {
-
+      
         this.subscription = this.activateRoute.params.subscribe(params => {
             this.id = params['id'];            
         });
@@ -298,7 +309,7 @@ class Instruction {
     previewImageUrl: string;
     rating: number;
     category: Category;
-    user: null;
+    userProfile: UserProfile;
     tags: InstructionTag[] = [];
     steps: Step[] = [];
 }
@@ -322,4 +333,21 @@ class Tag {
 
 class Categ {
     name: string;
+}
+
+class AuthUser {
+    id: number = 0;
+    role: string;
+}
+
+class UserProfile {
+    id: number;
+    firstName: string;
+    secondName: string;
+    urlPhoto: string;
+    rating: number;
+    country: string;
+    city: string;
+    dataOfBirth: string;
+    aboutMySelf: string;
 }

@@ -19,13 +19,7 @@ var RoleService = RoleService_1 = (function () {
         RoleService_1._instance = this;
     }
     RoleService.getCurrentAuthUser = function () {
-        var user = new AuthUser();
-        user.id = 3214;
-        user.role = "admin";
-        if (this.AuthUser == null) {
-            return user;
-        }
-        return this.AuthUser;
+        return (this.AuthUser != null) ? this.AuthUser : new AuthUser();
     };
     RoleService.setCurrentAuthUser = function (_authUser) {
         this.AuthUser = _authUser;
@@ -45,6 +39,8 @@ RoleService = RoleService_1 = __decorate([
 exports.RoleService = RoleService;
 var AuthUser = (function () {
     function AuthUser() {
+        this.id = -1;
+        this.role = "Guest";
     }
     return AuthUser;
 }());

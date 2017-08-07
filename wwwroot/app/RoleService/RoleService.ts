@@ -16,13 +16,7 @@ export class RoleService {
     }
     
     public static getCurrentAuthUser(): AuthUser {
-        let user: AuthUser = new AuthUser();
-        user.id = 3214;
-        user.role = "admin";
-        if (this.AuthUser == null) {
-            return user;
-        }
-        return this.AuthUser;
+        return (this.AuthUser != null) ? this.AuthUser : new AuthUser();
     }
 
     public static setCurrentAuthUser(_authUser: AuthUser) {
@@ -37,6 +31,6 @@ export class RoleService {
 
 
 class AuthUser {
-    id: number;
-    role: string;
+    id: number = -1;
+    role: string = "Guest";
 }

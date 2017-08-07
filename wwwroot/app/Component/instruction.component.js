@@ -17,6 +17,7 @@ var primeng_1 = require("primeng/primeng");
 var RestService_1 = require("./../RestService/RestService");
 var angular_l10n_1 = require("angular-l10n");
 var router_1 = require("@angular/router");
+var RoleService_1 = require("./../RoleService/RoleService");
 var InstructionComponent = (function () {
     function InstructionComponent(service, dragulaService, sanitizer, confirmationService, activateRoute) {
         var _this = this;
@@ -96,6 +97,15 @@ var InstructionComponent = (function () {
             reject: function () {
             }
         });
+    };
+    InstructionComponent.prototype.checkRole = function () {
+        console.log("CheckRole");
+        this.AuthUser = RoleService_1.RoleService.getCurrentAuthUser();
+        console.log("AuthUser = " + this.AuthUser.id.toString() + "/" + this.AuthUser.role);
+        if (this.AuthUser.role == 'Admin' || this.AuthUser.id == this.instruction.userProfile.id) {
+            return true;
+        }
+        return false;
     };
     InstructionComponent.prototype.getTags = function () {
         for (var _i = 0, _a = this.instruction.tags; _i < _a.length; _i++) {
@@ -238,7 +248,7 @@ InstructionComponent = __decorate([
         selector: 'instruction',
         templateUrl: '/partial/InstructionComponent',
         styleUrls: ['/Component/InstructionComponent.css'],
-        providers: [primeng_1.ConfirmationService, RestService_1.RestService]
+        providers: [primeng_1.ConfirmationService, RestService_1.RestService, RoleService_1.RoleService]
     }),
     __metadata("design:paramtypes", [RestService_1.RestService, ng2_dragula_1.DragulaService, platform_browser_1.DomSanitizer,
         primeng_1.ConfirmationService, router_1.ActivatedRoute])
@@ -296,5 +306,16 @@ var Categ = (function () {
     function Categ() {
     }
     return Categ;
+}());
+var AuthUser = (function () {
+    function AuthUser() {
+        this.id = 0;
+    }
+    return AuthUser;
+}());
+var UserProfile = (function () {
+    function UserProfile() {
+    }
+    return UserProfile;
 }());
 //# sourceMappingURL=instruction.component.js.map

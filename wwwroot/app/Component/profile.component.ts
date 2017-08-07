@@ -4,12 +4,13 @@ import { ActivatedRoute } from '@angular/router';
 import { CloudinaryOptions, CloudinaryUploader, CloudinaryImageComponent } from 'ng2-cloudinary';
 import { Subscription } from 'rxjs/Subscription';
 import { RestService } from "./../RestService/RestService";
+import { RoleService } from "./../RoleService/RoleService";
 import { Language } from 'angular-l10n';
 
 @Component({
     selector: 'profile',
     templateUrl: '/partial/profileComponent',
-    providers: [RestService],
+    providers: [RestService, RoleService],
 })
 
 export class ProfileComponent {
@@ -22,7 +23,16 @@ export class ProfileComponent {
     uploader: CloudinaryUploader = new CloudinaryUploader(
         new CloudinaryOptions({ cloudName: 'dr4opxk5i', uploadPreset: 'ajvv2x7e' })
     );
-
+    AuthUser: AuthUser;
+    public checkRole(): boolean {
+        console.log("CheckRole");
+        this.AuthUser = RoleService.getCurrentAuthUser();
+        console.log("AuthUser = " + this.AuthUser.id.toString() + "/" + this.AuthUser.role);
+        return (this.AuthUser.role == 'Admin' || this.AuthUser.id == this.user.id) ? true : false;
+    }
+    public isAdmin(): boolean {
+        return (RoleService.getCurrentAuthUser().role == 'Admin') ? true : false;       
+    }
     constructor(private http: Http, private activateRoute: ActivatedRoute, private service: RestService) {
         this.subscription = activateRoute.params.subscribe(params => this.id = params['id']);
         console.log(this.id);
@@ -84,6 +94,10 @@ class Achivment {
 class AchivmentUser {
     id: number;
     achivment: Achivment;
+}
+class AuthUser {
+    id: number = 0;
+    role: string;
 }
 
 

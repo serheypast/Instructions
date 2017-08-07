@@ -99,7 +99,7 @@
                                 <div class="imageBlock">                              
                                   
                                     <img src="{{user.urlPhoto}}" style="width:100%; height:auto; border-radius: 2px;" />
-                                    <div class="hover">
+                                    <div class="hover" *ngIf="checkRole()">
                                         <label id="labelPhoto" title="Change main photo">
                                             <span class="glyphicon glyphicon-camera" style="margin-top:3%;"></span>
                                              {{ 'ProfileComponent.ChangePhoto' | translate:lang }}
@@ -134,7 +134,7 @@
                                 <li class=""><a href="#contact" data-toggle="tab">{{ 'ProfileComponent.Achievements' | translate:lang }}</a></li>
                                 <li class=""><a href="#instruction" data-toggle="tab">{{ 'ProfileComponent.Publications' | translate:lang }}</a></li>
                                 
-                                <li class="pull-right" style="cursor: pointer;">
+                                <li class="pull-right" style="cursor: pointer;" *ngIf="checkRole()">
                                     <a (click)="change()"> <span class="glyphicon glyphicon-pencil"></span> {{ 'ProfileComponent.Edit' | translate:lang }}</a>
                                 </li>
                             </ul>
