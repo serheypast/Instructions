@@ -14,7 +14,13 @@ import { RoleService } from "./RoleService/RoleService";
     providers: [RestService,RoleService],
 })
 export class AppComponent {
-
+    angularClientSideData = 'Angular';
+    public searchData1: string;
+    protected searchStr: string;
+    protected captain: string;
+    protected dataService: CompleterData;
+    text: string;
+    results: string[];
    
     @Language() lang: string;
     user: AuthUser = new AuthUser();
@@ -33,8 +39,6 @@ export class AppComponent {
         });
         this.searchData1 = "";
     }
-    public searchData1: string;
-    angularClientSideData = 'Angular';
 
     public getRequest() {
         console.log(this.searchData1);
@@ -46,20 +50,11 @@ export class AppComponent {
         
     }
 
-    protected searchStr: string;
-    protected captain: string;
-  
-
-    text: string;
-
-    results: string[];
-
     public search() {
         console.log("search");
         this.router.navigate(['home/all/search/' + this.searchData1]);          
     }
 
-    
 }
 class User {
     id: number = 0;

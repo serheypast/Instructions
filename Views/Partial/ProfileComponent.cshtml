@@ -149,28 +149,28 @@
                                                 <td class="active">{{ 'ProfileComponent.FirstName' | translate:lang }}:</td>
                                                 <td>
                                                     <input class="input-large" *ngIf="changeField" type="text" [(ngModel)]="user.firstName" style="border: none; padding: 0;" readonly="readonly" />
-                                                    <input class="inputProfile" *ngIf="!changeField" type="text" [(ngModel)]="user.firstName" style="width:100%" />
+                                                    <input maxlength="20" class="inputProfile" *ngIf="!changeField" type="text" [(ngModel)]="user.firstName" style="width:100%" />
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td class="active">{{ 'ProfileComponent.LastName' | translate:lang }}:</td>
                                                 <td>
                                                     <input class="input-large" *ngIf="changeField" type="text" [(ngModel)]="user.secondName" style="outline: 0 ; border: 0; padding: 0;" readonly="readonly" />
-                                                    <input class="inputProfile" *ngIf="!changeField" type="text" [(ngModel)]="user.secondName" />
+                                                    <input maxlength="20" class="inputProfile" *ngIf="!changeField" type="text" [(ngModel)]="user.secondName" />
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td class="active">{{ 'ProfileComponent.Country' | translate:lang }}:</td>
                                                 <td>
                                                     <input class="input-large" *ngIf="changeField" type="text" [(ngModel)]="user.country" style="outline: 0 ; border: 0; padding: 0;" readonly="readonly" />
-                                                    <input class="inputProfile" *ngIf="!changeField" type="text" [(ngModel)]="user.country" />
+                                                    <input maxlength="20" class="inputProfile" *ngIf="!changeField" type="text" [(ngModel)]="user.country" />
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td class="active">{{ 'ProfileComponent.City' | translate:lang }}:</td>
                                                 <td>
                                                     <input class="input-large" *ngIf="changeField" type="text" [(ngModel)]="user.city" style="outline: 0 ; border: 0; padding: 0;" readonly="readonly" />
-                                                    <input class="inputProfile" *ngIf="!changeField" type="text" [(ngModel)]="user.city" />
+                                                    <input maxlength="20" class="inputProfile" *ngIf="!changeField" type="text" [(ngModel)]="user.city" />
                                                 </td>
                                             </tr>
                                             <tr>

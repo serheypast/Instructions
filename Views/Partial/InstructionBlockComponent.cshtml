@@ -24,7 +24,7 @@
             -moz-border-radius: 4px;
             border-radius: 4px;
             box-shadow: 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12), 0 2px 4px -1px rgba(0,0,0,0.3);
-            min-height: 350px;
+            min-height: 320px;
         }
 
             .index-content .card:hover {
@@ -76,13 +76,9 @@
     .bottom-align-text {
         position: absolute;
         bottom: 5px;
-        right: 15px;
+        right: 10px;
     }
-    .col-md-6 {
-     
-      
-
-    }
+   
     .bottom-align-text-left {
         position: absolute;
         bottom: 5px;
@@ -98,12 +94,13 @@
                     <a routerLink="/instruction/{{item.id}}">{{item.name}}</a>
                 </h4>
                 <div class="bottom-align-text-left">
-                    <p>{{ 'InstructinComponent.By' | translate:lang }} <a  routerLink="/profile/{{item.userProfile.id}}">{{item.userProfile.firstName}}</a> {{ 'InstructinComponent.In' | translate:lang }} <a routerLink="/home/{{property}}/category/{{item.category.name}}">{{item.category.name}}</a></p>
+                    <p>{{ 'InstructinComponent.By' | translate:lang }} <a style="color:#0884f5" routerLink="/profile/{{item.userProfile.id}}">{{item.userProfile.firstName}}</a> {{ 'InstructinComponent.In' | translate:lang }} <a style="color:#0884f5" routerLink="/home/{{property}}/category/{{item.category.name}}">{{item.category.name}}</a></p>
                 </div>
                 
                 <div class="bottom-align-text">
-                   <p>{{item.rating}}</p>
-                   
+                   <p style="font-size: larger;">{{item.rating}}
+                       <span style="color: black; font-size: large; top:2px" class="glyphicon glyphicon glyphicon-thumbs-up"></span>
+                    </p> 
                 </div>
             </div>
         </div>

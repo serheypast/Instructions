@@ -7,7 +7,6 @@ import { AppComponent } from './app.component';
 import { DragulaModule } from 'ng2-dragula';
 import { HttpModule } from '@angular/http'
 import { FormsModule } from '@angular/forms';
-
 import { Ng2CloudinaryModule } from 'ng2-cloudinary';
 import { FileUploadModule } from 'ng2-file-upload';
 import { InfiniteScrollModule } from 'angular2-infinite-scroll';
@@ -15,7 +14,6 @@ import { ButtonModule, PanelModule, ConfirmDialogModule, ConfirmationService, Dr
 import { TagInputModule } from 'ng2-tag-input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SelectModule } from 'ng2-select';
-
 import { CommentComponent } from './Component/comment.component';
 import { TranslationModule, LocaleService, TranslationService } from 'angular-l10n';
 import { Ng2CompleterModule } from "ng2-completer";

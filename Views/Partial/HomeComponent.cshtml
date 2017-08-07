@@ -1,29 +1,26 @@
 ﻿
-@{
-    ViewData["Title"] = "Home Page";
-}
-
 <style>
-    body {
-        padding: 10px !important;
-        background: #f1f1f1 !important;
+    .well a {
+        color: #26a5f3;
+    }
+
+    #imageLang {
+        float: right;
+        position: absolute;
+        margin-left: 55%;
+        margin-top: -13%;
+        height: 70px;
     }
 
 </style>
 
-
-
-<div id="myCarousel" class="carousel slide" style="width:100%;height:600px;">
-    <!-- Indicators -->
+<div id="myCarousel" class="carousel slide" style="width:100%;height:600px;"> 
     <ol class="carousel-indicators">
         <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
         <li data-target="#myCarousel" data-slide-to="1"></li>
         <li data-target="#myCarousel" data-slide-to="2"></li>
     </ol>
 
-
-
-    <!-- Wrapper for slides -->
     <div class="carousel-inner" >
         <div class="item active">
             <img style="width:100%;height:600px;" src="https://wallpaperscraft.com/image/wave_3d_surface_terrain_rendering_102566_3840x2400.jpg" alt="Los Angeles">        
@@ -54,23 +51,28 @@
             <instructionBlock></instructionBlock>
         </div>
         <div class="sidebar col-xs-3 hidden-xs" style=" padding: 20px;">
-            <div class="well">
+            <div class="well" style="background-color:#fff">
                <a routerLink="/home/all/{{type}}/{{value}}">{{ 'All' | translate:lang }}</a>
                <a routerLink="/home/popular/{{type}}/{{value}}">{{ 'Popular' | translate:lang }}</a>
             </div>
 
-            <div class="well">
-                <a (click)="selectLanguage('en')">English</a>
-                <a (click)="selectLanguage('rus')">Русский</a>
+            <div class="well" style="background-color:#fff">
+                <h4 style="margin-top:0">Other languages</h4>
+                <img id="imageLang" src="https://ru.wikihow.com/skins/WikiHow/images/worldWide_globe.png" />
+                <a style="cursor:pointer" (click)="selectLanguage('en')">English</a>
+                <a style="cursor:pointer" (click)="selectLanguage('rus')">Русский</a>    
             </div>
 
-            <div class="well">
-                <p>{{ 'Categories' | translate:lang }}</p>
-                <p *ngFor="let item of categories"><a routerLink="/home/all/category/{{item.name}}">{{item.name}}</a></p>
+            <div class="well" style="background-color:#fff">
+                <h4 style="margin-top:0">{{ 'Categories' | translate:lang }}</h4>
+                <p *ngFor="let item of categories; let i = index">
+                    <i style="color: #3079a7;font-size: large;" class="fa {{icons[i]}}" aria-hidden="true"></i>
+                    <a style="font-size: medium;" routerLink="/home/all/category/{{item.name}}">{{item.name}}</a>
+                </p>
             </div>
-            <div class="well">
-                <p>{{ 'CloudTag' | translate:lang }}</p>
-                <a *ngFor="let tag of tags" routerLink="/home/all/tag/{{tag.name}}">{{tag.name}}  </a>
+            <div class="well" style="background-color:#fff">
+                <h4 style="margin-top:0">{{ 'CloudTag' | translate:lang }}</h4>
+                <a *ngFor="let tag of tags" routerLink="/home/all/tag/{{tag.name}}">#{{tag.name}}  </a>
             </div>
         </div>
 
