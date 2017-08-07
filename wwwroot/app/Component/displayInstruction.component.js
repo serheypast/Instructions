@@ -100,6 +100,7 @@ DisplayInstructionComponent = __decorate([
     core_1.Component({
         selector: 'display-instructions',
         templateUrl: '/partial/displayInstructionComponent',
+        styleUrls: ['./css/Components/displayInstructionComponent.css'],
         providers: [RestService_1.RestService, RoleService_1.RoleService]
     }),
     __metadata("design:paramtypes", [RestService_1.RestService, router_1.ActivatedRoute])

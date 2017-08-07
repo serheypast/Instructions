@@ -17,7 +17,7 @@ import { RoleService } from "./../RoleService/RoleService";
 @Component({
     selector: 'instruction',
     templateUrl: '/partial/InstructionComponent', 
-    styleUrls: ['/Component/InstructionComponent.css'],
+    styleUrls: ['./css/Components/instructionComponent.css'],
     providers: [ConfirmationService, RestService,RoleService]
 })
 

@@ -10,6 +10,7 @@ import { Language } from 'angular-l10n';
 @Component({
     selector: 'profile',
     templateUrl: '/partial/profileComponent',
+    styleUrls: ['./css/Components/profileComponent.css'],
     providers: [RestService, RoleService],
 })
 

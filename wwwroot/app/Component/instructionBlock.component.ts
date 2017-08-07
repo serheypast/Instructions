@@ -2,14 +2,15 @@
 import { Http } from '@angular/http';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
-import { RestService } from "./RestService/RestService";
+import { RestService } from "./../RestService/RestService";
 import { Input } from '@angular/core';
 import { Language } from 'angular-l10n';
-import { RoleService } from "./RoleService/RoleService";
+import { RoleService } from "./../RoleService/RoleService";
 
 @Component({
     selector: 'instructionBlock',
     templateUrl: '/partial/instructionBlockComponent',
+    styleUrls: ['./css/Components/instructionBlockComponent.css'],
     providers: [RestService, RoleService],
 })
 

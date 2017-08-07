@@ -1,0 +1,125 @@
+﻿.header {
+    background-color: #ffffff;
+    word-wrap: break-word;
+    border-radius: 5px;
+    margin-top: 2%;
+    width: 60%;
+}
+
+.info {
+    width: 60%;
+    border-radius: 5px;
+    background-color: #ffffff;
+    height: 40px;
+}
+
+.sp_method_toc {
+    margin: 3px -15px;
+    border: 0 27px;
+    padding: 10px 27px 10px 27px;
+    border: 0;
+    color: #222;
+    background-color: #f6f8f7;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 1.65em;
+}
+
+#method_toc a {
+    margin-right: 10px;
+    background-repeat: no-repeat;
+    background-position: 0px 4px;
+    background-position-x: left;
+    padding-left: 5px;
+    display: inline-block;
+}
+
+.step {
+    background-color: #ffffff;
+    word-wrap: break-word;
+    border-radius: 5px;
+    margin-top: 2%;
+    width: 60%;
+    padding-left: 0;
+    padding-right: 0;
+    position: relative;
+}
+
+.headStep {
+    display: inline-block;
+}
+
+
+.section .steps h3 {
+    border-bottom: none;
+    border-radius: 4px 4px 0 0;
+    -moz-border-radius: 4px 4px 0 0;
+    -webkit-border-radius: 4px 4px 0 0;
+}
+
+.section h3 {
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    background: #f6f5f4;
+}
+
+h3 {
+    margin-bottom: 0px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #222222;
+    line-height: 18px;
+    width: 100%;
+    background-color: #1f7497;
+    font-family: Helvetica,arial,sans-serif;
+}
+
+.section .steps .altblock {
+    margin: 0 15px 0 0;
+}
+
+.steps .altblock {
+    height: 49px;
+    width: 60px;
+    margin: 0 15px 0 0;
+    font-size: 12px;
+    line-height: 31px;
+    text-align: center;
+    padding-top: 10px;
+    color: #fff;
+    border-radius: 4px 0 0 0;
+    -moz-border-radius: 4px 0 0 0;
+    -webkit-border-radius: 4px 0 0 0;
+}
+
+.altblock {
+    height: 18px;
+    width: 18px;
+    background-color: #1f7497;
+    float: left;
+    margin-right: 8px;
+}
+
+.section .altblock .method_label {
+    margin-top: -1px;
+    line-height: 12px;
+    display: inline-block;
+}
+
+div.section .steps h3 .altblock span {
+    font-size: 21px;
+    padding: 0;
+}
+
+div.section h3 span {
+    display: block;
+    margin-left: 0px;
+    padding: 16px 0px 15px 50px;
+}
+
+.like {
+    font-size: large;
+    margin-top: 12%;
+    padding-left: 5px;
+}

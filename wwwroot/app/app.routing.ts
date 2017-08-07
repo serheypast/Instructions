@@ -5,9 +5,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { AuthorizationComponent } from './Component/authorization.component';
 import { ProfileComponent } from './Component/profile.component';
 import { InstructionComponent } from './Component/instruction.component';
-import { TestComponent } from './test.component';
-import { HomeComponent } from './home.component';
-import { InstructionBlockComponent } from './instructionBlock.component';
+import { HomeComponent } from './Component/home.component';
+import { InstructionBlockComponent } from './Component/instructionBlock.component';
 import { CommentComponent } from './Component/comment.component';
 import { DisplayInstructionComponent } from './Component/displayInstruction.component';
 
@@ -29,4 +28,4 @@ const appRoutes: Routes = [
 ];
 
 export const routing = RouterModule.forRoot(appRoutes);
-export const routedComponents = [DisplayInstructionComponent, CommentComponent, HomeComponent, InstructionBlockComponent, AuthorizationComponent, ProfileComponent, TestComponent,InstructionComponent];
+export const routedComponents = [DisplayInstructionComponent, CommentComponent, HomeComponent, InstructionBlockComponent, AuthorizationComponent, ProfileComponent,InstructionComponent];

@@ -93,6 +93,7 @@ CommentComponent = __decorate([
     core_1.Component({
         selector: 'comments',
         templateUrl: '/partial/commentComponent',
+        styleUrls: ['./css/Components/commentComponent.css'],
         providers: [RestService_1.RestService, RoleService_1.RoleService],
     }),
     __metadata("design:paramtypes", [RestService_1.RestService])

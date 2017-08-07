@@ -7,6 +7,7 @@ import { RoleService } from "./../RoleService/RoleService";
 @Component({
     selector: 'display-instructions',
     templateUrl: '/partial/displayInstructionComponent',
+    styleUrls: ['./css/Components/displayInstructionComponent.css'],
     providers: [RestService, RoleService]
 })
 
