@@ -12,10 +12,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 var router_1 = require("@angular/router");
-var RestService_1 = require("./RestService/RestService");
+var RestService_1 = require("./../RestService/RestService");
 var core_2 = require("@angular/core");
 var angular_l10n_1 = require("angular-l10n");
-var RoleService_1 = require("./RoleService/RoleService");
+var RoleService_1 = require("./../RoleService/RoleService");
 var InstructionBlockComponent = (function () {
     function InstructionBlockComponent(http, activateRoute, service) {
         this.http = http;
@@ -126,6 +126,7 @@ InstructionBlockComponent = __decorate([
     core_1.Component({
         selector: 'instructionBlock',
         templateUrl: '/partial/instructionBlockComponent',
+        styleUrls: ['./css/Components/instructionBlockComponent.css'],
         providers: [RestService_1.RestService, RoleService_1.RoleService],
     }),
     __metadata("design:paramtypes", [http_1.Http, router_1.ActivatedRoute, RestService_1.RestService])

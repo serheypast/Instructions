@@ -3,6 +3,7 @@
 
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager 
+
 <style>
     .socialNetwork {
         margin-bottom: 10px;
@@ -15,11 +16,15 @@
             filter: alpha(opacity=85);
         }
 
-
+    #navbarWoG {
+        background-color: #3079a7;
+        border-color: #3079a7;
+        z-index: 1000
+    }
 </style>
 
 
-<nav class="navbar navbar-inverse navbar-fixed-top" style="background-color:#3079a7; border-color:#3079a7; z-index:1000">
+<nav class="navbar navbar-inverse navbar-fixed-top" id="navbarWoG">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -41,7 +46,7 @@
                         </div>
                     </div>
                 </div>
-            @*//routerLink="/home/all/search/{{searchData}}"*@
+          
             @if (SignInManager.IsSignedIn(User))
             {
                     <form ngNoForm asp-area="" asp-controller="Account" asp-action="Logout" method="post" id="logoutForm" class="navbar-right">

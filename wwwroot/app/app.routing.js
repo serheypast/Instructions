@@ -4,9 +4,8 @@ var router_1 = require("@angular/router");
 var authorization_component_1 = require("./Component/authorization.component");
 var profile_component_1 = require("./Component/profile.component");
 var instruction_component_1 = require("./Component/instruction.component");
-var test_component_1 = require("./test.component");
-var home_component_1 = require("./home.component");
-var instructionBlock_component_1 = require("./instructionBlock.component");
+var home_component_1 = require("./Component/home.component");
+var instructionBlock_component_1 = require("./Component/instructionBlock.component");
 var comment_component_1 = require("./Component/comment.component");
 var displayInstruction_component_1 = require("./Component/displayInstruction.component");
 var appRoutes = [
@@ -25,5 +24,5 @@ var appRoutes = [
     { path: 'instruction/:id', component: displayInstruction_component_1.DisplayInstructionComponent, data: { title: 'Display' } },
 ];
 exports.routing = router_1.RouterModule.forRoot(appRoutes);
-exports.routedComponents = [displayInstruction_component_1.DisplayInstructionComponent, comment_component_1.CommentComponent, home_component_1.HomeComponent, instructionBlock_component_1.InstructionBlockComponent, authorization_component_1.AuthorizationComponent, profile_component_1.ProfileComponent, test_component_1.TestComponent, instruction_component_1.InstructionComponent];
+exports.routedComponents = [displayInstruction_component_1.DisplayInstructionComponent, comment_component_1.CommentComponent, home_component_1.HomeComponent, instructionBlock_component_1.InstructionBlockComponent, authorization_component_1.AuthorizationComponent, profile_component_1.ProfileComponent, instruction_component_1.InstructionComponent];
 //# sourceMappingURL=app.routing.js.map

@@ -1,85 +1,4 @@
-﻿
-<br><br><br>
-
-<style>
-   
-
-    #main {
-       
-        padding: 20px;
-        -webkit-border-radius: 4px;
-        -moz-border-radius: 4px;
-        
-        border-radius: 4px;
-     
-    }
-
-    #real-estates-detail #author cl-image img {
-        
-        border: 5px solid #ecf0f1;
-        margin-bottom: 10px;
-    }
-
-    #real-estates-detail .sosmed-author i.fa {
-        width: 30px;
-        height: 30px;
-        border: 2px solid #bdc3c7;
-        color: #bdc3c7;
-        padding-top: 6px;
-        margin-top: 10px;
-    }
-
-    .panel-default .panel-heading {
-        background-color: #fff;
-    }
-
-    #real-estates-detail .slides li img {
-        height: 450px;
-    }
-
-    .inputProfile {
-        border-radius: 1px;
-        padding: 5px;
-        width: 100%;
-    }
-
-    .hover {
-        display: none;
-    }
-
-    #real-estates-detail #author .imageBlock:hover .hover {
-        display:block;
-    }
-
-    .imageBlock {
-      
-    }
-
-    #labelPhoto {
-        position: absolute;
-        top: 67.5%;
-        background-color: black;
-        background-color: rgba(0, 0, 0, .6);
-        color: aliceblue;
-        width: 91%;
-        cursor:pointer;
-        text-align: center;
-        height: 8%;
-    }
-
-    .social-links li a {
-        -webkit-border-radius: 50%;
-        background: #4195d0;
-        color: white;
-        border-radius: 50%;
-        display: inline-block;
-        height: 30px;
-        line-height: 30px;
-        text-align: center;
-        width: 30px;
-    }
-
-</style>
+﻿<br><br><br>
 
 <div *ngIf="user">
     <div class="container">
@@ -96,9 +15,8 @@
                         </div>
                        
                             <div id="author">
-                                <div class="imageBlock">                              
-                                  
-                                    <img src="{{user.urlPhoto}}" style="width:100%; height:auto; border-radius: 2px;" />
+                                <div class="imageBlock">                                                             
+                                    <img src="{{user.urlPhoto}}" id="mainPhoto" />
                                     <div class="hover" *ngIf="checkRole()">
                                         <label id="labelPhoto" title="Change main photo">
                                             <span class="glyphicon glyphicon-camera" style="margin-top:3%;"></span>
@@ -107,8 +25,7 @@
                                         </label>
                                     </div>
                                 </div>
-                                <h4 style="text-align: center;"><b>{{user.firstName}}   {{user.secondName}}</b></h4>
-                                
+                                <h4 style="text-align: center;"><b>{{user.firstName}}   {{user.secondName}}</b></h4>                              
                                 <ul class="social-links list-inline m-t-30" style="text-align: center;">
                                     <li>
                                         <a title="" data-placement="top" data-toggle="tooltip" class="tooltips" data-original-title="Facebook"><i class="fa fa-facebook fa-lg"></i></a>
@@ -155,32 +72,30 @@
                                             <tr>
                                                 <td class="active">{{ 'ProfileComponent.LastName' | translate:lang }}:</td>
                                                 <td>
-                                                    <input class="input-large" *ngIf="changeField" type="text" [(ngModel)]="user.secondName" style="outline: 0 ; border: 0; padding: 0;" readonly="readonly" />
+                                                    <input class="input-large readInput" *ngIf="changeField" type="text" [(ngModel)]="user.secondName"  readonly="readonly" />
                                                     <input maxlength="20" class="inputProfile" *ngIf="!changeField" type="text" [(ngModel)]="user.secondName" />
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td class="active">{{ 'ProfileComponent.Country' | translate:lang }}:</td>
                                                 <td>
-                                                    <input class="input-large" *ngIf="changeField" type="text" [(ngModel)]="user.country" style="outline: 0 ; border: 0; padding: 0;" readonly="readonly" />
+                                                    <input class="input-large readInput" *ngIf="changeField" type="text" [(ngModel)]="user.country" style="outline: 0 ; border: 0; padding: 0;" readonly="readonly" />
                                                     <input maxlength="20" class="inputProfile" *ngIf="!changeField" type="text" [(ngModel)]="user.country" />
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td class="active">{{ 'ProfileComponent.City' | translate:lang }}:</td>
                                                 <td>
-                                                    <input class="input-large" *ngIf="changeField" type="text" [(ngModel)]="user.city" style="outline: 0 ; border: 0; padding: 0;" readonly="readonly" />
+                                                    <input class="input-large readInput" *ngIf="changeField" type="text" [(ngModel)]="user.city" style="outline: 0 ; border: 0; padding: 0;" readonly="readonly" />
                                                     <input maxlength="20" class="inputProfile" *ngIf="!changeField" type="text" [(ngModel)]="user.city" />
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td class="active">{{ 'ProfileComponent.DateofBirth' | translate:lang }}:</td>
                                                 <td>
-                                                    <input type="date" *ngIf="changeField" [(ngModel)]="user.dataOfBirth" style="outline: 0 ; border: 0; padding: 0;" readonly="readonly" />
-                                                    <input type="date" *ngIf="!changeField" [(ngModel)]="user.dataOfBirth"  />
-                                           
-                                                </td>
-                                          
+                                                    <input type="date" *ngIf="changeField" [(ngModel)]="user.dataOfBirth" class="readInput" readonly="readonly" />
+                                                    <input type="date" *ngIf="!changeField" [(ngModel)]="user.dataOfBirth"  />                                          
+                                                </td>                                         
                                             </tr>
                                             <tr>
                                                 <td class="active">{{ 'ProfileComponent.Rating' | translate:lang }}:</td>
@@ -196,14 +111,10 @@
                                         <div class="col-md-4 col-lg-4 col-xs-4 col-sm-4"  *ngFor="let achivment of achivments">
                                             <h3 class="text-center" style="align-content:center;">{{achivment.achivment.name}}</h3>
                                             <img src="{{achivment.achivment.urlImage}}" style="width: 200px; height: 200px;">
-                                            <div class="caption">
-                                                
+                                            <div class="caption">                       
                                                 <p class="text-center" style="padding-top:10px;">{{achivment.achivment.description}}</p>
                                             </div>
-
-                                        </div>
-                                           
-                                        
+                                        </div>                                                                                
                                     </div>
                                 </div>
                                 <div *ngIf="user" class="tab-pane fade" id="instruction">

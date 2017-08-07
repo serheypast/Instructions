@@ -1,6 +1,6 @@
 ﻿import { Component, HostListener } from '@angular/core';
 import { Http } from '@angular/http';
-import { RestService } from "./RestService/RestService";
+import { RestService } from "./../RestService/RestService";
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { LocaleService, Language } from 'angular-l10n';
@@ -8,6 +8,7 @@ import { LocaleService, Language } from 'angular-l10n';
 @Component({
     selector: 'home',
     templateUrl: '/partial/homeComponent',
+    styleUrls: ['./css/Components/homeComponent.css'],
     providers: [RestService],
 })
 

@@ -1,0 +1,250 @@
+﻿.header {
+    background-color: #ffffff;
+    word-wrap: break-word;
+    border-radius: 5px;
+    margin-top: 2%;
+    width: 60%;
+}
+
+.info {
+    width: 60%;
+    border-radius: 5px;
+    background-color: #ffffff;
+    height: 40px;
+}
+
+.sp_method_toc {
+    margin: 3px -15px;
+    border: 0 27px;
+    padding: 10px 27px 10px 27px;
+    border: 0;
+    color: #222;
+    background-color: #f6f8f7;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 1.65em;
+}
+
+#method_toc a {
+    margin-right: 10px;
+    background-repeat: no-repeat;
+    background-position: 0px 4px;
+    background-position-x: left;
+    padding-left: 5px;
+    display: inline-block;
+}
+
+.step {
+    background-color: #ffffff;
+    word-wrap: break-word;
+    border-radius: 5px;
+    margin-top: 2%;
+    width: 60%;
+    padding-left: 0;
+    padding-right: 0;
+    position: relative;
+}
+
+.headStep {
+    display: inline-block;
+}
+
+
+.section .steps h3 {
+    border-bottom: none;
+    border-radius: 4px 4px 0 0;
+    -moz-border-radius: 4px 4px 0 0;
+    -webkit-border-radius: 4px 4px 0 0;
+}
+
+.section h3 {
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    background: #f6f5f4;
+}
+
+h3 {
+    margin-bottom: 0px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #222222;
+    line-height: 18px;
+    width: 100%;
+    background-color: #1f7497;
+    font-family: Helvetica,arial,sans-serif;
+}
+
+.section .steps .altblock {
+    margin: 0 15px 0 0;
+}
+
+.steps .altblock {
+    height: 49px;
+    width: 60px;
+    margin: 0 15px 0 0;
+    font-size: 12px;
+    line-height: 31px;
+    text-align: center;
+    padding-top: 10px;
+    color: #fff;
+    border-radius: 4px 0 0 0;
+    -moz-border-radius: 4px 0 0 0;
+    -webkit-border-radius: 4px 0 0 0;
+}
+
+.altblock {
+    height: 18px;
+    width: 18px;
+    background-color: #1f7497;
+    float: left;
+    margin-right: 8px;
+}
+
+.section .altblock .method_label {
+    margin-top: -1px;
+    line-height: 12px;
+    display: inline-block;
+}
+
+div.section .steps h3 .altblock span {
+    font-size: 21px;
+    padding: 0;
+}
+
+div.section h3 span {
+    display: block;
+    margin-left: 0px;
+    padding: 16px 0px 15px 50px;
+}
+
+#createIns {
+    text-align: center;
+    color: #33618a;
+    font-size: -webkit-xxx-large;
+    margin-bottom: 4%;
+    font-family: serif;
+}
+
+.ui-growl-item {
+    z-index: 99999 !important;
+    top: 200px;
+}
+
+.ui-widget {
+    z-index: 99999 !important;
+}
+
+.inputStepName:focus {
+    border: 2px;
+    background-color: #fff;
+}
+
+.inputStepName {
+    width: 100%;
+    border: 0;
+    background-color: #f1f2f5;
+}
+
+#right-panel {
+    background-color: white;
+    margin-top: 1.8%;
+    margin-left: 3%;
+    margin-bottom: 3%
+}
+
+.my-btn {
+    background-color: #3897f0;
+    border-radius: 0px;
+    color: white;
+}
+
+
+.workspace {
+    border-color: #454456 !important;
+    border: 1px solid transparent;
+    background-color: #fbfbfb;
+    margin-top: 2%;
+    width: 70%;
+    margin-left: 18%;
+    border-radius: 5px;
+}
+
+.textM {
+    min-width: 98%;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    margin-left: 1%;
+    margin-right: 1%;
+}
+
+.element {
+    margin-top: 1%;
+    margin-bottom: 1%;
+    text-align: center;
+}
+
+.imageCenter {
+    text-align: center;
+}
+
+.instruments {
+    margin-bottom: 1%;
+    margin-top: 1%;
+    text-align: center
+}
+
+.instrument {
+    padding: 20px;
+    background-color: #007ced;
+    border-radius: 30px;
+}
+
+.dragSteps {
+    display: inline-block;
+}
+
+.cat {
+    display: inline;
+}
+
+.index-content a:hover {
+    color: black;
+    text-decoration: none;
+}
+
+.index-content .card {
+    background-color: #FFFFFF;
+    padding: 0;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    box-shadow: 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12), 0 2px 4px -1px rgba(0,0,0,0.3);
+}
+
+    .index-content .card:hover {
+        box-shadow: 0 16px 24px 2px rgba(0,0,0,0.14), 0 6px 30px 5px rgba(0,0,0,0.12), 0 8px 10px -5px rgba(0,0,0,0.3);
+        color: black;
+    }
+
+    .index-content .card .img {
+        width: 100%;
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
+    }
+
+    .index-content .card h4 {
+        margin: 20px;
+    }
+
+.content {
+    /*height:310px;*/
+}
+
+#btnAddStep {
+    margin-top: 2%;
+    margin-bottom: 10%;
+    margin-left: 46%;
+    background-color: #1a89e9;
+    color: white
+}

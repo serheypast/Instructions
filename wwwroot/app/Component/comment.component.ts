@@ -5,6 +5,7 @@ import { Input } from '@angular/core';
 @Component({
     selector: 'comments',
     templateUrl: '/partial/commentComponent',
+    styleUrls: ['./css/Components/commentComponent.css'],
     providers: [RestService, RoleService],
 })
 

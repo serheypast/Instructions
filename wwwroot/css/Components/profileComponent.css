@@ -1,0 +1,81 @@
+﻿#main {
+    padding: 20px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+}
+
+#real-estates-detail #author cl-image img {
+    border: 5px solid #ecf0f1;
+    margin-bottom: 10px;
+}
+
+#real-estates-detail .sosmed-author i.fa {
+    width: 30px;
+    height: 30px;
+    border: 2px solid #bdc3c7;
+    color: #bdc3c7;
+    padding-top: 6px;
+    margin-top: 10px;
+}
+
+.panel-default .panel-heading {
+    background-color: #fff;
+}
+
+#real-estates-detail .slides li img {
+    height: 450px;
+}
+
+.inputProfile {
+    border-radius: 1px;
+    padding: 5px;
+    width: 100%;
+}
+
+.hover {
+    display: none;
+}
+
+#real-estates-detail #author .imageBlock:hover .hover {
+    display: block;
+}
+
+.imageBlock {
+}
+
+#labelPhoto {
+    position: absolute;
+    top: 64%;
+    background-color: black;
+    background-color: rgba(0, 0, 0, .6);
+    color: aliceblue;
+    width: 91%;
+    cursor: pointer;
+    text-align: center;
+    height: 8%;
+}
+
+.social-links li a {
+    -webkit-border-radius: 50%;
+    background: #4195d0;
+    color: white;
+    border-radius: 50%;
+    display: inline-block;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    width: 30px;
+}
+
+#mainPhoto {
+    width: 100%;
+    height: auto;
+    border-radius: 2px;
+}
+
+.readInput {
+    outline: 0;
+    border: 0;
+    padding: 0;
+}

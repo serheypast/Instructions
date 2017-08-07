@@ -264,7 +264,7 @@ InstructionComponent = __decorate([
     core_1.Component({
         selector: 'instruction',
         templateUrl: '/partial/InstructionComponent',
-        styleUrls: ['/Component/InstructionComponent.css'],
+        styleUrls: ['./css/Components/instructionComponent.css'],
         providers: [primeng_1.ConfirmationService, RestService_1.RestService, RoleService_1.RoleService]
     }),
     __metadata("design:paramtypes", [RestService_1.RestService, ng2_dragula_1.DragulaService, platform_browser_1.DomSanitizer,

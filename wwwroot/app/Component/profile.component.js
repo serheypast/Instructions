@@ -71,6 +71,7 @@ ProfileComponent = __decorate([
     core_1.Component({
         selector: 'profile',
         templateUrl: '/partial/profileComponent',
+        styleUrls: ['./css/Components/profileComponent.css'],
         providers: [RestService_1.RestService, RoleService_1.RoleService],
     }),
     __metadata("design:paramtypes", [http_1.Http, router_1.ActivatedRoute, RestService_1.RestService])
