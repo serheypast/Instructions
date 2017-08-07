@@ -53,8 +53,8 @@ namespace A2SPA.Controllers
         public IActionResult GetInstrucitonsByCategory(int take, int skip, string property, string type, string value)
         {
             Func<Models.Instruction, object> SortParams = GetSortParams(property);
-            Category category = db.Category.FirstOrDefault(p => p.Name == value);
-            return new ObjectResult(db.Instruction.Include(p => p.UserProfile).Include(p => p.Category)
+            Category category = db.Category.FirstOrDefault(p => p.Name == value);          
+            return new ObjectResult(db.Instruction.Include(p => p.UserProfile).Include(p => p.Category).Include(p => p.UsersLike).ThenInclude(p => p.UserProfile)
                 .OrderByDescending(SortParams).Where(p => p.Category == category).Skip(skip).Take(take).ToList());
         }
 
@@ -93,7 +93,7 @@ namespace A2SPA.Controllers
         public List<Models.Instruction> GetInstructionDefaulttype(int take, int skip, string property, string type, string value)
         {
             Func<Models.Instruction, object> SortParams = GetSortParams(property);
-            return db.Instruction.Include(p => p.UserProfile).Include(p => p.Category)
+            return db.Instruction.Include(p => p.UserProfile).Include(p => p.Category).Include(p => p.UsersLike).ThenInclude(p => p.UserProfile)
                 .OrderByDescending(SortParams).Skip(skip).Take(take).ToList();
         }
 
@@ -101,7 +101,7 @@ namespace A2SPA.Controllers
         public List<Models.Instruction> GetInstructionsBySearch(int take, int skip, string property, string type, string value)
         {
             Func<Models.Instruction, object> SortParams = GetSortParams(property);
-            return db.Instruction.Include(p => p.UserProfile).Include(p => p.Category)
+            return db.Instruction.Include(p => p.UserProfile).Include(p => p.Category).Include(p => p.UsersLike).ThenInclude(p => p.UserProfile)
                 .OrderByDescending(SortParams).Where(p => p.Name.ToLower().Contains(value.ToLower())).Skip(skip).Take(take).ToList();
         }
 
@@ -147,14 +147,7 @@ namespace A2SPA.Controllers
             {
                 db.Step.Remove(db.Step.FirstOrDefault(p => p.Id == step.Id));   
             }
-            foreach (Models.Step step in item.Steps)
-            {
-                step.Id = 0;
-                foreach (Block block in step.Blocks)
-                {
-                    block.Id = 0;
-                }
-            }
+            
             var steps = item.Steps;
             db.Step.AddRange(steps);
             item.UserProfile = null;
@@ -244,6 +237,7 @@ namespace A2SPA.Controllers
         }
 
         [HttpGet("[action]")]
+        [Authorize]
         public IActionResult GetCurrentUser()
         {
             UserProfile userProfile = db.UserProfile.Include(p => p.User).Include(p=>p.UserRole).FirstOrDefault(p => p.User.Id == User.FindFirst(ClaimTypes.NameIdentifier).Value);

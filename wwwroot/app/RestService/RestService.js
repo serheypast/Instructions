@@ -76,6 +76,12 @@ var RestService = (function () {
     RestService.prototype.getInstructionByUser = function (idUser, skip, get) {
         return this.http.get('api/getUserInstruction/' + idUser + '/' + get + '/' + skip);
     };
+    RestService.prototype.removeInstruction = function (instruction) {
+        this.http.post("api/removeInstructionById", instruction)
+            .subscribe(function (result) {
+            console.log(result.json());
+        });
+    };
     return RestService;
 }());
 RestService = __decorate([

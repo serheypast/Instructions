@@ -58,7 +58,10 @@ var DisplayInstructionComponent = (function () {
     }
     DisplayInstructionComponent.prototype.checkRole = function () {
         this.AuthUser = RoleService_1.RoleService.getCurrentAuthUser();
-        return (this.AuthUser.role == 'Admin' || this.AuthUser.id == this.instruction.userProfile.id) ? true : false;
+        return (this.AuthUser.role == 'Admin' || this.AuthUser.id == this.instruction.userProfile.id);
+    };
+    DisplayInstructionComponent.prototype.removeInstruction = function () {
+        this.service.removeInstruction(this.instruction.id);
     };
     DisplayInstructionComponent.prototype.ngOnInit = function () {
     };

@@ -87,7 +87,7 @@
 </style>
 <div class="row" infinite-scroll [infiniteScrollDistance]="1" [infiniteScrollThrottle]="500" (scrolled)="onScroll()">
     <div class="index-content">
-        <div class="col-md-6" *ngFor="let item of instructions">
+        <div class="col-md-6" *ngFor="let item of instructions; let i = index">
             <div class="card">
                 <img routerLink="/instruction/{{item.id}}" src="{{item.previewImageUrl}}" style="max-height: 230px;">
                 <h4>
@@ -99,7 +99,8 @@
                 
                 <div class="bottom-align-text">
                    <p style="font-size: larger;">{{item.rating}}
-                       <span style="color: black; font-size: large; top:2px" class="glyphicon glyphicon glyphicon-thumbs-up"></span>
+                       <span *ngIf="!likes[i]" style="color: black; font-size: large; top:2px" class="glyphicon glyphicon glyphicon-thumbs-up"></span>
+                       <span *ngIf="likes[i]" style="color: #187bd5; font-size: large; top:2px" class="glyphicon glyphicon glyphicon-thumbs-up"></span>
                     </p> 
                 </div>
             </div>

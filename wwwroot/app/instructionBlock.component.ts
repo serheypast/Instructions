@@ -6,6 +6,7 @@ import { RestService } from "./RestService/RestService";
 import { Input } from '@angular/core';
 import { Language } from 'angular-l10n';
 import { RoleService } from "./RoleService/RoleService";
+
 @Component({
     selector: 'instructionBlock',
     templateUrl: '/partial/instructionBlockComponent',
@@ -15,6 +16,7 @@ import { RoleService } from "./RoleService/RoleService";
 export class InstructionBlockComponent {
     @Language() lang: string;
     instructions: Array<Instruction> = new Array<Instruction>();
+    id: number;
     private defaultGetInstruction: string = "10";
     private defaultSkipInstruction: string = "0";
     public value: string;
@@ -24,6 +26,7 @@ export class InstructionBlockComponent {
     @Input() idUser: number;
     @Input() fromProfileComponent: boolean = false;
     private get: number = 8;
+    likes:boolean [] = [];
 
     constructor(private http: Http, private activateRoute: ActivatedRoute, private service: RestService) {
         console.log("CheckRoleServiceInInstructionBlock");
@@ -39,13 +42,29 @@ export class InstructionBlockComponent {
             });
         }
     }
-    
+
+    private setLikes() {
+        this.likes = [];
+        for (let instruction of this.instructions) {
+            this.likes.push(false);
+            for (let usersLike of instruction.usersLike) {
+                if (usersLike.userProfile.id == this.id) {
+                    this.likes.pop();
+                    this.likes.push(true);
+                }
+            }
+        }
+    }
 
     private getHomePageRequest() {
         if (this.stopRequest) {
             this.stopRequest = false;
             this.service.getInstructions(this.property, this.type, this.value, this.defaultGetInstruction, this.defaultSkipInstruction).subscribe(result => {
                 this.instructions = result.json();
+                
+                this.id = RoleService.getCurrentAuthUser().id;
+                console.log("Userid:" + this.id);
+                this.setLikes();
                 this.stopRequest = true;
                 console.log(this.instructions);
                 console.log(this.idUser);
@@ -84,6 +103,7 @@ export class InstructionBlockComponent {
                 this.stopRequest = false;
                 this.service.getInstructions(this.property, this.type, this.value, this.defaultGetInstruction, this.instructions.length.toString()).subscribe(result => {
                     this.instructions = this.instructions.concat(result.json());
+                    this.setLikes();
                     this.stopRequest = true;
                 });
             }
@@ -100,6 +120,7 @@ class Instruction {
     rating: number;
     category: Category;
     userProfile: UserProfile;
+    usersLike: UserLike[] = [];
 }
 
 class Category {
@@ -117,6 +138,13 @@ class UserProfile {
     city: string;
     dataOfBirth: string;
     aboutMySelf: string;
+    usersLike: UserLike[] = [];
+}
+
+class UserLike {
+    id: number;
+    userProfile: UserProfile;
+    instruction: Instruction;
 }
 
 class AuthUser {

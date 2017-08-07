@@ -10,7 +10,7 @@ import { ConfirmationService, Message } from 'primeng/primeng';
 import { RestService } from "./../RestService/RestService";
 import { SelectItem } from "primeng/components/common/selectitem";
 import { Language } from 'angular-l10n';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { RoleService } from "./../RoleService/RoleService";
 
@@ -61,7 +61,7 @@ export class InstructionComponent {
     loadInstruction: boolean = false;
     IdUserWhoCreated: number = 0;
     constructor(private service: RestService, private dragulaService: DragulaService, private sanitizer: DomSanitizer,
-        private confirmationService: ConfirmationService, private activateRoute: ActivatedRoute) {
+        private confirmationService: ConfirmationService, private activateRoute: ActivatedRoute, private router: Router) {
       
         this.subscription = this.activateRoute.params.subscribe(params => {
             this.id = params['id'];            
@@ -133,11 +133,23 @@ export class InstructionComponent {
         if (this.validate()) {             
             this.instruction.category = this.category;
             if (!this.id) {
-                this.addTags();         
+                this.addTags();
                 this.service.publishInstruction(this.instruction);
+                this.router.navigate(['home/all']);
             }
-            else this.service.editInstruction(this.instruction);
+            else this.editInstruction();
         }       
+    }
+
+    editInstruction() {
+        for (let step of this.instruction.steps){
+            step.id = 0;
+            for (let block of step.blocks) {
+                block.id = 0;
+            }
+        }
+        this.msgs.push({ severity: 'success', summary: 'Success Message', detail: 'Instruction saved' });
+        this.service.editInstruction(this.instruction);
     }
 
     validate(): boolean {
@@ -290,14 +302,14 @@ export class SafePipe implements PipeTransform {
 } 
 
 class Block {
-    id: null;
+    id: number;
     type: string;
     field: string;
     state: boolean;
 }
 
 class Step {
-    id: null;
+    id: number;
     position: number;
     name: string;
     blocks: Block[] = [];

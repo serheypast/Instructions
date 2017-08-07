@@ -87,4 +87,12 @@ export class RestService {
     public getInstructionByUser(idUser: string, skip: string, get: string) {
         return this.http.get('api/getUserInstruction/' + idUser + '/' + get + '/' + skip);
     }
+
+    public removeInstruction(instruction: any) {
+        this.http.post("api/removeInstructionById", instruction)
+            .subscribe(result => {
+                console.log(result.json());
+            });
+    } 
+
 }

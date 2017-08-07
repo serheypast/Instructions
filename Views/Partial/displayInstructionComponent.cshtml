@@ -126,12 +126,15 @@
 
     <div class="header container" *ngIf="loadInfo">
      
-        <h2>{{instruction.name}}
+        <h2>{{instruction.name}}           
             <button class="btn btn-default pull-right" *ngIf="checkRole()">
-                <span routerLink="/createInstruction/{{id}}" class="glyphicon glyphicon-pencil"></span>
+                <span (click)="removeInstruction()" class="glyphicon glyphicon-remove"></span>
             </button>
+            <button style="margin-right: 0.5%;" class="btn btn-default pull-right" *ngIf="checkRole()">
+                <span routerLink="/createInstruction/{{id}}" class="glyphicon glyphicon-pencil"></span>
+            </button>            
         </h2>
-     
+       
         <p id="method_toc" class="sp_method_toc" >
             <span class="glyphicon glyphicon-cloud"></span>
             <span>{{ 'DisplayInstruction.Tags' | translate:lang }}: </span>          
