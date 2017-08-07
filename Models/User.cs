@@ -31,6 +31,7 @@ namespace A2SPA.Models
         public UserRole UserRole { get; set; }
         public User User { get; set; }
         public ICollection<AchivmentUser> Achivments { get; set; }
+        [JsonIgnore]
         public ICollection<UserLike> UsersLike { get; set; }
 
         public UserProfile(){
@@ -130,6 +131,7 @@ namespace A2SPA.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public UserProfile UserProfile { get; set; }
+        [JsonIgnore]
         public Instruction Instruction { get; set; }
     }
 

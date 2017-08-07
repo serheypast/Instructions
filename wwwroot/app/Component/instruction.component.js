@@ -19,13 +19,14 @@ var angular_l10n_1 = require("angular-l10n");
 var router_1 = require("@angular/router");
 var RoleService_1 = require("./../RoleService/RoleService");
 var InstructionComponent = (function () {
-    function InstructionComponent(service, dragulaService, sanitizer, confirmationService, activateRoute) {
+    function InstructionComponent(service, dragulaService, sanitizer, confirmationService, activateRoute, router) {
         var _this = this;
         this.service = service;
         this.dragulaService = dragulaService;
         this.sanitizer = sanitizer;
         this.confirmationService = confirmationService;
         this.activateRoute = activateRoute;
+        this.router = router;
         this.msgs = [];
         this.instruction = new Instruction();
         this.category = new Category();
@@ -125,10 +126,23 @@ var InstructionComponent = (function () {
             if (!this.id) {
                 this.addTags();
                 this.service.publishInstruction(this.instruction);
+                this.router.navigate(['home/all']);
             }
             else
-                this.service.editInstruction(this.instruction);
+                this.editInstruction();
         }
+    };
+    InstructionComponent.prototype.editInstruction = function () {
+        for (var _i = 0, _a = this.instruction.steps; _i < _a.length; _i++) {
+            var step = _a[_i];
+            step.id = 0;
+            for (var _b = 0, _c = step.blocks; _b < _c.length; _b++) {
+                var block = _c[_b];
+                block.id = 0;
+            }
+        }
+        this.msgs.push({ severity: 'success', summary: 'Success Message', detail: 'Instruction saved' });
+        this.service.editInstruction(this.instruction);
     };
     InstructionComponent.prototype.validate = function () {
         this.msgs = [];
@@ -254,7 +268,7 @@ InstructionComponent = __decorate([
         providers: [primeng_1.ConfirmationService, RestService_1.RestService, RoleService_1.RoleService]
     }),
     __metadata("design:paramtypes", [RestService_1.RestService, ng2_dragula_1.DragulaService, platform_browser_1.DomSanitizer,
-        primeng_1.ConfirmationService, router_1.ActivatedRoute])
+        primeng_1.ConfirmationService, router_1.ActivatedRoute, router_1.Router])
 ], InstructionComponent);
 exports.InstructionComponent = InstructionComponent;
 var SafePipe = (function () {

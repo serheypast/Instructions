@@ -24,9 +24,14 @@ export class DisplayInstructionComponent {
     loadUser: boolean = false;
     beginRating: number;
     AuthUser: AuthUser;
+
     public checkRole(): boolean {
         this.AuthUser = RoleService.getCurrentAuthUser();      
-        return (this.AuthUser.role == 'Admin' || this.AuthUser.id == this.instruction.userProfile.id) ? true : false;
+        return (this.AuthUser.role == 'Admin' || this.AuthUser.id == this.instruction.userProfile.id);
+    }
+
+    public removeInstruction() {
+        this.service.removeInstruction(this.instruction.id);
     }
 
     constructor(private service: RestService, private activateRoute: ActivatedRoute, ) {
