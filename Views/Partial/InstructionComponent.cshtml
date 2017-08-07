@@ -221,241 +221,242 @@
 </style>
 
    <p-growl [(value)]="msgs"></p-growl>
+<div *ngIf="loadInstruction">
+    <div *ngIf="checkRole()">
+        <div class="col-md-8">
+            <div [dragula]='"first-bag"' [dragulaModel]='instruction.steps'>
+                <div *ngFor="let step of instruction.steps; let j = index">
+                    <p-panel [toggleable]="true" [style]="{'margin-top':'20px','width':'101%'}">
+                        <p-header>
+                            <label>{{ 'InstructinComponent.Step' | translate:lang }} {{j+1}}: </label>
+                            <input [(ngModel)]="step.name" placeholder="{{ 'InstructinComponent.InputStepName' | translate:lang }}" style="width: 100%; border: 0; background-color: #f1f2f5;" />
+                            <a class="btn-xs pull-right ui-panel-titlebar-icon ui-panel-titlebar-toggler ui-corner-all ui-state-default" (click)="confirm2(j)">
+                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                            </a>
 
-<div class="col-md-8">
-        <div [dragula]='"first-bag"' [dragulaModel]='instruction.steps'>
-            <div *ngFor="let step of instruction.steps; let j = index">
-                <p-panel [toggleable]="true" [style]="{'margin-top':'20px','width':'101%'}">
-                    <p-header>
-                        <label>{{ 'InstructinComponent.Step' | translate:lang }} {{j+1}}: </label>
-                        <input [(ngModel)]="step.name" placeholder="{{ 'InstructinComponent.InputStepName' | translate:lang }}" style="width: 100%; border: 0; background-color: #f1f2f5;" />
-                        <a class="btn-xs pull-right ui-panel-titlebar-icon ui-panel-titlebar-toggler ui-corner-all ui-state-default" (click)="confirm2(j)">
-                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                        </a>
-
-                    </p-header>
-                    <div [dragula]='"second-bag"' [dragulaModel]='step.blocks'>                      
-                        <div *ngFor="let item of step.blocks; let i = index">
-                            <div ngSwitch="{{item.type}}">
-                                <div *ngSwitchCase="'text'">
-                                    <div class="row textM">
-                                        <div class="pull-left" style="margin-left:-2%">
-                                            <span class="fa fa-hand-rock-o fa-lg"></span>
-                                        </div>
-                                        <div class="pull-right" style="margin-right:-2%">
-                                            <span title="Delete" (click)="removeElement(j,i)" class="glyphicon glyphicon-trash "></span>
-                                        </div>
-
-                                        <div style="word-wrap:break-word;" [innerHTML]="item.field" *ngIf="!item.state" (click)="turn(j,i)">
-                                        </div>
-
-                                        <p-editor *ngIf="item.state" [(ngModel)]="item.field" [style]="{'height':'200px'}">
-                                            <p-header>
-                                                <span class="ql-formats">
-                                                    <select class="ql-header">
-
-                                                        <option value="2">Subheading</option>
-                                                        <option selected="">Normal</option>
-                                                    </select>
-                                                    <button class="ql-bold" aria-label="Bold"></button>
-                                                    <button class="ql-italic" aria-label="Italic"></button>
-                                                    <button class="ql-underline" aria-label="Underline"></button>
-                                                </span>
-                                                <button class="pull-right" pButton type="button" icon="fa-close" (click)="turn(j,i)"></button>
-                                            </p-header>
-                                        </p-editor>
-
-                                    </div>
-                                </div>
-
-                                <div *ngSwitchCase="'photo'">
-                                    <div class="element">
-                                        <div class="pull-left" style="margin-left:19%">
-                                            <span class="fa fa-hand-rock-o fa-lg"></span>
-                                        </div>
-                                        <div class="pull-right" style="margin-right:19%">
-                                            <span title="Delete" (click)="removeElement(j,i)" class="glyphicon glyphicon-trash "></span>
-                                        </div>
-                                        <img src={{item.field}} style="width:450px; height:250px;" />
-                                    </div>
-                                </div>
-
-                                <div *ngSwitchCase="'video'">
-                                    <div class="element" >
-                                        <div class="pull-left" style="margin-left: 27%">
-                                            <span class="fa fa-hand-rock-o fa-lg"></span>
-                                        </div>
-                                        <div class="pull-right" style="margin-right: 27%;">
-                                            <span title="Delete" (click)="removeElement(j,i)" class="glyphicon glyphicon-trash "></span>
-                                        </div>
-                                        <div *ngIf="!item.state">
-
-                                            <div class="form-horizontal">
-                                                <input type="text" [(ngModel)]="item.field" class="form-control" placeholder="Youtube URL" style="width:280px;max-width:280px;display:inline-block" />
-                                                <button (click)="addYoutubeUrl(j,i)" type="submit" class="btn btn-default" style="margin-left:-8px;margin-top:-2px; background-color:black;color:aliceblue">
-                                                    Add
-                                                </button>
+                        </p-header>
+                        <div [dragula]='"second-bag"' [dragulaModel]='step.blocks'>
+                            <div *ngFor="let item of step.blocks; let i = index">
+                                <div ngSwitch="{{item.type}}">
+                                    <div *ngSwitchCase="'text'">
+                                        <div class="row textM">
+                                            <div class="pull-left" style="margin-left:-2%">
+                                                <span class="fa fa-hand-rock-o fa-lg"></span>
+                                            </div>
+                                            <div class="pull-right" style="margin-right:-2%">
+                                                <span title="Delete" (click)="removeElement(j,i)" class="glyphicon glyphicon-trash "></span>
                                             </div>
 
+                                            <div style="word-wrap:break-word;" [innerHTML]="item.field" *ngIf="!item.state" (click)="turn(j,i)">
+                                            </div>
+
+                                            <p-editor *ngIf="item.state" [(ngModel)]="item.field" [style]="{'height':'200px'}">
+                                                <p-header>
+                                                    <span class="ql-formats">
+                                                        <select class="ql-header">
+
+                                                            <option value="2">Subheading</option>
+                                                            <option selected="">Normal</option>
+                                                        </select>
+                                                        <button class="ql-bold" aria-label="Bold"></button>
+                                                        <button class="ql-italic" aria-label="Italic"></button>
+                                                        <button class="ql-underline" aria-label="Underline"></button>
+                                                    </span>
+                                                    <button class="pull-right" pButton type="button" icon="fa-close" (click)="turn(j,i)"></button>
+                                                </p-header>
+                                            </p-editor>
+
                                         </div>
-                                        <iframe  *ngIf="item.state" [src]="item.field | safe" frameborder="0" allowfullscreen></iframe>
+                                    </div>
+
+                                    <div *ngSwitchCase="'photo'">
+                                        <div class="element">
+                                            <div class="pull-left" style="margin-left:19%">
+                                                <span class="fa fa-hand-rock-o fa-lg"></span>
+                                            </div>
+                                            <div class="pull-right" style="margin-right:19%">
+                                                <span title="Delete" (click)="removeElement(j,i)" class="glyphicon glyphicon-trash "></span>
+                                            </div>
+                                            <img src={{item.field}} style="width:450px; height:250px;" />
+                                        </div>
+                                    </div>
+
+                                    <div *ngSwitchCase="'video'">
+                                        <div class="element">
+                                            <div class="pull-left" style="margin-left: 27%">
+                                                <span class="fa fa-hand-rock-o fa-lg"></span>
+                                            </div>
+                                            <div class="pull-right" style="margin-right: 27%;">
+                                                <span title="Delete" (click)="removeElement(j,i)" class="glyphicon glyphicon-trash "></span>
+                                            </div>
+                                            <div *ngIf="!item.state">
+
+                                                <div class="form-horizontal">
+                                                    <input type="text" [(ngModel)]="item.field" class="form-control" placeholder="Youtube URL" style="width:280px;max-width:280px;display:inline-block" />
+                                                    <button (click)="addYoutubeUrl(j,i)" type="submit" class="btn btn-default" style="margin-left:-8px;margin-top:-2px; background-color:black;color:aliceblue">
+                                                        Add
+                                                    </button>
+                                                </div>
+
+                                            </div>
+                                            <iframe *ngIf="item.state" [src]="item.field | safe" frameborder="0" allowfullscreen></iframe>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <p-footer>
-                        <div class="instruments">
-                            <label (click)="AddText(j)" style="font-size: initial;" title="Add text" class="btn instrument btn-default btn-1x"><span class="glyphicon glyphicon-pencil fa-lg" style="color:aliceblue"></span></label>
-                            <label title="Add photo" class="btn instrument btn-default btn-lg" >
-                                <span class="glyphicon glyphicon-camera " style="color:aliceblue"></span>
-                                <input class="hidden" type="file" ng2FileSelect [uploader]="uploader" (change)="onChange($event,j)" />
-                            </label>
-                            <label (click)="AddVideo(j)" title="Add video" class="btn instrument btn-default btn-lg"><span class="glyphicon glyphicon-facetime-video" style="color:aliceblue"></span></label>
-                        </div>
-                    </p-footer>
-                </p-panel>
-            </div>
-        </div>
-
-   <button (click)="addStep()" class="btn btn-default" style="margin-top: 2%;margin-left: 46%;background-color: #1a89e9;color: white;">{{ 'InstructinComponent.AddStep' | translate:lang }}</button>
-
-</div>
-
-
-<div class="col-md-3" style="background-color:white; margin-top:1.8%; margin-left: 3%; margin-bottom:3%">   
-    
-    <div class="row" style="border: 1px solid #d1d4d5;">
-
-        <div class="form-group form-inline" style="padding-top: 12px; padding-left: 10px;">
-            <label>{{ 'InstructinComponent.Title' | translate:lang }}</label>
-            <input class="form-control" name="name" placeholder="{{ 'InstructinComponent.Title' | translate:lang }}" [(ngModel)]="instruction.name" required style="width: 80%; height: 27px;" />
-        </div>
-
-        <hr style="margin-top: 0px;margin-bottom: 5px;" />
-
-        <div class="form-group form-inline" style="padding-left:10px; padding-top: 5px;">
-            <label >{{ 'InstructinComponent.CategoryCreate' | translate:lang }}</label>
-            <p-dropdown [options]="categories" [(ngModel)]="category" placeholder="{{ 'InstructinComponent.SelectCategory' | translate:lang }}"></p-dropdown>
-        </div>
-        
-        <hr style="margin-top: 0px;margin-bottom: 5px;" />
-
-        <tag-input theme='bootstrap'
-                   [(ngModel)]="tags"
-                   [maxItems]='5'
-                   [validators]="validators"
-                   [errorMessages]="errorMessages"
-                   placeholder="{{ 'InstructinComponent.EnterTags' | translate:lang }}"
-                   secondaryPlaceholder="{{ 'InstructinComponent.EnterTags' | translate:lang }}">
-        </tag-input>
-
-    </div>
-
-        <div class="row">
-            <div class="btn-group btn-group-justified" role="group" aria-label="...">
-                <div class="btn-group" role="group">               
-                    <label  title="Add photo" class="btn btn-default" style="background-color: #3897f0;border-radius: 0px;color: white;">
-                        {{ 'InstructinComponent.MainImageInstruction' | translate:lang }}
-                        <input class="hidden" type="file" ng2FileSelect [uploader]="uploader" (change)="onChange($event,-1)" />
-                    </label>
-                </div>
-                <div class="btn-group" role="group">
-                    <button data-toggle="modal" data-target=".bd-example-modal-lg" type="button" class="btn btn-default" style="background-color: #3897f0;border-radius: 0px;color: white;">{{ 'InstructinComponent.Preview' | translate:lang }}</button>                
-                </div>
-                <div class="btn-group" role="group">
-                    <button *ngIf="create" (click)="publish()" type="button" class="btn btn-default" style="background-color: #3897f0;border-radius: 0px;color: white;">{{ 'InstructinComponent.Publish' | translate:lang }}</button>
-                    <button *ngIf="!create" (click)="publish()" type="button" class="btn btn-default" style="background-color: #3897f0;border-radius: 0px;color: white;">{{ 'InstructinComponent.Save' | translate:lang }}</button>
-                </div>
-            </div>
-        </div>
-
-         <div class="row" style="background-color:#ecebe8">
-             <br />
-         </div>
-
-         <div class="row">
-             <div class="index-content">
-                 <div class="card">
-                     <img src={{instruction.previewImageUrl}} style="width: 100%; height: 200px;" />
-                     <h4>{{instruction.name}}</h4>
-                     <div class="row">
-                         <div class="pull-left" style="margin-left:10%">
-                             <p>{{ 'InstructinComponent.By' | translate:lang }} Anton {{ 'InstructinComponent.In' | translate:lang }} Sport</p>
-                         </div>
-                         <div class="pull-right" style="margin-right:10%">
-                             <p>0</p>
-                         </div>
-                     </div>
-                 </div>
-             </div>
-         </div>
-             
-</div>
-
-  <p-confirmDialog></p-confirmDialog>
-
-<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">            
-            <div class="modal-body" style="background-color:#ecebe8">
-
-                <div class="header container" style="width:80%">
-                    <h2>{{instruction.name}}</h2>
-                    <p id="method_toc" class="sp_method_toc">
-                        <span class="glyphicon glyphicon-cloud"></span>
-                        <span>Tags: </span>
-                        <a *ngFor="let stepName of instruction.steps; let i = index">#{{stepName.name}}</a>
-                    </p>
-                    <p id="method_toc" class="sp_method_toc">
-                        <span>{{instruction.steps.length}} Steps :</span>
-                        <a *ngFor="let stepName of instruction.steps; let i = index">{{i+1}}) {{stepName.name}}</a>
-                    </p>
-                    <img src={{instruction.previewImageUrl}} style="width: calc(100% + 30px);margin-left: -15px;" />
-                    <div class="pull-left" style="line-height:40px">
-                        Created by <a href="#">Sergey</a> in <a href="#">Sports</a>
-                    </div>
-                    <div class="pull-right" style="cursor:pointer;line-height:40px">
-                        <span *ngIf="!like" (click)="putLike()">{{instruction.rating}} <span style="font-size: large ;margin-top: 12%; padding-left: 5px;" class="glyphicon glyphicon glyphicon-thumbs-up"></span></span>
-                        <span *ngIf="like" (click)="putLike()">{{instruction.rating}} <span style="font-size: large ;margin-top: 12%; padding-left: 5px; color:#187bd5" class="glyphicon glyphicon glyphicon-thumbs-up"></span></span>
-                    </div>
-                </div>
-
-                <div class="step container " *ngFor="let step of instruction.steps; let j = index" style="width:80%">
-                    <div id="s{{j}}" class="section steps">
-                        <h3 class="" style="padding: 0;margin-top: 0;">
-                            <div class="altblock">
-                                <label class="method_label">Step {{j+1}}</label>
+                        <p-footer>
+                            <div class="instruments">
+                                <label (click)="AddText(j)" style="font-size: initial;" title="Add text" class="btn instrument btn-default btn-1x"><span class="glyphicon glyphicon-pencil fa-lg" style="color:aliceblue"></span></label>
+                                <label title="Add photo" class="btn instrument btn-default btn-lg">
+                                    <span class="glyphicon glyphicon-camera " style="color:aliceblue"></span>
+                                    <input class="hidden" type="file" ng2FileSelect [uploader]="uploader" (change)="onChange($event,j)" />
+                                </label>
+                                <label (click)="AddVideo(j)" title="Add video" class="btn instrument btn-default btn-lg"><span class="glyphicon glyphicon-facetime-video" style="color:aliceblue"></span></label>
                             </div>
-                            <span class="mw-headline">{{step.name}}</span>
-                        </h3>
-                    </div>
+                        </p-footer>
+                    </p-panel>
+                </div>
+            </div>
 
-                    <div *ngFor="let item of step.blocks; let i = index">
-                        <div ngSwitch="{{item.type}}">
-                            <div *ngSwitchCase="'text'">
-                                <div style="word-wrap:break-word; padding:10px" [innerHTML]="item.field">
+            <button (click)="addStep()" class="btn btn-default" style="margin-top: 2%;margin-left: 46%;background-color: #1a89e9;color: white;">{{ 'InstructinComponent.AddStep' | translate:lang }}</button>
+
+        </div>
+
+
+        <div class="col-md-3" style="background-color:white; margin-top:1.8%; margin-left: 3%; margin-bottom:3%">
+
+            <div class="row" style="border: 1px solid #d1d4d5;">
+
+                <div class="form-group form-inline" style="padding-top: 12px; padding-left: 10px;">
+                    <label>{{ 'InstructinComponent.Title' | translate:lang }}</label>
+                    <input class="form-control" name="name" placeholder="{{ 'InstructinComponent.Title' | translate:lang }}" [(ngModel)]="instruction.name" required style="width: 80%; height: 27px;" />
+                </div>
+
+                <hr style="margin-top: 0px;margin-bottom: 5px;" />
+
+                <div class="form-group form-inline" style="padding-left:10px; padding-top: 5px;">
+                    <label>{{ 'InstructinComponent.CategoryCreate' | translate:lang }}</label>
+                    <p-dropdown [options]="categories" [(ngModel)]="category" placeholder="{{ 'InstructinComponent.SelectCategory' | translate:lang }}"></p-dropdown>
+                </div>
+
+                <hr style="margin-top: 0px;margin-bottom: 5px;" />
+
+                <tag-input theme='bootstrap'
+                           [(ngModel)]="tags"
+                           [maxItems]='5'
+                           [validators]="validators"
+                           [errorMessages]="errorMessages"
+                           placeholder="{{ 'InstructinComponent.EnterTags' | translate:lang }}"
+                           secondaryPlaceholder="{{ 'InstructinComponent.EnterTags' | translate:lang }}">
+                </tag-input>
+
+            </div>
+
+            <div class="row">
+                <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                    <div class="btn-group" role="group">
+                        <label title="Add photo" class="btn btn-default" style="background-color: #3897f0;border-radius: 0px;color: white;">
+                            {{ 'InstructinComponent.MainImageInstruction' | translate:lang }}
+                            <input class="hidden" type="file" ng2FileSelect [uploader]="uploader" (change)="onChange($event,-1)" />
+                        </label>
+                    </div>
+                    <div class="btn-group" role="group">
+                        <button data-toggle="modal" data-target=".bd-example-modal-lg" type="button" class="btn btn-default" style="background-color: #3897f0;border-radius: 0px;color: white;">{{ 'InstructinComponent.Preview' | translate:lang }}</button>
+                    </div>
+                    <div class="btn-group" role="group">
+                        <button *ngIf="create" (click)="publish()" type="button" class="btn btn-default" style="background-color: #3897f0;border-radius: 0px;color: white;">{{ 'InstructinComponent.Publish' | translate:lang }}</button>
+                        <button *ngIf="!create" (click)="publish()" type="button" class="btn btn-default" style="background-color: #3897f0;border-radius: 0px;color: white;">{{ 'InstructinComponent.Save' | translate:lang }}</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style="background-color:#ecebe8">
+                <br />
+            </div>
+
+            <div class="row">
+                <div class="index-content">
+                    <div class="card">
+                        <img src={{instruction.previewImageUrl}} style="width: 100%; height: 200px;" />
+                        <h4>{{instruction.name}}</h4>
+                        <div class="row">
+                            <div class="pull-left" style="margin-left:10%">
+                                <p>{{ 'InstructinComponent.By' | translate:lang }} Anton {{ 'InstructinComponent.In' | translate:lang }} Sport</p>
+                            </div>
+                            <div class="pull-right" style="margin-right:10%">
+                                <p>0</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <p-confirmDialog></p-confirmDialog>
+
+        <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-body" style="background-color:#ecebe8">
+
+                        <div class="header container" style="width:80%">
+                            <h2>{{instruction.name}}</h2>
+                            <p id="method_toc" class="sp_method_toc">
+                                <span class="glyphicon glyphicon-cloud"></span>
+                                <span>Tags: </span>
+                                <a *ngFor="let stepName of instruction.steps; let i = index">#{{stepName.name}}</a>
+                            </p>
+                            <p id="method_toc" class="sp_method_toc">
+                                <span>{{instruction.steps.length}} Steps :</span>
+                                <a *ngFor="let stepName of instruction.steps; let i = index">{{i+1}}) {{stepName.name}}</a>
+                            </p>
+                            <img src={{instruction.previewImageUrl}} style="width: calc(100% + 30px);margin-left: -15px;" />
+                            <div class="pull-left" style="line-height:40px">
+                                Created by <a href="#">Sergey</a> in <a href="#">Sports</a>
+                            </div>
+                            <div class="pull-right" style="cursor:pointer;line-height:40px">
+                                <span *ngIf="!like" (click)="putLike()">{{instruction.rating}} <span style="font-size: large ;margin-top: 12%; padding-left: 5px;" class="glyphicon glyphicon glyphicon-thumbs-up"></span></span>
+                                <span *ngIf="like" (click)="putLike()">{{instruction.rating}} <span style="font-size: large ;margin-top: 12%; padding-left: 5px; color:#187bd5" class="glyphicon glyphicon glyphicon-thumbs-up"></span></span>
+                            </div>
+                        </div>
+
+                        <div class="step container " *ngFor="let step of instruction.steps; let j = index" style="width:80%">
+                            <div id="s{{j}}" class="section steps">
+                                <h3 class="" style="padding: 0;margin-top: 0;">
+                                    <div class="altblock">
+                                        <label class="method_label">Step {{j+1}}</label>
+                                    </div>
+                                    <span class="mw-headline">{{step.name}}</span>
+                                </h3>
+                            </div>
+
+                            <div *ngFor="let item of step.blocks; let i = index">
+                                <div ngSwitch="{{item.type}}">
+                                    <div *ngSwitchCase="'text'">
+                                        <div style="word-wrap:break-word; padding:10px" [innerHTML]="item.field">
+                                        </div>
+                                    </div>
+
+                                    <div *ngSwitchCase="'photo'">
+                                        <img src={{item.field}} style="width:100%;" />
+                                    </div>
+
+                                    <div *ngSwitchCase="'video'">
+                                        <iframe style="width:100%; height:350px" [src]="item.field | safe" frameborder="0" allowfullscreen></iframe>
+                                    </div>
                                 </div>
                             </div>
-
-                            <div *ngSwitchCase="'photo'">
-                                <img src={{item.field}} style="width:100%;" />
-                            </div>
-
-                            <div *ngSwitchCase="'video'">
-                                <iframe style="width:100%; height:350px" [src]="item.field | safe" frameborder="0" allowfullscreen></iframe>
-                            </div>
                         </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     </div>
                 </div>
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
 </div>
-
-
 @*<button type="button" class="btn btn-default" style="background-color: #3897f0;border-radius: 0px;color: white;">{{ 'InstructinComponent.MainImageInstruction' | translate:lang }}</button>*@

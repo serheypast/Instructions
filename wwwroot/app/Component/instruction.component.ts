@@ -52,15 +52,14 @@ export class InstructionComponent {
     }
 
     public checkRole(): boolean {
-        console.log("CheckRole");
         this.AuthUser = RoleService.getCurrentAuthUser();
-        console.log("AuthUser = " + this.AuthUser.id.toString() + "/" + this.AuthUser.role);
-        if (this.AuthUser.role == 'Admin' || this.AuthUser.id == this.instruction.userProfile.id) {
+        if (this.AuthUser.role == 'Admin' || this.IdUserWhoCreated == 0 || this.AuthUser.id == this.instruction.userProfile.id) {
             return true;
         }
         return false;
     }
-
+    loadInstruction: boolean = false;
+    IdUserWhoCreated: number = 0;
     constructor(private service: RestService, private dragulaService: DragulaService, private sanitizer: DomSanitizer,
         private confirmationService: ConfirmationService, private activateRoute: ActivatedRoute) {
       
@@ -80,13 +79,15 @@ export class InstructionComponent {
                 this.instruction = result.json();
                 this.getTags();     
                 this.category.name = this.instruction.category.name;
-                
+                this.IdUserWhoCreated = this.instruction.userProfile.id;
+                this.loadInstruction = true;
             });
         else {
             this.create = true;
             this.instruction.name = "Name";
             this.instruction.previewImageUrl = "https://res.cloudinary.com/dr4opxk5i/image/upload/spt2r2sqiyotibnrfhch.jpg";
             this.instruction.category = this.category;
+            this.loadInstruction = true;
         }
         
         dragulaService.dropModel.subscribe((value: any) => {

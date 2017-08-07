@@ -26,14 +26,11 @@ var DisplayInstructionComponent = (function () {
         this.loadComment = false;
         this.likeChanged = 0;
         this.loadInfo = false;
-        this.loadUser = false;
         this.subscription = this.activateRoute.params.subscribe(function (params) {
             _this.id = params['id'];
         });
         this.service.getInstrcutionById(this.id).subscribe(function (result) {
             _this.instruction = result.json();
-            console.log(_this.instruction);
-            _this.beginRating = _this.instruction.rating;
             if (_this.instruction.tags.length == 0) {
                 var tagInst = new InstructionTag();
                 var tag1 = new Tag();
@@ -54,8 +51,6 @@ var DisplayInstructionComponent = (function () {
                     _this.service.UserLikeIt(_this.currentUser.id.toString(), _this.instruction.id.toString()).subscribe(function (result) {
                         _this.like = result.json();
                     });
-                    if (_this.currentUser != null)
-                        _this.loadUser = true;
                 });
             }
             _this.loadInfo = true;

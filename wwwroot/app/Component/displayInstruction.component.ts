@@ -31,14 +31,11 @@ export class DisplayInstructionComponent {
 
     constructor(private service: RestService, private activateRoute: ActivatedRoute, ) {
         this.loadInfo = false;
-        this.loadUser = false;
         this.subscription = this.activateRoute.params.subscribe(params => {
             this.id = params['id'];
         });
         this.service.getInstrcutionById(this.id).subscribe(result => {
             this.instruction = result.json();
-            console.log(this.instruction);
-            this.beginRating = this.instruction.rating;
             if (this.instruction.tags.length == 0) {
                 let tagInst = new InstructionTag();
                 let tag1 = new Tag();
@@ -58,8 +55,6 @@ export class DisplayInstructionComponent {
                     this.service.UserLikeIt(this.currentUser.id.toString(), this.instruction.id.toString()).subscribe(result => {
                         this.like = result.json();
                     });
-                    if (this.currentUser != null)
-                        this.loadUser = true;
                 });
             }
 

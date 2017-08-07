@@ -30,6 +30,8 @@ var InstructionComponent = (function () {
         this.instruction = new Instruction();
         this.category = new Category();
         this.tags = [];
+        this.loadInstruction = false;
+        this.IdUserWhoCreated = 0;
         this.uploader = new ng2_cloudinary_1.CloudinaryUploader(new ng2_cloudinary_1.CloudinaryOptions({ cloudName: 'dr4opxk5i', uploadPreset: 'ajvv2x7e' }));
         this.validators = [this.addTag];
         this.errorMessages = {
@@ -50,12 +52,15 @@ var InstructionComponent = (function () {
                 _this.instruction = result.json();
                 _this.getTags();
                 _this.category.name = _this.instruction.category.name;
+                _this.IdUserWhoCreated = _this.instruction.userProfile.id;
+                _this.loadInstruction = true;
             });
         else {
             this.create = true;
             this.instruction.name = "Name";
             this.instruction.previewImageUrl = "https://res.cloudinary.com/dr4opxk5i/image/upload/spt2r2sqiyotibnrfhch.jpg";
             this.instruction.category = this.category;
+            this.loadInstruction = true;
         }
         dragulaService.dropModel.subscribe(function (value) {
             _this.onDropModel(value.slice(1));
@@ -99,10 +104,8 @@ var InstructionComponent = (function () {
         });
     };
     InstructionComponent.prototype.checkRole = function () {
-        console.log("CheckRole");
         this.AuthUser = RoleService_1.RoleService.getCurrentAuthUser();
-        console.log("AuthUser = " + this.AuthUser.id.toString() + "/" + this.AuthUser.role);
-        if (this.AuthUser.role == 'Admin' || this.AuthUser.id == this.instruction.userProfile.id) {
+        if (this.AuthUser.role == 'Admin' || this.IdUserWhoCreated == 0 || this.AuthUser.id == this.instruction.userProfile.id) {
             return true;
         }
         return false;
