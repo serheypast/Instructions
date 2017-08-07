@@ -23,6 +23,7 @@ export class InstructionBlockComponent {
     @Input() idUser: number;
     @Input() fromProfileComponent: boolean = false;
     private get: number = 8;
+
     constructor(private http: Http, private activateRoute: ActivatedRoute, private service: RestService) {
        
     }
@@ -44,6 +45,8 @@ export class InstructionBlockComponent {
             this.service.getInstructions(this.property, this.type, this.value, this.defaultGetInstruction, this.defaultSkipInstruction).subscribe(result => {
                 this.instructions = result.json();
                 this.stopRequest = true;
+                console.log(this.instructions);
+                console.log(this.idUser);
             });
         }
     }

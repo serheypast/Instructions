@@ -44,6 +44,8 @@ var InstructionBlockComponent = (function () {
             this.service.getInstructions(this.property, this.type, this.value, this.defaultGetInstruction, this.defaultSkipInstruction).subscribe(function (result) {
                 _this.instructions = result.json();
                 _this.stopRequest = true;
+                console.log(_this.instructions);
+                console.log(_this.idUser);
             });
         }
     };
